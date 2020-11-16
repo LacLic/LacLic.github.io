@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://laclic.github.io">
-  <title>Archives | LacLic&#39;s Blog</title>
+  <title>Flutter_Exception_multiple_heroes | LacLic&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LacLic&#39;s Blog">
-<meta property="og:url" content="http://laclic.github.io/archives/index.html">
+  <meta name="description" content="Flutter Exception： &amp;emsp;There are multiple heroes that share the same tag within a subtreeCreate by: © LacLic 错误发生&amp;emsp;这个异常(exception)主要出现于一个页面&#x2F;路由(route)中有两个及以上的浮标按钮(FloatingActionButtom)。 &amp;emsp;以下是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter_Exception_multiple_heroes">
+<meta property="og:url" content="http://laclic.github.io/2020/11/16/Flutter-Exception-multiple-heroes/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
+<meta property="og:description" content="Flutter Exception： &amp;emsp;There are multiple heroes that share the same tag within a subtreeCreate by: © LacLic 错误发生&amp;emsp;这个异常(exception)主要出现于一个页面&#x2F;路由(route)中有两个及以上的浮标按钮(FloatingActionButtom)。 &amp;emsp;以下是">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-16T14:31:23.000Z">
+<meta property="article:modified_time" content="2020-11-16T14:31:43.903Z">
 <meta property="article:author" content="LacLic Vanilla">
 <meta name="twitter:card" content="summary">
   
@@ -150,135 +154,173 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Flutter-Exception-multiple-heroes" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Flutter_Exception_multiple_heroes
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/16/Flutter-Exception-multiple-heroes/" class="archive-article-date">
+
+        
+        <a href="/2020/11/16/Flutter-Exception-multiple-heroes/" class="archive-article-date">
   	<time datetime="2020-11-16T14:31:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-16</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/16/Flutter-Exception-multiple-heroes/">Flutter_Exception_multiple_heroes</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Flutter-Exception：-emsp-There-are-multiple-heroes-that-share-the-same-tag-within-a-subtree"><a href="#Flutter-Exception：-emsp-There-are-multiple-heroes-that-share-the-same-tag-within-a-subtree" class="headerlink" title="Flutter Exception： &emsp;There are multiple heroes that share the same tag within a subtree"></a>Flutter Exception： <br>&emsp;<em>There are multiple heroes that share the same tag within a subtree</em></h1><p>Create by: © LacLic</p>
+<h2 id="错误发生"><a href="#错误发生" class="headerlink" title="错误发生"></a>错误发生</h2><p>&emsp;这个异常(exception)主要出现于一个页面/路由(route)中有<strong>两个及以上</strong>的浮标按钮(FloatingActionButtom)。</p>
+<p>&emsp;以下是异常报错代码及状况：<br>*<del>仅展示了部分代码</del>*</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_MyHomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">MyHomePage</span>&gt; </span>&#123;</span><br><span class="line"><span class="comment">// ...省略无关代码</span></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> Scaffold(</span><br><span class="line">    appBar: <span class="comment">/* ...省略无关代码 */</span>,</span><br><span class="line">    body: Center(</span><br><span class="line">      child: Column(</span><br><span class="line">        mainAxisAlignment: MainAxisAlignment.center,</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          <span class="comment">/*...省略无关widget代码 */</span></span><br><span class="line">          FloatingActionButton(</span><br><span class="line">            onPressed: () =&gt; Navigator.pushNamed(context, <span class="string">&quot;test_form&quot;</span>),</span><br><span class="line">            child: Icon(Icons.plus_one),</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">    floatingActionButton: FloatingActionButton(</span><br><span class="line">      onPressed: () &#123;</span><br><span class="line">        Navigator.pushNamed(context, <span class="string">&quot;test_theme&quot;</span>);</span><br><span class="line">        _decrementCounter();</span><br><span class="line">      &#125;,</span><br><span class="line">      tooltip: <span class="string">&#x27;new page&#x27;</span>,</span><br><span class="line">      child: Icon(Icons.home),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">&lt;/br&gt;</span><br><span class="line"></span><br><span class="line">![example.gif](https:<span class="comment">//i.loli.net/2020/11/16/2NzUaxAYipJShn4.gif &quot;example&quot;)  </span></span><br><span class="line">  </span><br><span class="line">&amp;emsp;会出现如图所示的异常(exception)</span><br><span class="line"></span><br><span class="line">## 解决方案</span><br><span class="line"></span><br><span class="line">&amp;emsp;只需要向各个浮标按钮的heroTag参数传入一个与其它浮标按钮不同的值（字符串）即可：</span><br><span class="line"></span><br><span class="line">```dart</span><br><span class="line">FloatingActionButton(</span><br><span class="line">  onPressed: () =&gt; Navigator.pushNamed(context, <span class="string">&quot;test_form&quot;</span>),</span><br><span class="line">  child: Icon(Icons.plus_one),</span><br><span class="line">  heroTag: <span class="string">&#x27;example&#x27;</span>, <span class="comment">// &lt;- here</span></span><br><span class="line">),</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>里面的example可以替换成任意你想输入的值，只要不与其它的浮标按钮(FloatingActionButtom)的heroTag值相同即可  </p>
+<h2 id="错误原理"><a href="#错误原理" class="headerlink" title="错误原理"></a>错误原理</h2><p>&emsp;<em>首先得知道Hero是Flutter中的一种动画形式，两个带有同样hero标识的元素在页面切换时会有一个飞动的效果，该效果由flutter自动实现。该标识对应的属性名为heroTag，在同一个页面内，每个heroTag只能拥有一个独一无二的值（和 html 中的 id 一样），如果重复就会抛出标题所示的异常 ‘There are multiple heroes that share the same tag within a subtree.’</em> [^REF1]</p>
+<p>&emsp;Flutter 相应部分源码：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> FloatingActionButton(&#123;</span><br><span class="line">  <span class="comment">//省略无关参数</span></span><br><span class="line">  <span class="keyword">this</span>.heroTag = <span class="keyword">const</span> _DefaultHeroTag(),</span><br><span class="line">  <span class="comment">//省略无关参数</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
+<p>其中：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_DefaultHeroTag</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> _DefaultHeroTag();</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String</span> toString() =&gt; <span class="string">&#x27;&lt;default FloatingActionButton tag&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;明显看出，heroTag会被默认初始化为 ‘&lt;default FloatingActionButton tag&gt;‘ ，导致未向heroTag传入参数的地方，全都默认为上面那段字符串</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="built_in">Object</span> heroTag;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// <span class="markdown">The callback that is called when the button is tapped or otherwise activated.</span></span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// <span class="markdown">If this is set to null, the button will be disabled.</span></span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;就是说这个参数是用来管理这个按钮的点击等事件的，如果多个按钮使用同一个heroTag则会触发联动，造成问题，为了防止问题，flutter提前进行了异常报错</p>
+<p>[^REF1]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_37828249/article/details/105185954">CSDN id: in_motion 的博客</a>.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://laclic.github.io/2020/11/16/Flutter-Exception-multiple-heroes/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/16/Flutter_Exception_multiple_heroes/" class="archive-article-date">
-  	<time datetime="2020-11-16T13:00:33.961Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-16</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/11/16/Flutter_Exception_multiple_heroes/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/07/my-first-blog/" class="archive-article-date">
-  	<time datetime="2020-11-07T12:11:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-07</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/07/my-first-blog/">my-first-blog</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Default</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/11/07/hello-world/" class="archive-article-date">
-  	<time datetime="2020-11-07T08:26:14.862Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/11/07/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -301,8 +343,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
