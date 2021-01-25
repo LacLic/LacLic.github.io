@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本篇使用的是 ubuntu 发行版 gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码安装编译器先建立并进入文件夹 1234mkdir programmecd programme&#x2F;mkdir ccd c&#x2F;  输入gcc --version检查是否安装gcc（ubuntu20.04版本是默认自带安装的） 若显示： 1234gcc (Ubuntu 9.3.0-17ubuntu1~20.04">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 下运行 C&#x2F;C++ 与 Python 代码">
+<meta property="og:url" content="http://laclic.github.io/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="LacLic&#39;s Blog">
+<meta property="og:description" content="本篇使用的是 ubuntu 发行版 gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码安装编译器先建立并进入文件夹 1234mkdir programmecd programme&#x2F;mkdir ccd c&#x2F;  输入gcc --version检查是否安装gcc（ubuntu20.04版本是默认自带安装的） 若显示： 1234gcc (Ubuntu 9.3.0-17ubuntu1~20.04">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-25T04:08:36.000Z">
+<meta property="article:modified_time" content="2021-01-25T04:09:21.364Z">
+<meta property="article:author" content="LacLic Vanilla">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="c">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://laclic.github.io/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Linux 下运行 C/C++ 与 Python 代码 | LacLic's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LacLic's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Living with bustle, hearing of isolation.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 下运行 C/C++ 与 Python 代码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-25 12:08:36 / Modified: 12:09:21" itemprop="dateCreated datePublished" datetime="2021-01-25T12:08:36+08:00">2021-01-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇使用的是 ubuntu 发行版</p>
+<h2 id="gcc-g-编译运行-C-C-代码"><a href="#gcc-g-编译运行-C-C-代码" class="headerlink" title="gcc/g++ 编译运行 C/C++ 代码"></a>gcc/g++ 编译运行 C/C++ 代码</h2><h3 id="安装编译器"><a href="#安装编译器" class="headerlink" title="安装编译器"></a>安装编译器</h3><p>先建立并进入文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir programme</span><br><span class="line">cd programme&#x2F;</span><br><span class="line">mkdir c</span><br><span class="line">cd c&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>gcc --version</code>检查是否安装gcc（ubuntu20.04版本是默认自带安装的）</p>
+<p>若显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0</span><br><span class="line">Copyright (C) 2019 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
+
+<p>表示已安装，没有的话输入如下命令通过apt（ubuntu/debian）安装（centOS用yum, manjaro/Arch用pacman）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install build-essential</span><br></pre></td></tr></table></figure>
+
+<p>一次性安装gcc, g++, make，安装后同样输入<code>gcc --version</code>检查是否成功安装gcc，若成功回显版本信息，则成功安装</p>
+<h3 id="写出你的-Hello-world"><a href="#写出你的-Hello-world" class="headerlink" title="写出你的 Hello world!"></a>写出你的 Hello world!</h3><p>这里使用<code>vim编辑器</code>（当然你要是喜欢<code>vi</code>或者<code>nano</code>还有<code>gedit</code>编辑器也不是不可以）</p>
+<p>输入<code>vim test.c</code>，进入 vim 编辑器界面，<code>小写状态下按下 i 键</code>进入<code>insert</code>模式，输入如下代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输入后，按下<code>esc</code>，输入<code>:wq</code>并<code>enter</code>以写入并退出</p>
+<p>用<code>gcc test.c -o test.o</code>进行编译并生成可执行文件test.o（如果是c++则用<code>g++</code>命令）</p>
+<p>输入<code>ls</code>，查看目录，发现多了一个文件，如果你的系统配置好了颜色，test.o应该会不是白色的（我的是绿色，虽然下面看不到）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;programme&#x2F;c# ls</span><br><span class="line">test.c  test.o</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>root@LacLic-S-LaPToP:~/programme/c# ./test.o<br>Hello world!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">至此，C&#x2F;C++编译器配置完成（make是用来编译安装软件的，这里不作演示了）</span><br><span class="line"></span><br><span class="line">## python3 运行 python 代码</span><br><span class="line"></span><br><span class="line">### 安装python3</span><br><span class="line"></span><br><span class="line">先创建并进入python文件夹</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>cd ~/programme/<br>mkdir python<br>cd python/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">通过输入命令&#96;&#96;&#96;python3&#96;&#96;&#96;或&#96;&#96;&#96;python3 --version&#96;&#96;&#96;查看版本，如果你使用&#96;&#96;&#96;python3&#96;&#96;&#96;，则会进入python交互式编程，在这里可以输入&#96;&#96;&#96;print(&quot;hello world&quot;)&#96;&#96;&#96;来输出&#96;&#96;&#96;hello world&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">输入&#96;&#96;&#96;exit()&#96;&#96;&#96;或按下&#96;&#96;&#96;ctrl+Z&#96;&#96;&#96;来退出交互式编程界面</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>root@LacLic-S-LaPToP:~/programme/python# python3<br>Python 3.8.2 (default, Jul 16 2020, 14:00:26)<br>[GCC 9.3.0] on linux<br>Type “help”, “copyright”, “credits” or “license” for more information.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>print(“hello world”)<br>hello world<br>exit()</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>root@LacLic-S-LaPToP:~/programme/python# python3 –version<br>Python 3.8.2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果没有安装python3，推荐使用&#96;&#96;&#96;sudo apt install python3&#96;&#96;&#96;快速安装python3</span><br><span class="line"></span><br><span class="line">或者，可以用&#96;&#96;&#96;wget&#96;&#96;&#96;下载linux下安装包，通过&#96;&#96;&#96;make&#96;&#96;&#96;编译安装，并自行添加环境变量和建立pip与python的软链</span><br><span class="line"></span><br><span class="line">之后，同样通过输入命令&#96;&#96;&#96;python3&#96;&#96;&#96;或&#96;&#96;&#96;python3 --version&#96;&#96;&#96;查看版本，就不过多赘述</span><br><span class="line"></span><br><span class="line">### 执行 python 代码文件</span><br><span class="line"></span><br><span class="line">通过&#96;&#96;&#96;echo &quot;print(\&quot;hello world\&quot;)&quot; &gt; test.py&#96;&#96;&#96;快速建立&#96;&#96;&#96;test.py&#96;&#96;&#96;文件并写入&#96;&#96;&#96;print(\&quot;hello world\&quot;)&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">然后通过&#96;&#96;&#96;python3 test.py&#96;&#96;&#96;来执行代码</span><br><span class="line"></span><br><span class="line">当然你也可以和写入c文件一样，使用文本编辑器来写代码</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>root@LacLic-S-LaPToP:<del>/programme/python# echo “print(&quot;hello world&quot;)” &gt; test.py<br>root@LacLic-S-LaPToP:</del>/programme/python# ls<br>test.py<br>root@LacLic-S-LaPToP:~/programme/python# python3 test.py<br>hello world</p>
+<pre><code></code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/c/" rel="tag"># c</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/24/Codeforces-Ropewalkers/" rel="prev" title="Codeforces-Ropewalkers">
+      <i class="fa fa-chevron-left"></i> Codeforces-Ropewalkers
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc-g-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C-C-C-%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">安装编译器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%87%BA%E4%BD%A0%E7%9A%84-Hello-world"><span class="nav-number">1.2.</span> <span class="nav-text">写出你的 Hello world!</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">LacLic Vanilla</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LacLic" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LacLic" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Friendly Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.seraphjack.top/" title="https:&#x2F;&#x2F;blog.seraphjack.top&#x2F;" rel="noopener" target="_blank">Seraph_Jack</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LacLic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

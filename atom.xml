@@ -6,7 +6,7 @@
   <link href="http://laclic.github.io/atom.xml" rel="self"/>
   
   <link href="http://laclic.github.io/"/>
-  <updated>2021-01-24T14:05:18.674Z</updated>
+  <updated>2021-01-25T04:09:21.364Z</updated>
   <id>http://laclic.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 下运行 C/C++ 与 Python 代码</title>
+    <link href="http://laclic.github.io/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/"/>
+    <id>http://laclic.github.io/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/</id>
+    <published>2021-01-25T04:08:36.000Z</published>
+    <updated>2021-01-25T04:09:21.364Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇使用的是 ubuntu 发行版</p><h2 id="gcc-g-编译运行-C-C-代码"><a href="#gcc-g-编译运行-C-C-代码" class="headerlink" title="gcc/g++ 编译运行 C/C++ 代码"></a>gcc/g++ 编译运行 C/C++ 代码</h2><h3 id="安装编译器"><a href="#安装编译器" class="headerlink" title="安装编译器"></a>安装编译器</h3><p>先建立并进入文件夹</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir programme</span><br><span class="line">cd programme&#x2F;</span><br><span class="line">mkdir c</span><br><span class="line">cd c&#x2F;</span><br></pre></td></tr></table></figure><p>输入<code>gcc --version</code>检查是否安装gcc（ubuntu20.04版本是默认自带安装的）</p><p>若显示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0</span><br><span class="line">Copyright (C) 2019 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure><p>表示已安装，没有的话输入如下命令通过apt（ubuntu/debian）安装（centOS用yum, manjaro/Arch用pacman）：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install build-essential</span><br></pre></td></tr></table></figure><p>一次性安装gcc, g++, make，安装后同样输入<code>gcc --version</code>检查是否成功安装gcc，若成功回显版本信息，则成功安装</p><h3 id="写出你的-Hello-world"><a href="#写出你的-Hello-world" class="headerlink" title="写出你的 Hello world!"></a>写出你的 Hello world!</h3><p>这里使用<code>vim编辑器</code>（当然你要是喜欢<code>vi</code>或者<code>nano</code>还有<code>gedit</code>编辑器也不是不可以）</p><p>输入<code>vim test.c</code>，进入 vim 编辑器界面，<code>小写状态下按下 i 键</code>进入<code>insert</code>模式，输入如下代码</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>输入后，按下<code>esc</code>，输入<code>:wq</code>并<code>enter</code>以写入并退出</p><p>用<code>gcc test.c -o test.o</code>进行编译并生成可执行文件test.o（如果是c++则用<code>g++</code>命令）</p><p>输入<code>ls</code>，查看目录，发现多了一个文件，如果你的系统配置好了颜色，test.o应该会不是白色的（我的是绿色，虽然下面看不到）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;programme&#x2F;c# ls</span><br><span class="line">test.c  test.o</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><p>root@LacLic-S-LaPToP:~/programme/c# ./test.o<br>Hello world!</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">至此，C&#x2F;C++编译器配置完成（make是用来编译安装软件的，这里不作演示了）</span><br><span class="line"></span><br><span class="line">## python3 运行 python 代码</span><br><span class="line"></span><br><span class="line">### 安装python3</span><br><span class="line"></span><br><span class="line">先创建并进入python文件夹</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>cd ~/programme/<br>mkdir python<br>cd python/</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">通过输入命令&#96;&#96;&#96;python3&#96;&#96;&#96;或&#96;&#96;&#96;python3 --version&#96;&#96;&#96;查看版本，如果你使用&#96;&#96;&#96;python3&#96;&#96;&#96;，则会进入python交互式编程，在这里可以输入&#96;&#96;&#96;print(&quot;hello world&quot;)&#96;&#96;&#96;来输出&#96;&#96;&#96;hello world&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">输入&#96;&#96;&#96;exit()&#96;&#96;&#96;或按下&#96;&#96;&#96;ctrl+Z&#96;&#96;&#96;来退出交互式编程界面</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>root@LacLic-S-LaPToP:~/programme/python# python3<br>Python 3.8.2 (default, Jul 16 2020, 14:00:26)<br>[GCC 9.3.0] on linux<br>Type “help”, “copyright”, “credits” or “license” for more information.</p><blockquote><blockquote><blockquote><p>print(“hello world”)<br>hello world<br>exit()</p></blockquote></blockquote></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><p>root@LacLic-S-LaPToP:~/programme/python# python3 –version<br>Python 3.8.2</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如果没有安装python3，推荐使用&#96;&#96;&#96;sudo apt install python3&#96;&#96;&#96;快速安装python3</span><br><span class="line"></span><br><span class="line">或者，可以用&#96;&#96;&#96;wget&#96;&#96;&#96;下载linux下安装包，通过&#96;&#96;&#96;make&#96;&#96;&#96;编译安装，并自行添加环境变量和建立pip与python的软链</span><br><span class="line"></span><br><span class="line">之后，同样通过输入命令&#96;&#96;&#96;python3&#96;&#96;&#96;或&#96;&#96;&#96;python3 --version&#96;&#96;&#96;查看版本，就不过多赘述</span><br><span class="line"></span><br><span class="line">### 执行 python 代码文件</span><br><span class="line"></span><br><span class="line">通过&#96;&#96;&#96;echo &quot;print(\&quot;hello world\&quot;)&quot; &gt; test.py&#96;&#96;&#96;快速建立&#96;&#96;&#96;test.py&#96;&#96;&#96;文件并写入&#96;&#96;&#96;print(\&quot;hello world\&quot;)&#96;&#96;&#96;</span><br><span class="line"></span><br><span class="line">然后通过&#96;&#96;&#96;python3 test.py&#96;&#96;&#96;来执行代码</span><br><span class="line"></span><br><span class="line">当然你也可以和写入c文件一样，使用文本编辑器来写代码</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>root@LacLic-S-LaPToP:<del>/programme/python# echo “print(&quot;hello world&quot;)” &gt; test.py<br>root@LacLic-S-LaPToP:</del>/programme/python# ls<br>test.py<br>root@LacLic-S-LaPToP:~/programme/python# python3 test.py<br>hello world</p><pre><code></code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;本篇使用的是 ubuntu 发行版&lt;/p&gt;
+&lt;h2 id=&quot;gcc-g-编译运行-C-C-代码&quot;&gt;&lt;a href=&quot;#gcc-g-编译运行-C-C-代码&quot; class=&quot;headerlink&quot; title=&quot;gcc/g++ 编译运行 C/C++ 代码&quot;&gt;&lt;/a&gt;gcc/g+</summary>
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://laclic.github.io/tags/python/"/>
+    
+    <category term="c++" scheme="http://laclic.github.io/tags/c/"/>
+    
+    <category term="linux" scheme="http://laclic.github.io/tags/linux/"/>
+    
+    <category term="c" scheme="http://laclic.github.io/tags/c/"/>
+    
+  </entry>
   
   <entry>
     <title>Codeforces-Ropewalkers</title>
@@ -505,26 +534,6 @@
     
     
     <category term="Default" scheme="http://laclic.github.io/tags/Default/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://laclic.github.io/2020/11/07/hello-world/"/>
-    <id>http://laclic.github.io/2020/11/07/hello-world/</id>
-    <published>2020-11-07T08:26:14.862Z</published>
-    <updated>2020-11-07T08:26:14.862Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
-      
-    
-    
-    
     
   </entry>
   
