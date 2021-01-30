@@ -147,6 +147,297 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/23/FZU2021-0x11-Lake-Counting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/23/FZU2021-0x11-Lake-Counting/" class="post-title-link" itemprop="url">FZU2021-0x11-Lake Counting</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-23 19:25:05 / Modified: 19:38:46" itemprop="dateCreated datePublished" datetime="2021-01-23T19:25:05+08:00">2021-01-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="idea："><a href="#idea：" class="headerlink" title="idea："></a>idea：</h3><p>Just read the input,<br>then fill the water(‘W’) with land(‘.’) one by one,<br>the count of filling water times is the answer.</p>
+<p>小 心 换 行 符</p>
+<p>Be care of line-breaker</p>
+<h3 id="code："><a href="#code：" class="headerlink" title="code："></a>code：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">10 12</span></span><br><span class="line"><span class="comment">....W....WW.</span></span><br><span class="line"><span class="comment">.WWW.....WWW</span></span><br><span class="line"><span class="comment">....WW...WW.</span></span><br><span class="line"><span class="comment">.........WW.</span></span><br><span class="line"><span class="comment">.........W..</span></span><br><span class="line"><span class="comment">..W......W..</span></span><br><span class="line"><span class="comment">.W.W.....WW.</span></span><br><span class="line"><span class="comment">W.W.W.....W.</span></span><br><span class="line"><span class="comment">.W.W......W.</span></span><br><span class="line"><span class="comment">..W.......W.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">char</span> a[<span class="number">106</span>][<span class="number">106</span>];</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> b[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">-1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">1</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">1</span>,<span class="number">1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">fill</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">  a[x][y] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(a[x+b[i][<span class="number">0</span>]][y+b[i][<span class="number">1</span>]]==<span class="string">&#x27;W&#x27;</span>) &#123;</span><br><span class="line">      fill(x+b[i][<span class="number">0</span>],y+b[i][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> N,M;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;N,&amp;M);</span><br><span class="line">  <span class="keyword">int</span> M1 = M+<span class="number">1</span>,N1 = N+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> min = M&gt;N?N:M;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=min;++i) &#123;</span><br><span class="line">    a[i][<span class="number">0</span>] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[i][M1] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[<span class="number">0</span>][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[N1][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=min+<span class="number">1</span>;i&lt;=M;++i) &#123;</span><br><span class="line">    a[<span class="number">0</span>][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[N1][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=min+<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    a[i][<span class="number">0</span>] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[i][M1] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  a[N1][M1] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    getchar(); <span class="comment">// &lt;--- 读取换行符，刷新输入流</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=M;++j) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;a[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=M;++j) &#123;</span><br><span class="line">      <span class="keyword">if</span>(a[i][j]==<span class="string">&#x27;W&#x27;</span>) cnt += fill(i,j);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,cnt);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/22/%E6%90%AD%E5%BB%BAvnt-chain%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C%EF%BC%88%E5%B0%8F%E7%99%BD%E7%89%88%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/22/%E6%90%AD%E5%BB%BAvnt-chain%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C%EF%BC%88%E5%B0%8F%E7%99%BD%E7%89%88%EF%BC%89/" class="post-title-link" itemprop="url">搭建vnt-chain开发测试网络（小白版）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-22 13:27:10 / Modified: 19:54:39" itemprop="dateCreated datePublished" datetime="2021-01-22T13:27:10+08:00">2021-01-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://github.com/vntchain/vnt-documentation/blob/master/introduction/set-up-vnt-network/set-up-4-node-vnt-network.md">原文</a>有些地方没讲清楚，有些坑不好绕（比如golang环境配置，gvnt环境变量添加等，这些都没讲，而且由于用的人少，百度谷歌都搜不到，我拉了一整个目录下来去找才知道gvnt怎么装），所以这边重新整理归纳一遍。</p>
+<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><p>这个原文里完全没有这个步骤，百度也搜不到，找了好久</p>
+<h3 id="安装golang环境"><a href="#安装golang环境" class="headerlink" title="安装golang环境"></a>安装golang环境</h3><p>首先查看是否安装了golang环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> go version</span></span><br></pre></td></tr></table></figure>
+
+<p>如果显示</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go version go1.13.8 linux/amd64  &lt;--- 如果有这句话，则说明你已经安装了golang，这步可以跳过啦~（不过可能要注意一下版本问题）</span><br></pre></td></tr></table></figure>
+
+<p>如果是</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Command &#x27;go&#x27; not found, but can be installed with:</span><br><span class="line"></span><br><span class="line">apt install golang-go  # version 2:1.13~1ubuntu2, or</span><br><span class="line">apt install gccgo-go   # version 2:1.13~1ubuntu2</span><br></pre></td></tr></table></figure>
+
+<p>那我们进入下面的步骤手动安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建文件夹并下载压缩包：</span></span><br><span class="line">mkdir golang</span><br><span class="line">cd golang</span><br><span class="line">wget https://golang.google.cn/dl/go1.15.7.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>等待安装包下载完毕（是国内镜像，应该挺快）</p>
+<p>解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -zxvf  go1.15.7.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>将golang添加至环境变量<br>先用vim编辑器打开环境变量文件<code>vim /etc/profile</code><br>大写状态下按下 L 将光标转移至最末尾<br>小写状态下按下 i 进入插入模式<br>在最后新建几行，添加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/usr/local/go/bin/go</span><br><span class="line">export PATH=$PATH:$GOROOT/bin</span><br></pre></td></tr></table></figure>
+
+<p>然后按esc，输入:wq，回车，写入并退出</p>
+<p>接下来输入<code>source /etc/profile</code>重新载入一下</p>
+<p>或者 用管理员身份打开powershell重启wsl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop LxssManager</span><br><span class="line">net start LxssManager</span><br></pre></td></tr></table></figure>
+
+<p>或者<code>reboot</code>重启虚拟机（wsl是无法重启的，只能用powershell关开）</p>
+<p>然后<code>go version</code>检查一下是否安装并配置成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;testnet# go version</span><br><span class="line">go version go1.13.8 linux&#x2F;amd64   &lt;--- 表示golang安装成功</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装go-vnt（gvnt）"><a href="#安装go-vnt（gvnt）" class="headerlink" title="安装go-vnt（gvnt）"></a>安装go-vnt（gvnt）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;src&#x2F;github.com&#x2F;vntchain&#x2F;</span><br><span class="line">cd &#x2F;src&#x2F;github.com&#x2F;vntchain&#x2F;</span><br></pre></td></tr></table></figure>
+<p>然后<code>git clone https://github.com/vntchain/go-vnt</code>克隆仓库</p>
+<p>如果慢的话可以试试我拉取到gitee上的镜像</p>
+<p><code>git clone https://gitee.com/LacLic/go-vnt</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd go-vnt</span><br></pre></td></tr></table></figure>
+<p>如果有以前的版本，请更新到最新: <code>git pull</code></p>
+<p>然后，使用命令编译gvnt: <code>make gvnt</code></p>
+<p>或者使用命令编译gvnt和所有工具: <code>make all</code></p>
+<p>编译完成后，进入gvnt的bin文件夹</p>
+<p><code>cd /src/github.com/vntchain/go-vnt/build/bin/</code></p>
+<p>运行gvnt<code>./gvnt version</code>，查看版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">WARN [01-22|12:14:39] Sanitizing cache to Go&#x27;s GC limits       provided=1024 updated=662</span><br><span class="line">Gvnt</span><br><span class="line">Version: 0.6.4</span><br><span class="line">Git Commit: 298e779f11a2cab8da88ec9afaae756cf297463b</span><br><span class="line">Architecture: amd64</span><br><span class="line">Protocol Versions: [63 62]</span><br><span class="line">Network Id: 1</span><br><span class="line">Go Version: go1.15.7</span><br><span class="line">Operating System: linux</span><br><span class="line">GOPATH=/usr/local/go/bin/go</span><br><span class="line">GOROOT=/usr/local/go</span><br></pre></td></tr></table></figure>
+
+<p>至此，gvnt安装完成，我们将其添加至环境变量</p>
+<p>老办法，<code>vim /etc/profile</code>打开环境变量配置文件，在最后添加一句</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/src/github.com/vntchain/go-vnt/build/bin</span><br></pre></td></tr></table></figure>
+
+<p>保存退出，忘了vim编辑器怎么用的话，回到上面再看一下，这里不再赘述（如果会用nano编辑器的话其实用nano也没问题）</p>
+<p>接下来输入<code>source /etc/profile</code>重新载入一下</p>
+<p>或者 用管理员身份打开powershell重启wsl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop LxssManager</span><br><span class="line">net start LxssManager</span><br></pre></td></tr></table></figure>
+
+<p>或者<code>reboot</code>重启虚拟机</p>
+<p>此时运行<code>gvnt version</code></p>
+<p>同样回显了版本信息，至此，gvnt环境变量配置成功</p>
+<h2 id="搭建开发测试网络"><a href="#搭建开发测试网络" class="headerlink" title="搭建开发测试网络"></a>搭建开发测试网络</h2><p>这里就和原文差不多了，只是集成一下命令，另外提醒一下注意的点</p>
+<h3 id="创建4个初始见证人的账号"><a href="#创建4个初始见证人的账号" class="headerlink" title="创建4个初始见证人的账号"></a>创建4个初始见证人的账号</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">mkdir testnet</span><br><span class="line">cd testnet</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>gvnt account new --datadir node0</code>，建立node0节点，可以不用输入密码（直接按两下回车）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INFO [12-16|14:47:13] Maximum peer count                       VNT=25 LES=0 total=25</span><br><span class="line">Your new account is locked with a password. Please give a password. Do not forget this password.</span><br><span class="line">Passphrase:</span><br><span class="line">Repeat passphrase:</span><br><span class="line">Address: &#123;&quot;node0的address，先记录下来，后面有用&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同理，现在请你再建立3个节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gvnt account new --datadir node1</span><br><span class="line">gvnt account new --datadir node2</span><br><span class="line">gvnt account new --datadir node3</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>tree .</code>检查文件目录，大概是这样子的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── node0</span><br><span class="line">│   └── keystore</span><br><span class="line">│       └── UTC--2021-01-22T04-30-41.086197018Z--(这里是node0的地址)</span><br><span class="line">├── node1</span><br><span class="line">│   └── keystore</span><br><span class="line">│       └── UTC--2021-01-22T04-30-57.796677093Z--(这里是node1的地址)</span><br><span class="line">├── node2</span><br><span class="line">│   └── keystore</span><br><span class="line">│       └── UTC--2021-01-22T04-31-03.028884008Z--(这里是node2的地址)</span><br><span class="line">└── node3</span><br><span class="line">    └── keystore</span><br><span class="line">        └── UTC--2021-01-22T04-31-07.940695653Z--(这里是node3的地址)</span><br></pre></td></tr></table></figure>
+
+<p>现在请要生成每个节点的p2p地址，我们分别分配端口号12340~12343<br><code>gvnt --datadir node0 --port 12340 console</code><br>启动后，输入<code>admin.nodeInfo.vnode</code>查看node0的p2p地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 省略很多输出</span><br><span class="line">&gt; admin.nodeInfo.vnode ← 这是你的控制台输入</span><br><span class="line">&quot;&#x2F;ip4&#x2F;127.0.0.1&#x2F;tcp&#x2F;12340&#x2F;ipfs&#x2F;(一串字符))&quot;</span><br><span class="line">~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">这就是node0的p2p地址，请自行记录下来（不是记录这上面的），要记录你自己的机器上的</span><br></pre></td></tr></table></figure>
+
+<p>然后按ctrl+D退出</p>
+<p>这时候node0目录下多了很多文件<code>ls node0</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜ ls node0</span><br><span class="line">gvnt     history  keystore vntdb</span><br></pre></td></tr></table></figure>
+
+<p>vntdb文件夹下面保存了p2p地址，由于node0的p2p地址比较重要，我们需要将其备份<br><code>cp node0/vntdb node0/vntdb.bk -r</code></p>
+<p>其他三个如法炮制，用下面的命令分别启动后，控制台输入<code>admin.nodeInfo.vnode</code>获取p2p地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gvnt --datadir node1 --port 12341 console</span><br><span class="line">gvnt --datadir node2 --port 12342 console</span><br><span class="line">gvnt --datadir node3 --port 12343 console</span><br></pre></td></tr></table></figure>
+
+<p>接下来，移除节点0的临时数据gvnt目录: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf node0&#x2F;gvnt</span><br></pre></td></tr></table></figure>
+
+<p>另外还要清理节点1，2，3的临时数据，否则使用配置文件初始化节点时会失败。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -rf node1&#x2F;gvnt</span><br><span class="line">rm -rf node2&#x2F;gvnt</span><br><span class="line">rm -rf node3&#x2F;gvnt</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建创世块配置文件dpos-json"><a href="#创建创世块配置文件dpos-json" class="headerlink" title="创建创世块配置文件dpos.json"></a>创建创世块配置文件dpos.json</h3><p>我们可以直接直接拿仓库中的模板过来改</p>
+<p>先把东西复制过来<code>cp /src/github.com/vntchain/go-vnt/genesis_dpos.json dpos.json</code></p>
+<p>然后<code>vim dpos.json</code>开始编辑文件，总共有8个地方需要改，已经全部用（括号形式）和 &lt;— here 标注</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;config&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;chainId&quot;</span>: <span class="number">1012</span>,</span><br><span class="line">    <span class="attr">&quot;dpos&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;period&quot;</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">&quot;witnessesNum&quot;</span>: <span class="number">4</span>,</span><br><span class="line">      <span class="attr">&quot;witnessesUrl&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;（node0的p2p地址）&quot;</span>, &lt;--- here1</span><br><span class="line">        <span class="string">&quot;（node1的p2p地址）&quot;</span>, &lt;--- here2</span><br><span class="line">        <span class="string">&quot;（node2的p2p地址）&quot;</span>, &lt;--- here3</span><br><span class="line">        <span class="string">&quot;（node3的p2p地址）&quot;</span>  &lt;--- here4</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;timestamp&quot;</span>: <span class="string">&quot;0x5c2a3d00&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;extraData&quot;</span>: <span class="string">&quot;0x&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasLimit&quot;</span>: <span class="string">&quot;0x47b760&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;difficulty&quot;</span>: <span class="string">&quot;0x1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;coinbase&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;alloc&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;0x122369f04f32269598789998de33e3d56e2c507a&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x3dcf0b3787c31b2bdf62d5bc9128a79c2bb18829&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x42a875ac43f2b4e6d17f54d288071f5952bf8911&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0xbf66d398226f200467cd27b14e85b25a8c232384&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x491f4e8d914e30b1a5e8c804789094fe30971807&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0xe23f3ed4b6969f29284f667c16761212678c917d&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;witnesses&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;（node0的address）&quot;</span>, &lt;--- here5</span><br><span class="line">    <span class="string">&quot;（node1的address）&quot;</span>, &lt;--- here6</span><br><span class="line">    <span class="string">&quot;（node2的address）&quot;</span>, &lt;--- here7</span><br><span class="line">    <span class="string">&quot;（node3的address）&quot;</span>  &lt;--- here8</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;number&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasUsed&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;parentHash&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>别写反了，最后大概会是这个样子</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;config&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;chainId&quot;</span>: <span class="number">1012</span>,</span><br><span class="line">    <span class="attr">&quot;dpos&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;period&quot;</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">&quot;witnessesNum&quot;</span>: <span class="number">4</span>,</span><br><span class="line">      <span class="attr">&quot;witnessesUrl&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;/ip4/127.0.0.1/tcp/12340/ipfs/1kHcch6yuBCgC5nPPSK3Yp7Es4c4eenxAeK167pYwUvNjRo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;/ip4/127.0.0.1/tcp/12341/ipfs/1kHJFKr2bzUnMr1NbeyYbYJa3RXT18cEu7cNDrHWjg8XYKB&quot;</span>,</span><br><span class="line">        <span class="string">&quot;/ip4/127.0.0.1/tcp/12342/ipfs/1kHfop9dnUHHmtBXVkLB5UauAmACtrsEX5H5t6oCRpdL198&quot;</span>,</span><br><span class="line">        <span class="string">&quot;/ip4/127.0.0.1/tcp/12343/ipfs/1kHHWuQNUVV2wgE8SqzQjWhiFQcfpkP5tRVTdJXAPWVj4nR&quot;</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;nonce&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;timestamp&quot;</span>: <span class="string">&quot;0x5b45b949&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;extraData&quot;</span>: <span class="string">&quot;0x&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasLimit&quot;</span>: <span class="string">&quot;0x47b760&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;difficulty&quot;</span>: <span class="string">&quot;0x1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;mixHash&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;coinbase&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;alloc&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;0x122369f04f32269598789998de33e3d56e2c507a&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x3dcf0b3787c31b2bdf62d5bc9128a79c2bb18829&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x42a875ac43f2b4e6d17f54d288071f5952bf8911&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0xbf66d398226f200467cd27b14e85b25a8c232384&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x491f4e8d914e30b1a5e8c804789094fe30971807&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0xe23f3ed4b6969f29284f667c16761212678c917d&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;witnesses&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;0xf31a08c03e03e36214f737755c235e6eadc5502e&quot;</span>,</span><br><span class="line">    <span class="string">&quot;0x9689e062952b71b825cd9dfc1d1d01a6319c6ebc&quot;</span>,</span><br><span class="line">    <span class="string">&quot;0x54604da2bad12b66e9aef6b8c04629b68771778e&quot;</span>,</span><br><span class="line">    <span class="string">&quot;0xe3d4f3e7d1b82dcc210efe1e0666b45e5a619a2d&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;number&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasUsed&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;parentHash&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经过以上操作后，查看<code>testnet tree . -L 2</code>testnet的目录应当如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜  testnet tree . -L 2</span><br><span class="line">.</span><br><span class="line">├── dpos.json</span><br><span class="line">├── node0</span><br><span class="line">│   ├── history</span><br><span class="line">│   ├── keystore</span><br><span class="line">│   └── vntdb</span><br><span class="line">├── node1</span><br><span class="line">│   ├── history</span><br><span class="line">│   ├── keystore</span><br><span class="line">│   └── vntdb</span><br><span class="line">├── node2</span><br><span class="line">│   ├── history</span><br><span class="line">│   ├── keystore</span><br><span class="line">│   └── vntdb</span><br><span class="line">└── node3</span><br><span class="line">    ├── history</span><br><span class="line">    ├── keystore</span><br><span class="line">    └── vntdb</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动节点"><a href="#启动节点" class="headerlink" title="启动节点"></a>启动节点</h3><p>这里原文没详细讲怎么同时运行，我用的screen来同时部署运行的</p>
+<h4 id="启动0节点（bootnode）"><a href="#启动0节点（bootnode）" class="headerlink" title="启动0节点（bootnode）"></a>启动0节点（bootnode）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen -S node0</span><br><span class="line">gvnt --networkid 1012 --datadir node0 --port 12340 console</span><br></pre></td></tr></table></figure>
+
+<p>注意不要ctrl+D关闭了，我们直接关闭wsl-ubuntu(shell)窗口就好，screen窗口会在后台持续运行，不会随着关闭shell窗口而停止</p>
+<h4 id="启动剩余节点"><a href="#启动剩余节点" class="headerlink" title="启动剩余节点"></a>启动剩余节点</h4><p>重新打开ubuntu，输入<code>cd testnet</code>，进入测试网目录，剩下的如法炮制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">screen -S node1</span><br><span class="line">gvnt --networkid 1012 --datadir node1 --port 12341 --vntbootnode &quot;（这里填入是node0的p2p地址，不是node1&#x2F;2&#x2F;3）&quot; console</span><br><span class="line">screen -S node2</span><br><span class="line">gvnt --networkid 1012 --datadir node2 --port 12342 --vntbootnode &quot;（这里填入是node0的p2p地址，不是node1&#x2F;2&#x2F;3）&quot; console</span><br><span class="line">screen -S node3</span><br><span class="line">gvnt --networkid 1012 --datadir node3 --port 12343 --vntbootnode &quot;（这里填入是node0的p2p地址，不是node1&#x2F;2&#x2F;3）&quot; console</span><br></pre></td></tr></table></figure>
+
+<p>之后如果想回到控制页面的话，只要<code>screen -r node0/1/2/3</code>回到相应screen就好了</p>
+<p>节点3上的peer信息如下，各节点上都会有3个节点，说明我们的测试网络已经搭建起来了：大概会是这样的（id什么的有不同很正常）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&gt; admin.peers</span><br><span class="line">[&#123;</span><br><span class="line">    caps: null,</span><br><span class="line">    id: &quot;&lt;peer.ID 1kHJFKr2bzUnMr1NbeyYbYJa3RXT18cEu7cNDrHWjg8XYKB&gt;&quot;,</span><br><span class="line">    name: &quot;&quot;,</span><br><span class="line">    network: &#123;</span><br><span class="line">      inbound: false,</span><br><span class="line">      localAddress: &quot;/ip4/127.0.0.1/tcp/12343&quot;,</span><br><span class="line">      remoteAddress: &quot;/ip4/127.0.0.1/tcp/12341&quot;,</span><br><span class="line">      static: false,</span><br><span class="line">      trusted: false</span><br><span class="line">    &#125;,</span><br><span class="line">    protocols: null</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    caps: null,</span><br><span class="line">    id: &quot;&lt;peer.ID 1kHcch6yuBCgC5nPPSK3Yp7Es4c4eenxAeK167pYwUvNjRo&gt;&quot;,</span><br><span class="line">    name: &quot;&quot;,</span><br><span class="line">    network: &#123;</span><br><span class="line">      inbound: false,</span><br><span class="line">      localAddress: &quot;/ip4/127.0.0.1/tcp/12343&quot;,</span><br><span class="line">      remoteAddress: &quot;/ip4/127.0.0.1/tcp/12340&quot;,</span><br><span class="line">      static: false,</span><br><span class="line">      trusted: false</span><br><span class="line">    &#125;,</span><br><span class="line">    protocols: null</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    caps: null,</span><br><span class="line">    id: &quot;&lt;peer.ID 1kHfop9dnUHHmtBXVkLB5UauAmACtrsEX5H5t6oCRpdL198&gt;&quot;,</span><br><span class="line">    name: &quot;&quot;,</span><br><span class="line">    network: &#123;</span><br><span class="line">      inbound: false,</span><br><span class="line">      localAddress: &quot;/ip4/127.0.0.1/tcp/12343&quot;,</span><br><span class="line">      remoteAddress: &quot;/ip4/127.0.0.1/tcp/12342&quot;,</span><br><span class="line">      static: false,</span><br><span class="line">      trusted: false</span><br><span class="line">    &#125;,</span><br><span class="line">    protocols: null</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="打包区块"><a href="#打包区块" class="headerlink" title="打包区块"></a>打包区块</h4><p>在每个初始见证人节点上解锁账户、开启共识，可以看到区块不断产生。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">personal.unlockAccount(core.coinbase, &quot;账户密码&quot;, 3153600000) &#x2F;&#x2F; 3153600000指解锁的秒数，这段时间之后，账户会自动锁住</span><br><span class="line">bp.start()</span><br></pre></td></tr></table></figure>
+
+<p>以上，开发测试网络就搭建起来了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/21/FZU2021-0x03-Boxes-in-a-Line/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/21/FZU2021-0x03-Boxes-in-a-Line/" class="post-title-link" itemprop="url">FZU2021-0x03-Boxes in a Line</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-21 17:51:41 / Modified: 20:40:43" itemprop="dateCreated datePublished" datetime="2021-01-21T17:51:41+08:00">2021-01-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="Use-two-array-to-simulate-doubly-linked-list"><a href="#Use-two-array-to-simulate-doubly-linked-list" class="headerlink" title="Use two array to simulate doubly linked list"></a>Use two array to simulate doubly linked list</h5><h5 id="Take-care-of-side-to-side-swap"><a href="#Take-care-of-side-to-side-swap" class="headerlink" title="Take care of side-to-side swap"></a>Take care of side-to-side swap</h5><h5 id="Watch-out-reverse"><a href="#Watch-out-reverse" class="headerlink" title="Watch out reverse"></a>Watch out reverse</h5><p>Command 1 (when reversed) is equal to command 2 (when normally ordered),<br>command 2 (when reversed) is in a similar way.</p>
+<p>Command 3 is the same whether it is reversed.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// doubly linked list</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">6 4</span></span><br><span class="line"><span class="comment">1 1 4</span></span><br><span class="line"><span class="comment">2 3 5</span></span><br><span class="line"><span class="comment">3 1 6</span></span><br><span class="line"><span class="comment">4</span></span><br><span class="line"><span class="comment">6 3</span></span><br><span class="line"><span class="comment">1 1 4</span></span><br><span class="line"><span class="comment">2 3 5</span></span><br><span class="line"><span class="comment">3 1 6</span></span><br><span class="line"><span class="comment">100000 1</span></span><br><span class="line"><span class="comment">4</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> left[<span class="number">100006</span>];</span><br><span class="line"><span class="keyword">int</span> right[<span class="number">100006</span>];</span><br><span class="line"><span class="keyword">int</span> case_count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> reverse;</span><br><span class="line"><span class="keyword">int</span> cmd;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">link</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;L, <span class="keyword">const</span> <span class="keyword">int</span> &amp;R)</span> </span>&#123;</span><br><span class="line">  right[L] = R;</span><br><span class="line">  left[R] = L;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">prt</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;reverse, <span class="keyword">const</span> <span class="keyword">int</span> max)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> now = max * reverse; <span class="comment">// if reversed, now starts at max, otherwise at 0;</span></span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> shouldAdd = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">switch</span> (reverse) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0</span>: &#123;</span><br><span class="line">    <span class="keyword">for</span> (now = right[now]; now%max; now = right[now]) &#123;</span><br><span class="line">      <span class="keyword">if</span> (shouldAdd%<span class="number">2</span>) &#123;</span><br><span class="line">        sum += now;</span><br><span class="line">      &#125;</span><br><span class="line">      ++shouldAdd;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>: &#123;</span><br><span class="line">    <span class="keyword">for</span> (now = left[now]; now; now = left[now]) &#123;</span><br><span class="line">      <span class="keyword">if</span> (shouldAdd%<span class="number">2</span>) &#123;</span><br><span class="line">        sum += now;</span><br><span class="line">      &#125;</span><br><span class="line">      ++shouldAdd;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Case %d: %lld\n&quot;</span>, case_count, sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n, m;</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m) != EOF) &#123;</span><br><span class="line">    reverse = <span class="number">0</span>;</span><br><span class="line">    ++case_count;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">      left[i] = i - <span class="number">1</span>;</span><br><span class="line">      right[i] = i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    right[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    left[n + <span class="number">1</span>] = n;</span><br><span class="line">    <span class="comment">// printf(&quot;pwn! %d\n&quot;,m);</span></span><br><span class="line">    <span class="keyword">for</span> (; m; --m) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;cmd);</span><br><span class="line">      <span class="comment">// printf(&quot;pwn! %d\n&quot;,m);</span></span><br><span class="line">      <span class="keyword">switch</span> (cmd) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        reverse = !reverse;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>: &#123;</span><br><span class="line">        <span class="keyword">int</span> first, second;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;first, &amp;second);</span><br><span class="line">        <span class="keyword">if</span>(reverse) cmd = <span class="number">3</span>-cmd;</span><br><span class="line">        <span class="keyword">if</span>(left[second]==first&amp;&amp;cmd==<span class="number">1</span>) &#123;<span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(right[second]==first&amp;&amp;cmd==<span class="number">2</span>) &#123;<span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> L1 = left[first], R1 = right[first], L2 = left[second],</span><br><span class="line">            R2 = right[second];</span><br><span class="line">        <span class="keyword">switch</span> (cmd) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">          <span class="keyword">if</span>(right[first]==second) &#123;</span><br><span class="line">            link(L1,second);</span><br><span class="line">            link(second,first);</span><br><span class="line">            link(first,R2);</span><br><span class="line">          &#125;<span class="keyword">else</span> <span class="keyword">if</span> (left[first]==second) &#123;</span><br><span class="line">            link(L2,first);</span><br><span class="line">            link(first,second);</span><br><span class="line">            link(second,R1);</span><br><span class="line">          &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            link(L1, second);</span><br><span class="line">            link(second, R1);</span><br><span class="line">            link(L2, first);</span><br><span class="line">            link(first, R2);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">          link(L1, R1);</span><br><span class="line">          link(L2, first);</span><br><span class="line">          link(first, second);</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">          link(L1, R1);</span><br><span class="line">          link(second, first);</span><br><span class="line">          link(first, R2);</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// for(int i=right[0];i%7;i=right[i]) &#123;</span></span><br><span class="line">    <span class="comment">//   printf(&quot;%d &quot;,i);</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    prt(reverse, n + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/21/wsl2-ubuntu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -615,407 +906,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/25/RBtree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/12/25/RBtree/" class="post-title-link" itemprop="url">C语言实现 红黑树 源代码</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-12-25 16:39:21" itemprop="dateCreated datePublished" datetime="2020-12-25T16:39:21+08:00">2020-12-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-27 15:35:17" itemprop="dateModified" datetime="2020-12-27T15:35:17+08:00">2020-12-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="int-型-红黑树"><a href="#int-型-红黑树" class="headerlink" title="int 型 红黑树"></a>int 型 红黑树</h2><p>&emsp;采用了双向结构，子节点可指向父节点<br>&emsp;代码采用了多.c文件形式，需要在一个project下进行编译</p>
-<table>
-<thead>
-<tr>
-<th>函数名</th>
-<th>英文释义</th>
-<th>中文释义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>treeCrt()</td>
-<td>Tree Create</td>
-<td>创建树</td>
-</tr>
-<tr>
-<td>treeAdd()</td>
-<td>Tree Add</td>
-<td>向树添加节点</td>
-</tr>
-<tr>
-<td>treePrt()</td>
-<td>Tree Print</td>
-<td>打印树/输出树</td>
-</tr>
-<tr>
-<td>\</td>
-<td>\</td>
-<td>\</td>
-</tr>
-<tr>
-<td>_treeAdd_recur()</td>
-<td>Tree Add Recursion</td>
-<td>通过递归方式查找插入位点并插入</td>
-</tr>
-<tr>
-<td>_treeJug()</td>
-<td>Tree Judge</td>
-<td>比较判断节点值的大小关系</td>
-</tr>
-<tr>
-<td>_treePrt_recur()</td>
-<td>Tree Print Recursion</td>
-<td>通过递归方式打印树</td>
-</tr>
-<tr>
-<td>_treeChk()</td>
-<td>Tree Check</td>
-<td>检查节点附近的情况</td>
-</tr>
-<tr>
-<td>_treeRot()</td>
-<td>Tree Rotate</td>
-<td>选择树的结点</td>
-</tr>
-<tr>
-<td>_nodeCrt()</td>
-<td>Node Create</td>
-<td>创建并返回一个带值的节点</td>
-</tr>
-</tbody></table>
-<p>&emsp;注：开头带下划线的函数表示私有函数（不希望直接被访问，只是为了给非下划线函数使用方便）</p>
-<p>头文件：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _TREE_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _TREE_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">int</span> value;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">node</span> *<span class="title">p</span>[2];</span> <span class="comment">// p[0]: left-son, p[1]: right-son</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">node</span> *<span class="title">father</span>;</span></span><br><span class="line">  <span class="keyword">char</span> BR; <span class="comment">// 0: black; 1: red; </span></span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">rbtree</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Node* head;</span><br><span class="line">&#125;RBTree;</span><br><span class="line"></span><br><span class="line"><span class="function">RBTree <span class="title">treeCrt</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treeAdd</span><span class="params">(RBTree* t,<span class="keyword">int</span> value)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treePrt</span><span class="params">(RBTree t)</span></span>;</span><br><span class="line"><span class="keyword">void</span> _treeAdd_recur(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> value);</span><br><span class="line"><span class="keyword">void</span> _treePrt_recur(Node* now,<span class="keyword">int</span> layer);</span><br><span class="line"><span class="keyword">void</span> _treeChk(Node* now,<span class="keyword">int</span> son);</span><br><span class="line"><span class="keyword">int</span> _treeJdg(Node* <span class="keyword">const</span> now,<span class="keyword">const</span> <span class="keyword">int</span> value);</span><br><span class="line"><span class="keyword">void</span> _treeRot(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> drc); <span class="comment">// lift the left or right one to now position, drc means direction</span></span><br><span class="line">Node* _nodeCrt(Node* father,<span class="keyword">int</span> value);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="红黑树-的-创建-与-添加"><a href="#红黑树-的-创建-与-添加" class="headerlink" title="红黑树 的 创建 与 添加"></a>红黑树 的 创建 与 添加</h3><table>
-<thead>
-<tr>
-<th>函数名</th>
-<th>英文释义</th>
-<th>中文释义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>treeCrt()</td>
-<td>Tree Create</td>
-<td>创建树</td>
-</tr>
-<tr>
-<td>treeAdd()</td>
-<td>Tree Add</td>
-<td>向树添加节点</td>
-</tr>
-<tr>
-<td>_treeAdd_recur()</td>
-<td>Tree Add Recursion</td>
-<td>通过递归方式查找插入位点并插入</td>
-</tr>
-<tr>
-<td>_treeJug()</td>
-<td>Tree Judge</td>
-<td>比较判断节点值的大小关系</td>
-</tr>
-<tr>
-<td>_nodeCrt()</td>
-<td>Node Create</td>
-<td>创建并返回一个带值的节点</td>
-</tr>
-</tbody></table>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">RBTree <span class="title">treeCrt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  RBTree t = &#123;<span class="literal">NULL</span>&#125;;</span><br><span class="line">  <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treeAdd</span><span class="params">(RBTree*t,<span class="keyword">int</span> value)</span> </span>&#123; <span class="comment">// 将添加函数进行了封装，而非直接用主函数来进行递归</span></span><br><span class="line">  <span class="keyword">if</span>(t-&gt;head) _treeAdd_recur(t-&gt;head,value);</span><br><span class="line">  <span class="keyword">else</span> t-&gt;head = _nodeCrt(<span class="literal">NULL</span>,value);</span><br><span class="line">  t-&gt;head-&gt;BR = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeAdd_recur(Node* now,<span class="keyword">int</span> value) &#123;</span><br><span class="line">  <span class="keyword">int</span> drc = _treeJdg(now,value); <span class="comment">// drc: direction, left(0) or right(1) // _treeJdg()函数用于判断大小以确定</span></span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[drc]) _treeAdd_recur(now-&gt;p[drc],value);</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    now-&gt;p[drc] = _nodeCrt(now,value);</span><br><span class="line">    _treeChk(now,drc); <span class="comment">// 用于检查红黑关系的函数</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"><span class="keyword">int</span> _treeJdg(Node* <span class="keyword">const</span> now,<span class="keyword">const</span> <span class="keyword">int</span> value) &#123;</span><br><span class="line">    <span class="keyword">return</span> now-&gt;value &lt; value;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Node* _nodeCrt(Node* father,<span class="keyword">int</span> value) &#123;</span><br><span class="line">  Node* node = (Node*) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">  node-&gt;father = father;</span><br><span class="line">  node-&gt;p[<span class="number">0</span>] = <span class="literal">NULL</span>;</span><br><span class="line">  node-&gt;p[<span class="number">1</span>] = <span class="literal">NULL</span>;</span><br><span class="line">  node-&gt;value = value;</span><br><span class="line">  node-&gt;BR = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="红黑树-的-打印-输出-展示"><a href="#红黑树-的-打印-输出-展示" class="headerlink" title="红黑树 的 打印/输出/展示"></a>红黑树 的 打印/输出/展示</h3><p>&emsp;由于输出的特性，我们无法竖着输出我们所熟悉的二叉树，只能通过递归的方式来横向输出我们的二叉树</p>
-<table>
-<thead>
-<tr>
-<th>函数名</th>
-<th>英文释义</th>
-<th>中文释义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>treePrt()</td>
-<td>Tree Print</td>
-<td>打印树/输出树</td>
-</tr>
-<tr>
-<td>_treePrt_recur()</td>
-<td>Tree Print Recursion</td>
-<td>通过递归方式打印树</td>
-</tr>
-</tbody></table>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treePrt</span><span class="params">(RBTree t)</span> </span>&#123; <span class="comment">// 同样是进行了封装</span></span><br><span class="line">  <span class="keyword">if</span>(t.head) _treePrt_recur(t.head,<span class="number">0</span>); <span class="comment">// 判断空树，如果t上有结点（不是空树）就进入递归</span></span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;This is an empty tree.\n&quot;</span>); <span class="comment">// 否则，输出空树</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;------------------------------------\n&quot;</span>); <span class="comment">// 分隔符</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treePrt_recur(Node* now,<span class="keyword">int</span> layer) &#123; <span class="comment">// layer 代指当前所处的层数/递归的深度</span></span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[<span class="number">1</span>]) _treePrt_recur(now-&gt;p[<span class="number">1</span>],layer+<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;layer;++i) <span class="built_in">printf</span>(<span class="string">&quot;\t&quot;</span>); <span class="comment">// 制表符，让格式更好看</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d(BR-%d)\n&quot;</span>,now-&gt;value,now-&gt;BR);</span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[<span class="number">0</span>]) _treePrt_recur(now-&gt;p[<span class="number">0</span>],layer+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="红黑树-的-检查与旋转"><a href="#红黑树-的-检查与旋转" class="headerlink" title="红黑树 的 检查与旋转"></a>红黑树 的 检查与旋转</h3><table>
-<thead>
-<tr>
-<th>函数名</th>
-<th>英文释义</th>
-<th>中文释义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>_treeChk()</td>
-<td>Tree Check</td>
-<td>检查节点附近的情况</td>
-</tr>
-<tr>
-<td>_treeRot()</td>
-<td>Tree Rotate</td>
-<td>选择树的结点</td>
-</tr>
-</tbody></table>
-<br>
-
-<p>&emsp;检查新插入节点、其父节点，以及其祖父节点（父节点的父节点）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeChk(Node* f,<span class="keyword">int</span> son) &#123; <span class="comment">// son of father(f) is the added node</span></span><br><span class="line">  <span class="keyword">int</span> status = <span class="number">0b00</span>; <span class="comment">// if (son &gt; f) ==&gt; 0b1??, son &gt; gf ==&gt; 0b?1?</span></span><br><span class="line">  Node* gf = f-&gt;father;</span><br><span class="line">  Node* s; <span class="comment">// s means son, Node*</span></span><br><span class="line">  <span class="keyword">if</span>(gf&amp;&amp;f-&gt;BR) &#123;</span><br><span class="line">    <span class="keyword">if</span>(gf-&gt;p[<span class="number">0</span>]&amp;&amp;gf-&gt;p[<span class="number">1</span>]&amp;&amp;gf-&gt;p[<span class="number">0</span>]-&gt;BR&amp;&amp;gf-&gt;p[<span class="number">1</span>]-&gt;BR) &#123; </span><br><span class="line">      <span class="comment">// left-son and right-son exists, left and right sons are both red</span></span><br><span class="line">      gf-&gt;BR = <span class="number">1</span>;</span><br><span class="line">      gf-&gt;p[<span class="number">0</span>]-&gt;BR = <span class="number">0</span>;</span><br><span class="line">      gf-&gt;p[<span class="number">1</span>]-&gt;BR = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">if</span>(gf-&gt;father) &#123;</span><br><span class="line">        _treeChk(gf-&gt;father,gf-&gt;value &gt; gf-&gt;father-&gt;value); </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      status = son;</span><br><span class="line">      s = f-&gt;p[son]; <span class="comment">// s means son of f, Node*</span></span><br><span class="line">      status = (status &lt;&lt; <span class="number">1</span>) + (f-&gt;p[son]-&gt;value &gt; gf-&gt;value);</span><br><span class="line">      <span class="keyword">switch</span>(status) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b00</span> : ;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b11</span> : </span><br><span class="line">          f-&gt;BR = <span class="number">1</span>;</span><br><span class="line">          gf-&gt;BR = <span class="number">0</span>;</span><br><span class="line">          _treeRot(gf,!(<span class="number">1</span>&amp;status));</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b10</span> : ;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b01</span> : </span><br><span class="line">          f-&gt;BR = <span class="number">1</span>;</span><br><span class="line">          gf-&gt;BR = <span class="number">0</span>;</span><br><span class="line">          _treeRot(f,!son);</span><br><span class="line">          _treeRot(gf,!(<span class="number">1</span>&amp;status));</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span> : ;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<p>&emsp;以下函数中的drc，0代表左旋，1代表右旋</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeRot(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> drc) &#123; <span class="comment">// left-rotate: 0</span></span><br><span class="line">  now-&gt;value ^= now-&gt;p[!drc]-&gt;value ^= now-&gt;value ^= now-&gt;p[!drc]-&gt;value; <span class="comment">// swap value</span></span><br><span class="line">  Node* temp = now-&gt;p[drc];</span><br><span class="line">  now-&gt;p[drc] = now-&gt;p[!drc];</span><br><span class="line">  now-&gt;p[!drc] = now-&gt;p[drc]-&gt;p[!drc];</span><br><span class="line">  now-&gt;p[drc]-&gt;p[!drc] = now-&gt;p[drc]-&gt;p[drc];</span><br><span class="line">  now-&gt;p[drc]-&gt;p[drc] = temp;</span><br><span class="line">  <span class="keyword">if</span>(temp) temp-&gt;father = now-&gt;p[drc];</span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[!drc]) now-&gt;p[!drc]-&gt;father = now;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/24/P1980/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/12/24/P1980/" class="post-title-link" itemprop="url">P1980 最优解（30ms）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-12-24 13:07:50 / Modified: 13:14:48" itemprop="dateCreated datePublished" datetime="2020-12-24T13:07:50+08:00">2020-12-24</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- # P1980 最优解（30ms） -->
-
-<p>Copyright LacLic</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每一位 = 去尾数据 + 此位值 * 此位后的输入</p>
-<p>显然，需要重点考虑0出现的次数</p>
-<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p>记 输入为 26759，（不考虑x，直接把0~9全都算出来，最后再输出）</p>
-<p>记 答案数组 为 A[0~9](26759)（10长度的数组）</p>
-<p>&emsp;其中，A是长度为10的数组，用以表示数字出现的次数，0~9表示0到9每一位，括号内表示输入</p>
-<p>A[0<del>9](26759) = A[0</del>9](20000) + A[2](6759)</p>
-<p>A[0<del>9](6759) = A[0</del>9](6000) + A[6](759)</p>
-<p>A[0<del>9](759) = A[0</del>9](700) + A[7](59)</p>
-<p>A[0<del>9](59) = A[0</del>9](50) + A[5](9)</p>
-<p>A[0<del>9](759) = A[0</del>9](9) + A[9](0)</p>
-<p>A[9](0) = 0<br>A[0~9] = {1,1,1,1,1,1,1,1,1,1} 此处考虑到方便，就先记0处为1，后续进行删除</p>
-<br>
-
-<p>最终代码（虽然用的是c++，但是完全用的是c的语法，30ms）</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// copyright LacLic</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BITS 8</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM 10</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> storage[BITS] = &#123;<span class="number">1</span>,<span class="number">20</span>,<span class="number">300</span>,<span class="number">4000</span>,<span class="number">50000</span>,<span class="number">600000</span>,<span class="number">7000000</span>,<span class="number">80000000</span>&#125;;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> a[NUM] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">intPow</span><span class="params">(<span class="keyword">int</span> base,<span class="keyword">int</span> power)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> ret = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(;power;--power) &#123;</span><br><span class="line">    ret *= base;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> b[BITS]; <span class="comment">// 10 000 000</span></span><br><span class="line">  <span class="keyword">int</span> n,x,height;</span><br><span class="line">  <span class="keyword">int</span> LEN; <span class="comment">// means the total bits-1</span></span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;x);</span><br><span class="line">  ++n; <span class="comment">// 这句只是因为发现最后算出来的数据会不到n，所以++后刚刚好</span></span><br><span class="line">  <span class="keyword">int</span> N = n;</span><br><span class="line">  <span class="keyword">for</span>(LEN=<span class="number">0</span>;<span class="number">1</span>;++LEN) &#123;</span><br><span class="line">    b[LEN] = n%<span class="number">10</span>;</span><br><span class="line">    n /= <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">if</span>(!n) <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  height = intPow(<span class="number">10</span>,LEN);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=LEN;i&gt;=<span class="number">0</span>;--i) &#123;</span><br><span class="line">    <span class="keyword">int</span> numOfBit = intPow(NUM,i);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;b[i];++j) &#123;</span><br><span class="line">      a[j] += numOfBit;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;NUM;++k) &#123;</span><br><span class="line">        a[k] += storage[i<span class="number">-1</span>];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    a[b[i]] += N % numOfBit;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span>(;height;height/=<span class="number">10</span>) &#123; <span class="comment">// 发现0处有问题，所以添加这段来修正a[0]</span></span><br><span class="line">    a[<span class="number">0</span>] -= height;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a[x]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 30ms</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>普通递归算法(129ms)</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">count</span><span class="params">(<span class="keyword">int</span> now)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(;now;now/=<span class="number">10</span>) &#123;</span><br><span class="line">    ++a[now%<span class="number">10</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N,x;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;N,&amp;x);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    count(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for(int i=0;i&lt;10;++i) &#123;</span></span><br><span class="line">  <span class="comment">//   printf(&quot;a[%d] = %d\n&quot;,i,a[i]);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a[x]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/11/25/Flutter-autovalidate-is-deprecated/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/25/Flutter-autovalidate-is-deprecated/" class="post-title-link" itemprop="url">Flutter autovalidate is deprecated</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-11-25 23:07:20" itemprop="dateCreated datePublished" datetime="2020-11-25T23:07:20+08:00">2020-11-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-03 18:09:26" itemprop="dateModified" datetime="2020-12-03T18:09:26+08:00">2020-12-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Flutter-Deprecated-emsp-‘autovalidate’-is-deprecated-and-shouldn’t-be-used"><a href="#Flutter-Deprecated-emsp-‘autovalidate’-is-deprecated-and-shouldn’t-be-used" class="headerlink" title="Flutter Deprecated:&emsp;‘autovalidate’ is deprecated and shouldn’t be used."></a>Flutter Deprecated:<br>&emsp;<em>‘autovalidate’ is deprecated and shouldn’t be used.</em></h1><p>Created by: © LacLic</p>
-<h2 id="事件发生"><a href="#事件发生" class="headerlink" title="事件发生"></a>事件发生</h2><p>&emsp;在表单 (FormField) 中调用 autovalidate (自动生效)参数时，发生了如下现象（在 vscode 中）：</p>
-<ul>
-<li>autovalidate形式参数被划上了<del>删除线</del></li>
-<li>vscode提供了相应的提示信息（如下 / 如图）</li>
-</ul>
-<blockquote>
-<p>&emsp;Used to enable/disable form fields auto validation and update their error text.</p>
-</blockquote>
-<p>&emsp;autovalidate参数 曾用于启用 / 停用表单的 自动生效并更新他们的错误文本（错误文本大概是”密码应不少于6位”的提示文本）</p>
-<blockquote>
-<p>&emsp;’autovalidate’ is deprecated and shouldn’t be used. Use autoValidateMode parameter which provides more specific behavior related to auto validation. This feature was deprecated after v1.19.0..</p>
-</blockquote>
-<p>&emsp;autovalidate参数 已经被逐步弃用。试着用用能提供更具体化的 autoValidateMode参数 来进行代替 autovalidate 功能。这个功能（原本的autovalidate参数）在版本1.19.0开始已经被弃用了。</p>
-<blockquote>
-<p>Try replacing the use of the deprecated member with the replacement.</p>
-</blockquote>
-<p>&emsp;去用 autovalidateMode 参数吧</p>
-<p><img src="https://i.loli.net/2020/11/23/mNPGkHt3T9DCMOg.png" alt="FlutterAdvise.png"></p>
-<p>&emsp;flutter 中文网上的教程并没有关于这方面的阐述说明，以下资料参考自 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/64189947/autovalidate-of-textformfield-is-deprecated-in-flutter">StackoverFlow</a> 等网站.</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><blockquote>
-<p>&emsp;All you need to do is replace autovalidate: true with autovalidateMode: AutovalidateMode.always</p>
-</blockquote>
-<p>&emsp;翻译：把 autovalidate: true 换成 autovalidateMode: AutovalidateMode.always即可</p>
-<p>例：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">child: Form(</span><br><span class="line">  key: _formKey,</span><br><span class="line">  autovalidate: <span class="keyword">true</span>, <span class="comment">// &lt;- here</span></span><br><span class="line">  child: <span class="keyword">null</span>,</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">child: Form(</span><br><span class="line">  key: _formKey,</span><br><span class="line">  autovalidateMode: AutovalidateMode.always, <span class="comment">// &lt;- here</span></span><br><span class="line">  child: <span class="keyword">null</span>,</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
-
-<h2 id="关于-autovalidateMode"><a href="#关于-autovalidateMode" class="headerlink" title="关于 autovalidateMode"></a>关于 autovalidateMode</h2><blockquote>
-<p>The different supported modes are:</p>
-<ol>
-<li><strong>AutovalidateMode.disabled</strong>: No auto validation will occur.<br>· 表单不会自动更新</li>
-<li><strong>AutovalidateMode.always</strong>: Used to auto-validate FormField even without user interaction.<br>· 实时更新表单</li>
-<li><strong>AutovalidateMode.onUserInteraction</strong>: Used to auto-validate FormField only after each user interaction.<br>· 只有在用户交互后，才会更新表单</li>
-</ol>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1085,13 +975,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

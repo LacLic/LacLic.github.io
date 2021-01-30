@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172# from: https:&#x2F;&#x2F;blog.csdn.net&#x2F;javajiawei&#x2F;article&#x2F;details&#x2F;10051326">
+  <meta name="description" content="# from: https:&#x2F;&#x2F;blog.csdn.net&#x2F;javajiawei&#x2F;article&#x2F;details&#x2F;100513267 import sys import os import dpkt   def checkIfHTTPRes(data):  # 检查是否为HTTP协议      if len(data) &lt; 4:         return False      if da">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python dpkt study note">
 <meta property="og:url" content="http://laclic.github.io/2021/01/28/Python-dpkt-study-note/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172# from: https:&#x2F;&#x2F;blog.csdn.net&#x2F;javajiawei&#x2F;article&#x2F;details&#x2F;10051326">
+<meta property="og:description" content="# from: https:&#x2F;&#x2F;blog.csdn.net&#x2F;javajiawei&#x2F;article&#x2F;details&#x2F;100513267 import sys import os import dpkt   def checkIfHTTPRes(data):  # 检查是否为HTTP协议      if len(data) &lt; 4:         return False      if da">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-28T12:50:50.000Z">
-<meta property="article:modified_time" content="2021-01-28T12:54:34.425Z">
+<meta property="article:modified_time" content="2021-01-29T08:05:35.715Z">
 <meta property="article:author" content="LacLic Vanilla">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="dpkt">
@@ -178,10 +178,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-28 20:50:50 / Modified: 20:54:34" itemprop="dateCreated datePublished" datetime="2021-01-28T20:50:50+08:00">2021-01-28</time>
+              <time title="Created: 2021-01-28 20:50:50" itemprop="dateCreated datePublished" datetime="2021-01-28T20:50:50+08:00">2021-01-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-29 16:05:35" itemprop="dateModified" datetime="2021-01-29T16:05:35+08:00">2021-01-29</time>
+              </span>
 
           
 
@@ -194,7 +200,78 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from: https://blog.csdn.net/javajiawei/article/details/100513267</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> dpkt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkIfHTTPRes</span>(<span class="params">data</span>):</span>  <span class="comment"># 检查是否为HTTP协议</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(data) &lt; <span class="number">4</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> data[:<span class="number">4</span>] == <span class="built_in">str</span>.encode(<span class="string">&#x27;HTTP&#x27;</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">httpPacketParser</span>(<span class="params">http</span>):</span>  <span class="comment"># 分析流</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> checkIfHTTPRes(http):  <span class="comment"># 检查是否为HTTP协议</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            response = dpkt.http.Response(http)  <span class="comment"># 尝试以HTTP读取响应</span></span><br><span class="line">            print(response.status)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="comment"># print(e)</span></span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># else:</span></span><br><span class="line">    <span class="comment">#     print(&quot;Not HTTP&quot;)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tcpPacketParser</span>(<span class="params">tcp</span>):</span>  <span class="comment"># 获取流</span></span><br><span class="line"></span><br><span class="line">    stream = tcp.data</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(stream):</span><br><span class="line">        httpPacketParser(stream)  <span class="comment"># 尝试以HTTP分析流</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ipPacketParser</span>(<span class="params">ip</span>):</span>  <span class="comment"># 获取TCP包</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(ip.data, dpkt.tcp.TCP):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;这里也许可以考虑一下加一条来读UDP包？&quot;&quot;&quot;</span></span><br><span class="line">        tcpPacketParser(ip.data)  <span class="comment"># 分析tcp包</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decodePacket</span>(<span class="params">packet</span>):</span>  <span class="comment"># 解码获取以太网包</span></span><br><span class="line">    eth = dpkt.ethernet.Ethernet(packet)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(eth.data, dpkt.ip.IP):</span><br><span class="line">        ipPacketParser(eth.data)  <span class="comment"># 分析ip包</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pcapReader</span>(<span class="params">filename</span>):</span>  <span class="comment"># 打开.pcap文件</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            capture = dpkt.pcap.Reader(f)</span><br><span class="line">            i = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> timestamp, packet <span class="keyword">in</span> capture:  <span class="comment"># 键值对，提取packet进行解码</span></span><br><span class="line">                decodePacket(packet)</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">&#x27;parse &#123;&#125;, error:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(filename, e))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &lt; <span class="number">2</span>:</span><br><span class="line">        print(<span class="string">&#x27;HELP: python &#123;&#125; &lt;PCAP_PATH&gt;&#x27;</span>.<span class="built_in">format</span>(sys.argv[<span class="number">0</span>]))</span><br><span class="line">        sys.exit(<span class="number">0</span>)</span><br><span class="line">        <span class="comment"># _EXIT_</span></span><br><span class="line">    filename = sys.argv[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> filename:</span><br><span class="line">        pcapReader(filename)</span><br></pre></td></tr></table></figure>
+        <pre><code class="python"># from: https://blog.csdn.net/javajiawei/article/details/100513267
+import sys
+import os
+import dpkt
+
+
+def checkIfHTTPRes(data):  # 检查是否为HTTP协议
+
+    if len(data) &lt; 4:
+        return False
+
+    if data[:4] == str.encode(&#39;HTTP&#39;):
+        return True
+
+    return False
+
+
+def httpPacketParser(http):  # 分析流
+
+    if checkIfHTTPRes(http):  # 检查是否为HTTP协议
+        try:
+            response = dpkt.http.Response(http)  # 尝试以HTTP读取响应
+            print(response.status)
+
+        except Exception as e:
+            # print(e)
+            pass
+    # else:
+    #     print(&quot;Not HTTP&quot;)
+
+
+def tcpPacketParser(tcp):  # 获取流
+
+    stream = tcp.data
+    if len(stream):
+        httpPacketParser(stream)  # 尝试以HTTP分析流
+
+
+def ipPacketParser(ip):  # 获取TCP包
+    if isinstance(ip.data, dpkt.tcp.TCP):
+        &quot;&quot;&quot;这里也许可以考虑一下加一条来读UDP包？&quot;&quot;&quot;
+        tcpPacketParser(ip.data)  # 分析tcp包
+
+
+def decodePacket(packet):  # 解码获取以太网包
+    eth = dpkt.ethernet.Ethernet(packet)
+    if isinstance(eth.data, dpkt.ip.IP):
+        ipPacketParser(eth.data)  # 分析ip包
+
+
+def pcapReader(filename):  # 打开.pcap文件
+    try:
+        with open(filename, &#39;rb&#39;) as f:
+            capture = dpkt.pcap.Reader(f)
+            i = 1
+            for timestamp, packet in capture:  # 键值对，提取packet进行解码
+                decodePacket(packet)
+                i += 1
+
+    except Exception as e:
+        print(&#39;parse &#123;&#125;, error:&#123;&#125;&#39;.format(filename, e))
+
+
+if __name__ == &quot;__main__&quot;:
+    if len(sys.argv) &lt; 2:
+        print(&#39;HELP: python &#123;&#125; &lt;PCAP_PATH&gt;&#39;.format(sys.argv[0]))
+        sys.exit(0)
+        # _EXIT_
+    filename = sys.argv[1]
+
+    if filename:
+        pcapReader(filename)</code></pre>
 
     </div>
 
@@ -294,13 +371,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
