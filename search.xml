@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>FZUACM-动规DP爆锤计划！（持续更新ing...）</title>
+      <link href="2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/"/>
+      <url>2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/</url>
+      
+        <content type="html"><![CDATA[<h2 id="DP教程"><a href="#DP教程" class="headerlink" title="DP教程"></a>DP教程</h2><p>程序员小灰的<a href="https://www.cxyxiaowu.com/4055.html">漫画解DP</a>.</p><p>强推！图很多，思路也很清晰。</p><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>所有题目复制到百度上都能找到oj题（たぶん）</p><h3 id="01-hex"><a href="#01-hex" class="headerlink" title="01(hex)"></a>01(hex)</h3><p><a href="https://blog.laclic.ink/2021/02/06/FZU2021-0xd1-Charlie-s-Change/">买咖啡-Charlie’s Change</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> FZUACM </tag>
+            
+            <tag> dynamic programming </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>FZU2021-0xd1-Charlie&#39;s Change</title>
       <link href="2021/02/06/FZU2021-0xd1-Charlie-s-Change/"/>
       <url>2021/02/06/FZU2021-0xd1-Charlie-s-Change/</url>

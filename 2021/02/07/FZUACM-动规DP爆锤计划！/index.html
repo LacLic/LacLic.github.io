@@ -20,15 +20,21 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LacLic&#39;s Blog">
-<meta property="og:url" content="http://laclic.github.io/tags/broad-first-search/index.html">
+  <meta name="description" content="DP教程程序员小灰的漫画解DP. 强推！图很多，思路也很清晰。 题目所有题目复制到百度上都能找到oj题（たぶん） 01(hex)买咖啡-Charlie’s Change">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FZUACM-动规DP爆锤计划！（持续更新ing...）">
+<meta property="og:url" content="http://laclic.github.io/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
+<meta property="og:description" content="DP教程程序员小灰的漫画解DP. 强推！图很多，思路也很清晰。 题目所有题目复制到百度上都能找到oj题（たぶん） 01(hex)买咖啡-Charlie’s Change">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-07T03:09:56.000Z">
+<meta property="article:modified_time" content="2021-02-07T03:13:50.675Z">
 <meta property="article:author" content="LacLic Vanilla">
+<meta property="article:tag" content="FZUACM">
+<meta property="article:tag" content="dynamic programming">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://laclic.github.io/tags/broad-first-search/">
+<link rel="canonical" href="http://laclic.github.io/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/">
 
 
 <script id="page-configurations">
@@ -36,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Tag: broad first search | LacLic's Blog</title>
+  <title>FZUACM-动规DP爆锤计划！（持续更新ing...） | LacLic's Blog</title>
   
 
 
@@ -141,51 +147,84 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">broad first search
-          <small>Tag</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FZUACM-动规DP爆锤计划！（持续更新ing...）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-07 11:09:56 / Modified: 11:13:50" itemprop="dateCreated datePublished" datetime="2021-02-07T11:09:56+08:00">2021-02-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+        <h2 id="DP教程"><a href="#DP教程" class="headerlink" title="DP教程"></a>DP教程</h2><p>程序员小灰的<a target="_blank" rel="noopener" href="https://www.cxyxiaowu.com/4055.html">漫画解DP</a>.</p>
+<p>强推！图很多，思路也很清晰。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>所有题目复制到百度上都能找到oj题（たぶん）</p>
+<h3 id="01-hex"><a href="#01-hex" class="headerlink" title="01(hex)"></a>01(hex)</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/06/FZU2021-0xd1-Charlie-s-Change/">买咖啡-Charlie’s Change</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-02-05T21:08:29+08:00"
-              content="2021-02-05">
-          02-05
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/FZUACM/" rel="tag"># FZUACM</a>
+              <a href="/tags/dynamic-programming/" rel="tag"># dynamic programming</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/02/05/FZU2021-0x17-Find-a-way/" itemprop="url">
-            <span itemprop="name">FZU2021-0x17-Find a way</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/06/FZU2021-0xd1-Charlie-s-Change/" rel="prev" title="FZU2021-0xd1-Charlie's Change">
+      <i class="fa fa-chevron-left"></i> FZU2021-0xd1-Charlie's Change
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -238,6 +277,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DP%E6%95%99%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">DP教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01-hex"><span class="nav-number">2.1.</span> <span class="nav-text">01(hex)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
