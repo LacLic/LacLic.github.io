@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="tenserflow把numpy卸载了…没关系，会安装对应版本的numpy的 Python关于%matplotlib inline报错这个是 jupyter notebook 或者 jupyter qtconsole 的专属代码，使用%matplotlib inline这段代码可以输出图像。但是vscode编辑器并没有这个功能。（但这并不妨碍vscode是宇宙第一编辑器的事实） FileNotFo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习：构建神经网络并识别手写数字">
+<meta property="og:url" content="http://laclic.github.io/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/index.html">
+<meta property="og:site_name" content="LacLic&#39;s Blog">
+<meta property="og:description" content="tenserflow把numpy卸载了…没关系，会安装对应版本的numpy的 Python关于%matplotlib inline报错这个是 jupyter notebook 或者 jupyter qtconsole 的专属代码，使用%matplotlib inline这段代码可以输出图像。但是vscode编辑器并没有这个功能。（但这并不妨碍vscode是宇宙第一编辑器的事实） FileNotFo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-08T04:14:19.000Z">
+<meta property="article:modified_time" content="2021-02-08T04:14:59.544Z">
+<meta property="article:author" content="LacLic Vanilla">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="computer vision">
+<meta property="article:tag" content="neural network">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://laclic.github.io/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>深度学习：构建神经网络并识别手写数字 | LacLic's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LacLic's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Living with bustle, hearing of isolation.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习：构建神经网络并识别手写数字
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-08 12:14:19 / Modified: 12:14:59" itemprop="dateCreated datePublished" datetime="2021-02-08T12:14:19+08:00">2021-02-08</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="tenserflow把numpy卸载了…"><a href="#tenserflow把numpy卸载了…" class="headerlink" title="tenserflow把numpy卸载了…"></a>tenserflow把numpy卸载了…</h2><p>没关系，会安装对应版本的numpy的</p>
+<h2 id="Python关于-matplotlib-inline报错"><a href="#Python关于-matplotlib-inline报错" class="headerlink" title="Python关于%matplotlib inline报错"></a>Python关于%matplotlib inline报错</h2><p>这个是 jupyter notebook 或者 jupyter qtconsole 的专属代码，使用<code>%matplotlib inline</code>这段代码可以输出图像。但是vscode编辑器并没有这个功能。（但这并不妨碍vscode是宇宙第一编辑器的事实）</p>
+<h2 id="FileNotFoundError"><a href="#FileNotFoundError" class="headerlink" title="FileNotFoundError"></a>FileNotFoundError</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS F:\Programme_works\Python&gt; python -u &quot;f:\Programme_works\Python\DeepLearning\numRecog\neuralNetwork.py&quot;</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;f:\Programme_works\Python\DeepLearning\numRecog\neuralNetwork.py&quot;, line 106, in \&lt;module\&gt;</span><br><span class="line">    with open(&#x27;train.csv&#x27;, &#x27;r&#x27;) as data_file:</span><br><span class="line">FileNotFoundError: [Errno 2] No such file or directory: &#x27;train.csv&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>未找到文件，检查一下文件是否在命令执行时的目录（一般都是vscode打开的文件夹，或者jupyter notebook运行的文件所在的文件夹）</p>
+<h2 id="非jupyter编辑器输出csv图像"><a href="#非jupyter编辑器输出csv图像" class="headerlink" title="非jupyter编辑器输出csv图像"></a>非jupyter编辑器输出csv图像</h2><p>将</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matplotlib.pyplot.imshow(image_array, cmap=<span class="string">&#x27;Greys&#x27;</span>, interpolation=<span class="string">&#x27;None&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>改为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matplotlib.pyplot.imsave(<span class="string">&#x27;temp.png&#x27;</span>, image_array, cmap=<span class="string">&#x27;Greys&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>便会保存在目录下</p>
+<h2 id="全代码（ipynb）"><a href="#全代码（ipynb）" class="headerlink" title="全代码（ipynb）"></a>全代码（ipynb）</h2><h3 id="引入库"><a href="#引入库" class="headerlink" title="引入库"></a>引入库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"><span class="comment"># scipy.special for the sigmoid function expit()</span></span><br><span class="line"><span class="keyword">import</span> scipy.special</span><br><span class="line"><span class="comment"># library for plotting arrays</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot</span><br><span class="line"><span class="comment"># (?) ensure the plots are inside this notebook, not an external window</span></span><br><span class="line"><span class="comment"># %matplotlib inline</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="构建神经网络类"><a href="#构建神经网络类" class="headerlink" title="构建神经网络类"></a>构建神经网络类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">neuralNetwork</span>():</span>  <span class="comment"># neural network class definition</span></span><br><span class="line">    <span class="comment"># initialize the neural network</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, inputNodes, hiddenNodes, outputNodes, learningRate</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># set number of nodes in each input, hidden, output layer</span></span><br><span class="line">        self.iNodes = inputNodes</span><br><span class="line">        self.hNodes = hiddenNodes</span><br><span class="line">        self.oNodes = outputNodes</span><br><span class="line"></span><br><span class="line">        <span class="comment"># learning rate</span></span><br><span class="line">        self.learnRate = learningRate</span><br><span class="line"></span><br><span class="line">        <span class="comment"># link weight matrices, wih and who</span></span><br><span class="line">        <span class="comment"># weight inside the arrays are w_i_j, where link is from node i to node j in the next layer</span></span><br><span class="line">        <span class="comment"># w11 w21</span></span><br><span class="line">        <span class="comment"># w12 w22 etc</span></span><br><span class="line">        self.wih = numpy.random.normal(</span><br><span class="line">            <span class="number">0.0</span>, <span class="built_in">pow</span>(self.hNodes, <span class="number">-0.5</span>), (self.hNodes, self.iNodes))</span><br><span class="line">        self.who = numpy.random.normal(</span><br><span class="line">            <span class="number">0.0</span>, <span class="built_in">pow</span>(self.oNodes, <span class="number">-0.5</span>), (self.oNodes, self.hNodes))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># annoymous func</span></span><br><span class="line">        self.actiFunc = <span class="keyword">lambda</span> x: scipy.special.expit(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># train the neural network</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">self, inputs_list, targets_list</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># convert inputs and targets list to 2d array</span></span><br><span class="line">        inputs = numpy.array(inputs_list, ndmin=<span class="number">2</span>).T</span><br><span class="line">        targets = numpy.array(targets_list, ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into hidden layer</span></span><br><span class="line">        hidden_inputs = numpy.dot(self.wih, inputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from hidden layer</span></span><br><span class="line">        hidden_outputs = self.actiFunc(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into final output layer</span></span><br><span class="line">        final_inputs = numpy.dot(self.who, hidden_outputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from final output layer</span></span><br><span class="line">        final_outputs = self.actiFunc(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># error is the difference of target and output</span></span><br><span class="line">        output_errors = targets - final_inputs</span><br><span class="line">        <span class="comment"># hidden layer error is the output_errors, split by weights, recombined at hidden nodes</span></span><br><span class="line">        hidden_errors = numpy.dot(self.who.T, output_errors)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># update the weights for the links between the hidden and output layers</span></span><br><span class="line">        self.who += self.learnRate * \</span><br><span class="line">            numpy.dot((output_errors*final_outputs*(<span class="number">1.0</span>-final_outputs)),</span><br><span class="line">                      numpy.transpose(hidden_outputs))</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        self.who += self.learnRate * \</span></span><br><span class="line"><span class="string">            numpy.dot((output_errors*final_outputs*(1.0-final_outputs)),</span></span><br><span class="line"><span class="string">                      hidden_outputs.T)&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># between the input and hidden layers</span></span><br><span class="line">        self.wih += self.learnRate * \</span><br><span class="line">            numpy.dot((hidden_errors*hidden_outputs *</span><br><span class="line">                       (<span class="number">1.0</span> - hidden_outputs)), numpy.transpose(inputs))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># query the neural network</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">query</span>(<span class="params">self, inputs_list</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># convert inputs list to 2d array</span></span><br><span class="line">        inputs = numpy.array(inputs_list, ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into hidden layer</span></span><br><span class="line">        hidden_inputs = numpy.dot(self.wih, inputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from hidden layer</span></span><br><span class="line">        hidden_outputs = self.actiFunc(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into final output layer</span></span><br><span class="line">        final_inputs = numpy.dot(self.who, hidden_outputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from final output layer</span></span><br><span class="line">        final_outputs = self.actiFunc(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> final_outputs</span><br></pre></td></tr></table></figure>
+
+<h3 id="网络布置"><a href="#网络布置" class="headerlink" title="网络布置"></a>网络布置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input_nodes = <span class="number">784</span>  <span class="comment"># 28*28</span></span><br><span class="line">hidden_nodes = <span class="number">100</span></span><br><span class="line">output_nodes = <span class="number">10</span></span><br><span class="line">learning_rate = <span class="number">0.3</span></span><br><span class="line">network = neuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)</span><br></pre></td></tr></table></figure>
+
+<h3 id="打开训练数据文件"><a href="#打开训练数据文件" class="headerlink" title="打开训练数据文件"></a>打开训练数据文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;train.csv&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> data_file:</span><br><span class="line">    data_list = data_file.readlines()[<span class="number">1</span>:]  <span class="comment"># 除首行外，全部读取到内存中</span></span><br><span class="line">    <span class="comment"># print(data_list)</span></span><br><span class="line">    data_file.close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> data_list:</span><br><span class="line">    all_values = record.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="comment"># make data into 0.01 ~ 1.00</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot; Remains problem</span></span><br><span class="line"><span class="string">    (why?)</span></span><br><span class="line"><span class="string">    0.01: prevent 0.00 leading to failing to update the weight</span></span><br><span class="line"><span class="string">    1.00: just preventing the output value being 1.00 is enough</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    inputs = (numpy.asfarray(all_values[<span class="number">1</span>:])/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.01</span></span><br><span class="line">    <span class="comment"># create the target output values (all 0.01, except the desired label which is 0.99)</span></span><br><span class="line">    <span class="comment"># numpy.zeros(): use 0 to pad the array</span></span><br><span class="line">    targets = numpy.zeros(output_nodes) + <span class="number">0.01</span></span><br><span class="line">    <span class="comment"># all_values[0] is the label of the record</span></span><br><span class="line">    targets[<span class="built_in">int</span>(all_values[<span class="number">0</span>])] = <span class="number">0.99</span></span><br><span class="line">    network.train(inputs, targets)</span><br></pre></td></tr></table></figure>
+
+<h3 id="打开测试数据集"><a href="#打开测试数据集" class="headerlink" title="打开测试数据集"></a>打开测试数据集</h3><p>test.csv里的数据集是无标签的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># load the test data CSV file into a list</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.csv&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> test_data_file:</span><br><span class="line">    test_data_list = test_data_file.readlines()[<span class="number">1</span>:]</span><br><span class="line">    test_data_file.close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试数据并输出"><a href="#测试数据并输出" class="headerlink" title="测试数据并输出"></a>测试数据并输出</h3><p>使用test.csv的数据集进行测试输出（无标签）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from test.csv</span></span><br><span class="line">test = test_data_list[<span class="number">0</span>] <span class="comment"># 调度第0个测试数据</span></span><br><span class="line">test_values = test.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">test_inputs = (numpy.asfarray(test_values)/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.1</span></span><br><span class="line">print(network.query(test_inputs))</span><br><span class="line"><span class="comment"># print(test_data_list[0].strip().split(&#x27;,&#x27;))</span></span><br></pre></td></tr></table></figure>
+
+<p>使用train.csv的数据集进行测试输出（带标签）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from train.csv</span></span><br><span class="line">test = data_list[<span class="number">999</span>]</span><br><span class="line">print(<span class="string">&#x27;Answer is&#x27;</span>, test[<span class="number">0</span>])</span><br><span class="line">test_values = test.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">test_inputs = (numpy.asfarray(test_values[<span class="number">1</span>:])/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.1</span></span><br><span class="line">print(network.query(test_inputs))</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+              <a href="/tags/computer-vision/" rel="tag"># computer vision</a>
+              <a href="/tags/neural-network/" rel="tag"># neural network</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/" rel="prev" title="FZUACM-动规DP爆锤计划！（持续更新ing...）">
+      <i class="fa fa-chevron-left"></i> FZUACM-动规DP爆锤计划！（持续更新ing...）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tenserflow%E6%8A%8Anumpy%E5%8D%B8%E8%BD%BD%E4%BA%86%E2%80%A6"><span class="nav-number">1.</span> <span class="nav-text">tenserflow把numpy卸载了…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python%E5%85%B3%E4%BA%8E-matplotlib-inline%E6%8A%A5%E9%94%99"><span class="nav-number">2.</span> <span class="nav-text">Python关于%matplotlib inline报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FileNotFoundError"><span class="nav-number">3.</span> <span class="nav-text">FileNotFoundError</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9Ejupyter%E7%BC%96%E8%BE%91%E5%99%A8%E8%BE%93%E5%87%BAcsv%E5%9B%BE%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">非jupyter编辑器输出csv图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E4%BB%A3%E7%A0%81%EF%BC%88ipynb%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">全代码（ipynb）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E5%BA%93"><span class="nav-number">5.1.</span> <span class="nav-text">引入库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%B1%BB"><span class="nav-number">5.2.</span> <span class="nav-text">构建神经网络类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B8%83%E7%BD%AE"><span class="nav-number">5.3.</span> <span class="nav-text">网络布置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.4.</span> <span class="nav-text">打开训练数据文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">5.5.</span> <span class="nav-text">训练神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">5.6.</span> <span class="nav-text">打开测试数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%BE%93%E5%87%BA"><span class="nav-number">5.7.</span> <span class="nav-text">测试数据并输出</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">LacLic Vanilla</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LacLic" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LacLic" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Friendly Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.seraphjack.top/" title="https:&#x2F;&#x2F;blog.seraphjack.top&#x2F;" rel="noopener" target="_blank">Seraph_Jack</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LacLic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
