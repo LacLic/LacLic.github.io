@@ -20,22 +20,23 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="效果基本能正确识别 ![Z_X6X&#96;LYNF__KZK1KIVQY6M.png](https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;02&#x2F;08&#x2F;wANkfxl8VdML4Zn.png) 但是1和7，4和9还是不太容易识别的  tenserflow把numpy卸载了…没关系，会安装对应版本的numpy的 Python关于%matplotlib inline报错这个是 jupyter notebook">
+  <meta name="description" content="效果可以看出（10个数据，分别是认为该数字为0-9的程度，最后取最高的那个即为结果）基本能正确识别  但是1和7，4和9还是不太容易识别的  tenserflow把numpy卸载了…没关系，会安装对应版本的numpy的 Python关于%matplotlib inline报错这个是 jupyter notebook 或者 jupyter qtconsole 的专属代码，使用%matplotlib">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习：构建神经网络并识别手写数字">
 <meta property="og:url" content="http://laclic.github.io/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="效果基本能正确识别 ![Z_X6X&#96;LYNF__KZK1KIVQY6M.png](https:&#x2F;&#x2F;i.loli.net&#x2F;2021&#x2F;02&#x2F;08&#x2F;wANkfxl8VdML4Zn.png) 但是1和7，4和9还是不太容易识别的  tenserflow把numpy卸载了…没关系，会安装对应版本的numpy的 Python关于%matplotlib inline报错这个是 jupyter notebook">
+<meta property="og:description" content="效果可以看出（10个数据，分别是认为该数字为0-9的程度，最后取最高的那个即为结果）基本能正确识别  但是1和7，4和9还是不太容易识别的  tenserflow把numpy卸载了…没关系，会安装对应版本的numpy的 Python关于%matplotlib inline报错这个是 jupyter notebook 或者 jupyter qtconsole 的专属代码，使用%matplotlib">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/08/wANkfxl8VdML4Zn.png">
 <meta property="og:image" content="https://i.loli.net/2021/02/08/c7LmsOK9vDI3Cbk.png">
 <meta property="article:published_time" content="2021-02-08T04:14:19.000Z">
-<meta property="article:modified_time" content="2021-02-08T04:19:12.892Z">
+<meta property="article:modified_time" content="2021-02-08T04:22:55.938Z">
 <meta property="article:author" content="LacLic Vanilla">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="computer vision">
 <meta property="article:tag" content="neural network">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/08/c7LmsOK9vDI3Cbk.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/08/wANkfxl8VdML4Zn.png">
 
 <link rel="canonical" href="http://laclic.github.io/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/">
 
@@ -181,7 +182,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-02-08 12:14:19 / Modified: 12:19:12" itemprop="dateCreated datePublished" datetime="2021-02-08T12:14:19+08:00">2021-02-08</time>
+              <time title="Created: 2021-02-08 12:14:19 / Modified: 12:22:55" itemprop="dateCreated datePublished" datetime="2021-02-08T12:14:19+08:00">2021-02-08</time>
             </span>
 
           
@@ -195,10 +196,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>基本能正确识别</p>
-<p>![Z_X6X`LYNF__KZK1KIVQY6M.png](<a target="_blank" rel="noopener" href="https://i.loli.net/2021/02/08/wANkfxl8VdML4Zn.png">https://i.loli.net/2021/02/08/wANkfxl8VdML4Zn.png</a>)</p>
+        <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以看出（10个数据，分别是认为该数字为0-9的程度，最后取最高的那个即为结果）基本能正确识别</p>
+<p><img src="https://i.loli.net/2021/02/08/wANkfxl8VdML4Zn.png" alt="Z.png"></p>
 <p>但是1和7，4和9还是不太容易识别的</p>
-<p><img src="https://i.loli.net/2021/02/08/c7LmsOK9vDI3Cbk.png" alt="OZR0`____19BA@_X_I`9EOE.png"></p>
+<p><img src="https://i.loli.net/2021/02/08/c7LmsOK9vDI3Cbk.png" alt="O.png"></p>
 <h2 id="tenserflow把numpy卸载了…"><a href="#tenserflow把numpy卸载了…" class="headerlink" title="tenserflow把numpy卸载了…"></a>tenserflow把numpy卸载了…</h2><p>没关系，会安装对应版本的numpy的</p>
 <h2 id="Python关于-matplotlib-inline报错"><a href="#Python关于-matplotlib-inline报错" class="headerlink" title="Python关于%matplotlib inline报错"></a>Python关于%matplotlib inline报错</h2><p>这个是 jupyter notebook 或者 jupyter qtconsole 的专属代码，使用<code>%matplotlib inline</code>这段代码可以输出图像。但是vscode编辑器并没有这个功能。（但这并不妨碍vscode是宇宙第一编辑器的事实）</p>
 <h2 id="FileNotFoundError"><a href="#FileNotFoundError" class="headerlink" title="FileNotFoundError"></a>FileNotFoundError</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS F:\Programme_works\Python&gt; python -u &quot;f:\Programme_works\Python\DeepLearning\numRecog\neuralNetwork.py&quot;</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;f:\Programme_works\Python\DeepLearning\numRecog\neuralNetwork.py&quot;, line 106, in \&lt;module\&gt;</span><br><span class="line">    with open(&#x27;train.csv&#x27;, &#x27;r&#x27;) as data_file:</span><br><span class="line">FileNotFoundError: [Errno 2] No such file or directory: &#x27;train.csv&#x27;</span><br></pre></td></tr></table></figure>
