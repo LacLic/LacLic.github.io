@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="题意有两个人比赛，各丢2个硬币，根据正反面情况，（A丢的为表格纵轴，B为横轴），计算二人得分。 现在要求你输出他们，进行到1-20局的胜负概率 思路做题思路首先，对抗性比赛只需要考虑分差，二人的得分情况（2个变量）转变为二人的分差（1个变量）。 其次，计算每人最终得分的权重，相乘即可。 最后，分差为负即为lose，正即为win，零即为draw&#x2F;tie。 精度思路胜负平权重&#x2F;总权重（下面给的代码就是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FZU2021-0xd4-FOUR QUARTERS">
+<meta property="og:url" content="http://laclic.github.io/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/index.html">
+<meta property="og:site_name" content="LacLic&#39;s Blog">
+<meta property="og:description" content="题意有两个人比赛，各丢2个硬币，根据正反面情况，（A丢的为表格纵轴，B为横轴），计算二人得分。 现在要求你输出他们，进行到1-20局的胜负概率 思路做题思路首先，对抗性比赛只需要考虑分差，二人的得分情况（2个变量）转变为二人的分差（1个变量）。 其次，计算每人最终得分的权重，相乘即可。 最后，分差为负即为lose，正即为win，零即为draw&#x2F;tie。 精度思路胜负平权重&#x2F;总权重（下面给的代码就是">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-12T15:02:01.000Z">
+<meta property="article:modified_time" content="2021-02-13T02:28:16.431Z">
+<meta property="article:author" content="LacLic Vanilla">
+<meta property="article:tag" content="FZUACM">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="dynamic programming">
+<meta property="article:tag" content="remains problem">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://laclic.github.io/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>FZU2021-0xd4-FOUR QUARTERS | LacLic's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LacLic's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Living with bustle, hearing of isolation.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FZU2021-0xd4-FOUR QUARTERS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-12 23:02:01" itemprop="dateCreated datePublished" datetime="2021-02-12T23:02:01+08:00">2021-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-13 10:28:16" itemprop="dateModified" datetime="2021-02-13T10:28:16+08:00">2021-02-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有两个人比赛，各丢2个硬币，根据正反面情况，（A丢的为表格纵轴，B为横轴），计算二人得分。</p>
+<p>现在要求你输出他们，进行到1-20局的胜负概率</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="做题思路"><a href="#做题思路" class="headerlink" title="做题思路"></a>做题思路</h3><p>首先，对抗性比赛只需要考虑分差，二人的得分情况（2个变量）转变为二人的分差（1个变量）。</p>
+<p>其次，计算每人最终得分的权重，相乘即可。</p>
+<p>最后，分差为负即为lose，正即为win，零即为draw/tie。</p>
+<h3 id="精度思路"><a href="#精度思路" class="headerlink" title="精度思路"></a>精度思路</h3><h4 id="胜负平权重-总权重（下面给的代码就是这个思路）"><a href="#胜负平权重-总权重（下面给的代码就是这个思路）" class="headerlink" title="胜负平权重/总权重（下面给的代码就是这个思路）"></a>胜负平权重/总权重（下面给的代码就是这个思路）</h4><p>这种思路下，最大数据会达到16^20^，也就是2^80^，long long 都不够，只能直接上double / long double（精度要求是小数点后4位，所以适合用浮点类型），实测后，我的本机使用double结果和long double结果一致，但是oj并非如此，使用double是WA，使用long double才能AC。</p>
+<p><strong>要注意</strong>：long double使用的格式控制符是<code>&quot;%Lf&quot;</code></p>
+<h4 id="直接在得分dp数组中储存概率"><a href="#直接在得分dp数组中储存概率" class="headerlink" title="直接在得分dp数组中储存概率"></a>直接在得分dp数组中储存概率</h4><p>这是最优解，全用double或long double，精度上思考量就小了，直接乘下去即可。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> dif=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">table</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> score; <span class="comment">// A - B</span></span><br><span class="line">    <span class="keyword">int</span> weight;</span><br><span class="line">  &#125;Table;</span><br><span class="line">  Table table[<span class="number">6</span>] = &#123;&#123;<span class="number">1</span>,<span class="number">4</span>&#125;,&#123;<span class="number">2</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">0</span>,<span class="number">6</span>&#125;,&#123;<span class="number">-3</span>,<span class="number">1</span>&#125;&#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">double</span> dp[<span class="number">2</span>][<span class="number">126</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// dp[now][score] = weight;</span></span><br><span class="line">  <span class="keyword">int</span> bias = <span class="number">63</span>;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">double</span> weight = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  dp[<span class="number">0</span>][bias] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Round   A wins    B wins    Tie\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> round=<span class="number">1</span>;round&lt;<span class="number">21</span>;++round) &#123; <span class="comment">// round &lt;= 20</span></span><br><span class="line">    <span class="keyword">int</span> now = round%<span class="number">2</span>, pre = !now, min = <span class="number">-3</span>*(round<span class="number">-1</span>), max = <span class="number">3</span>*(round<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">memset</span>(dp[now],<span class="number">0</span>,<span class="keyword">sizeof</span>(dp[now]));</span><br><span class="line">    weight = weight*<span class="number">16</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=min;i&lt;=max;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(dp[pre][i+bias]) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">6</span>;++j) &#123;</span><br><span class="line">          dp[now][table[j].score+i+bias] += dp[pre][i+bias]*table[j].weight;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">double</span> win=<span class="number">0</span>, lose=<span class="number">0</span>, draw=dp[now][bias];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;bias;++i) &#123;</span><br><span class="line">      lose += dp[now][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=bias+<span class="number">1</span>;i&lt;<span class="number">126</span>;++i) &#123;</span><br><span class="line">      win += dp[now][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// printf(&quot;    %lld   %lld  %lld  %lld\n&quot;,round,win,lose,draw);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;   %2d   %7.4Lf%%  %7.4Lf%%  %7.4Lf%%\n&quot;</span>,round,<span class="number">1.0</span>*win/weight*<span class="number">100</span>,<span class="number">1.0</span>*lose/weight*<span class="number">100</span>,<span class="number">1.0</span>*draw/weight*<span class="number">100</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/FZUACM/" rel="tag"># FZUACM</a>
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/dynamic-programming/" rel="tag"># dynamic programming</a>
+              <a href="/tags/remains-problem/" rel="tag"># remains problem</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/09/FZU2021-0xd3-Space-Elevator/" rel="prev" title="FZU2021-0xd3-Space Elevator">
+      <i class="fa fa-chevron-left"></i> FZU2021-0xd3-Space Elevator
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/12/WriteUP-MISC-Seraph-JACK-s-red-packet/" rel="next" title="WriteUP-MISC(SP)-Seraph_JACK's red packet">
+      WriteUP-MISC(SP)-Seraph_JACK's red packet <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9A%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">2.1.</span> <span class="nav-text">做题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B2%BE%E5%BA%A6%E6%80%9D%E8%B7%AF"><span class="nav-number">2.2.</span> <span class="nav-text">精度思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%9C%E8%B4%9F%E5%B9%B3%E6%9D%83%E9%87%8D-%E6%80%BB%E6%9D%83%E9%87%8D%EF%BC%88%E4%B8%8B%E9%9D%A2%E7%BB%99%E7%9A%84%E4%BB%A3%E7%A0%81%E5%B0%B1%E6%98%AF%E8%BF%99%E4%B8%AA%E6%80%9D%E8%B7%AF%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">胜负平权重&#x2F;总权重（下面给的代码就是这个思路）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%9C%A8%E5%BE%97%E5%88%86dp%E6%95%B0%E7%BB%84%E4%B8%AD%E5%82%A8%E5%AD%98%E6%A6%82%E7%8E%87"><span class="nav-number">2.2.2.</span> <span class="nav-text">直接在得分dp数组中储存概率</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">LacLic Vanilla</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LacLic" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LacLic" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Friendly Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.seraphjack.top/" title="https:&#x2F;&#x2F;blog.seraphjack.top&#x2F;" rel="noopener" target="_blank">Seraph_Jack</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LacLic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

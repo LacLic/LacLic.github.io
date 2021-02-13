@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Seraph_JACK的新年红包（MISC，SP）我个人属于菜狗，研究该题（？）路程过于坎坷，坚持了15个小时（中间睡了个觉），主要是为了红包。 解红包过程开门见山 中间大大一个hint死活看不见，虽然最后解出来才知道怎么用。 开门网页源代码1234567891011121314151617181920212223242526272829303132333435363738394041424344">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WriteUP-MISC(SP)-Seraph_JACK&#39;s red packet">
+<meta property="og:url" content="http://laclic.github.io/2021/02/12/WriteUP-MISC-Seraph-JACK-s-red-packet/index.html">
+<meta property="og:site_name" content="LacLic&#39;s Blog">
+<meta property="og:description" content="Seraph_JACK的新年红包（MISC，SP）我个人属于菜狗，研究该题（？）路程过于坎坷，坚持了15个小时（中间睡了个觉），主要是为了红包。 解红包过程开门见山 中间大大一个hint死活看不见，虽然最后解出来才知道怎么用。 开门网页源代码1234567891011121314151617181920212223242526272829303132333435363738394041424344">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/12/ZWVKghYziDRGTF4.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/12/emgxM2KszotBIuh.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/12/PpNdLuTI1H6z3gh.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/12/v7sQ4DgIjWpkhEq.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/12/p4RrTnUjuzkl5NP.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/12/SZpJt8IzwfmPR5X.png">
+<meta property="article:published_time" content="2021-02-12T15:05:15.000Z">
+<meta property="article:modified_time" content="2021-02-12T15:41:33.386Z">
+<meta property="article:author" content="LacLic Vanilla">
+<meta property="article:tag" content="brute-force">
+<meta property="article:tag" content="MISC">
+<meta property="article:tag" content="the Spring Festival">
+<meta property="article:tag" content="special">
+<meta property="article:tag" content="password">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/12/ZWVKghYziDRGTF4.png">
+
+<link rel="canonical" href="http://laclic.github.io/2021/02/12/WriteUP-MISC-Seraph-JACK-s-red-packet/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>WriteUP-MISC(SP)-Seraph_JACK's red packet | LacLic's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LacLic's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Living with bustle, hearing of isolation.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/12/WriteUP-MISC-Seraph-JACK-s-red-packet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WriteUP-MISC(SP)-Seraph_JACK's red packet
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-12 23:05:15 / Modified: 23:41:33" itemprop="dateCreated datePublished" datetime="2021-02-12T23:05:15+08:00">2021-02-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Seraph-JACK的新年红包（MISC，SP）"><a href="#Seraph-JACK的新年红包（MISC，SP）" class="headerlink" title="Seraph_JACK的新年红包（MISC，SP）"></a>Seraph_JACK的新年红包（MISC，SP）</h2><p>我个人属于菜狗，研究该题（？）路程过于坎坷，坚持了15个小时（中间睡了个觉），<del>主要是为了红包</del>。</p>
+<h2 id="解红包过程"><a href="#解红包过程" class="headerlink" title="解红包过程"></a>解红包过程</h2><h3 id="开门见山"><a href="#开门见山" class="headerlink" title="开门见山"></a>开门见山</h3><p><img src="https://i.loli.net/2021/02/12/ZWVKghYziDRGTF4.png" alt="1.png"></p>
+<p>中间大大一个hint死活看不见，<del>虽然最后解出来才知道怎么用</del>。</p>
+<h3 id="开门网页源代码"><a href="#开门网页源代码" class="headerlink" title="开门网页源代码"></a>开门网页源代码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>2021 新年快乐！<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;packet&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;title&quot;</span>&gt;</span>2021 新年快乐<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;desc&quot;</span>&gt;</span>输入口令领取红包<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/help.html&quot;</span>&gt;</span>(?)<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;pwd&quot;</span>&gt;</span>输入口令：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;pwdIn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;btn-box&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;submit()&quot;</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">submit</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// hint: check GET /main.go</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> code = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#pwdIn&quot;</span>).value;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> data = <span class="keyword">new</span> URLSearchParams();</span></span><br><span class="line"><span class="javascript">        data.append(<span class="string">&quot;code&quot;</span>, code);</span></span><br><span class="line"><span class="javascript">        fetch(<span class="string">&quot;/red_packet&quot;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            method: <span class="string">&quot;post&quot;</span>,</span></span><br><span class="line">            body: data</span><br><span class="line"><span class="javascript">        &#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span></span><br><span class="line">            if (res.status === 200) &#123;</span><br><span class="line"><span class="javascript">                res.text().then(<span class="function"><span class="params">b</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">window</span>.location.href = b;</span></span><br><span class="line">                &#125;)</span><br><span class="line"><span class="javascript">            &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                alert(<span class="string">&quot;口令错误！&quot;</span>)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-id">#btn</span> &#123;</span></span><br><span class="line">        cursor: pointer;</span><br><span class="line">        border-radius: 8px;</span><br><span class="line">        font-size: xx-large;</span><br><span class="line"><span class="css">        <span class="selector-tag">background-color</span>: <span class="selector-id">#ffe24b</span>;</span></span><br><span class="line">        padding: 8px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    body &#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#desc</span> &#123;</span></span><br><span class="line">        display: block;</span><br><span class="line">        font-size: large;</span><br><span class="line">        color: white;</span><br><span class="line">        text-align: center;</span><br><span class="line">        margin-top: 20px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#desc</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">color</span>: <span class="selector-id">#ea0909</span>;</span></span><br><span class="line">        font-size: xx-small;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#pwdIn</span> &#123;</span></span><br><span class="line">        width: 180px;</span><br><span class="line">        font-size: large;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#pwd</span> &#123;</span></span><br><span class="line">        display: inline-block;</span><br><span class="line">        margin-top: 150px;</span><br><span class="line">        margin-bottom: 80px;</span><br><span class="line">        text-align: center;</span><br><span class="line">        font-size: large;</span><br><span class="line">        color: white;</span><br><span class="line"></span><br><span class="line">        padding: 16px;</span><br><span class="line">        border-radius: 8px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#btn-box</span> &#123;</span></span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        margin-bottom: 20px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#title</span> &#123;</span></span><br><span class="line">        color: white;</span><br><span class="line">        font-weight: bolder;</span><br><span class="line">        font-size: xxx-large;</span><br><span class="line">        display: inline-block;</span><br><span class="line">        margin: auto;</span><br><span class="line">        padding-top: 50px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#packet</span> &#123;</span></span><br><span class="line">        background-color: red;</span><br><span class="line">        border-radius: 8px;</span><br><span class="line">        padding: 2px 8px;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>首先知道了，我们POST的口令，就是code的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> code = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#pwdIn&quot;</span>).value;</span><br><span class="line">        <span class="keyword">var</span> data = <span class="keyword">new</span> URLSearchParams();</span><br><span class="line">        data.append(<span class="string">&quot;code&quot;</span>, code);</span><br><span class="line">        fetch(<span class="string">&quot;/red_packet&quot;</span>, &#123;</span><br><span class="line">            method: <span class="string">&quot;post&quot;</span>,</span><br><span class="line">            body: data</span><br></pre></td></tr></table></figure>
+
+<p>然后看到了/main.go，<del>老瞎子经别人提醒之后才发现上面还有个/help.html</del></p>
+<p><img src="https://i.loli.net/2021/02/12/emgxM2KszotBIuh.png" alt="2.png"></p>
+<h3 id="main-go"><a href="#main-go" class="headerlink" title="/main.go"></a>/main.go</h3><p>发现main函数源码，<del>怎么是go写的，我爬了</del></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;crypto/sha256&quot;</span></span><br><span class="line">	<span class="string">&quot;flag&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;2021 Happy new year!&quot;</span>)</span><br><span class="line"></span><br><span class="line">	listen := flag.String(<span class="string">&quot;listen&quot;</span>, <span class="string">&quot;:11451&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	superSecretSalt := flag.String(<span class="string">&quot;salt&quot;</span>, <span class="string">&quot;this_is_not_the_salt&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	redPacket := flag.String(<span class="string">&quot;packet&quot;</span>, <span class="string">&quot;no_packet_here&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	flag.Parse()</span><br><span class="line"></span><br><span class="line">	r := gin.Default()</span><br><span class="line"></span><br><span class="line">	r.POST(<span class="string">&quot;/red_packet&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">		key := ctx.PostForm(<span class="string">&quot;code&quot;</span>)</span><br><span class="line">		val := []<span class="keyword">byte</span>(key + *superSecretSalt)</span><br><span class="line">		hash := sha256.Sum256(val[:])</span><br><span class="line"></span><br><span class="line">		result := <span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">32</span>; i++ &#123;</span><br><span class="line">			result += <span class="keyword">int</span>(hash[i])</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> result == <span class="number">2021</span> &#123;</span><br><span class="line">			ctx.Header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/plain; charset=utf-8&quot;</span>)</span><br><span class="line">			ctx.String(<span class="number">200</span>, *redPacket)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			ctx.Status(http.StatusForbidden)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	r.NoRoute(gin.WrapH(http.FileServer(http.Dir(<span class="string">&quot;./static&quot;</span>))))</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := r.Run(*listen); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看了一下，主要就是，主函数通过post方法获取code的值（是一个字符串），加上*redPacket字符串后，经过sha256加密，所得的每一位ascii码之和为2021时，KEY则为答案</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">superSecretSalt := flag.String(<span class="string">&quot;salt&quot;</span>, <span class="string">&quot;this_is_not_the_salt&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">redPacket := flag.String(<span class="string">&quot;packet&quot;</span>, <span class="string">&quot;no_packet_here&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">flag.Parse()</span><br><span class="line"></span><br><span class="line">r := gin.Default()</span><br><span class="line"></span><br><span class="line">r.POST(<span class="string">&quot;/red_packet&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">	key := ctx.PostForm(<span class="string">&quot;code&quot;</span>)</span><br><span class="line">	val := []<span class="keyword">byte</span>(key + *superSecretSalt)</span><br><span class="line">	hash := sha256.Sum256(val[:])</span><br><span class="line"></span><br><span class="line">	result := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">32</span>; i++ &#123;</span><br><span class="line">		result += <span class="keyword">int</span>(hash[i])</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result == <span class="number">2021</span> &#123;</span><br><span class="line">		ctx.Header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/plain; charset=utf-8&quot;</span>)</span><br><span class="line">		ctx.String(<span class="number">200</span>, *redPacket)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		ctx.Status(http.StatusForbidden)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>中，的<code>val := []byte(key + *superSecretSalt)</code> val就是key字符串和superSecretSalt指向的字符串相加</p>
+<p>hash就是val经过sha256加密后的字符串<code>hash := sha256.Sum256(val[:])</code></p>
+<p>如果结果为2021则通过口令<code>if result == 2021</code></p>
+<h3 id="help-html"><a href="#help-html" class="headerlink" title="/help.html"></a>/help.html</h3><p><del>经过好心人指示</del>，眼瞎的我终于发现了help.html</p>
+<p>打开来是这个</p>
+<p><img src="https://i.loli.net/2021/02/12/PpNdLuTI1H6z3gh.png" alt="3.png"></p>
+<p>源代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;再 放 送&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;span&gt;The character is: <span class="string">&#x27;&lt;span id=&quot;ch&quot;&gt;&lt;/span&gt;&#x27;</span>&lt;/span&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;left()&quot;</span>&gt;Go left&lt;/button&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;right()&quot;</span>&gt;Go right&lt;/button&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;back()&quot;</span>&gt;Go back&lt;/button&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> data = <span class="string">&quot;320K2/5oM1Lu8mmsTg8_0tV5yUxeU3omYan+uvs8nvaaj1gb5HVCuKo/CHAfgzF6kTwBtY4nSY5mOanNyLVaPaiJ+eiCek8zbzkc0I+Gbx4glNS7KchXz+hdT6xd+7J0KtcaBBwzOLy/VV/VOJq4hWLwuqylqt6/shQtm01AZuyGA7iyZO31RBTKTYOaqfSUMivx6s3x75b+BOaD+9fUYDWQLc8xTJEFERYVvxajft+691+QAK6Ygr/asi+r7JzJR/rGlLF52qEvdSwLQYq4vaho1BcaYmxUsag700SJf/AQNAUNjTxbjxtM5aigsykJZGZBcU3F9D2LbhKuAcioiYhlKJTunhzXUQr1RlbOZ8km4yBee2XUTcldqc6cdAKdByVrm6H3hVH+7RQg+QP9saZsl+KgDuPas+HzPHlIDDP+voGPROKUf95RixWCA536B3/guqYhfLlZpPWRdYS+JgWeEZ+Tl4qxCxopmwMvhPOcbS81y4naMU4wSL9st4usWYQ+r3bMtmA/P+XH7R6Cu40NUttbgLIWKc0NbgPTP/zCkJCw4AAdRy/hXbByDTkqZVRySlTGVehN2GxIzbdm4Aj713/h/8TNSCeDFdJ2AZ3ZR.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&quot;</span></span><br><span class="line">    <span class="keyword">var</span> cur = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    update();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">update</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> p = <span class="built_in">parseInt</span>(<span class="built_in">window</span>.location.hash.substr(<span class="number">1</span>));</span><br><span class="line">            <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(p)) cur = p;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">            <span class="comment">// ignore</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">document</span>.querySelector(<span class="string">&quot;#ch&quot;</span>).innerHTML = data[cur];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">left</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur &gt; <span class="number">8192</span>) &#123;</span><br><span class="line">            alert(<span class="string">&quot;Can&#x27;t go further!&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>.location.hash = (cur * <span class="number">2</span>).toString();</span><br><span class="line">        update();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">right</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur &gt; <span class="number">8192</span>) &#123;</span><br><span class="line">            alert(<span class="string">&quot;Can&#x27;t go further!&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>.location.hash = (cur * <span class="number">2</span> + <span class="number">1</span>).toString();</span><br><span class="line">        update();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">back</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur === <span class="number">1</span>) &#123;</span><br><span class="line">            alert(<span class="string">&quot;Can&#x27;t go back!&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>.location.hash = <span class="built_in">Math</span>.floor(cur / <span class="number">2</span>).toString();</span><br><span class="line">        update();</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>仔细看了看，是每次走左(cur✖2)，是每次走右（cur✖2＋1），或是返回（cur➗2）</p>
+<p>回显一个值：data的cur索引（data[cur]）对应字符</p>
+<p>所以data是个索引表，考虑爆破它</p>
+<p>爆破代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> s[] = <span class="string">&quot;320K2/5oM1Lu8mmsTg8_(...省略)&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans[<span class="number">50</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">ofstream outfile;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recur</span><span class="params">(<span class="keyword">int</span> sum, <span class="keyword">int</span> layer)</span> </span>&#123;</span><br><span class="line">	ans[layer] = sum;</span><br><span class="line">	<span class="keyword">if</span>(sum&gt;<span class="number">8192</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=layer;++i) &#123;</span><br><span class="line">			<span class="comment">// printf(&quot;%c&quot;,s[ans[i]]);</span></span><br><span class="line">			outfile &lt;&lt; s[ans[i]];</span><br><span class="line">		&#125;</span><br><span class="line">		outfile &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		recur(sum*<span class="number">2</span>,layer+<span class="number">1</span>);</span><br><span class="line">		recur(sum*<span class="number">2</span>+<span class="number">1</span>,layer+<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	outfile.open(<span class="string">&quot;out.txt&quot;</span>);</span><br><span class="line">	recur(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="comment">// printf(&quot;%d&quot;,&#x27;1&#x27;);</span></span><br><span class="line">	outfile.close();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2o2l_h4ppy_new_ye4r</span></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="https://i.loli.net/2021/02/12/v7sQ4DgIjWpkhEq.png" alt="W@_7J_CG85AN_BR411_3YYY.png"></p>
+<p>找到了2021_salt.html</p>
+<p><img src="https://i.loli.net/2021/02/12/p4RrTnUjuzkl5NP.png" alt="4.png"></p>
+<h3 id="回到main-go"><a href="#回到main-go" class="headerlink" title="回到main.go"></a>回到main.go</h3><p><code>superSecretSalt</code>有了，就是<code>2o2l_h4ppy_new_ye4r</code></p>
+<p>想想和其他也没关系了，剩下就是sha256爆破，用go写了个爆破程序</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;crypto/sha256&quot;</span></span><br><span class="line">	<span class="string">&quot;flag&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;2021 Happy new year!&quot;</span>)</span><br><span class="line"></span><br><span class="line">	superSecretSalt := flag.String(<span class="string">&quot;salt&quot;</span>, <span class="string">&quot;2o2l_h4ppy_new_ye4r&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	<span class="comment">// redPacket := flag.String(&quot;packet&quot;, &quot;no_packet_here&quot;, &quot;&quot;)</span></span><br><span class="line">	flag.Parse()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">999999999</span>; i++ &#123;</span><br><span class="line">		key := fmt.Sprint(i)</span><br><span class="line">		<span class="comment">// key := &quot;1&quot;</span></span><br><span class="line">		val := []<span class="keyword">byte</span>(key + *superSecretSalt)</span><br><span class="line">		hash := sha256.Sum256(val[:])</span><br><span class="line"></span><br><span class="line">		result := <span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">32</span>; i++ &#123;</span><br><span class="line">			result += <span class="keyword">int</span>(hash[i])</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// print(result)</span></span><br><span class="line">		<span class="comment">// print(&quot;\n&quot;)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> result == <span class="number">2021</span> &#123;</span><br><span class="line">			<span class="built_in">print</span>(key)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/02/12/SZpJt8IzwfmPR5X.png" alt="ICBLJKQSGNH`8S8_9G`KLYB.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/brute-force/" rel="tag"># brute-force</a>
+              <a href="/tags/MISC/" rel="tag"># MISC</a>
+              <a href="/tags/the-Spring-Festival/" rel="tag"># the Spring Festival</a>
+              <a href="/tags/special/" rel="tag"># special</a>
+              <a href="/tags/password/" rel="tag"># password</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/" rel="prev" title="FZU2021-0xd4-FOUR QUARTERS">
+      <i class="fa fa-chevron-left"></i> FZU2021-0xd4-FOUR QUARTERS
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Seraph-JACK%E7%9A%84%E6%96%B0%E5%B9%B4%E7%BA%A2%E5%8C%85%EF%BC%88MISC%EF%BC%8CSP%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Seraph_JACK的新年红包（MISC，SP）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E7%BA%A2%E5%8C%85%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">解红包过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E9%97%A8%E8%A7%81%E5%B1%B1"><span class="nav-number">2.1.</span> <span class="nav-text">开门见山</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E9%97%A8%E7%BD%91%E9%A1%B5%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">开门网页源代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main-go"><span class="nav-number">2.3.</span> <span class="nav-text">&#x2F;main.go</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help-html"><span class="nav-number">2.4.</span> <span class="nav-text">&#x2F;help.html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%88%B0main-go"><span class="nav-number">2.5.</span> <span class="nav-text">回到main.go</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">LacLic Vanilla</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LacLic" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LacLic" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Friendly Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.seraphjack.top/" title="https:&#x2F;&#x2F;blog.seraphjack.top&#x2F;" rel="noopener" target="_blank">Seraph_Jack</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LacLic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
