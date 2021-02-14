@@ -20,23 +20,22 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题意有2个小女孩去买椰子，手上分别有x元，y元，一个椰子要z元。 她们可以合起来买，但此时就要让一个人给另一个一些钱。 问：她们合起来最多买几个？最少要让一个人给另一个人多少钱？ 思路两个人先分开买，剩下的钱再合并到一起买，分别计算二人还需要多少钱才能买得起最后一个，取最小值 如果买不起就为0（不给钱） 代码（python）不能用int强制转换，只能用&#x2F;&#x2F;整除。为什么呢？求dalao告知，感激不尽">
+  <meta name="description" content="题意题目已经是中文了，就缩略说一下。 对于从n到m的数（闭区间，两端n和m要算），一共有多少个不含62且不含4的数？ 思路算出从1到n，从1到m的符合题意的数的个数，相减即得 代码记得要删掉freopen啊！头一回吃了一个OLE(output limit exceed) 1234567891011121314151617181920212223242526272829303132333435363">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Codeforces-Chunga-Changa">
-<meta property="og:url" content="http://laclic.github.io/2021/01/25/Codeforces-Chunga-Changa/index.html">
+<meta property="og:title" content="FZU2021-0xd5-不要62">
+<meta property="og:url" content="http://laclic.github.io/2021/02/14/FZU2021-0xd5-%E4%B8%8D%E8%A6%8162/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="题意有2个小女孩去买椰子，手上分别有x元，y元，一个椰子要z元。 她们可以合起来买，但此时就要让一个人给另一个一些钱。 问：她们合起来最多买几个？最少要让一个人给另一个人多少钱？ 思路两个人先分开买，剩下的钱再合并到一起买，分别计算二人还需要多少钱才能买得起最后一个，取最小值 如果买不起就为0（不给钱） 代码（python）不能用int强制转换，只能用&#x2F;&#x2F;整除。为什么呢？求dalao告知，感激不尽">
+<meta property="og:description" content="题意题目已经是中文了，就缩略说一下。 对于从n到m的数（闭区间，两端n和m要算），一共有多少个不含62且不含4的数？ 思路算出从1到n，从1到m的符合题意的数的个数，相减即得 代码记得要删掉freopen啊！头一回吃了一个OLE(output limit exceed) 1234567891011121314151617181920212223242526272829303132333435363">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-25T06:48:27.000Z">
-<meta property="article:modified_time" content="2021-01-25T07:11:36.276Z">
+<meta property="article:published_time" content="2021-02-14T03:46:53.000Z">
+<meta property="article:modified_time" content="2021-02-14T03:50:32.002Z">
 <meta property="article:author" content="LacLic Vanilla">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="codeforces">
-<meta property="article:tag" content="Problem Remains">
-<meta property="article:tag" content="big(高精度)">
+<meta property="article:tag" content="FZUACM">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="dynamic programming">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://laclic.github.io/2021/01/25/Codeforces-Chunga-Changa/">
+<link rel="canonical" href="http://laclic.github.io/2021/02/14/FZU2021-0xd5-%E4%B8%8D%E8%A6%8162/">
 
 
 <script id="page-configurations">
@@ -49,7 +48,7 @@
   };
 </script>
 
-  <title>Codeforces-Chunga-Changa | LacLic's Blog</title>
+  <title>FZU2021-0xd5-不要62 | LacLic's Blog</title>
   
 
 
@@ -156,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/25/Codeforces-Chunga-Changa/">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/14/FZU2021-0xd5-%E4%B8%8D%E8%A6%8162/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +168,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Codeforces-Chunga-Changa
+          FZU2021-0xd5-不要62
         </h1>
 
         <div class="post-meta">
@@ -180,7 +179,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-25 14:48:27 / Modified: 15:11:36" itemprop="dateCreated datePublished" datetime="2021-01-25T14:48:27+08:00">2021-01-25</time>
+              <time title="Created: 2021-02-14 11:46:53 / Modified: 11:50:32" itemprop="dateCreated datePublished" datetime="2021-02-14T11:46:53+08:00">2021-02-14</time>
             </span>
 
           
@@ -194,13 +193,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有2个小女孩去买椰子，手上分别有x元，y元，一个椰子要z元。</p>
-<p>她们可以合起来买，但此时就要让一个人给另一个一些钱。</p>
-<p>问：她们合起来最多买几个？最少要让一个人给另一个人多少钱？</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>两个人先分开买，剩下的钱再合并到一起买，分别计算二人还需要多少钱才能买得起最后一个，取最小值</p>
-<p>如果买不起就为0（不给钱）</p>
-<h2 id="代码（python）"><a href="#代码（python）" class="headerlink" title="代码（python）"></a>代码（python）</h2><p>不能用int强制转换，只能用//整除。为什么呢？求dalao告知，感激不尽！（邮箱<a href="mailto:&#x65;&#52;&#49;&#113;&#101;&#52;&#64;&#49;&#50;&#54;&#x2e;&#99;&#x6f;&#x6d;">&#x65;&#52;&#49;&#113;&#101;&#52;&#64;&#49;&#50;&#54;&#x2e;&#99;&#x6f;&#x6d;</a>，麻烦注明一下是从这题来的，thx~）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">xyz = <span class="built_in">input</span>(<span class="string">&quot;&quot;</span>).split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">x = <span class="built_in">int</span>(xyz[<span class="number">0</span>])</span><br><span class="line">y = <span class="built_in">int</span>(xyz[<span class="number">1</span>])</span><br><span class="line">z = <span class="built_in">int</span>(xyz[<span class="number">2</span>])</span><br><span class="line">total = <span class="number">0</span></span><br><span class="line"><span class="comment"># get how many coconuts one person can buy</span></span><br><span class="line">total += x//z  <span class="comment"># total += int(x/z) #</span></span><br><span class="line">x %= z</span><br><span class="line">total += y//z  <span class="comment"># total += int(y/z) #</span></span><br><span class="line">y %= z</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">If you replace things in ##, you will get WA.</span></span><br><span class="line"><span class="string">WHY was that? I don&#x27;t know.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">exchange = <span class="number">0</span></span><br><span class="line">left = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> x+y &gt;= z:</span><br><span class="line">  total += <span class="number">1</span></span><br><span class="line">  <span class="keyword">if</span> z-x &gt; z-y:</span><br><span class="line">    exchange = (z-y) % z</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    exchange = (z-x) % z</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">f&quot;<span class="subst">&#123;total&#125;</span> <span class="subst">&#123;exchange&#125;</span>&quot;</span>, end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+        <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>题目已经是中文了，就缩略说一下。</p>
+<p>对于从n到m的数（闭区间，两端n和m要算），一共有多少个不含62且不含4的数？</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>算出从1到n，从1到m的符合题意的数的个数，相减即得</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>记得要删掉freopen啊！头一回吃了一个OLE(output limit exceed)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">has4</span><span class="params">(<span class="keyword">int</span> now)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(;now;now/=<span class="number">10</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(now%<span class="number">10</span>==<span class="number">4</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">has62</span><span class="params">(<span class="keyword">int</span> now)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(;now&gt;=<span class="number">62</span>;now/=<span class="number">10</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(now%<span class="number">100</span>==<span class="number">62</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1000001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,m;</span><br><span class="line">  a[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">1000000</span>;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!has62(i)&amp;&amp;!has4(i)) a[i] = a[i<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> a[i] = a[i<span class="number">-1</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a[m]-a[n<span class="number">-1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -210,10 +207,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"># python</a>
-              <a href="/tags/codeforces/" rel="tag"># codeforces</a>
-              <a href="/tags/Problem-Remains/" rel="tag"># Problem Remains</a>
-              <a href="/tags/big-%E9%AB%98%E7%B2%BE%E5%BA%A6/" rel="tag"># big(高精度)</a>
+              <a href="/tags/FZUACM/" rel="tag"># FZUACM</a>
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/dynamic-programming/" rel="tag"># dynamic programming</a>
           </div>
 
         
@@ -222,13 +218,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/25/FZU2021-0x13-%E6%A3%8B%E7%9B%98%E9%97%AE%E9%A2%98/" rel="prev" title="FZU2021-0x13-棋盘问题">
-      <i class="fa fa-chevron-left"></i> FZU2021-0x13-棋盘问题
+    <a href="/2021/02/12/WriteUP-MISC-Seraph-JACK-s-red-packet/" rel="prev" title="WriteUP-MISC(SP)-Seraph_JACK's red packet">
+      <i class="fa fa-chevron-left"></i> WriteUP-MISC(SP)-Seraph_JACK's red packet
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/25/Python-%E5%B0%8F%E6%95%99%E7%A8%8B%EF%BC%88%E5%B8%A6%E4%BD%9C%E4%B8%9A%EF%BC%89/" rel="next" title="Python 小教程（带作业）">
-      Python 小教程（带作业） <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -287,7 +280,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%88python%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">代码（python）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
