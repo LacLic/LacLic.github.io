@@ -147,6 +147,67 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/21/FZU2021-0x03-Boxes-in-a-Line/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/21/FZU2021-0x03-Boxes-in-a-Line/" class="post-title-link" itemprop="url">FZU2021-0x03-Boxes in a Line</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-21 17:51:41 / Modified: 20:40:43" itemprop="dateCreated datePublished" datetime="2021-01-21T17:51:41+08:00">2021-01-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="Use-two-array-to-simulate-doubly-linked-list"><a href="#Use-two-array-to-simulate-doubly-linked-list" class="headerlink" title="Use two array to simulate doubly linked list"></a>Use two array to simulate doubly linked list</h5><h5 id="Take-care-of-side-to-side-swap"><a href="#Take-care-of-side-to-side-swap" class="headerlink" title="Take care of side-to-side swap"></a>Take care of side-to-side swap</h5><h5 id="Watch-out-reverse"><a href="#Watch-out-reverse" class="headerlink" title="Watch out reverse"></a>Watch out reverse</h5><p>Command 1 (when reversed) is equal to command 2 (when normally ordered),<br>command 2 (when reversed) is in a similar way.</p>
+<p>Command 3 is the same whether it is reversed.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// doubly linked list</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">6 4</span></span><br><span class="line"><span class="comment">1 1 4</span></span><br><span class="line"><span class="comment">2 3 5</span></span><br><span class="line"><span class="comment">3 1 6</span></span><br><span class="line"><span class="comment">4</span></span><br><span class="line"><span class="comment">6 3</span></span><br><span class="line"><span class="comment">1 1 4</span></span><br><span class="line"><span class="comment">2 3 5</span></span><br><span class="line"><span class="comment">3 1 6</span></span><br><span class="line"><span class="comment">100000 1</span></span><br><span class="line"><span class="comment">4</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> left[<span class="number">100006</span>];</span><br><span class="line"><span class="keyword">int</span> right[<span class="number">100006</span>];</span><br><span class="line"><span class="keyword">int</span> case_count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> reverse;</span><br><span class="line"><span class="keyword">int</span> cmd;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">link</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;L, <span class="keyword">const</span> <span class="keyword">int</span> &amp;R)</span> </span>&#123;</span><br><span class="line">  right[L] = R;</span><br><span class="line">  left[R] = L;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">prt</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;reverse, <span class="keyword">const</span> <span class="keyword">int</span> max)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> now = max * reverse; <span class="comment">// if reversed, now starts at max, otherwise at 0;</span></span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> shouldAdd = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">switch</span> (reverse) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0</span>: &#123;</span><br><span class="line">    <span class="keyword">for</span> (now = right[now]; now%max; now = right[now]) &#123;</span><br><span class="line">      <span class="keyword">if</span> (shouldAdd%<span class="number">2</span>) &#123;</span><br><span class="line">        sum += now;</span><br><span class="line">      &#125;</span><br><span class="line">      ++shouldAdd;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>: &#123;</span><br><span class="line">    <span class="keyword">for</span> (now = left[now]; now; now = left[now]) &#123;</span><br><span class="line">      <span class="keyword">if</span> (shouldAdd%<span class="number">2</span>) &#123;</span><br><span class="line">        sum += now;</span><br><span class="line">      &#125;</span><br><span class="line">      ++shouldAdd;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Case %d: %lld\n&quot;</span>, case_count, sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n, m;</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m) != EOF) &#123;</span><br><span class="line">    reverse = <span class="number">0</span>;</span><br><span class="line">    ++case_count;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">      left[i] = i - <span class="number">1</span>;</span><br><span class="line">      right[i] = i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    right[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    left[n + <span class="number">1</span>] = n;</span><br><span class="line">    <span class="comment">// printf(&quot;pwn! %d\n&quot;,m);</span></span><br><span class="line">    <span class="keyword">for</span> (; m; --m) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;cmd);</span><br><span class="line">      <span class="comment">// printf(&quot;pwn! %d\n&quot;,m);</span></span><br><span class="line">      <span class="keyword">switch</span> (cmd) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        reverse = !reverse;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>: &#123;</span><br><span class="line">        <span class="keyword">int</span> first, second;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;first, &amp;second);</span><br><span class="line">        <span class="keyword">if</span>(reverse) cmd = <span class="number">3</span>-cmd;</span><br><span class="line">        <span class="keyword">if</span>(left[second]==first&amp;&amp;cmd==<span class="number">1</span>) &#123;<span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(right[second]==first&amp;&amp;cmd==<span class="number">2</span>) &#123;<span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">int</span> L1 = left[first], R1 = right[first], L2 = left[second],</span><br><span class="line">            R2 = right[second];</span><br><span class="line">        <span class="keyword">switch</span> (cmd) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">          <span class="keyword">if</span>(right[first]==second) &#123;</span><br><span class="line">            link(L1,second);</span><br><span class="line">            link(second,first);</span><br><span class="line">            link(first,R2);</span><br><span class="line">          &#125;<span class="keyword">else</span> <span class="keyword">if</span> (left[first]==second) &#123;</span><br><span class="line">            link(L2,first);</span><br><span class="line">            link(first,second);</span><br><span class="line">            link(second,R1);</span><br><span class="line">          &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            link(L1, second);</span><br><span class="line">            link(second, R1);</span><br><span class="line">            link(L2, first);</span><br><span class="line">            link(first, R2);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">          link(L1, R1);</span><br><span class="line">          link(L2, first);</span><br><span class="line">          link(first, second);</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">          link(L1, R1);</span><br><span class="line">          link(second, first);</span><br><span class="line">          link(first, R2);</span><br><span class="line">          <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// for(int i=right[0];i%7;i=right[i]) &#123;</span></span><br><span class="line">    <span class="comment">//   printf(&quot;%d &quot;,i);</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    prt(reverse, n + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/21/wsl2-ubuntu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -915,107 +976,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/11/25/Flutter-autovalidate-is-deprecated/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/25/Flutter-autovalidate-is-deprecated/" class="post-title-link" itemprop="url">Flutter autovalidate is deprecated</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-11-25 23:07:20" itemprop="dateCreated datePublished" datetime="2020-11-25T23:07:20+08:00">2020-11-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-03 18:09:26" itemprop="dateModified" datetime="2020-12-03T18:09:26+08:00">2020-12-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Flutter-Deprecated-emsp-‘autovalidate’-is-deprecated-and-shouldn’t-be-used"><a href="#Flutter-Deprecated-emsp-‘autovalidate’-is-deprecated-and-shouldn’t-be-used" class="headerlink" title="Flutter Deprecated:&emsp;‘autovalidate’ is deprecated and shouldn’t be used."></a>Flutter Deprecated:<br>&emsp;<em>‘autovalidate’ is deprecated and shouldn’t be used.</em></h1><p>Created by: © LacLic</p>
-<h2 id="事件发生"><a href="#事件发生" class="headerlink" title="事件发生"></a>事件发生</h2><p>&emsp;在表单 (FormField) 中调用 autovalidate (自动生效)参数时，发生了如下现象（在 vscode 中）：</p>
-<ul>
-<li>autovalidate形式参数被划上了<del>删除线</del></li>
-<li>vscode提供了相应的提示信息（如下 / 如图）</li>
-</ul>
-<blockquote>
-<p>&emsp;Used to enable/disable form fields auto validation and update their error text.</p>
-</blockquote>
-<p>&emsp;autovalidate参数 曾用于启用 / 停用表单的 自动生效并更新他们的错误文本（错误文本大概是”密码应不少于6位”的提示文本）</p>
-<blockquote>
-<p>&emsp;’autovalidate’ is deprecated and shouldn’t be used. Use autoValidateMode parameter which provides more specific behavior related to auto validation. This feature was deprecated after v1.19.0..</p>
-</blockquote>
-<p>&emsp;autovalidate参数 已经被逐步弃用。试着用用能提供更具体化的 autoValidateMode参数 来进行代替 autovalidate 功能。这个功能（原本的autovalidate参数）在版本1.19.0开始已经被弃用了。</p>
-<blockquote>
-<p>Try replacing the use of the deprecated member with the replacement.</p>
-</blockquote>
-<p>&emsp;去用 autovalidateMode 参数吧</p>
-<p><img src="https://i.loli.net/2020/11/23/mNPGkHt3T9DCMOg.png" alt="FlutterAdvise.png"></p>
-<p>&emsp;flutter 中文网上的教程并没有关于这方面的阐述说明，以下资料参考自 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/64189947/autovalidate-of-textformfield-is-deprecated-in-flutter">StackoverFlow</a> 等网站.</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><blockquote>
-<p>&emsp;All you need to do is replace autovalidate: true with autovalidateMode: AutovalidateMode.always</p>
-</blockquote>
-<p>&emsp;翻译：把 autovalidate: true 换成 autovalidateMode: AutovalidateMode.always即可</p>
-<p>例：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">child: Form(</span><br><span class="line">  key: _formKey,</span><br><span class="line">  autovalidate: <span class="keyword">true</span>, <span class="comment">// &lt;- here</span></span><br><span class="line">  child: <span class="keyword">null</span>,</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">child: Form(</span><br><span class="line">  key: _formKey,</span><br><span class="line">  autovalidateMode: AutovalidateMode.always, <span class="comment">// &lt;- here</span></span><br><span class="line">  child: <span class="keyword">null</span>,</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
-
-<h2 id="关于-autovalidateMode"><a href="#关于-autovalidateMode" class="headerlink" title="关于 autovalidateMode"></a>关于 autovalidateMode</h2><blockquote>
-<p>The different supported modes are:</p>
-<ol>
-<li><strong>AutovalidateMode.disabled</strong>: No auto validation will occur.<br>· 表单不会自动更新</li>
-<li><strong>AutovalidateMode.always</strong>: Used to auto-validate FormField even without user interaction.<br>· 实时更新表单</li>
-<li><strong>AutovalidateMode.onUserInteraction</strong>: Used to auto-validate FormField only after each user interaction.<br>· 只有在用户交互后，才会更新表单</li>
-</ol>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1085,7 +1045,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
