@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="DP教程程序员小灰的漫画解DP. 强推！图很多，思路也很清晰。 题目题解（内含题目大意）所有题目复制到百度上都能找到oj题（たぶん） 01(hex)买咖啡-Charlie’s Change 02(hex)-Dividing分石头-Dividing 03(hex)-Space Elevator牛牛上天计划-Space Elevator 04(hex)-FOUR QUARTERS投硬币-FOUR QU">
+  <meta name="description" content="DP教程程序员小灰的漫画解DP. 强推！图很多，思路也很清晰。 题目题解（内含题目大意）所有题目复制到百度上都能找到oj题（たぶん） 01(hex)-Charlie’s Change买咖啡-Charlie’s Change 02(hex)-Dividing分石头-Dividing 03(hex)-Space Elevator牛牛上天计划-Space Elevator 04(hex)-FOUR QU">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FZUACM-动规DP爆锤计划！（持续更新ing...）">
 <meta property="og:url" content="http://laclic.github.io/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="DP教程程序员小灰的漫画解DP. 强推！图很多，思路也很清晰。 题目题解（内含题目大意）所有题目复制到百度上都能找到oj题（たぶん） 01(hex)买咖啡-Charlie’s Change 02(hex)-Dividing分石头-Dividing 03(hex)-Space Elevator牛牛上天计划-Space Elevator 04(hex)-FOUR QUARTERS投硬币-FOUR QU">
+<meta property="og:description" content="DP教程程序员小灰的漫画解DP. 强推！图很多，思路也很清晰。 题目题解（内含题目大意）所有题目复制到百度上都能找到oj题（たぶん） 01(hex)-Charlie’s Change买咖啡-Charlie’s Change 02(hex)-Dividing分石头-Dividing 03(hex)-Space Elevator牛牛上天计划-Space Elevator 04(hex)-FOUR QU">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-07T03:09:56.000Z">
-<meta property="article:modified_time" content="2021-02-18T02:31:19.510Z">
+<meta property="article:modified_time" content="2021-02-18T06:05:45.669Z">
 <meta property="article:author" content="LacLic Vanilla">
 <meta property="article:tag" content="FZUACM">
 <meta property="article:tag" content="dynamic programming">
@@ -184,7 +184,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-18 10:31:19" itemprop="dateModified" datetime="2021-02-18T10:31:19+08:00">2021-02-18</time>
+                <time title="Modified: 2021-02-18 14:05:45" itemprop="dateModified" datetime="2021-02-18T14:05:45+08:00">2021-02-18</time>
               </span>
 
           
@@ -201,7 +201,7 @@
         <h2 id="DP教程"><a href="#DP教程" class="headerlink" title="DP教程"></a>DP教程</h2><p>程序员小灰的<a target="_blank" rel="noopener" href="https://www.cxyxiaowu.com/4055.html">漫画解DP</a>.</p>
 <p>强推！图很多，思路也很清晰。</p>
 <h2 id="题目题解（内含题目大意）"><a href="#题目题解（内含题目大意）" class="headerlink" title="题目题解（内含题目大意）"></a>题目题解（内含题目大意）</h2><p>所有题目复制到百度上都能找到oj题（たぶん）</p>
-<h3 id="01-hex"><a href="#01-hex" class="headerlink" title="01(hex)"></a>01(hex)</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/06/FZU2021-0xd1-Charlie-s-Change/">买咖啡-Charlie’s Change</a></p>
+<h3 id="01-hex-Charlie’s-Change"><a href="#01-hex-Charlie’s-Change" class="headerlink" title="01(hex)-Charlie’s Change"></a>01(hex)-Charlie’s Change</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/06/FZU2021-0xd1-Charlie-s-Change/">买咖啡-Charlie’s Change</a></p>
 <h3 id="02-hex-Dividing"><a href="#02-hex-Dividing" class="headerlink" title="02(hex)-Dividing"></a>02(hex)-Dividing</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/09/FZU2021-0xd2-Dividing/">分石头-Dividing</a></p>
 <h3 id="03-hex-Space-Elevator"><a href="#03-hex-Space-Elevator" class="headerlink" title="03(hex)-Space Elevator"></a>03(hex)-Space Elevator</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/09/FZU2021-0xd3-Space-Elevator/">牛牛上天计划-Space Elevator</a></p>
 <h3 id="04-hex-FOUR-QUARTERS"><a href="#04-hex-FOUR-QUARTERS" class="headerlink" title="04(hex)-FOUR QUARTERS"></a>04(hex)-FOUR QUARTERS</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/">投硬币-FOUR QUARTERS</a></p>
@@ -291,7 +291,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DP%E6%95%99%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">DP教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E9%A2%98%E8%A7%A3%EF%BC%88%E5%86%85%E5%90%AB%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">题目题解（内含题目大意）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01-hex"><span class="nav-number">2.1.</span> <span class="nav-text">01(hex)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02-hex-Dividing"><span class="nav-number">2.2.</span> <span class="nav-text">02(hex)-Dividing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#03-hex-Space-Elevator"><span class="nav-number">2.3.</span> <span class="nav-text">03(hex)-Space Elevator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#04-hex-FOUR-QUARTERS"><span class="nav-number">2.4.</span> <span class="nav-text">04(hex)-FOUR QUARTERS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-hex-%E4%B8%8D%E8%A6%8162"><span class="nav-number">2.5.</span> <span class="nav-text">05(hex)-不要62</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#06-hex-F-x"><span class="nav-number">2.6.</span> <span class="nav-text">06(hex)-F(x)</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DP%E6%95%99%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">DP教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E9%A2%98%E8%A7%A3%EF%BC%88%E5%86%85%E5%90%AB%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">题目题解（内含题目大意）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#01-hex-Charlie%E2%80%99s-Change"><span class="nav-number">2.1.</span> <span class="nav-text">01(hex)-Charlie’s Change</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02-hex-Dividing"><span class="nav-number">2.2.</span> <span class="nav-text">02(hex)-Dividing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#03-hex-Space-Elevator"><span class="nav-number">2.3.</span> <span class="nav-text">03(hex)-Space Elevator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#04-hex-FOUR-QUARTERS"><span class="nav-number">2.4.</span> <span class="nav-text">04(hex)-FOUR QUARTERS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-hex-%E4%B8%8D%E8%A6%8162"><span class="nav-number">2.5.</span> <span class="nav-text">05(hex)-不要62</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#06-hex-F-x"><span class="nav-number">2.6.</span> <span class="nav-text">06(hex)-F(x)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -305,7 +305,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
