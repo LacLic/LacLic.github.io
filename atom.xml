@@ -6,7 +6,7 @@
   <link href="http://laclic.github.io/atom.xml" rel="self"/>
   
   <link href="http://laclic.github.io/"/>
-  <updated>2021-02-19T15:05:04.305Z</updated>
+  <updated>2021-02-22T15:17:19.980Z</updated>
   <id>http://laclic.github.io/</id>
   
   <author>
@@ -15,6 +15,75 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android开发-gradle sync出错解决: Failed to open zip file.</title>
+    <link href="http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-gradle-sync%E5%87%BA%E9%94%99%E8%A7%A3%E5%86%B3-Failed-to-open-zip-file/"/>
+    <id>http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-gradle-sync%E5%87%BA%E9%94%99%E8%A7%A3%E5%86%B3-Failed-to-open-zip-file/</id>
+    <published>2021-02-22T14:41:10.000Z</published>
+    <updated>2021-02-22T15:17:19.980Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="错误发生"><a href="#错误发生" class="headerlink" title="错误发生"></a>错误发生</h2><p>进行gradle sync的时候，下载完文件发现出现报错<code>Failed to open zip file.</code></p><p>&emsp;报错：<em>无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）</em></p><p><img src="https://i.loli.net/2021/02/22/p25ztxFT4S9q7bV.png" alt="1.png"></p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见<a href="##%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0">错误原因</a></p><h2 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h2><p>错误报告中显示，无法打开zip文件，使用<code>ctrl+shift+R</code>进行全局搜索，寻找关于<code>.zip</code>文件的信息</p><p><img src="https://i.loli.net/2021/02/22/iPnbyKzGJ5qrTFU.png" alt="2.png"></p><p>找到下载所需的gradle包的网址，丢入浏览器下载zip文件（记得删除里面的反斜杠，那是用来逃逸冒号的）</p><p>将下载好的文件丢入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\[用户]\.gradle\wrapper\dists\gradle-[版本号]-all\[奇怪的序列]\</span><br></pre></td></tr></table></figure><p>的目录下后，重新进行gradle sync或者直接试运行程序</p><p><img src="https://i.loli.net/2021/02/22/25k8K1J9OVzAwlI.png" alt="3.png"></p><p>成功！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;错误发生&quot;&gt;&lt;a href=&quot;#错误发生&quot; class=&quot;headerlink&quot; title=&quot;错误发生&quot;&gt;&lt;/a&gt;错误发生&lt;/h2&gt;&lt;p&gt;进行gradle sync的时候，下载完文件发现出现报错&lt;code&gt;Failed to open zip file.&lt;/co</summary>
+      
+    
+    
+    
+    
+    <category term="android" scheme="http://laclic.github.io/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android开发-百分比布局percentLayout的gradle依赖添加与报错</title>
+    <link href="http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-%E7%99%BE%E5%88%86%E6%AF%94%E5%B8%83%E5%B1%80%E7%9A%84gradle%E4%BE%9D%E8%B5%96%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%8A%A5%E9%94%99/"/>
+    <id>http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-%E7%99%BE%E5%88%86%E6%AF%94%E5%B8%83%E5%B1%80%E7%9A%84gradle%E4%BE%9D%E8%B5%96%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%8A%A5%E9%94%99/</id>
+    <published>2021-02-22T12:40:34.000Z</published>
+    <updated>2021-02-22T14:56:28.440Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="错误发生"><a href="#错误发生" class="headerlink" title="错误发生"></a>错误发生</h2><p>在工程文件夹的app/build.gradle的依赖中添加<code>compile &#39;com.android.support:percent:24.2.1&#39;</code>的时候，出现的报错（代码来自《第一行代码（第二版）》）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Version 28 (intended for Android Pie and below) is the last version of the legacy support library, so we recommend that you migrate to AndroidX libraries when using Android Q and moving forward. The IDE can help with this: Refactor &gt; Migrate to AndroidX...</span><br></pre></td></tr></table></figure><p><img src="https://i.loli.net/2021/02/22/IuriaKpYSZgCDQe.png" alt="1.png"></p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p><font color=#cc3f40>谷歌开发者文档注：</font></p><blockquote><p>此工件及其类已弃用。请改用 ConstraintLayout 和关联布局。</p></blockquote><hr><p>将</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile &#39;com.android.support:percent:24.2.1&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>改为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation &quot;androidx.percentlayout:percentlayout:1.0.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>即可，之后记得点击视窗上端的<code>sync now</code></p><p><img src="https://i.loli.net/2021/02/22/ZCYhavm4z2lAgKS.png" alt="2.png"></p><h2 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h2><p>考虑到书本教程<strong>过时了</strong>，没有办法及时同步开发工具的更新。</p><p>一开始的确是<code>compile</code>开头的方式引入依赖</p><p>后来改为了下图中红色的样式</p><p><img src="https://i.loli.net/2021/02/22/dplx8nhmI6MAisD.png" alt="3.png"></p><p>再后来才改为<code>implementation &quot;androidx.percentlayout:percentlayout:1.0.0&quot;</code>的形式</p><p>我们到谷歌的 <a href="https://developer.android.google.cn/jetpack/androidx/releases/percentlayout?hl=zh-cn">开发者文档</a> 中查询到</p><p><img src="https://i.loli.net/2021/02/22/flehy16c2C3Uuki.png" alt="4.png"></p><p>这个工件已被谷歌官方弃用，但仍旧是可以使用的。猜测：应该是为了方便熟悉这个工件不愿使用其他布局的程序员（要与时俱进啊！），或者是为了方便旧项目的维护而保留的（毕竟一改就要改一堆）。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;错误发生&quot;&gt;&lt;a href=&quot;#错误发生&quot; class=&quot;headerlink&quot; title=&quot;错误发生&quot;&gt;&lt;/a&gt;错误发生&lt;/h2&gt;&lt;p&gt;在工程文件夹的app/build.gradle的依赖中添加&lt;code&gt;compile &amp;#39;com.android.su</summary>
+      
+    
+    
+    
+    
+    <category term="android" scheme="http://laclic.github.io/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android开发-手绘图文详解活动的生命周期</title>
+    <link href="http://laclic.github.io/2021/02/21/Android%E5%BC%80%E5%8F%91-%E6%89%8B%E7%BB%98%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3%E6%B4%BB%E5%8A%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>http://laclic.github.io/2021/02/21/Android%E5%BC%80%E5%8F%91-%E6%89%8B%E7%BB%98%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3%E6%B4%BB%E5%8A%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
+    <published>2021-02-21T11:09:19.000Z</published>
+    <updated>2021-02-22T15:03:07.852Z</updated>
+    
+    <content type="html"><![CDATA[<p>绘图软件为 GoodNotes 5</p><h2 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h2><ol><li>打开app，第一个活动Acitivity入栈，调用3个act1方法</li><li>点击按钮button，第二个活动入栈，调用2个act1方法，3个act2方法</li></ol><p><img src="https://i.loli.net/2021/02/21/KIptrYC5FJAbXBz.jpg" alt="Android-2.jpg"></p><ol start="3"><li>点击menu，调用act2的创建菜单方法</li><li>点击菜单选项option，调用选项选择方法</li></ol><p><img src="https://i.loli.net/2021/02/21/cdeJlCb1rtBqwOz.jpg" alt="Android-3.jpg"></p><ol start="5"><li>点击button，对话dialog活动入栈，调用act2的1个方法，调用对话活动actDlg的3个方法</li><li>点击返回，finish()了actDlg，调用actDlg的的3个方法，调用act2的1个方法</li></ol><p><img src="https://i.loli.net/2021/02/21/Nsxj4dmMQInzFGh.jpg" alt="Android-4.jpg"></p><ol start="7"><li>点击返回，finish()了act2，调用act2的3个方法，调用act1的2个方法</li><li>再次点击返回，finish()了act1，调用了act1的3个方法，并退出app</li></ol><p><img src="https://i.loli.net/2021/02/21/4KsxUREH1c2hvWA.jpg" alt="Android-5.jpg"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>当新活动不完全置顶（上一个活动还有效）时，只会调用上一个活动的onPause。<br>恢复后，只会调用onResume。</p><p>当新活动完全置顶（上一个活动完全被遮盖），会调用onPasue和onStop。<br>恢复后，会调用onResume和onStart。</p><p>当一个活动finish()后，会调用onPasue, onStop与onDestroy。<br>启动时，会调用onResume, onStart和onCreate。</p><h3 id="启动与终止的对应关系"><a href="#启动与终止的对应关系" class="headerlink" title="启动与终止的对应关系"></a>启动与终止的对应关系</h3><table><thead><tr><th align="center">onCreate</th><th align="center">onStart</th><th align="center">onResume</th><th align="center">onPasue</th><th align="center">onStop</th><th align="center">onDestroy</th></tr></thead><tbody><tr><td align="center"></td><td align="center"></td><td align="center">—</td><td align="center">—</td><td align="center"></td><td align="center"></td></tr><tr><td align="center"></td><td align="center">—</td><td align="center">—</td><td align="center">—</td><td align="center">—</td><td align="center"></td></tr><tr><td align="center">—</td><td align="center">—</td><td align="center">—</td><td align="center">—</td><td align="center">—</td><td align="center">—</td></tr></tbody></table><p><img src="https://i.loli.net/2021/02/21/8XdvikqcteGJM7U.png" alt="6CJJ_GG1BA92GB2BSS_YYLQ.png"><br>图来自《第一行代码（第二版）》</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;绘图软件为 GoodNotes 5&lt;/p&gt;
+&lt;h2 id=&quot;详解&quot;&gt;&lt;a href=&quot;#详解&quot; class=&quot;headerlink&quot; title=&quot;详解&quot;&gt;&lt;/a&gt;详解&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;打开app，第一个活动Acitivity入栈，调用3个act1方法&lt;/li&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="Android" scheme="http://laclic.github.io/tags/Android/"/>
+    
+  </entry>
   
   <entry>
     <title>Codeforces-Approximating a Constant Range</title>
@@ -469,81 +538,6 @@
     <category term="codeforces" scheme="http://laclic.github.io/tags/codeforces/"/>
     
     <category term="map" scheme="http://laclic.github.io/tags/map/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Codeforces-Tanya and Stairways</title>
-    <link href="http://laclic.github.io/2021/02/01/Codeforces-Tanya-and-Stairways/"/>
-    <id>http://laclic.github.io/2021/02/01/Codeforces-Tanya-and-Stairways/</id>
-    <published>2021-02-01T03:33:55.000Z</published>
-    <updated>2021-02-02T03:42:25.722Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有一座很高的建筑，有很多层，每一层都有很多阶梯（可能不一样，这到底是什么鬼建筑），现在告诉你一共有几个阶梯，并且告诉你每个阶梯是当前层的第几阶</p><p>现在要你求出有多少层，并且每层有多少阶梯。</p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每检测到第1阶的时候，层数+1，并记录上一层的有多少阶梯。</p><p>首个就随便给个数据，之后弃用。</p><p>最后一层的阶梯数信息还存储在阶数计数器中，直接在最后读取即可。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>,temp,max;</span><br><span class="line">  <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; que;</span><br><span class="line">  <span class="keyword">for</span>(;n;--n) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    <span class="keyword">if</span>(temp==<span class="number">1</span>) &#123; <span class="comment">// 检测到阶数==1</span></span><br><span class="line">      que.push(max); <span class="comment">// 将层数推入队列</span></span><br><span class="line">      max = temp;</span><br><span class="line">      ++cnt;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      max = temp;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,cnt);</span><br><span class="line">  </span><br><span class="line">  que.pop(); <span class="comment">// 第一个数据是无效的，踢出队列</span></span><br><span class="line">  <span class="keyword">while</span>(!que.empty()) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,que.front());</span><br><span class="line">    que.pop();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,max); <span class="comment">// 最后一层的阶数</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;有一座很高的建筑，有很多层，每一层都有很多阶梯（可能不一样，这到底是什么鬼建筑），现在告诉你一共有几个阶梯，并且告诉你每个阶梯是当前层的第几</summary>
-      
-    
-    
-    
-    
-    <category term="c++" scheme="http://laclic.github.io/tags/c/"/>
-    
-    <category term="codeforces" scheme="http://laclic.github.io/tags/codeforces/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Codeforces-Buying a TV Set</title>
-    <link href="http://laclic.github.io/2021/01/31/Codeforces-Buying-a-TV-Set/"/>
-    <id>http://laclic.github.io/2021/01/31/Codeforces-Buying-a-TV-Set/</id>
-    <published>2021-01-31T03:24:00.000Z</published>
-    <updated>2021-02-02T03:34:51.154Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有个人（摩诺卡普Monocarp）给自家的墙装个电视，商店街的电视尺寸只有一种比例的，而且长宽均为整数（题外话：汗…要是换个单位，小数不也能变整数）</p><p>现在告诉你他家的墙的长宽，和其中一种尺寸的电视的长宽，请问至多能买多少种尺寸的电视？</p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>将电视长宽分解，得出互质的长宽比例（长除以最大公约数gcd，宽同理），然后算出墙长最多能容纳多少种电视，宽同理，二者取最小值即为答案。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> a,b,x,y;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld %lld %lld&quot;</span>,&amp;a,&amp;b,&amp;x,&amp;y); <span class="comment">// 数据较大，用longlong</span></span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> xx=x,yy=y,temp;</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    temp = xx%yy;</span><br><span class="line">    xx = yy;</span><br><span class="line">    yy = temp;</span><br><span class="line">  &#125;<span class="keyword">while</span>(temp!=<span class="number">0</span>); </span><br><span class="line">  <span class="comment">// gcd is xx</span></span><br><span class="line">  x /= xx;</span><br><span class="line">  y /= xx;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> count_x = a/x;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> count_y = b/y;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> ans = count_x&gt;count_y?count_y:count_x;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,ans);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;有个人（摩诺卡普Monocarp）给自家的墙装个电视，商店街的电视尺寸只有一种比例的，而且长宽均为整数（题外话：汗…要是换个单位，小数不也能</summary>
-      
-    
-    
-    
-    
-    <category term="c++" scheme="http://laclic.github.io/tags/c/"/>
-    
-    <category term="codeforces" scheme="http://laclic.github.io/tags/codeforces/"/>
-    
-    <category term="gcd" scheme="http://laclic.github.io/tags/gcd/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Codeforces-Heist</title>
-    <link href="http://laclic.github.io/2021/01/31/Codeforces-Heist/"/>
-    <id>http://laclic.github.io/2021/01/31/Codeforces-Heist/</id>
-    <published>2021-01-31T03:18:37.000Z</published>
-    <updated>2021-02-02T03:23:21.314Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有家键盘店被抢劫了，已知键盘标号是连续的（比如最小是5，最大时10，那原来至少是有标号为5，6，7，8，9，10共6把键盘）。</p><p>现在知道还剩n个键盘，并给出他们的标号，请问，至少有多少把键盘被盗走？</p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>找出标号的最大值最小值，得出原来至少有多少把键盘，减去剩余键盘数，便是被盗键盘数。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">int</span> temp;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> max=<span class="number">0</span>, min=<span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    <span class="keyword">if</span>(temp&gt;max) max = temp;</span><br><span class="line">    <span class="keyword">if</span>(temp&lt;min) min = temp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,max-min+<span class="number">1</span>-n);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;有家键盘店被抢劫了，已知键盘标号是连续的（比如最小是5，最大时10，那原来至少是有标号为5，6，7，8，9，10共6把键盘）。&lt;/p&gt;
-&lt;p</summary>
-      
-    
-    
-    
-    
-    <category term="c++" scheme="http://laclic.github.io/tags/c/"/>
-    
-    <category term="codeforces" scheme="http://laclic.github.io/tags/codeforces/"/>
     
   </entry>
   

@@ -147,6 +147,244 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/09/FZU2021-0xd2-Dividing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/09/FZU2021-0xd2-Dividing/" class="post-title-link" itemprop="url">FZU2021-0xd2-Dividing</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-09 09:22:42 / Modified: 09:30:55" itemprop="dateCreated datePublished" datetime="2021-02-09T09:22:42+08:00">2021-02-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有两个人捡到了一组大理石，价值有1-6元，它们的个数分别有n1-n6个（总数不超过20000个）。</p>
+<p>问，两人想以价值为基准平摊这组大理石，请你设计一个程序告诉他们能不能平摊</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>计算价值总和total，除以2得到target，通过dp计算出，能不能凑出价值为target的大理石组</p>
+<p>剪枝：若total为奇数，必不可能成功</p>
+<p>状态转移同前一题，每种大理石都去试一次</p>
+<p>另外，记录使用大理石个数时，只有之前无法凑出的数字才需要使用新的大理石</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line">  <span class="keyword">int</span> n[<span class="number">7</span>];</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> isTrue[<span class="number">60006</span>];</span><br><span class="line">    <span class="comment">// int isTrue[36];</span></span><br><span class="line">    <span class="keyword">int</span> used[<span class="number">60006</span>];</span><br><span class="line">    <span class="comment">// int used[36];</span></span><br><span class="line">  &#125; dp;</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d %d %d&quot;</span>,&amp;n[<span class="number">1</span>],&amp;n[<span class="number">2</span>],&amp;n[<span class="number">3</span>],&amp;n[<span class="number">4</span>],&amp;n[<span class="number">5</span>],&amp;n[<span class="number">6</span>]);</span><br><span class="line">    <span class="keyword">if</span>(!n[<span class="number">1</span>]&amp;&amp;!n[<span class="number">2</span>]&amp;&amp;!n[<span class="number">3</span>]&amp;&amp;!n[<span class="number">4</span>]&amp;&amp;!n[<span class="number">5</span>]&amp;&amp;!n[<span class="number">6</span>]) <span class="keyword">break</span>;</span><br><span class="line">    ++cnt;</span><br><span class="line">    <span class="built_in">memset</span>(dp.isTrue,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp.isTrue));</span><br><span class="line">    dp.isTrue[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> target=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">6</span>;++i) &#123;</span><br><span class="line">      target += i*n[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(target%<span class="number">2</span>==<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan&#x27;t be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">      dp.isTrue[target] = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    target /= <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">6</span>;++i) &#123;</span><br><span class="line">      <span class="built_in">memset</span>(dp.used,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp.used));</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;=target;++j) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dp.isTrue[j-i]&amp;&amp;dp.used[j-i]&lt;n[i]&amp;&amp;!dp.isTrue[j]) &#123; <span class="comment">// 上一种dp能否凑出相应价值来，上一种dp用了多少第i种石头，该种dp是否之前就能凑出来了</span></span><br><span class="line">          dp.isTrue[j] = <span class="number">1</span>;</span><br><span class="line">          dp.used[j] = dp.used[j-i] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    here: ;</span><br><span class="line">    <span class="keyword">if</span>(dp.isTrue[target]) <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan&#x27;t be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/" class="post-title-link" itemprop="url">深度学习：构建神经网络并识别手写数字</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-08 12:14:19" itemprop="dateCreated datePublished" datetime="2021-02-08T12:14:19+08:00">2021-02-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-09 09:46:22" itemprop="dateModified" datetime="2021-02-09T09:46:22+08:00">2021-02-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以看出（10个数据，分别是认为该数字为0-9的程度，最后取最高的那个即为结果）基本能正确识别</p>
+<p><img src="https://i.loli.net/2021/02/08/wANkfxl8VdML4Zn.png" alt="Z.png"></p>
+<p>但是1和7，4和9还是不太容易识别的</p>
+<p><img src="https://i.loli.net/2021/02/08/c7LmsOK9vDI3Cbk.png" alt="O.png"></p>
+<h2 id="github链接"><a href="#github链接" class="headerlink" title="github链接"></a>github链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/LacLic/hand-writting-num-recognizer">Github</a>.</p>
+<h2 id="全代码（ipynb）"><a href="#全代码（ipynb）" class="headerlink" title="全代码（ipynb）"></a>全代码（ipynb）</h2><h3 id="引入库"><a href="#引入库" class="headerlink" title="引入库"></a>引入库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"><span class="comment"># scipy.special for the sigmoid function expit()</span></span><br><span class="line"><span class="keyword">import</span> scipy.special</span><br><span class="line"><span class="comment"># library for plotting arrays</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot</span><br><span class="line"><span class="comment"># (?) ensure the plots are inside this notebook, not an external window</span></span><br><span class="line"><span class="comment"># %matplotlib inline</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="构建神经网络类"><a href="#构建神经网络类" class="headerlink" title="构建神经网络类"></a>构建神经网络类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">neuralNetwork</span>():</span>  <span class="comment"># neural network class definition</span></span><br><span class="line">    <span class="comment"># initialize the neural network</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, inputNodes, hiddenNodes, outputNodes, learningRate</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># set number of nodes in each input, hidden, output layer</span></span><br><span class="line">        self.iNodes = inputNodes</span><br><span class="line">        self.hNodes = hiddenNodes</span><br><span class="line">        self.oNodes = outputNodes</span><br><span class="line"></span><br><span class="line">        <span class="comment"># learning rate</span></span><br><span class="line">        self.learnRate = learningRate</span><br><span class="line"></span><br><span class="line">        <span class="comment"># link weight matrices, wih and who</span></span><br><span class="line">        <span class="comment"># weight inside the arrays are w_i_j, where link is from node i to node j in the next layer</span></span><br><span class="line">        <span class="comment"># w11 w21</span></span><br><span class="line">        <span class="comment"># w12 w22 etc</span></span><br><span class="line">        self.wih = numpy.random.normal(</span><br><span class="line">            <span class="number">0.0</span>, <span class="built_in">pow</span>(self.hNodes, <span class="number">-0.5</span>), (self.hNodes, self.iNodes))</span><br><span class="line">        self.who = numpy.random.normal(</span><br><span class="line">            <span class="number">0.0</span>, <span class="built_in">pow</span>(self.oNodes, <span class="number">-0.5</span>), (self.oNodes, self.hNodes))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># annoymous func</span></span><br><span class="line">        self.actiFunc = <span class="keyword">lambda</span> x: scipy.special.expit(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># train the neural network</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">self, inputs_list, targets_list</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># convert inputs and targets list to 2d array</span></span><br><span class="line">        inputs = numpy.array(inputs_list, ndmin=<span class="number">2</span>).T</span><br><span class="line">        targets = numpy.array(targets_list, ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into hidden layer</span></span><br><span class="line">        hidden_inputs = numpy.dot(self.wih, inputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from hidden layer</span></span><br><span class="line">        hidden_outputs = self.actiFunc(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into final output layer</span></span><br><span class="line">        final_inputs = numpy.dot(self.who, hidden_outputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from final output layer</span></span><br><span class="line">        final_outputs = self.actiFunc(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># error is the difference of target and output</span></span><br><span class="line">        output_errors = targets - final_inputs</span><br><span class="line">        <span class="comment"># hidden layer error is the output_errors, split by weights, recombined at hidden nodes</span></span><br><span class="line">        hidden_errors = numpy.dot(self.who.T, output_errors)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># update the weights for the links between the hidden and output layers</span></span><br><span class="line">        self.who += self.learnRate * \</span><br><span class="line">            numpy.dot((output_errors*final_outputs*(<span class="number">1.0</span>-final_outputs)),</span><br><span class="line">                      numpy.transpose(hidden_outputs))</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        self.who += self.learnRate * \</span></span><br><span class="line"><span class="string">            numpy.dot((output_errors*final_outputs*(1.0-final_outputs)),</span></span><br><span class="line"><span class="string">                      hidden_outputs.T)&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># between the input and hidden layers</span></span><br><span class="line">        self.wih += self.learnRate * \</span><br><span class="line">            numpy.dot((hidden_errors*hidden_outputs *</span><br><span class="line">                       (<span class="number">1.0</span> - hidden_outputs)), numpy.transpose(inputs))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># query the neural network</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">query</span>(<span class="params">self, inputs_list</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># convert inputs list to 2d array</span></span><br><span class="line">        inputs = numpy.array(inputs_list, ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into hidden layer</span></span><br><span class="line">        hidden_inputs = numpy.dot(self.wih, inputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from hidden layer</span></span><br><span class="line">        hidden_outputs = self.actiFunc(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into final output layer</span></span><br><span class="line">        final_inputs = numpy.dot(self.who, hidden_outputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from final output layer</span></span><br><span class="line">        final_outputs = self.actiFunc(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> final_outputs</span><br></pre></td></tr></table></figure>
+
+<h3 id="网络布置"><a href="#网络布置" class="headerlink" title="网络布置"></a>网络布置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input_nodes = <span class="number">784</span>  <span class="comment"># 28*28</span></span><br><span class="line">hidden_nodes = <span class="number">100</span></span><br><span class="line">output_nodes = <span class="number">10</span></span><br><span class="line">learning_rate = <span class="number">0.3</span></span><br><span class="line">network = neuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)</span><br></pre></td></tr></table></figure>
+
+<h3 id="打开训练数据文件"><a href="#打开训练数据文件" class="headerlink" title="打开训练数据文件"></a>打开训练数据文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;train.csv&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> data_file:</span><br><span class="line">    data_list = data_file.readlines()[<span class="number">1</span>:]  <span class="comment"># 除首行外，全部读取到内存中</span></span><br><span class="line">    <span class="comment"># print(data_list)</span></span><br><span class="line">    data_file.close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> data_list:</span><br><span class="line">    all_values = record.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="comment"># make data into 0.01 ~ 1.00</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot; Remains problem</span></span><br><span class="line"><span class="string">    (why?)</span></span><br><span class="line"><span class="string">    0.01: prevent 0.00 leading to failing to update the weight</span></span><br><span class="line"><span class="string">    1.00: just preventing the output value being 1.00 is enough</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    inputs = (numpy.asfarray(all_values[<span class="number">1</span>:])/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.01</span></span><br><span class="line">    <span class="comment"># create the target output values (all 0.01, except the desired label which is 0.99)</span></span><br><span class="line">    <span class="comment"># numpy.zeros(): use 0 to pad the array</span></span><br><span class="line">    targets = numpy.zeros(output_nodes) + <span class="number">0.01</span></span><br><span class="line">    <span class="comment"># all_values[0] is the label of the record</span></span><br><span class="line">    targets[<span class="built_in">int</span>(all_values[<span class="number">0</span>])] = <span class="number">0.99</span></span><br><span class="line">    network.train(inputs, targets)</span><br></pre></td></tr></table></figure>
+
+<h3 id="打开测试数据集"><a href="#打开测试数据集" class="headerlink" title="打开测试数据集"></a>打开测试数据集</h3><p>test.csv里的数据集是无标签的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># load the test data CSV file into a list</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.csv&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> test_data_file:</span><br><span class="line">    test_data_list = test_data_file.readlines()[<span class="number">1</span>:]</span><br><span class="line">    test_data_file.close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试数据并输出"><a href="#测试数据并输出" class="headerlink" title="测试数据并输出"></a>测试数据并输出</h3><p>使用test.csv的数据集进行测试输出（无标签）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from test.csv</span></span><br><span class="line">test = test_data_list[<span class="number">0</span>] <span class="comment"># 调度第0个测试数据</span></span><br><span class="line">test_values = test.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">test_inputs = (numpy.asfarray(test_values)/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.01</span></span><br><span class="line">print(network.query(test_inputs))</span><br><span class="line"><span class="comment"># print(test_data_list[0].strip().split(&#x27;,&#x27;))</span></span><br></pre></td></tr></table></figure>
+
+<p>使用train.csv的数据集进行测试输出（带标签）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from train.csv</span></span><br><span class="line">test = data_list[<span class="number">999</span>]</span><br><span class="line">print(<span class="string">&#x27;Answer is&#x27;</span>, test[<span class="number">0</span>])</span><br><span class="line">test_values = test.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">test_inputs = (numpy.asfarray(test_values[<span class="number">1</span>:])/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.01</span></span><br><span class="line">print(network.query(test_inputs))</span><br></pre></td></tr></table></figure>
+
+<h2 id="疑难杂症"><a href="#疑难杂症" class="headerlink" title="疑难杂症"></a>疑难杂症</h2><h3 id="tenserflow把numpy卸载了…"><a href="#tenserflow把numpy卸载了…" class="headerlink" title="tenserflow把numpy卸载了…"></a>tenserflow把numpy卸载了…</h3><p>没关系，会安装对应版本的numpy的</p>
+<h3 id="Python关于-matplotlib-inline报错"><a href="#Python关于-matplotlib-inline报错" class="headerlink" title="Python关于%matplotlib inline报错"></a>Python关于%matplotlib inline报错</h3><p>这个是 jupyter notebook 或者 jupyter qtconsole 的专属代码，使用<code>%matplotlib inline</code>这段代码可以输出图像。但是vscode编辑器并没有这个功能。（但这并不妨碍vscode是宇宙第一编辑器的事实）</p>
+<h3 id="FileNotFoundError"><a href="#FileNotFoundError" class="headerlink" title="FileNotFoundError"></a>FileNotFoundError</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS F:\Programme_works\Python&gt; python -u &quot;f:\Programme_works\Python\DeepLearning\numRecog\neuralNetwork.py&quot;</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;f:\Programme_works\Python\DeepLearning\numRecog\neuralNetwork.py&quot;, line 106, in \&lt;module\&gt;</span><br><span class="line">    with open(&#x27;train.csv&#x27;, &#x27;r&#x27;) as data_file:</span><br><span class="line">FileNotFoundError: [Errno 2] No such file or directory: &#x27;train.csv&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>未找到文件，检查一下文件是否在命令执行时的目录（一般都是vscode打开的文件夹，或者jupyter notebook运行的文件所在的文件夹）</p>
+<h3 id="非jupyter编辑器输出csv图像"><a href="#非jupyter编辑器输出csv图像" class="headerlink" title="非jupyter编辑器输出csv图像"></a>非jupyter编辑器输出csv图像</h3><p>将</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matplotlib.pyplot.imshow(image_array, cmap=<span class="string">&#x27;Greys&#x27;</span>, interpolation=<span class="string">&#x27;None&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>改为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matplotlib.pyplot.imsave(<span class="string">&#x27;temp.png&#x27;</span>, image_array, cmap=<span class="string">&#x27;Greys&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>便会保存在目录下</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/" class="post-title-link" itemprop="url">FZUACM-动规DP爆锤计划！（持续更新ing...）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-07 11:09:56" itemprop="dateCreated datePublished" datetime="2021-02-07T11:09:56+08:00">2021-02-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-18 14:05:45" itemprop="dateModified" datetime="2021-02-18T14:05:45+08:00">2021-02-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="DP教程"><a href="#DP教程" class="headerlink" title="DP教程"></a>DP教程</h2><p>程序员小灰的<a target="_blank" rel="noopener" href="https://www.cxyxiaowu.com/4055.html">漫画解DP</a>.</p>
+<p>强推！图很多，思路也很清晰。</p>
+<h2 id="题目题解（内含题目大意）"><a href="#题目题解（内含题目大意）" class="headerlink" title="题目题解（内含题目大意）"></a>题目题解（内含题目大意）</h2><p>所有题目复制到百度上都能找到oj题（たぶん）</p>
+<h3 id="01-hex-Charlie’s-Change"><a href="#01-hex-Charlie’s-Change" class="headerlink" title="01(hex)-Charlie’s Change"></a>01(hex)-Charlie’s Change</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/06/FZU2021-0xd1-Charlie-s-Change/">买咖啡-Charlie’s Change</a></p>
+<h3 id="02-hex-Dividing"><a href="#02-hex-Dividing" class="headerlink" title="02(hex)-Dividing"></a>02(hex)-Dividing</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/09/FZU2021-0xd2-Dividing/">分石头-Dividing</a></p>
+<h3 id="03-hex-Space-Elevator"><a href="#03-hex-Space-Elevator" class="headerlink" title="03(hex)-Space Elevator"></a>03(hex)-Space Elevator</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/09/FZU2021-0xd3-Space-Elevator/">牛牛上天计划-Space Elevator</a></p>
+<h3 id="04-hex-FOUR-QUARTERS"><a href="#04-hex-FOUR-QUARTERS" class="headerlink" title="04(hex)-FOUR QUARTERS"></a>04(hex)-FOUR QUARTERS</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/">投硬币-FOUR QUARTERS</a></p>
+<h3 id="05-hex-不要62"><a href="#05-hex-不要62" class="headerlink" title="05(hex)-不要62"></a>05(hex)-不要62</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/14/FZU2021-0xd5-%E4%B8%8D%E8%A6%8162/">No 4 No 62-不要62</a></p>
+<h3 id="06-hex-F-x"><a href="#06-hex-F-x" class="headerlink" title="06(hex)-F(x)"></a>06(hex)-F(x)</h3><p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/17/FZU2021-0xd6-F-x/">F(x)-十进制变二进制再变十进制</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/06/FZU2021-0xd1-Charlie-s-Change/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -624,210 +862,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/01/Codeforces-Tanya-and-Stairways/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/01/Codeforces-Tanya-and-Stairways/" class="post-title-link" itemprop="url">Codeforces-Tanya and Stairways</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-01 11:33:55" itemprop="dateCreated datePublished" datetime="2021-02-01T11:33:55+08:00">2021-02-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-02 11:42:25" itemprop="dateModified" datetime="2021-02-02T11:42:25+08:00">2021-02-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有一座很高的建筑，有很多层，每一层都有很多阶梯（可能不一样，这到底是什么鬼建筑），现在告诉你一共有几个阶梯，并且告诉你每个阶梯是当前层的第几阶</p>
-<p>现在要你求出有多少层，并且每层有多少阶梯。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每检测到第1阶的时候，层数+1，并记录上一层的有多少阶梯。</p>
-<p>首个就随便给个数据，之后弃用。</p>
-<p>最后一层的阶梯数信息还存储在阶数计数器中，直接在最后读取即可。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>,temp,max;</span><br><span class="line">  <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; que;</span><br><span class="line">  <span class="keyword">for</span>(;n;--n) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    <span class="keyword">if</span>(temp==<span class="number">1</span>) &#123; <span class="comment">// 检测到阶数==1</span></span><br><span class="line">      que.push(max); <span class="comment">// 将层数推入队列</span></span><br><span class="line">      max = temp;</span><br><span class="line">      ++cnt;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      max = temp;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,cnt);</span><br><span class="line">  </span><br><span class="line">  que.pop(); <span class="comment">// 第一个数据是无效的，踢出队列</span></span><br><span class="line">  <span class="keyword">while</span>(!que.empty()) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,que.front());</span><br><span class="line">    que.pop();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,max); <span class="comment">// 最后一层的阶数</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/31/Codeforces-Buying-a-TV-Set/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/31/Codeforces-Buying-a-TV-Set/" class="post-title-link" itemprop="url">Codeforces-Buying a TV Set</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-31 11:24:00" itemprop="dateCreated datePublished" datetime="2021-01-31T11:24:00+08:00">2021-01-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-02 11:34:51" itemprop="dateModified" datetime="2021-02-02T11:34:51+08:00">2021-02-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有个人（摩诺卡普Monocarp）给自家的墙装个电视，商店街的电视尺寸只有一种比例的，而且长宽均为整数（题外话：汗…要是换个单位，小数不也能变整数）</p>
-<p>现在告诉你他家的墙的长宽，和其中一种尺寸的电视的长宽，请问至多能买多少种尺寸的电视？</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>将电视长宽分解，得出互质的长宽比例（长除以最大公约数gcd，宽同理），然后算出墙长最多能容纳多少种电视，宽同理，二者取最小值即为答案。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> a,b,x,y;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld %lld %lld&quot;</span>,&amp;a,&amp;b,&amp;x,&amp;y); <span class="comment">// 数据较大，用longlong</span></span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> xx=x,yy=y,temp;</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    temp = xx%yy;</span><br><span class="line">    xx = yy;</span><br><span class="line">    yy = temp;</span><br><span class="line">  &#125;<span class="keyword">while</span>(temp!=<span class="number">0</span>); </span><br><span class="line">  <span class="comment">// gcd is xx</span></span><br><span class="line">  x /= xx;</span><br><span class="line">  y /= xx;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> count_x = a/x;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> count_y = b/y;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> ans = count_x&gt;count_y?count_y:count_x;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,ans);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/31/Codeforces-Heist/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/31/Codeforces-Heist/" class="post-title-link" itemprop="url">Codeforces-Heist</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-31 11:18:37" itemprop="dateCreated datePublished" datetime="2021-01-31T11:18:37+08:00">2021-01-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-02 11:23:21" itemprop="dateModified" datetime="2021-02-02T11:23:21+08:00">2021-02-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有家键盘店被抢劫了，已知键盘标号是连续的（比如最小是5，最大时10，那原来至少是有标号为5，6，7，8，9，10共6把键盘）。</p>
-<p>现在知道还剩n个键盘，并给出他们的标号，请问，至少有多少把键盘被盗走？</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>找出标号的最大值最小值，得出原来至少有多少把键盘，减去剩余键盘数，便是被盗键盘数。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">int</span> temp;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> max=<span class="number">0</span>, min=<span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    <span class="keyword">if</span>(temp&gt;max) max = temp;</span><br><span class="line">    <span class="keyword">if</span>(temp&lt;min) min = temp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,max-min+<span class="number">1</span>-n);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -897,13 +931,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
