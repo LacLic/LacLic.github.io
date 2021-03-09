@@ -259,6 +259,75 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/09/CH0103-0x00%E3%80%8C%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95%E3%80%8D%E4%BE%8B%E9%A2%98-%E6%9C%80%E7%9F%ADHamilton%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/09/CH0103-0x00%E3%80%8C%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95%E3%80%8D%E4%BE%8B%E9%A2%98-%E6%9C%80%E7%9F%ADHamilton%E8%B7%AF%E5%BE%84/" class="post-title-link" itemprop="url">CH0103-0x00「基本算法」例题-最短Hamilton路径</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-09 15:14:19 / Modified: 17:08:12" itemprop="dateCreated datePublished" datetime="2021-03-09T15:14:19+08:00">2021-03-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有N个地方，分别标记为0到N-1，现在给定每两个地点之间的距离</p>
+<h2 id="思路">思路</h2>
+<p>动态规划，记录两个状态</p>
+<ol>
+<li>现在所在地</li>
+<li>已经过的地方（使用）</li>
+</ol>
+<p>当上述两个条件完全一致时，就可以直接调用之前dfs算出来的值</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> table2[<span class="number">20</span>]; <span class="comment">// 位数表，方便直接存取对应位数据</span></span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">20</span>][<span class="number">1024</span>*<span class="number">1024</span>+<span class="number">6</span>]; <span class="comment">// 使用二进制记录已经过的地点</span></span><br><span class="line"><span class="keyword">int</span> hamiton[<span class="number">20</span>][<span class="number">20</span>]; <span class="comment">// 读取输入</span></span><br><span class="line"><span class="keyword">int</span> N,dst,to_end=<span class="number">1</span>; <span class="comment">// dst：目的地，to_end</span></span><br><span class="line"><span class="keyword">int</span> status=<span class="number">0</span>; <span class="comment">// 路径记录状态码</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> now)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> ret = <span class="number">-1</span>; <span class="comment">// 记录最小值，一开始利用数据类型的特点设定为最大值</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(dp[now][status]) <span class="keyword">return</span> dp[now][status]; <span class="comment">// 若已计算过，则直接返回算过的值</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(status==to_end) <span class="keyword">return</span> hamiton[now][dst]; <span class="comment">// 问题边界</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;dst;++i) &#123; <span class="comment">// 函数主体</span></span><br><span class="line">    <span class="keyword">if</span>(table2[i]&amp;status) <span class="keyword">continue</span>; <span class="comment">// 已经经过的路径就不走了</span></span><br><span class="line">    status |= table2[i]; <span class="comment">// 通过位运算标记已经过的地点</span></span><br><span class="line">    <span class="keyword">int</span> tmp = hamiton[now][i]+dfs(i); <span class="comment">// 获取dfs值</span></span><br><span class="line">    status ^= table2[i]; <span class="comment">// 还原原的状态，为下一次查找做准备</span></span><br><span class="line">    <span class="keyword">if</span>(ret&gt;tmp) ret = tmp; <span class="comment">// 检测是否为最短路径</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  dp[now][status] = ret; <span class="comment">// 记录最短路径</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;, &quot;r&quot;, stdin); // 读取输入</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 预处理2次方表</span></span><br><span class="line">  table2[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">20</span>;++i) &#123;</span><br><span class="line">    table2[i] = table2[i<span class="number">-1</span>]&lt;&lt;<span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 清零dp数组</span></span><br><span class="line">  <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line"></span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">  dst = N<span class="number">-1</span>; <span class="comment">// 终点，最后才需要到达</span></span><br><span class="line">  <span class="keyword">if</span>(N==<span class="number">1</span>) &#123; <span class="comment">// N==1的情况</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;dst;++i) &#123; <span class="comment">// 记录问题边界（经过了除最后一个地方外的所有地方）</span></span><br><span class="line">      to_end = (to_end&lt;&lt;<span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;++i) &#123; <span class="comment">// 读取输入</span></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;N;++j) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;hamiton[i][j]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    status += table2[<span class="number">0</span>]; <span class="comment">// 从第一个地方（0）出发</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,dfs(<span class="number">0</span>)); <span class="comment">// 递归输出</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/08/FZU2021-0xd7-%E5%90%89%E5%93%A5%E7%B3%BB%E5%88%97%E6%95%85%E4%BA%8B%E2%80%94%E2%80%94%E6%81%A87%E4%B8%8D%E6%88%90%E5%A6%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -290,7 +359,7 @@ mjx-container[display="true"] + br {
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-09 12:19:53" itemprop="dateModified" datetime="2021-03-09T12:19:53+08:00">2021-03-09</time>
+                <time title="Modified: 2021-03-09 17:09:30" itemprop="dateModified" datetime="2021-03-09T17:09:30+08:00">2021-03-09</time>
               </span>
 
           
@@ -318,12 +387,10 @@ mjx-container[display="true"] + br {
 <h2 id="思路">思路</h2>
 <p>数位DP，备忘录算法，将已经算好的位存储到数组中，方便直接读取</p>
 <p>状态转移方程：</p>
-<p>$<br>
-(now+sum)^2=cnt<em>now^2+2</em>now*Σsum+Σsum^2<br>
-$</p>
+<p>$(now+sum)^2=cnt<em>now^2+2</em>now*Σsum+Σsum^2$</p>
 <p>DP状态为：当前所处位数、当前各位数之和对7取模的余数、当前数对7取模的余数</p>
 <p>取模的性质：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a+b取模 == （a取模 + b取模）取模</span><br><span class="line">a\*b取模 == （a取模\*b取模）\*取模</span><br><span class="line">a^N取模 == （a取模^N）取模</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a+b取模 == （a取模 + b取模）取模</span><br><span class="line">a*b取模 == （a取模*b取模）*取模</span><br><span class="line">a^N取模 == （a取模^N）取模</span><br></pre></td></tr></table></figure>
 <h2 id="代码">代码</h2>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MOD 1000000007</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">dp</span>{</span></span><br><span class="line">  ll cnt;</span><br><span class="line">  ll sum;</span><br><span class="line">  ll sq_sum;</span><br><span class="line">}DP;</span><br><span class="line"></span><br><span class="line">DP dp[<span class="number">18</span>][<span class="number">7</span>][<span class="number">7</span>]; <span class="comment">// dp[bits][num on bits sum%7][this num%7]</span></span><br><span class="line">ll table10[<span class="number">19</span>];</span><br><span class="line"><span class="keyword">char</span> digits[<span class="number">18</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">DP <span class="title">dfs</span><span class="params">(<span class="keyword">bool</span> isMax,<span class="keyword">int</span> layer,<span class="keyword">int</span> prev_digits_sum,<span class="keyword">int</span> prev_mod7)</span> </span>{</span><br><span class="line">  <span class="comment">// layer==0为个位，1为十位，以此类推...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// edge</span></span><br><span class="line">  <span class="keyword">if</span>(layer==<span class="number">-1</span>) { <span class="comment">// 当前处于-1层，为问题边界，只返回当前数是否与7相关</span></span><br><span class="line">    <span class="keyword">if</span>(prev_digits_sum==<span class="number">0</span>||prev_mod7==<span class="number">0</span>) {</span><br><span class="line">      <span class="keyword">return</span> {<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>};</span><br><span class="line">    }<span class="keyword">else</span> {</span><br><span class="line">      <span class="keyword">return</span> {<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>};</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// note</span></span><br><span class="line">  <span class="keyword">if</span>(!isMax&amp;&amp;dp[layer][prev_digits_sum][prev_mod7].cnt) {</span><br><span class="line">    <span class="keyword">return</span> dp[layer][prev_digits_sum][prev_mod7];</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// get max</span></span><br><span class="line">  <span class="keyword">int</span> maxx = isMax?digits[layer]:<span class="number">9</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// check every digit</span></span><br><span class="line">  DP ret = {<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>};</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=maxx;++i) {</span><br><span class="line">    <span class="keyword">if</span>(i==<span class="number">7</span>) <span class="keyword">continue</span>;</span><br><span class="line">    ll now = i*table10[layer]%MOD;</span><br><span class="line">    DP tmp = dfs(isMax&amp;&amp;i==maxx,layer<span class="number">-1</span>,(prev_digits_sum+i)%<span class="number">7</span>,(prev_mod7+table10[layer]%<span class="number">7</span>*i)%<span class="number">7</span>);</span><br><span class="line">    ret.cnt = (ret.cnt + tmp.cnt)%MOD;</span><br><span class="line">    ret.sum = (ret.sum + now*tmp.cnt%MOD + tmp.sum)%MOD;</span><br><span class="line">    ret.sq_sum = (ret.sq_sum + tmp.cnt*((now*now)%MOD)%MOD + <span class="number">2</span>*((now*tmp.sum)%MOD)%MOD + tmp.sq_sum)%MOD;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// take note in dp</span></span><br><span class="line">  <span class="keyword">if</span>(!isMax) {</span><br><span class="line">    dp[layer][prev_digits_sum][prev_mod7] = ret;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">cal</span><span class="params">(ll x)</span> </span>{</span><br><span class="line">  <span class="keyword">int</span> len=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;x;x/=<span class="number">10</span>) {</span><br><span class="line">    digits[len] = x%<span class="number">10</span>;</span><br><span class="line">    ++len;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> dfs(<span class="literal">true</span>,len<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>).sq_sum;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="comment">// freopen("in.txt","r",stdin); // 读取输入</span></span><br><span class="line">  <span class="comment">// initialize</span></span><br><span class="line">  <span class="built_in">memset</span>(dp,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">  table10[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">18</span>;++i) {</span><br><span class="line">    table10[i] = table10[i<span class="number">-1</span>]*<span class="number">10</span>;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> N;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;N);</span><br><span class="line">  ll L,R;</span><br><span class="line">  <span class="keyword">for</span>(;N;--N) {</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lld %lld"</span>,&amp;L,&amp;R);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,(cal(R)-cal(L<span class="number">-1</span>)+MOD)%MOD);</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
@@ -993,84 +1060,10 @@ $</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/" class="post-title-link" itemprop="url">FZU2021-0xd4-FOUR QUARTERS</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-12 23:02:01" itemprop="dateCreated datePublished" datetime="2021-02-12T23:02:01+08:00">2021-02-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-13 10:31:40" itemprop="dateModified" datetime="2021-02-13T10:31:40+08:00">2021-02-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有两个人比赛，各丢2个硬币，根据正反面情况，（A丢的为表格纵轴，B为横轴），计算二人得分。</p>
-<p>现在要求你输出他们，进行到1-20局的胜负概率</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="做题思路"><a href="#做题思路" class="headerlink" title="做题思路"></a>做题思路</h3><p>首先，对抗性比赛只需要考虑分差，二人的得分情况（2个变量）转变为二人的分差（1个变量）。</p>
-<p>其次，计算每人最终得分的权重，相乘即可。</p>
-<p>最后，分差为负即为lose，正即为win，零即为draw/tie。</p>
-<p><strong>不过要注意的是</strong>，最后输出是有额外格式要求的，但是给定的输出格式并没有详细说明。</p>
-<h3 id="精度思路"><a href="#精度思路" class="headerlink" title="精度思路"></a>精度思路</h3><h4 id="胜负平权重-总权重（下面给的代码就是这个思路）"><a href="#胜负平权重-总权重（下面给的代码就是这个思路）" class="headerlink" title="胜负平权重/总权重（下面给的代码就是这个思路）"></a>胜负平权重/总权重（下面给的代码就是这个思路）</h4><p>这种思路下，最大数据会达到16^20^，也就是2^80^，long long 都不够，只能直接上double / long double（精度要求是小数点后4位，所以适合用浮点类型），实测后，我的本机使用double结果和long double结果一致，但是oj并非如此，使用double是WA，使用long double才能AC。</p>
-<p><strong>要注意</strong>：long double使用的格式控制符是<code>&quot;%Lf&quot;</code></p>
-<h4 id="直接在得分dp数组中储存概率"><a href="#直接在得分dp数组中储存概率" class="headerlink" title="直接在得分dp数组中储存概率"></a>直接在得分dp数组中储存概率</h4><p>这是最优解，全用double或long double，精度上思考量就小了，直接乘下去即可。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> dif=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">table</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> score; <span class="comment">// A - B</span></span><br><span class="line">    <span class="keyword">int</span> weight;</span><br><span class="line">  &#125;Table;</span><br><span class="line">  Table table[<span class="number">6</span>] = &#123;&#123;<span class="number">1</span>,<span class="number">4</span>&#125;,&#123;<span class="number">2</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">0</span>,<span class="number">6</span>&#125;,&#123;<span class="number">-3</span>,<span class="number">1</span>&#125;&#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">double</span> dp[<span class="number">2</span>][<span class="number">126</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// dp[now][score] = weight;</span></span><br><span class="line">  <span class="keyword">int</span> bias = <span class="number">63</span>;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">double</span> weight = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  dp[<span class="number">0</span>][bias] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Round   A wins    B wins    Tie\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> round=<span class="number">1</span>;round&lt;<span class="number">21</span>;++round) &#123; <span class="comment">// round &lt;= 20</span></span><br><span class="line">    <span class="keyword">int</span> now = round%<span class="number">2</span>, pre = !now, min = <span class="number">-3</span>*(round<span class="number">-1</span>), max = <span class="number">3</span>*(round<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">memset</span>(dp[now],<span class="number">0</span>,<span class="keyword">sizeof</span>(dp[now]));</span><br><span class="line">    weight = weight*<span class="number">16</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=min;i&lt;=max;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(dp[pre][i+bias]) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">6</span>;++j) &#123;</span><br><span class="line">          dp[now][table[j].score+i+bias] += dp[pre][i+bias]*table[j].weight;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">double</span> win=<span class="number">0</span>, lose=<span class="number">0</span>, draw=dp[now][bias];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;bias;++i) &#123;</span><br><span class="line">      lose += dp[now][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=bias+<span class="number">1</span>;i&lt;<span class="number">126</span>;++i) &#123;</span><br><span class="line">      win += dp[now][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// printf(&quot;    %lld   %lld  %lld  %lld\n&quot;,round,win,lose,draw);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;   %2d   %7.4Lf%%  %7.4Lf%%  %7.4Lf%%\n&quot;</span>,round,<span class="number">1.0</span>*win/weight*<span class="number">100</span>,<span class="number">1.0</span>*lose/weight*<span class="number">100</span>,<span class="number">1.0</span>*draw/weight*<span class="number">100</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1136,13 +1129,13 @@ $</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">60</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

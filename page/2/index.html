@@ -147,6 +147,80 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/" class="post-title-link" itemprop="url">FZU2021-0xd4-FOUR QUARTERS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-12 23:02:01" itemprop="dateCreated datePublished" datetime="2021-02-12T23:02:01+08:00">2021-02-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-13 10:31:40" itemprop="dateModified" datetime="2021-02-13T10:31:40+08:00">2021-02-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有两个人比赛，各丢2个硬币，根据正反面情况，（A丢的为表格纵轴，B为横轴），计算二人得分。</p>
+<p>现在要求你输出他们，进行到1-20局的胜负概率</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="做题思路"><a href="#做题思路" class="headerlink" title="做题思路"></a>做题思路</h3><p>首先，对抗性比赛只需要考虑分差，二人的得分情况（2个变量）转变为二人的分差（1个变量）。</p>
+<p>其次，计算每人最终得分的权重，相乘即可。</p>
+<p>最后，分差为负即为lose，正即为win，零即为draw/tie。</p>
+<p><strong>不过要注意的是</strong>，最后输出是有额外格式要求的，但是给定的输出格式并没有详细说明。</p>
+<h3 id="精度思路"><a href="#精度思路" class="headerlink" title="精度思路"></a>精度思路</h3><h4 id="胜负平权重-总权重（下面给的代码就是这个思路）"><a href="#胜负平权重-总权重（下面给的代码就是这个思路）" class="headerlink" title="胜负平权重/总权重（下面给的代码就是这个思路）"></a>胜负平权重/总权重（下面给的代码就是这个思路）</h4><p>这种思路下，最大数据会达到16^20^，也就是2^80^，long long 都不够，只能直接上double / long double（精度要求是小数点后4位，所以适合用浮点类型），实测后，我的本机使用double结果和long double结果一致，但是oj并非如此，使用double是WA，使用long double才能AC。</p>
+<p><strong>要注意</strong>：long double使用的格式控制符是<code>&quot;%Lf&quot;</code></p>
+<h4 id="直接在得分dp数组中储存概率"><a href="#直接在得分dp数组中储存概率" class="headerlink" title="直接在得分dp数组中储存概率"></a>直接在得分dp数组中储存概率</h4><p>这是最优解，全用double或long double，精度上思考量就小了，直接乘下去即可。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> dif=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">table</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> score; <span class="comment">// A - B</span></span><br><span class="line">    <span class="keyword">int</span> weight;</span><br><span class="line">  &#125;Table;</span><br><span class="line">  Table table[<span class="number">6</span>] = &#123;&#123;<span class="number">1</span>,<span class="number">4</span>&#125;,&#123;<span class="number">2</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">0</span>,<span class="number">6</span>&#125;,&#123;<span class="number">-3</span>,<span class="number">1</span>&#125;&#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">double</span> dp[<span class="number">2</span>][<span class="number">126</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// dp[now][score] = weight;</span></span><br><span class="line">  <span class="keyword">int</span> bias = <span class="number">63</span>;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">double</span> weight = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  dp[<span class="number">0</span>][bias] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Round   A wins    B wins    Tie\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> round=<span class="number">1</span>;round&lt;<span class="number">21</span>;++round) &#123; <span class="comment">// round &lt;= 20</span></span><br><span class="line">    <span class="keyword">int</span> now = round%<span class="number">2</span>, pre = !now, min = <span class="number">-3</span>*(round<span class="number">-1</span>), max = <span class="number">3</span>*(round<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">memset</span>(dp[now],<span class="number">0</span>,<span class="keyword">sizeof</span>(dp[now]));</span><br><span class="line">    weight = weight*<span class="number">16</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=min;i&lt;=max;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(dp[pre][i+bias]) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">6</span>;++j) &#123;</span><br><span class="line">          dp[now][table[j].score+i+bias] += dp[pre][i+bias]*table[j].weight;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">double</span> win=<span class="number">0</span>, lose=<span class="number">0</span>, draw=dp[now][bias];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;bias;++i) &#123;</span><br><span class="line">      lose += dp[now][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=bias+<span class="number">1</span>;i&lt;<span class="number">126</span>;++i) &#123;</span><br><span class="line">      win += dp[now][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// printf(&quot;    %lld   %lld  %lld  %lld\n&quot;,round,win,lose,draw);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;   %2d   %7.4Lf%%  %7.4Lf%%  %7.4Lf%%\n&quot;</span>,round,<span class="number">1.0</span>*win/weight*<span class="number">100</span>,<span class="number">1.0</span>*lose/weight*<span class="number">100</span>,<span class="number">1.0</span>*draw/weight*<span class="number">100</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/09/FZU2021-0xd3-Space-Elevator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -807,71 +881,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/02/Codeforces-Delete-from-the-Left/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/02/Codeforces-Delete-from-the-Left/" class="post-title-link" itemprop="url">Codeforces-Delete from the Left</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-02-02 11:44:23 / Modified: 12:23:41" itemprop="dateCreated datePublished" datetime="2021-02-02T11:44:23+08:00">2021-02-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定2个字符串，你只能将两个字符串从左往右删减，直到他们完全相同或同为空字符串</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这题目是经典的说反话，其实应该从右往左看，找到最长的相同串即可</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> s[<span class="number">200006</span>],t[<span class="number">200006</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%s %s&quot;</span>,&amp;s[<span class="number">1</span>],&amp;t[<span class="number">1</span>]);</span><br><span class="line">  s[<span class="number">0</span>] = <span class="string">&#x27;A&#x27;</span>, t[<span class="number">0</span>] = <span class="string">&#x27;B&#x27;</span>; <span class="comment">// 使用不可能出现的串标记最后一位，作为退出标志</span></span><br><span class="line">  <span class="keyword">int</span> nowS = <span class="built_in">strlen</span>(s), nowT = <span class="built_in">strlen</span>(t);</span><br><span class="line">  <span class="keyword">int</span> sum = nowS + nowT - <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">int</span> cnt = <span class="number">-1</span>; <span class="comment">// 从&#x27;\0&#x27;开始</span></span><br><span class="line">  <span class="keyword">while</span>(s[nowS]==t[nowT]) &#123;</span><br><span class="line">    ++cnt;</span><br><span class="line">    --nowS;</span><br><span class="line">    --nowT;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,sum - cnt*<span class="number">2</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -937,13 +950,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">60</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
