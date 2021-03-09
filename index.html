@@ -284,7 +284,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-03-09 15:14:19 / Modified: 17:08:12" itemprop="dateCreated datePublished" datetime="2021-03-09T15:14:19+08:00">2021-03-09</time>
+              <time title="Created: 2021-03-09 15:14:19 / Modified: 17:58:13" itemprop="dateCreated datePublished" datetime="2021-03-09T15:14:19+08:00">2021-03-09</time>
             </span>
 
           
@@ -299,12 +299,13 @@ mjx-container[display="true"] + br {
 
       
           <h2 id="题意">题意</h2>
-<p>有N个地方，分别标记为0到N-1，现在给定每两个地点之间的距离</p>
+<p>有N个地方，分别标记为0到N-1，现在给定每两个地点之间的距离，要你求出最短的经过所有地方的路程。</p>
+<p>其中，$N&lt;=20$</p>
 <h2 id="思路">思路</h2>
 <p>动态规划，记录两个状态</p>
 <ol>
 <li>现在所在地</li>
-<li>已经过的地方（使用）</li>
+<li>已经过的地方（使用二进制表示，经过的为1，未经过的为0）</li>
 </ol>
 <p>当上述两个条件完全一致时，就可以直接调用之前dfs算出来的值</p>
 <h2 id="代码">代码</h2>
