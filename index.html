@@ -259,6 +259,93 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/14/PTA-%E6%97%8B%E8%BD%AC%E9%AA%B0%E5%AD%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/14/PTA-%E6%97%8B%E8%BD%AC%E9%AA%B0%E5%AD%90/" class="post-title-link" itemprop="url">PTA-旋转骰子</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-14 22:20:43 / Modified: 23:02:29" itemprop="dateCreated datePublished" datetime="2021-03-14T22:20:43+08:00">2021-03-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="目录">目录</h2>
+<p><a href="##%E9%A2%98%E6%96%87">题文</a><br>
+<a href="##%E9%A2%98%E6%84%8F">题意</a><br>
+<a href="##%E6%80%9D%E8%B7%AF">思路</a><br>
+<a href="##%E4%BB%A3%E7%A0%81">代码</a></p>
+<hr>
+<h2 id="题文">题文</h2>
+<p>玛莎有n个骰子，每个骰子的6个面上都恰好有一个0到9之间的数字。</p>
+<p>现在玛莎将利用这n个筛子来制作新数字。她把n个骰子摆成一排，然后从左到右查看骰子的上表面并读取，即可得到一个新数字。随后她不断的旋转每个骰子的面就可以得到不同的新数字。旋转骰子需要满足以下规则：</p>
+<p>1、制作的数字不能包含前导零；</p>
+<p>2、制作新数字时不需要使用所有的骰子；</p>
+<p>3、使用骰子旋转，无法将数字9转换为数字6，反之亦然。</p>
+<p>给定n个骰子，玛莎可以用它们构成从1到x的所有整数。玛莎想知道，对于给定的n个骰子，这个x的最大取值是多少呢？<br>
+输入格式:</p>
+<p>第一行仅一个整数n，表示骰子的数量（1≤n≤3）。</p>
+<p>接下来n行，每行包含6个整数a[i][j]（0≤a[i][j]≤9），表示第i个骰子的第j个面上的数字。<br>
+输出格式:</p>
+<p>输出一个整数，即最大数x，玛莎可以使用她的骰子构成数字从1到x。如果无法构成1，则输出0。</p>
+<p>输入样例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">0 1 3 5 6 8</span><br><span class="line">1 2 4 5 7 8</span><br><span class="line">2 3 4 6 7 9</span><br></pre></td></tr></table></figure>
+<p>输出样例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">98</span><br></pre></td></tr></table></figure>
+<h2 id="题意">题意</h2>
+<p>给定n组数（骰子），每组数有6个数，现在要求你每组中取出一个数来，组成一个新的数。玛莎可以用它们构成从1到x的所有整数。现在她想知道，对于给定的n个骰子，这个x的最大取值是多少呢？</p>
+<h2 id="思路">思路</h2>
+<p>由于n&lt;=3，最多只有3位数999，可以暴力每个尝试搜索组合过去，若无法组合则停止并输出答案。</p>
+<p>这里使用二进制状态表示法来记录当前骰子是否被使用</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1000*6*6*6</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> num[<span class="number">3</span>][<span class="number">6</span>]; <span class="comment">// n组数（n个骰子上的数）</span></span><br><span class="line"><span class="keyword">int</span> digits[<span class="number">3</span>],digit; <span class="comment">// 各位上的数字，总共有几位</span></span><br><span class="line"><span class="keyword">int</span> n,status; <span class="comment">// n，n个骰子的状态码</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> layer)</span> </span>&#123; <span class="comment">// 递归层数==当前所处i数的位数</span></span><br><span class="line">    <span class="keyword">if</span>(layer&gt;digit) &#123; <span class="comment">// 问题边界，递归层数高于总位数</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;++j) &#123;</span><br><span class="line">        <span class="keyword">int</span> now = <span class="number">0b001</span>&lt;&lt;j; <span class="comment">// 当前在考虑哪组数</span></span><br><span class="line">        <span class="keyword">if</span>(status&amp;now) &#123; <span class="comment">// 如果这个骰子没有被使用</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;++i) &#123; <span class="comment">// 寻找符合条件的数</span></span><br><span class="line">                <span class="keyword">if</span>(num[j][i]==digits[layer]) &#123;</span><br><span class="line">                    status^=now;</span><br><span class="line">                    <span class="keyword">if</span>(dfs(layer+<span class="number">1</span>)) &#123;</span><br><span class="line">                        status^=now;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 通过</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    status^=now;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 搜索不到，退出递归并返回false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">// 预处理</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;<span class="number">1</span>;++i) &#123;</span><br><span class="line">        digits[i] = x%<span class="number">10</span>; <span class="comment">// 记录各位上的数</span></span><br><span class="line">        x/=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span>(!x) &#123;</span><br><span class="line">            digit = i;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dfs(<span class="number">0</span>); <span class="comment">// 进入递归</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    freopen(<span class="string">&quot;in.txt&quot;</span>,<span class="string">&quot;r&quot;</span>,<span class="built_in">stdin</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">switch</span> (n) &#123; <span class="comment">// 可以通过循环实现，这里由于n较小，就直接一一罗列</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: status = <span class="number">0b001</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>: status = <span class="number">0b011</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>: status = <span class="number">0b111</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">6</span>;++j) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;num[i][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">        max*=<span class="number">10</span>; <span class="comment">// 找最多能组成几位数</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;max;++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!cal(i)) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,i<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/09/CH0103-0x00%E3%80%8C%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95%E3%80%8D%E4%BE%8B%E9%A2%98-%E6%9C%80%E7%9F%ADHamilton%E8%B7%AF%E5%BE%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -436,10 +523,16 @@ mjx-container[display="true"] + br {
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-02-22 22:41:10 / Modified: 23:17:19" itemprop="dateCreated datePublished" datetime="2021-02-22T22:41:10+08:00">2021-02-22</time>
+              <time title="Created: 2021-02-22 22:41:10" itemprop="dateCreated datePublished" datetime="2021-02-22T22:41:10+08:00">2021-02-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-13 13:23:55" itemprop="dateModified" datetime="2021-03-13T13:23:55+08:00">2021-03-13</time>
+              </span>
 
           
 
@@ -452,16 +545,19 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="错误发生"><a href="#错误发生" class="headerlink" title="错误发生"></a>错误发生</h2><p>进行gradle sync的时候，下载完文件发现出现报错<code>Failed to open zip file.</code></p>
-<p>&emsp;报错：<em>无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）</em></p>
+          <p>Created by: © LacLic</p>
+<h2 id="错误发生">错误发生</h2>
+<p>进行gradle sync的时候，下载完文件发现出现报错<code>Failed to open zip file.</code></p>
+<p> 报错：<em>无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）</em></p>
 <p><img src="https://i.loli.net/2021/02/22/p25ztxFT4S9q7bV.png" alt="1.png"></p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见<a href="##%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0">错误原因</a></p>
-<h2 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h2><p>错误报告中显示，无法打开zip文件，使用<code>ctrl+shift+R</code>进行全局搜索，寻找关于<code>.zip</code>文件的信息</p>
+<h2 id="解决方案">解决方案</h2>
+<p>删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见<a href="##%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0">错误原因</a></p>
+<h2 id="错误原因">错误原因</h2>
+<p>错误报告中显示，无法打开zip文件，使用<code>ctrl+shift+R</code>进行全局搜索，寻找关于<code>.zip</code>文件的信息</p>
 <p><img src="https://i.loli.net/2021/02/22/iPnbyKzGJ5qrTFU.png" alt="2.png"></p>
 <p>找到下载所需的gradle包的网址，丢入浏览器下载zip文件（记得删除里面的反斜杠，那是用来逃逸冒号的）</p>
 <p>将下载好的文件丢入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\[用户]\.gradle\wrapper\dists\gradle-[版本号]-all\[奇怪的序列]\</span><br></pre></td></tr></table></figure>
-
 <p>的目录下后，重新进行gradle sync或者直接试运行程序</p>
 <p><img src="https://i.loli.net/2021/02/22/25k8K1J9OVzAwlI.png" alt="3.png"></p>
 <p>成功！</p>
@@ -507,10 +603,16 @@ mjx-container[display="true"] + br {
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-02-22 20:40:34 / Modified: 22:56:28" itemprop="dateCreated datePublished" datetime="2021-02-22T20:40:34+08:00">2021-02-22</time>
+              <time title="Created: 2021-02-22 20:40:34" itemprop="dateCreated datePublished" datetime="2021-02-22T20:40:34+08:00">2021-02-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-13 13:24:19" itemprop="dateModified" datetime="2021-03-13T13:24:19+08:00">2021-03-13</time>
+              </span>
 
           
 
@@ -523,24 +625,25 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="错误发生"><a href="#错误发生" class="headerlink" title="错误发生"></a>错误发生</h2><p>在工程文件夹的app/build.gradle的依赖中添加<code>compile &#39;com.android.support:percent:24.2.1&#39;</code>的时候，出现的报错（代码来自《第一行代码（第二版）》）</p>
+          <p>Created by: © LacLic</p>
+<h2 id="错误发生">错误发生</h2>
+<p>在工程文件夹的app/build.gradle的依赖中添加<code>compile 'com.android.support:percent:24.2.1'</code>的时候，出现的报错（代码来自《第一行代码（第二版）》）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Version 28 (intended for Android Pie and below) is the last version of the legacy support library, so we recommend that you migrate to AndroidX libraries when using Android Q and moving forward. The IDE can help with this: Refactor &gt; Migrate to AndroidX...</span><br></pre></td></tr></table></figure>
-
 <p><img src="https://i.loli.net/2021/02/22/IuriaKpYSZgCDQe.png" alt="1.png"></p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p><font color=#cc3f40>谷歌开发者文档注：</font></p>
+<h2 id="解决方案">解决方案</h2>
+<p><font color=#cc3f40>谷歌开发者文档注：</font></p>
 <blockquote>
 <p>此工件及其类已弃用。请改用 ConstraintLayout 和关联布局。</p>
 </blockquote>
 <hr>
 <p>将</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile &#39;com.android.support:percent:24.2.1&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>改为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation &quot;androidx.percentlayout:percentlayout:1.0.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>即可，之后记得点击视窗上端的<code>sync now</code></p>
 <p><img src="https://i.loli.net/2021/02/22/ZCYhavm4z2lAgKS.png" alt="2.png"></p>
-<h2 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h2><p>考虑到书本教程<strong>过时了</strong>，没有办法及时同步开发工具的更新。</p>
+<h2 id="错误原因">错误原因</h2>
+<p>考虑到书本教程<strong>过时了</strong>，没有办法及时同步开发工具的更新。</p>
 <p>一开始的确是<code>compile</code>开头的方式引入依赖</p>
 <p>后来改为了下图中红色的样式</p>
 <p><img src="https://i.loli.net/2021/02/22/dplx8nhmI6MAisD.png" alt="3.png"></p>
@@ -598,7 +701,7 @@ mjx-container[display="true"] + br {
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-22 23:03:07" itemprop="dateModified" datetime="2021-02-22T23:03:07+08:00">2021-02-22</time>
+                <time title="Modified: 2021-03-13 13:24:37" itemprop="dateModified" datetime="2021-03-13T13:24:37+08:00">2021-03-13</time>
               </span>
 
           
@@ -612,8 +715,10 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>绘图软件为 GoodNotes 5</p>
-<h2 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h2><ol>
+          <p>Created by: © LacLic</p>
+<p>绘图软件为 GoodNotes 5</p>
+<h2 id="详解">详解</h2>
+<ol>
 <li>打开app，第一个活动Acitivity入栈，调用3个act1方法</li>
 <li>点击按钮button，第二个活动入栈，调用2个act1方法，3个act2方法</li>
 </ol>
@@ -633,46 +738,54 @@ mjx-container[display="true"] + br {
 <li>再次点击返回，finish()了act1，调用了act1的3个方法，并退出app</li>
 </ol>
 <p><img src="https://i.loli.net/2021/02/21/4KsxUREH1c2hvWA.jpg" alt="Android-5.jpg"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>当新活动不完全置顶（上一个活动还有效）时，只会调用上一个活动的onPause。<br>恢复后，只会调用onResume。</p>
-<p>当新活动完全置顶（上一个活动完全被遮盖），会调用onPasue和onStop。<br>恢复后，会调用onResume和onStart。</p>
-<p>当一个活动finish()后，会调用onPasue, onStop与onDestroy。<br>启动时，会调用onResume, onStart和onCreate。</p>
-<h3 id="启动与终止的对应关系"><a href="#启动与终止的对应关系" class="headerlink" title="启动与终止的对应关系"></a>启动与终止的对应关系</h3><table>
+<h3 id="总结">总结</h3>
+<p>当新活动不完全置顶（上一个活动还有效）时，只会调用上一个活动的onPause。<br>
+恢复后，只会调用onResume。</p>
+<p>当新活动完全置顶（上一个活动完全被遮盖），会调用onPasue和onStop。<br>
+恢复后，会调用onResume和onStart。</p>
+<p>当一个活动finish()后，会调用onPasue, onStop与onDestroy。<br>
+启动时，会调用onResume, onStart和onCreate。</p>
+<h3 id="启动与终止的对应关系">启动与终止的对应关系</h3>
+<table>
 <thead>
 <tr>
-<th align="center">onCreate</th>
-<th align="center">onStart</th>
-<th align="center">onResume</th>
-<th align="center">onPasue</th>
-<th align="center">onStop</th>
-<th align="center">onDestroy</th>
+<th style="text-align:center">onCreate</th>
+<th style="text-align:center">onStart</th>
+<th style="text-align:center">onResume</th>
+<th style="text-align:center">onPasue</th>
+<th style="text-align:center">onStop</th>
+<th style="text-align:center">onDestroy</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">—</td>
-<td align="center">—</td>
-<td align="center"></td>
-<td align="center"></td>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="center">—</td>
-<td align="center">—</td>
-<td align="center">—</td>
-<td align="center">—</td>
-<td align="center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
-<td align="center">—</td>
-<td align="center">—</td>
-<td align="center">—</td>
-<td align="center">—</td>
-<td align="center">—</td>
-<td align="center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
 </tr>
-</tbody></table>
-<p><img src="https://i.loli.net/2021/02/21/8XdvikqcteGJM7U.png" alt="6CJJ_GG1BA92GB2BSS_YYLQ.png"><br>图来自《第一行代码（第二版）》</p>
+</tbody>
+</table>
+<p><img src="https://i.loli.net/2021/02/21/8XdvikqcteGJM7U.png" alt="6CJJ_GG1BA92GB2BSS_YYLQ.png"><br>
+图来自《第一行代码（第二版）》</p>
 
       
     </div>
@@ -954,113 +1067,6 @@ mjx-container[display="true"] + br {
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/12/WriteUP-MISC-Seraph-JACK-s-red-packet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/12/WriteUP-MISC-Seraph-JACK-s-red-packet/" class="post-title-link" itemprop="url">WriteUP-MISC(SP)-Seraph_JACK's red packet</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-12 23:05:15" itemprop="dateCreated datePublished" datetime="2021-02-12T23:05:15+08:00">2021-02-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-13 10:42:00" itemprop="dateModified" datetime="2021-02-13T10:42:00+08:00">2021-02-13</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Seraph-JACK的新年红包（MISC，SP）"><a href="#Seraph-JACK的新年红包（MISC，SP）" class="headerlink" title="Seraph_JACK的新年红包（MISC，SP）"></a>Seraph_JACK的新年红包（MISC，SP）</h2><p>我个人属于菜狗，研究该题（？）路程过于坎坷，坚持了15个小时（中间睡了个觉），<del>主要是为了红包</del>。</p>
-<h2 id="解红包过程"><a href="#解红包过程" class="headerlink" title="解红包过程"></a>解红包过程</h2><h3 id="开门见山"><a href="#开门见山" class="headerlink" title="开门见山"></a>开门见山</h3><p><img src="https://i.loli.net/2021/02/12/ZWVKghYziDRGTF4.png" alt="1.png"></p>
-<p>中间大大一个hint死活看不见，<del>虽然最后解出来才知道怎么用</del>。</p>
-<h3 id="开门网页源代码"><a href="#开门网页源代码" class="headerlink" title="开门网页源代码"></a>开门网页源代码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>2021 新年快乐！<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;packet&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;title&quot;</span>&gt;</span>2021 新年快乐<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;desc&quot;</span>&gt;</span>输入口令领取红包<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/help.html&quot;</span>&gt;</span>(?)<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;pwd&quot;</span>&gt;</span>输入口令：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;pwdIn&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;btn-box&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;submit()&quot;</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">submit</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// hint: check GET /main.go</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> code = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#pwdIn&quot;</span>).value;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> data = <span class="keyword">new</span> URLSearchParams();</span></span><br><span class="line"><span class="javascript">        data.append(<span class="string">&quot;code&quot;</span>, code);</span></span><br><span class="line"><span class="javascript">        fetch(<span class="string">&quot;/red_packet&quot;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            method: <span class="string">&quot;post&quot;</span>,</span></span><br><span class="line">            body: data</span><br><span class="line"><span class="javascript">        &#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span></span><br><span class="line">            if (res.status === 200) &#123;</span><br><span class="line"><span class="javascript">                res.text().then(<span class="function"><span class="params">b</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="built_in">window</span>.location.href = b;</span></span><br><span class="line">                &#125;)</span><br><span class="line"><span class="javascript">            &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                alert(<span class="string">&quot;口令错误！&quot;</span>)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-id">#btn</span> &#123;</span></span><br><span class="line">        cursor: pointer;</span><br><span class="line">        border-radius: 8px;</span><br><span class="line">        font-size: xx-large;</span><br><span class="line"><span class="css">        <span class="selector-tag">background-color</span>: <span class="selector-id">#ffe24b</span>;</span></span><br><span class="line">        padding: 8px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    body &#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#desc</span> &#123;</span></span><br><span class="line">        display: block;</span><br><span class="line">        font-size: large;</span><br><span class="line">        color: white;</span><br><span class="line">        text-align: center;</span><br><span class="line">        margin-top: 20px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#desc</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">color</span>: <span class="selector-id">#ea0909</span>;</span></span><br><span class="line">        font-size: xx-small;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#pwdIn</span> &#123;</span></span><br><span class="line">        width: 180px;</span><br><span class="line">        font-size: large;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#pwd</span> &#123;</span></span><br><span class="line">        display: inline-block;</span><br><span class="line">        margin-top: 150px;</span><br><span class="line">        margin-bottom: 80px;</span><br><span class="line">        text-align: center;</span><br><span class="line">        font-size: large;</span><br><span class="line">        color: white;</span><br><span class="line"></span><br><span class="line">        padding: 16px;</span><br><span class="line">        border-radius: 8px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#btn-box</span> &#123;</span></span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        margin-bottom: 20px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#title</span> &#123;</span></span><br><span class="line">        color: white;</span><br><span class="line">        font-weight: bolder;</span><br><span class="line">        font-size: xxx-large;</span><br><span class="line">        display: inline-block;</span><br><span class="line">        margin: auto;</span><br><span class="line">        padding-top: 50px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">    <span class="selector-id">#packet</span> &#123;</span></span><br><span class="line">        background-color: red;</span><br><span class="line">        border-radius: 8px;</span><br><span class="line">        padding: 2px 8px;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>首先知道了，我们POST的口令，就是code的值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> code = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#pwdIn&quot;</span>).value;</span><br><span class="line">        <span class="keyword">var</span> data = <span class="keyword">new</span> URLSearchParams();</span><br><span class="line">        data.append(<span class="string">&quot;code&quot;</span>, code);</span><br><span class="line">        fetch(<span class="string">&quot;/red_packet&quot;</span>, &#123;</span><br><span class="line">            method: <span class="string">&quot;post&quot;</span>,</span><br><span class="line">            body: data</span><br></pre></td></tr></table></figure>
-
-<p>然后看到了/main.go，<del>老瞎子经别人提醒之后才发现上面还有个/help.html</del></p>
-<p><img src="https://i.loli.net/2021/02/12/emgxM2KszotBIuh.png" alt="2.png"></p>
-<h3 id="main-go"><a href="#main-go" class="headerlink" title="/main.go"></a>/main.go</h3><p>发现main函数源码，<del>怎么是go写的，我爬了</del></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;crypto/sha256&quot;</span></span><br><span class="line">	<span class="string">&quot;flag&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">	<span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;2021 Happy new year!&quot;</span>)</span><br><span class="line"></span><br><span class="line">	listen := flag.String(<span class="string">&quot;listen&quot;</span>, <span class="string">&quot;:11451&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	superSecretSalt := flag.String(<span class="string">&quot;salt&quot;</span>, <span class="string">&quot;this_is_not_the_salt&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	redPacket := flag.String(<span class="string">&quot;packet&quot;</span>, <span class="string">&quot;no_packet_here&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	flag.Parse()</span><br><span class="line"></span><br><span class="line">	r := gin.Default()</span><br><span class="line"></span><br><span class="line">	r.POST(<span class="string">&quot;/red_packet&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">		key := ctx.PostForm(<span class="string">&quot;code&quot;</span>)</span><br><span class="line">		val := []<span class="keyword">byte</span>(key + *superSecretSalt)</span><br><span class="line">		hash := sha256.Sum256(val[:])</span><br><span class="line"></span><br><span class="line">		result := <span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">32</span>; i++ &#123;</span><br><span class="line">			result += <span class="keyword">int</span>(hash[i])</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> result == <span class="number">2021</span> &#123;</span><br><span class="line">			ctx.Header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/plain; charset=utf-8&quot;</span>)</span><br><span class="line">			ctx.String(<span class="number">200</span>, *redPacket)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			ctx.Status(http.StatusForbidden)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	r.NoRoute(gin.WrapH(http.FileServer(http.Dir(<span class="string">&quot;./static&quot;</span>))))</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := r.Run(*listen); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>看了一下，主要就是，主函数通过post方法获取code的值（是一个字符串），加上*redPacket字符串后，经过sha256加密，所得的每一位ascii码之和为2021时，KEY则为答案</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">superSecretSalt := flag.String(<span class="string">&quot;salt&quot;</span>, <span class="string">&quot;this_is_not_the_salt&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">redPacket := flag.String(<span class="string">&quot;packet&quot;</span>, <span class="string">&quot;no_packet_here&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">flag.Parse()</span><br><span class="line"></span><br><span class="line">r := gin.Default()</span><br><span class="line"></span><br><span class="line">r.POST(<span class="string">&quot;/red_packet&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">	key := ctx.PostForm(<span class="string">&quot;code&quot;</span>)</span><br><span class="line">	val := []<span class="keyword">byte</span>(key + *superSecretSalt)</span><br><span class="line">	hash := sha256.Sum256(val[:])</span><br><span class="line"></span><br><span class="line">	result := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">32</span>; i++ &#123;</span><br><span class="line">		result += <span class="keyword">int</span>(hash[i])</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> result == <span class="number">2021</span> &#123;</span><br><span class="line">		ctx.Header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/plain; charset=utf-8&quot;</span>)</span><br><span class="line">		ctx.String(<span class="number">200</span>, *redPacket)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		ctx.Status(http.StatusForbidden)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>中，的<code>val := []byte(key + *superSecretSalt)</code> val就是key字符串和superSecretSalt指向的字符串相加</p>
-<p>hash就是val经过sha256加密后的字符串<code>hash := sha256.Sum256(val[:])</code></p>
-<p>如果结果为2021则通过口令<code>if result == 2021</code></p>
-<h3 id="help-html"><a href="#help-html" class="headerlink" title="/help.html"></a>/help.html</h3><p><del>经过好心人指示</del>，眼瞎的我终于发现了help.html</p>
-<p>打开来是这个</p>
-<p><img src="https://i.loli.net/2021/02/12/PpNdLuTI1H6z3gh.png" alt="3.png"></p>
-<p>源代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;viewport&quot;</span> content=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;再 放 送&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;span&gt;The character is: <span class="string">&#x27;&lt;span id=&quot;ch&quot;&gt;&lt;/span&gt;&#x27;</span>&lt;/span&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;left()&quot;</span>&gt;Go left&lt;/button&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;right()&quot;</span>&gt;Go right&lt;/button&gt;</span><br><span class="line">&lt;button onclick=<span class="string">&quot;back()&quot;</span>&gt;Go back&lt;/button&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> data = <span class="string">&quot;320K2/5oM1L(...省略剩下字符，一共16384个字符)&quot;</span></span><br><span class="line">    <span class="keyword">var</span> cur = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    update();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">update</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> p = <span class="built_in">parseInt</span>(<span class="built_in">window</span>.location.hash.substr(<span class="number">1</span>));</span><br><span class="line">            <span class="keyword">if</span> (!<span class="built_in">isNaN</span>(p)) cur = p;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">            <span class="comment">// ignore</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">document</span>.querySelector(<span class="string">&quot;#ch&quot;</span>).innerHTML = data[cur];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">left</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur &gt; <span class="number">8192</span>) &#123;</span><br><span class="line">            alert(<span class="string">&quot;Can&#x27;t go further!&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>.location.hash = (cur * <span class="number">2</span>).toString();</span><br><span class="line">        update();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">right</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur &gt; <span class="number">8192</span>) &#123;</span><br><span class="line">            alert(<span class="string">&quot;Can&#x27;t go further!&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>.location.hash = (cur * <span class="number">2</span> + <span class="number">1</span>).toString();</span><br><span class="line">        update();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">back</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur === <span class="number">1</span>) &#123;</span><br><span class="line">            alert(<span class="string">&quot;Can&#x27;t go back!&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>.location.hash = <span class="built_in">Math</span>.floor(cur / <span class="number">2</span>).toString();</span><br><span class="line">        update();</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>仔细看了看，是每次走左(cur✖2)，是每次走右（cur✖2＋1），或是返回（cur➗2）</p>
-<p>回显一个值：data的cur索引（data[cur]）对应字符</p>
-<p>所以data是个索引表，考虑爆破它</p>
-<p>爆破代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> s[] = <span class="string">&quot;320K2/5oM1Lu8mmsTg8_(...省略)&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> ans[<span class="number">50</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">ofstream outfile;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recur</span><span class="params">(<span class="keyword">int</span> sum, <span class="keyword">int</span> layer)</span> </span>&#123;</span><br><span class="line">	ans[layer] = sum;</span><br><span class="line">	<span class="keyword">if</span>(sum&gt;<span class="number">8192</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=layer;++i) &#123;</span><br><span class="line">			<span class="comment">// printf(&quot;%c&quot;,s[ans[i]]);</span></span><br><span class="line">			outfile &lt;&lt; s[ans[i]];</span><br><span class="line">		&#125;</span><br><span class="line">		outfile &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		recur(sum*<span class="number">2</span>,layer+<span class="number">1</span>);</span><br><span class="line">		recur(sum*<span class="number">2</span>+<span class="number">1</span>,layer+<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	outfile.open(<span class="string">&quot;out.txt&quot;</span>);</span><br><span class="line">	recur(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="comment">// printf(&quot;%d&quot;,&#x27;1&#x27;);</span></span><br><span class="line">	outfile.close();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2o2l_h4ppy_new_ye4r</span></span><br></pre></td></tr></table></figure>
-
-<p>结果：</p>
-<p><img src="https://i.loli.net/2021/02/12/v7sQ4DgIjWpkhEq.png" alt="W@_7J_CG85AN_BR411_3YYY.png"></p>
-<p>找到了2021_salt.html</p>
-<p><img src="https://i.loli.net/2021/02/12/p4RrTnUjuzkl5NP.png" alt="4.png"></p>
-<h3 id="回到main-go"><a href="#回到main-go" class="headerlink" title="回到main.go"></a>回到main.go</h3><p><code>superSecretSalt</code>有了，就是<code>2o2l_h4ppy_new_ye4r</code></p>
-<p>想想和其他也没关系了，剩下就是sha256爆破，用go写了个爆破程序</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;crypto/sha256&quot;</span></span><br><span class="line">	<span class="string">&quot;flag&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;2021 Happy new year!&quot;</span>)</span><br><span class="line"></span><br><span class="line">	superSecretSalt := flag.String(<span class="string">&quot;salt&quot;</span>, <span class="string">&quot;2o2l_h4ppy_new_ye4r&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">	<span class="comment">// redPacket := flag.String(&quot;packet&quot;, &quot;no_packet_here&quot;, &quot;&quot;)</span></span><br><span class="line">	flag.Parse()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">999999999</span>; i++ &#123;</span><br><span class="line">		key := fmt.Sprint(i)</span><br><span class="line">		<span class="comment">// key := &quot;1&quot;</span></span><br><span class="line">		val := []<span class="keyword">byte</span>(key + *superSecretSalt)</span><br><span class="line">		hash := sha256.Sum256(val[:])</span><br><span class="line"></span><br><span class="line">		result := <span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">32</span>; i++ &#123;</span><br><span class="line">			result += <span class="keyword">int</span>(hash[i])</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// print(result)</span></span><br><span class="line">		<span class="comment">// print(&quot;\n&quot;)</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> result == <span class="number">2021</span> &#123;</span><br><span class="line">			<span class="built_in">print</span>(key)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2021/02/12/SZpJt8IzwfmPR5X.png" alt="6.png"></p>
-<p>最后，<code>414134692</code>，即为答案口令</p>
-<p><del>搁着挖矿呢.jpg</del>，还拿了挺多钱，快乐.jpg</p>
-<p><img src="https://i.loli.net/2021/02/13/e2Ood37AkJZLwrI.jpg" alt="5.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1130,13 +1136,13 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="错误发生进行gradle sync的时候，下载完文件发现出现报错Failed to open zip file. &amp;emsp;报错：无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）  解决方案删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见错误原因 错误原因错误报告中显示，无法打开zip文件，使用ctrl+shift+R进行全局搜索，寻找关于.zip文件">
+  <meta name="description" content="Created by: © LacLic 错误发生 进行gradle sync的时候，下载完文件发现出现报错Failed to open zip file.  报错：无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）  解决方案 删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见错误原因 错误原因 错误报告中显示，无法打开zip文件，使用ctrl+shift">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android开发-gradle sync出错解决: Failed to open zip file.">
 <meta property="og:url" content="http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-gradle-sync%E5%87%BA%E9%94%99%E8%A7%A3%E5%86%B3-Failed-to-open-zip-file/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="错误发生进行gradle sync的时候，下载完文件发现出现报错Failed to open zip file. &amp;emsp;报错：无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）  解决方案删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见错误原因 错误原因错误报告中显示，无法打开zip文件，使用ctrl+shift+R进行全局搜索，寻找关于.zip文件">
+<meta property="og:description" content="Created by: © LacLic 错误发生 进行gradle sync的时候，下载完文件发现出现报错Failed to open zip file.  报错：无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）  解决方案 删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见错误原因 错误原因 错误报告中显示，无法打开zip文件，使用ctrl+shift">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2021/02/22/p25ztxFT4S9q7bV.png">
 <meta property="og:image" content="https://i.loli.net/2021/02/22/iPnbyKzGJ5qrTFU.png">
 <meta property="og:image" content="https://i.loli.net/2021/02/22/25k8K1J9OVzAwlI.png">
 <meta property="article:published_time" content="2021-02-22T14:41:10.000Z">
-<meta property="article:modified_time" content="2021-02-22T15:17:19.980Z">
+<meta property="article:modified_time" content="2021-03-13T05:23:55.274Z">
 <meta property="article:author" content="LacLic Vanilla">
 <meta property="article:tag" content="android">
 <meta name="twitter:card" content="summary">
@@ -179,10 +179,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-02-22 22:41:10 / Modified: 23:17:19" itemprop="dateCreated datePublished" datetime="2021-02-22T22:41:10+08:00">2021-02-22</time>
+              <time title="Created: 2021-02-22 22:41:10" itemprop="dateCreated datePublished" datetime="2021-02-22T22:41:10+08:00">2021-02-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-13 13:23:55" itemprop="dateModified" datetime="2021-03-13T13:23:55+08:00">2021-03-13</time>
+              </span>
 
           
 
@@ -195,16 +201,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="错误发生"><a href="#错误发生" class="headerlink" title="错误发生"></a>错误发生</h2><p>进行gradle sync的时候，下载完文件发现出现报错<code>Failed to open zip file.</code></p>
-<p>&emsp;报错：<em>无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）</em></p>
+        <p>Created by: © LacLic</p>
+<h2 id="错误发生">错误发生</h2>
+<p>进行gradle sync的时候，下载完文件发现出现报错<code>Failed to open zip file.</code></p>
+<p> 报错：<em>无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）</em></p>
 <p><img src="https://i.loli.net/2021/02/22/p25ztxFT4S9q7bV.png" alt="1.png"></p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见<a href="##%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0">错误原因</a></p>
-<h2 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h2><p>错误报告中显示，无法打开zip文件，使用<code>ctrl+shift+R</code>进行全局搜索，寻找关于<code>.zip</code>文件的信息</p>
+<h2 id="解决方案">解决方案</h2>
+<p>删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见<a href="##%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0">错误原因</a></p>
+<h2 id="错误原因">错误原因</h2>
+<p>错误报告中显示，无法打开zip文件，使用<code>ctrl+shift+R</code>进行全局搜索，寻找关于<code>.zip</code>文件的信息</p>
 <p><img src="https://i.loli.net/2021/02/22/iPnbyKzGJ5qrTFU.png" alt="2.png"></p>
 <p>找到下载所需的gradle包的网址，丢入浏览器下载zip文件（记得删除里面的反斜杠，那是用来逃逸冒号的）</p>
 <p>将下载好的文件丢入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\[用户]\.gradle\wrapper\dists\gradle-[版本号]-all\[奇怪的序列]\</span><br></pre></td></tr></table></figure>
-
 <p>的目录下后，重新进行gradle sync或者直接试运行程序</p>
 <p><img src="https://i.loli.net/2021/02/22/25k8K1J9OVzAwlI.png" alt="3.png"></p>
 <p>成功！</p>
@@ -305,13 +314,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
