@@ -285,6 +285,13 @@ mjx-container[display="true"] + br {
 
               <time title="Created: 2021-03-21 18:38:29" itemprop="dateCreated datePublished" datetime="2021-03-21T18:38:29+08:00">2021-03-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-22 15:10:41" itemprop="dateModified" datetime="2021-03-22T15:10:41+08:00">2021-03-22</time>
+              </span>
 
           
 
@@ -297,7 +304,248 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h2 id="代码">代码</h2>
+<pre><code class="language-c++">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#define TYPE char // type of BigInt element
+#define LENGTH 10100 // N==50000, LENGTH == 9986
+const int bigger = -1;
+const int equal = 0;
+const int smaller = 1;
+const int base = 10;
+
+class BigInt &#123;
+    private:
+    TYPE n[LENGTH];
+    int bit;
+    bool isPositive = true;
+    BigInt big_minus_small(const BigInt&amp;o1,const BigInt&amp;o2,const int&amp;maxbit,const int&amp;minbit,int bias=0) &#123;
+        BigInt ret;
+        for(int i=0;i&lt;bias;++i) &#123;
+            ret.n[i] = o1.n[i];
+        &#125;
+        int down = 0;
+        for(int i=0;i&lt;minbit;++i) &#123;
+            ret.n[i+bias] = o1.n[i+bias] - o2.n[i] - down;
+            if(ret.n[i+bias]&lt;0) &#123;
+                down = 1;
+                ret.n[i+bias] += base;
+            &#125;else &#123;
+                down = 0;
+            &#125;
+        &#125;
+        for(int i=minbit;i&lt;maxbit;++i) &#123;
+            ret.n[i+bias] = o1.n[i+bias] - down;
+            if(ret.n[i+bias]&lt;0) &#123;
+                down = 1;
+                ret.n[i+bias] += base;
+            &#125;else &#123;
+                down = 0;
+            &#125;
+        &#125;
+        ret.bit=1;
+        for(int i=maxbit-1;i&gt;=0;--i) &#123;
+            if(ret.n[i]!=0) &#123;
+                ret.bit = i+1;
+                break;
+            &#125;
+        &#125;
+        return ret;
+    &#125;
+
+    bool biasSmaller(const BigInt&amp;o2, int bias) &#123;
+        if(this-&gt;bit&lt;o2.bit+bias) &#123;
+            return true;
+        &#125;else if(this-&gt;bit&gt;o2.bit+bias) &#123;
+            return false;
+        &#125;else &#123;
+            for(int i=o2.bit-1;i&gt;=0;--i) &#123;
+                if(this-&gt;n[i+bias] &lt; o2.n[i]) &#123;
+                    return true;
+                &#125;else if(this-&gt;n[i+bias] &gt; o2.n[i]) &#123;
+                    return false;
+                &#125;
+            &#125;
+            return false; // equal
+        &#125;
+    &#125;
+
+    int compare(const BigInt&amp;o1, const BigInt&amp;o2) &#123;
+        if(this-&gt;bit&lt;o2.bit) &#123;
+            return smaller;
+        &#125;else if(this-&gt;bit&gt;o2.bit) &#123;
+            return bigger;
+        &#125;else &#123;
+            for(int i=o2.bit-1;i&gt;=0;--i) &#123;
+                if(this-&gt;n[i] &lt; o2.n[i]) &#123;
+                    return smaller;
+                &#125;else if(this-&gt;n[i] &gt; o2.n[i]) &#123;
+                    return bigger;
+                &#125;
+            &#125;
+            return equal;
+        &#125;
+    &#125;
+
+    public:
+    BigInt() &#123;&#125;
+
+    BigInt(unsigned long long val) &#123;
+        int cnt=0;
+        do &#123;
+            this-&gt;n[cnt] = val;
+            val/=base;
+            ++cnt;
+        &#125;while(val);
+        this-&gt;bit = cnt;
+    &#125;
+
+    bool operator&lt;(const BigInt&amp;o2) &#123;
+        if(compare(*this,o2)==smaller) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    bool operator&gt;=(const BigInt&amp;o2) &#123;
+        return !(*this&lt;o2);
+    &#125;
+
+    bool operator&gt;(const BigInt&amp;o2) &#123;
+        if(compare(*this,o2)==bigger) &#123;
+            return true;
+        &#125;else &#123;
+            return false;
+        &#125;
+    &#125;
+
+    bool operator&lt;=(const BigInt&amp;o2) &#123;
+        return !(*this&gt;o2);
+    &#125;
+
+    bool operator==(const BigInt&amp;o2) &#123;
+        if(this-&gt;bit!=o2.bit) &#123;
+            return false;
+        &#125;else &#123;
+            for(int i=this-&gt;bit-1;i&gt;=0;++i) &#123;
+                if(this-&gt;n[i]!=o2.n[i]) &#123;
+                    return false;
+                &#125;
+            &#125;
+            return true;
+        &#125;
+    &#125;
+
+    BigInt operator+(const BigInt&amp;o2) &#123;
+        BigInt ret;
+        int maxbit,minbit,isThis;
+        if(this-&gt;bit &gt; o2.bit) &#123;
+            maxbit = this-&gt;bit;
+            minbit = o2.bit;
+            isThis = 1;
+        &#125;else &#123;
+            maxbit = o2.bit;
+            minbit = this-&gt;bit;
+            isThis = 0;
+        &#125;
+        
+        int up=0;
+        for(int i=0;i&lt;minbit;++i) &#123;
+            ret.n[i] = this-&gt;n[i] + o2.n[i] + up;
+            up = ret.n[i] / base;
+            ret.n[i] %= base;
+        &#125;
+        for(int i=minbit;i&lt;maxbit;++i) &#123;
+            if(isThis) &#123;
+                ret.n[i] = this-&gt;n[i] + up;
+                up = ret.n[i] / base;
+                ret.n[i] %= base;
+            &#125;else &#123;
+                ret.n[i] = o2.n[i] + up;
+                up = ret.n[i] / base;
+                ret.n[i] %= base;
+            &#125;
+        &#125;
+        ret.bit = maxbit;
+        
+        if(up) &#123;
+            ret.n[ret.bit] = up; // unsafe
+            ++ret.bit;
+        &#125;
+        return ret;
+    &#125;
+
+    BigInt operator-(const BigInt&amp;o2) &#123;
+        BigInt ret;
+        int maxbit,minbit;
+        if(this-&gt;bit &gt; o2.bit) &#123;
+            maxbit = this-&gt;bit;
+            minbit = o2.bit;
+        &#125;else &#123;
+            maxbit = o2.bit;
+            minbit = this-&gt;bit;
+        &#125;
+
+        if(*this&gt;=o2) &#123;
+            ret = big_minus_small(*this,o2,maxbit,minbit);
+        &#125;else &#123;
+            ret = big_minus_small(o2,*this,maxbit,minbit);
+            ret.isPositive = false;
+        &#125;
+
+        return ret;
+    &#125;
+
+    BigInt operator/(const BigInt&amp;o2) &#123;
+        BigInt ret,tmp=*this;
+        ret.bit = 0;
+        if(*this&lt;=o2) &#123;
+            ret.n[0] = 0;
+            ret.bit = 1;
+        &#125;else &#123;
+            int bias = tmp.bit - o2.bit;
+            int cnt;
+            for(int i=bias;i&gt;=0;--i) &#123;
+                for(cnt=0;!tmp.biasSmaller(o2,i);++cnt) &#123;
+                    tmp = big_minus_small(tmp,o2,tmp.bit,o2.bit,i);
+                &#125;
+                ret.n[i] = cnt;
+                if(!ret.bit&amp;&amp;cnt) ret.bit = i+1;
+            &#125;
+        &#125;
+        return ret;
+    &#125;
+
+    void print() &#123;
+        if(!isPositive) putchar('-');
+        for(int i=this-&gt;bit-1;i&gt;=0;--i) &#123;
+            putchar('0'+this-&gt;n[i]);
+        &#125;
+    &#125;
+
+    void scan() &#123; // only positive num
+        char tmp[LENGTH];
+        scanf(&quot;%s&quot;,tmp);
+        this-&gt;bit = strlen(tmp);
+        for(int i=0;i&lt;this-&gt;bit;++i) &#123;
+            this-&gt;n[i] = tmp[this-&gt;bit-i-1] - '0';
+        &#125;
+    &#125;
+
+&#125;;
+
+int main() &#123;
+    BigInt o1,o2;
+    o1.scan();
+    o2.scan();
+    BigInt ans = o1/o2;
+    ans.print();
+    
+    return 0;
+&#125;```
+</code></pre>
+
       
     </div>
 
@@ -1047,7 +1295,7 @@ mjx-container[display="true"] + br {
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
