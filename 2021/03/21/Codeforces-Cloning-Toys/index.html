@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题意 imp有一台玩具复制机和1个真玩具。当玩具复制机放入一个真玩具时，能额外复制出1个假玩具+1个真玩具；当放入一个假玩具时，能额外复制出2个假玩具。现在imp想要x个假玩具，y个真玩具（包括原来那个），请问是否能做到？ 思路  没有假玩具的时候（y&#x3D;&#x3D;1的时候），只能为0才会Yes，否则都是No 不需要真玩具的时候（y&#x3D;&#x3D;0的时候），都是No 由于每次复制真玩具都会产生假玩具，所以假玩具少于复">
+  <meta name="description" content="题意 imp 有一台玩具复制机和 1 个真玩具。当玩具复制机放入一个真玩具时，能额外复制出 1 个假玩具+1 个真玩具；当放入一个假玩具时，能额外复制出 2 个假玩具。现在 imp 想要 x 个假玩具，y 个真玩具（包括原来那个），请问是否能做到？ 思路  没有假玩具的时候（y&#x3D;&#x3D;1 的时候），只能为 0 才会 Yes，否则都是 No 不需要真玩具的时候（y&#x3D;&#x3D;0 的时候），都是 No 由于每次复">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Codeforces-Cloning Toys">
 <meta property="og:url" content="http://laclic.github.io/2021/03/21/Codeforces-Cloning-Toys/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="题意 imp有一台玩具复制机和1个真玩具。当玩具复制机放入一个真玩具时，能额外复制出1个假玩具+1个真玩具；当放入一个假玩具时，能额外复制出2个假玩具。现在imp想要x个假玩具，y个真玩具（包括原来那个），请问是否能做到？ 思路  没有假玩具的时候（y&#x3D;&#x3D;1的时候），只能为0才会Yes，否则都是No 不需要真玩具的时候（y&#x3D;&#x3D;0的时候），都是No 由于每次复制真玩具都会产生假玩具，所以假玩具少于复">
+<meta property="og:description" content="题意 imp 有一台玩具复制机和 1 个真玩具。当玩具复制机放入一个真玩具时，能额外复制出 1 个假玩具+1 个真玩具；当放入一个假玩具时，能额外复制出 2 个假玩具。现在 imp 想要 x 个假玩具，y 个真玩具（包括原来那个），请问是否能做到？ 思路  没有假玩具的时候（y&#x3D;&#x3D;1 的时候），只能为 0 才会 Yes，否则都是 No 不需要真玩具的时候（y&#x3D;&#x3D;0 的时候），都是 No 由于每次复">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-21T10:28:00.000Z">
-<meta property="article:modified_time" content="2021-03-22T07:16:53.235Z">
+<meta property="article:modified_time" content="2021-04-01T12:30:02.911Z">
 <meta property="article:author" content="LacLic Vanilla">
-<meta property="article:tag" content="c++">
 <meta property="article:tag" content="codeforces">
 <meta property="article:tag" content="conditions">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://laclic.github.io/2021/03/21/Codeforces-Cloning-Toys/">
@@ -185,7 +185,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
+                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
               </span>
 
           
@@ -200,16 +200,16 @@
 
       
         <h2 id="题意">题意</h2>
-<p>imp有一台玩具复制机和1个真玩具。当玩具复制机放入一个真玩具时，能<strong>额外</strong>复制出1个假玩具+1个真玩具；当放入一个假玩具时，能<strong>额外</strong>复制出2个假玩具。现在imp想要x个假玩具，y个真玩具（包括原来那个），请问是否能做到？</p>
+<p>imp 有一台玩具复制机和 1 个真玩具。当玩具复制机放入一个真玩具时，能<strong>额外</strong>复制出 1 个假玩具+1 个真玩具；当放入一个假玩具时，能<strong>额外</strong>复制出 2 个假玩具。现在 imp 想要 x 个假玩具，y 个真玩具（包括原来那个），请问是否能做到？</p>
 <h2 id="思路">思路</h2>
 <ol>
-<li>没有假玩具的时候（y==1的时候），只能为0才会Yes，否则都是No</li>
-<li>不需要真玩具的时候（y==0的时候），都是No</li>
-<li>由于每次复制真玩具都会产生假玩具，所以假玩具少于复制所得真玩具（假玩具少于真玩具总数-1），即为No</li>
-<li>正常情况，先复制真玩具，同时得到假玩具，计算还需要多少假玩具。由于复制假玩具一次会得到2个，剩下的假玩具数量必须要为2的倍数才会Yes，否则为No</li>
+<li>没有假玩具的时候（y==1 的时候），只能为 0 才会 Yes，否则都是 No</li>
+<li>不需要真玩具的时候（y==0 的时候），都是 No</li>
+<li>由于每次复制真玩具都会产生假玩具，所以假玩具少于复制所得真玩具（假玩具少于真玩具总数-1），即为 No</li>
+<li>正常情况，先复制真玩具，同时得到假玩具，计算还需要多少假玩具。由于复制假玩具一次会得到 2 个，剩下的假玩具数量必须要为 2 的倍数才会 Yes，否则为 No</li>
 </ol>
 <h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> x,y;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 情况1</span></span><br><span class="line">  <span class="keyword">if</span>(y==<span class="number">1</span>) &#123; <span class="comment">// no additional copy condition</span></span><br><span class="line">    <span class="keyword">if</span>(x==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;Yes&quot;</span>); <span class="comment">// don&#x27;t need copy condition</span></span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>); <span class="comment">// need copy condition</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// exit program</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  --y;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 情况2、3</span></span><br><span class="line">  <span class="keyword">if</span>(y==<span class="number">-1</span>||x&lt;y) &#123; <span class="comment">// need no original copy condition ||or|| additonal copy requrement is more than original ones</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  x -= y;</span><br><span class="line">  <span class="keyword">if</span>(x%<span class="number">2</span>==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;Yes&quot;</span>); <span class="comment">// can apply addtional copy the machine (get two at one time)</span></span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> x,y;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 情况1</span></span><br><span class="line">  <span class="keyword">if</span>(y==<span class="number">1</span>) &#123; <span class="comment">// no additional copy condition</span></span><br><span class="line">    <span class="keyword">if</span>(x==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;Yes&quot;</span>); <span class="comment">// don&#x27;t need copy condition</span></span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>); <span class="comment">// need copy condition</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// exit program</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  --y;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 情况2、3</span></span><br><span class="line">  <span class="keyword">if</span>(y==<span class="number">-1</span>||x&lt;y) &#123; <span class="comment">// need no original copy condition ||or|| additonal copy requrement is more than original ones</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  x -= y;</span><br><span class="line">  <span class="keyword">if</span>(x%<span class="number">2</span>==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;Yes&quot;</span>); <span class="comment">// can apply addtional copy the machine (get two at one time)</span></span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -219,9 +219,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/codeforces/" rel="tag"># codeforces</a>
               <a href="/tags/conditions/" rel="tag"># conditions</a>
+              <a href="/tags/cpp/" rel="tag"># cpp</a>
           </div>
 
         
@@ -309,7 +309,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

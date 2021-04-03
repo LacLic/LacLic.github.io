@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本篇使用的是 ubuntu 发行版 gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码安装编译器先建立并进入文件夹 1234mkdir programmecd programme&#x2F;mkdir ccd c&#x2F;  输入gcc --version检查是否安装gcc（ubuntu20.04版本是默认自带安装的） 若显示： 1234gcc (Ubuntu 9.3.0-17ubuntu1~20.04">
+  <meta name="description" content="本篇使用的是 ubuntu 发行版 gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码 安装编译器 先建立并进入文件夹 1234mkdir programmecd programme&#x2F;mkdir ccd c&#x2F; 输入gcc --version检查是否安装 gcc（ubuntu20.04 版本是默认自带安装的） 若显示： 1234gcc (Ubuntu 9.3.0-17ubuntu1~20">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 下运行 C&#x2F;C++ 与 Python 代码">
 <meta property="og:url" content="http://laclic.github.io/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="本篇使用的是 ubuntu 发行版 gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码安装编译器先建立并进入文件夹 1234mkdir programmecd programme&#x2F;mkdir ccd c&#x2F;  输入gcc --version检查是否安装gcc（ubuntu20.04版本是默认自带安装的） 若显示： 1234gcc (Ubuntu 9.3.0-17ubuntu1~20.04">
+<meta property="og:description" content="本篇使用的是 ubuntu 发行版 gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码 安装编译器 先建立并进入文件夹 1234mkdir programmecd programme&#x2F;mkdir ccd c&#x2F; 输入gcc --version检查是否安装 gcc（ubuntu20.04 版本是默认自带安装的） 若显示： 1234gcc (Ubuntu 9.3.0-17ubuntu1~20">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-25T04:08:36.000Z">
-<meta property="article:modified_time" content="2021-01-25T07:22:32.095Z">
+<meta property="article:modified_time" content="2021-04-01T12:30:04.133Z">
 <meta property="article:author" content="LacLic Vanilla">
 <meta property="article:tag" content="python">
-<meta property="article:tag" content="c++">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="c">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://laclic.github.io/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/">
@@ -178,10 +178,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-25 12:08:36 / Modified: 15:22:32" itemprop="dateCreated datePublished" datetime="2021-01-25T12:08:36+08:00">2021-01-25</time>
+              <time title="Created: 2021-01-25 12:08:36" itemprop="dateCreated datePublished" datetime="2021-01-25T12:08:36+08:00">2021-01-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
 
           
 
@@ -195,46 +201,42 @@
 
       
         <p>本篇使用的是 ubuntu 发行版</p>
-<h2 id="gcc-g-编译运行-C-C-代码"><a href="#gcc-g-编译运行-C-C-代码" class="headerlink" title="gcc/g++ 编译运行 C/C++ 代码"></a>gcc/g++ 编译运行 C/C++ 代码</h2><h3 id="安装编译器"><a href="#安装编译器" class="headerlink" title="安装编译器"></a>安装编译器</h3><p>先建立并进入文件夹</p>
+<h2 id="gcc-g-编译运行-C-C-代码">gcc/g++ 编译运行 C/C++ 代码</h2>
+<h3 id="安装编译器">安装编译器</h3>
+<p>先建立并进入文件夹</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir programme</span><br><span class="line">cd programme&#x2F;</span><br><span class="line">mkdir c</span><br><span class="line">cd c&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>输入<code>gcc --version</code>检查是否安装gcc（ubuntu20.04版本是默认自带安装的）</p>
+<p>输入<code>gcc --version</code>检查是否安装 gcc（ubuntu20.04 版本是默认自带安装的）</p>
 <p>若显示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0</span><br><span class="line">Copyright (C) 2019 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
-
-<p>表示已安装，没有的话输入如下命令通过apt（ubuntu/debian）安装（centOS用yum, manjaro/Arch用pacman）：</p>
+<p>表示已安装，没有的话输入如下命令通过 apt（ubuntu/debian）安装（centOS 用 yum, manjaro/Arch 用 pacman）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install build-essential</span><br></pre></td></tr></table></figure>
-
-<p>一次性安装gcc, g++, make，安装后同样输入<code>gcc --version</code>检查是否成功安装gcc，若成功回显版本信息，则成功安装</p>
-<h3 id="写出你的-Hello-world"><a href="#写出你的-Hello-world" class="headerlink" title="写出你的 Hello world!"></a>写出你的 Hello world!</h3><p>这里使用<code>vim编辑器</code>（当然你要是喜欢<code>vi</code>或者<code>nano</code>还有<code>gedit</code>编辑器也不是不可以）</p>
+<p>一次性安装 gcc, g++, make，安装后同样输入<code>gcc --version</code>检查是否成功安装 gcc，若成功回显版本信息，则成功安装</p>
+<h3 id="写出你的-Hello-world">写出你的 Hello world!</h3>
+<p>这里使用<code>vim编辑器</code>（当然你要是喜欢<code>vi</code>或者<code>nano</code>还有<code>gedit</code>编辑器也不是不可以）</p>
 <p>输入<code>vim test.c</code>，进入 vim 编辑器界面，<code>小写状态下按下 i 键</code>进入<code>insert</code>模式，输入如下代码</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>输入后，按下<code>esc</code>，输入<code>:wq</code>并<code>enter</code>以写入并退出</p>
-<p>用<code>gcc test.c -o test.o</code>进行编译并生成可执行文件test.o（如果是c++则用<code>g++</code>命令）</p>
+<p>用<code>gcc test.c -o test.o</code>进行编译并生成可执行文件 test.o（如果是 c++则用<code>g++</code>命令）</p>
 <p>用<code>./test.o</code>运行可执行文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;programme&#x2F;c# .&#x2F;test.o</span><br><span class="line">Hello world!</span><br></pre></td></tr></table></figure>
-
-<p>至此，C/C++编译器配置完成（make是用来编译安装软件的，这里不作演示了）</p>
-<h2 id="python3-运行-python-代码"><a href="#python3-运行-python-代码" class="headerlink" title="python3 运行 python 代码"></a>python3 运行 python 代码</h2><h3 id="安装python3"><a href="#安装python3" class="headerlink" title="安装python3"></a>安装python3</h3><p>先创建并进入python文件夹</p>
+<p>至此，C/C++编译器配置完成（make 是用来编译安装软件的，这里不作演示了）</p>
+<h2 id="python3-运行-python-代码">python3 运行 python 代码</h2>
+<h3 id="安装-python3">安装 python3</h3>
+<p>先创建并进入 python 文件夹</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;programme&#x2F;</span><br><span class="line">mkdir python</span><br><span class="line">cd python&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>通过输入命令<code>python3</code>或<code>python3 --version</code>查看版本，如果你使用<code>python3</code>，则会进入python交互式编程，在这里可以输入<code>print(&quot;hello world&quot;)</code>来输出<code>hello world</code></p>
+<p>通过输入命令<code>python3</code>或<code>python3 --version</code>查看版本，如果你使用<code>python3</code>，则会进入 python 交互式编程，在这里可以输入<code>print(&quot;hello world&quot;)</code>来输出<code>hello world</code></p>
 <p>输入<code>exit()</code>或按下<code>ctrl+Z</code>来退出交互式编程界面</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;programme&#x2F;python# python3</span><br><span class="line">Python 3.8.2 (default, Jul 16 2020, 14:00:26)</span><br><span class="line">[GCC 9.3.0] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; print(&quot;hello world&quot;)</span><br><span class="line">hello world</span><br><span class="line">&gt;&gt;&gt; exit()</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;programme&#x2F;python# python3 --version</span><br><span class="line">Python 3.8.2</span><br></pre></td></tr></table></figure>
-
-<p>如果没有安装python3，推荐使用<code>sudo apt install python3</code>快速安装python3</p>
-<p>或者，可以用<code>wget</code>下载linux下安装包，通过<code>make</code>编译安装，并自行添加环境变量和建立pip与python的软链</p>
+<p>如果没有安装 python3，推荐使用<code>sudo apt install python3</code>快速安装 python3</p>
+<p>或者，可以用<code>wget</code>下载 linux 下安装包，通过<code>make</code>编译安装，并自行添加环境变量和建立 pip 与 python 的软链</p>
 <p>之后，同样通过输入命令<code>python3</code>或<code>python3 --version</code>查看版本，就不过多赘述</p>
-<h3 id="执行-python-代码文件"><a href="#执行-python-代码文件" class="headerlink" title="执行 python 代码文件"></a>执行 python 代码文件</h3><p>通过<code>echo</code>快速建立<code>test.py</code>文件并写入</p>
+<h3 id="执行-python-代码文件">执行 python 代码文件</h3>
+<p>通过<code>echo</code>快速建立<code>test.py</code>文件并写入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;print(&#39;\n&#39;.join([&#39;&#39;.join([(&#39;ZhangDong&#39;[(x-y)%9]if((x*0.05)**2+(y*0.1)**2-1)**3-(x*0.05)**2*(y*0.1)**3&lt;&#x3D;0 else&#39; &#39;)for x in range(-30,30)])for y in range(15,-15,-1)])) # 一个大大的爱心，该版本为python3.x，若为python2.x版本请去掉最外层的括号&quot; &gt; test.py</span><br><span class="line">python3 test.py</span><br></pre></td></tr></table></figure>
-
 <p>然后通过<code>python3 test.py</code>来执行代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">python3 test.py</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                hangDongZ           ngDongZha</span><br><span class="line">            ngZhangDongZhangD   ZhangDongZhangDon</span><br><span class="line">          ongZhangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">         ongZhangDongZhangDongZhangDongZhangDongZhan</span><br><span class="line">        ongZhangDongZhangDongZhangDongZhangDongZhangD</span><br><span class="line">        ngZhangDongZhangDongZhangDongZhangDongZhangDo</span><br><span class="line">        gZhangDongZhangDongZhangDongZhangDongZhangDon</span><br><span class="line">        ZhangDongZhangDongZhangDongZhangDongZhangDong</span><br><span class="line">        hangDongZhangDongZhangDongZhangDongZhangDongZ</span><br><span class="line">        angDongZhangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">         gDongZhangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">          ongZhangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">          ngZhangDongZhangDongZhangDongZhangDongZha</span><br><span class="line">            hangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">             ngDongZhangDongZhangDongZhangDongZh</span><br><span class="line">              DongZhangDongZhangDongZhangDongZh</span><br><span class="line">                gZhangDongZhangDongZhangDongZ</span><br><span class="line">                  angDongZhangDongZhangDong</span><br><span class="line">                    DongZhangDongZhangDon</span><br><span class="line">                       ZhangDongZhangD</span><br><span class="line">                          gDongZhan</span><br><span class="line">                             gZh</span><br><span class="line">                              h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>当然你也可以和写入c文件一样，使用文本编辑器来写代码</p>
+<p>当然你也可以和写入 c 文件一样，使用文本编辑器来写代码</p>
 
     </div>
 
@@ -245,9 +247,9 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/python/" rel="tag"># python</a>
-              <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/linux/" rel="tag"># linux</a>
               <a href="/tags/c/" rel="tag"># c</a>
+              <a href="/tags/cpp/" rel="tag"># cpp</a>
           </div>
 
         
@@ -321,7 +323,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc-g-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C-C-C-%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">安装编译器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%87%BA%E4%BD%A0%E7%9A%84-Hello-world"><span class="nav-number">1.2.</span> <span class="nav-text">写出你的 Hello world!</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python3-%E8%BF%90%E8%A1%8C-python-%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">python3 运行 python 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85python3"><span class="nav-number">2.1.</span> <span class="nav-text">安装python3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C-python-%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">执行 python 代码文件</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc-g-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C-C-C-%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">gcc&#x2F;g++ 编译运行 C&#x2F;C++ 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">安装编译器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%87%BA%E4%BD%A0%E7%9A%84-Hello-world"><span class="nav-number">1.2.</span> <span class="nav-text">写出你的 Hello world!</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python3-%E8%BF%90%E8%A1%8C-python-%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">python3 运行 python 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-python3"><span class="nav-number">2.1.</span> <span class="nav-text">安装 python3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C-python-%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">执行 python 代码文件</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -335,7 +337,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

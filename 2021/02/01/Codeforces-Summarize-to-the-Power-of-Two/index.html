@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题意 给定一个有n个数字（每个数字≤10^9^）的数组。 对于每个数，需要你找出，该数组中，是否存在一个其他数，使得两数相加之和为2的整数次方。 输出不符合上述条件的数据个数。 思路 将2的整数次方列成表，减去当前数，得到所需要的数，一个个查过去数组内是否存在所需要的数 代码 1234567891011121314151617181920212223242526272829303132333435">
+  <meta name="description" content="题意 给定一个有 n 个数字（每个数字 ≤10^9^）的数组。 对于每个数，需要你找出，该数组中，是否存在一个其他数，使得两数相加之和为 2 的整数次方。 输出不符合上述条件的数据个数。 思路 将 2 的整数次方列成表，减去当前数，得到所需要的数，一个个查过去数组内是否存在所需要的数 代码 123456789101112131415161718192021222324252627282930313">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Codeforces-Summarize to the Power of Two">
 <meta property="og:url" content="http://laclic.github.io/2021/02/01/Codeforces-Summarize-to-the-Power-of-Two/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="题意 给定一个有n个数字（每个数字≤10^9^）的数组。 对于每个数，需要你找出，该数组中，是否存在一个其他数，使得两数相加之和为2的整数次方。 输出不符合上述条件的数据个数。 思路 将2的整数次方列成表，减去当前数，得到所需要的数，一个个查过去数组内是否存在所需要的数 代码 1234567891011121314151617181920212223242526272829303132333435">
+<meta property="og:description" content="题意 给定一个有 n 个数字（每个数字 ≤10^9^）的数组。 对于每个数，需要你找出，该数组中，是否存在一个其他数，使得两数相加之和为 2 的整数次方。 输出不符合上述条件的数据个数。 思路 将 2 的整数次方列成表，减去当前数，得到所需要的数，一个个查过去数组内是否存在所需要的数 代码 123456789101112131415161718192021222324252627282930313">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-02-01T04:24:19.000Z">
-<meta property="article:modified_time" content="2021-03-22T07:16:53.265Z">
+<meta property="article:modified_time" content="2021-04-01T12:30:04.133Z">
 <meta property="article:author" content="LacLic Vanilla">
-<meta property="article:tag" content="c++">
 <meta property="article:tag" content="search">
 <meta property="article:tag" content="codeforces">
 <meta property="article:tag" content="map">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://laclic.github.io/2021/02/01/Codeforces-Summarize-to-the-Power-of-Two/">
@@ -186,7 +186,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
               </span>
 
           
@@ -201,11 +201,11 @@
 
       
         <h2 id="题意">题意</h2>
-<p>给定一个有n个数字（每个数字≤10^9^）的数组。</p>
-<p>对于每个数，需要你找出，该数组中，是否存在一个其他数，使得两数相加之和为2的整数次方。</p>
+<p>给定一个有 n 个数字（每个数字 ≤10^9^）的数组。</p>
+<p>对于每个数，需要你找出，该数组中，是否存在一个其他数，使得两数相加之和为 2 的整数次方。</p>
 <p>输出不符合上述条件的数据个数。</p>
 <h2 id="思路">思路</h2>
-<p>将2的整数次方列成表，减去当前数，得到所需要的数，一个个查过去数组内是否存在所需要的数</p>
+<p>将 2 的整数次方列成表，减去当前数，得到所需要的数，一个个查过去数组内是否存在所需要的数</p>
 <h2 id="代码">代码</h2>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; mapp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> table[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">16</span>,<span class="number">32</span>,<span class="number">64</span>,<span class="number">128</span>,<span class="number">256</span>,<span class="number">512</span>,<span class="number">1024</span>,<span class="number">2048</span>,<span class="number">4096</span>,<span class="number">8192</span>,<span class="number">16384</span>,<span class="number">32768</span>,<span class="number">65536</span>,<span class="number">131072</span>,<span class="number">262144</span>,<span class="number">524288</span>,<span class="number">1048576</span>,<span class="number">2097152</span>,<span class="number">4194304</span>,<span class="number">8388608</span>,<span class="number">16777216</span>,<span class="number">33554432</span>,<span class="number">67108864</span>,<span class="number">134217728</span>,<span class="number">268435456</span>,<span class="number">536870912</span>,<span class="number">1073741824</span>,<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">  --mapp[x];</span><br><span class="line">  <span class="keyword">for</span>(;table[i]&lt;=x;++i) ;</span><br><span class="line">  <span class="keyword">for</span>(;table[i]!=<span class="number">0</span>;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mapp[table[i]-x]) &#123;</span><br><span class="line">      ++mapp[x];</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">int</span> a[n],cnt=<span class="number">0</span>; <span class="comment">// plz initialize the counter, onnegai....orz...</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i]);</span><br><span class="line">    ++mapp[a[i]];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!check(a[i])) ++cnt;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,cnt);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -217,10 +217,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/search/" rel="tag"># search</a>
               <a href="/tags/codeforces/" rel="tag"># codeforces</a>
               <a href="/tags/map/" rel="tag"># map</a>
+              <a href="/tags/cpp/" rel="tag"># cpp</a>
           </div>
 
         
@@ -308,7 +308,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

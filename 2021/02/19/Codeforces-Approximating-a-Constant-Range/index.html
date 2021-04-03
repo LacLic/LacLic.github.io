@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题意 给定一个长度位n的数组a，相邻的数的差小于等于1（|a~i+1~ - a~i~| ≤ 1），现在求它的一个最大区间的长度，这个区间要求：最大值和最小值之差不大于1。 2 ≤ n ≤ 100 000 1 ≤ a_i ≤ 100 000 思路 从头遍历：  给当前符合条件的数组计算长度。 保存相同数的长度，以准备下一个不符合原先条件的数。 设定一个max保存最大值   代码 1234567891">
+  <meta name="description" content="题意 给定一个长度位 n 的数组 a，相邻的数的差小于等于 1（|a~i+1~ - a~i~| ≤ 1），现在求它的一个最大区间的长度，这个区间要求：最大值和最小值之差不大于 1。 2 ≤ n ≤ 100 000 1 ≤ a_i ≤ 100 000 思路 从头遍历：  给当前符合条件的数组计算长度。 保存相同数的长度，以准备下一个不符合原先条件的数。 设定一个 max 保存最大值   代码 123">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Codeforces-Approximating a Constant Range">
 <meta property="og:url" content="http://laclic.github.io/2021/02/19/Codeforces-Approximating-a-Constant-Range/index.html">
 <meta property="og:site_name" content="LacLic&#39;s Blog">
-<meta property="og:description" content="题意 给定一个长度位n的数组a，相邻的数的差小于等于1（|a~i+1~ - a~i~| ≤ 1），现在求它的一个最大区间的长度，这个区间要求：最大值和最小值之差不大于1。 2 ≤ n ≤ 100 000 1 ≤ a_i ≤ 100 000 思路 从头遍历：  给当前符合条件的数组计算长度。 保存相同数的长度，以准备下一个不符合原先条件的数。 设定一个max保存最大值   代码 1234567891">
+<meta property="og:description" content="题意 给定一个长度位 n 的数组 a，相邻的数的差小于等于 1（|a~i+1~ - a~i~| ≤ 1），现在求它的一个最大区间的长度，这个区间要求：最大值和最小值之差不大于 1。 2 ≤ n ≤ 100 000 1 ≤ a_i ≤ 100 000 思路 从头遍历：  给当前符合条件的数组计算长度。 保存相同数的长度，以准备下一个不符合原先条件的数。 设定一个 max 保存最大值   代码 123">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2021/02/19/CKxVOPG5S9zo1fb.gif">
 <meta property="article:published_time" content="2021-02-19T12:11:02.000Z">
-<meta property="article:modified_time" content="2021-03-22T07:16:53.235Z">
+<meta property="article:modified_time" content="2021-04-01T12:30:02.911Z">
 <meta property="article:author" content="LacLic Vanilla">
-<meta property="article:tag" content="c++">
 <meta property="article:tag" content="codeforces">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2021/02/19/CKxVOPG5S9zo1fb.gif">
 
@@ -186,7 +186,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
+                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
               </span>
 
           
@@ -201,7 +201,7 @@
 
       
         <h2 id="题意">题意</h2>
-<p>给定一个长度位n的数组a，相邻的数的差小于等于1（|a~i+1~ - a~i~| ≤ 1），现在求它的一个最大区间的长度，这个区间要求：最大值和最小值之差不大于1。</p>
+<p>给定一个长度位 n 的数组 a，相邻的数的差小于等于 1（|a~i+1~ - a~i~| ≤ 1），现在求它的一个最大区间的长度，这个区间要求：最大值和最小值之差不大于 1。</p>
 <p>2 ≤ n ≤ 100 000</p>
 <p>1 ≤ a_i ≤ 100 000</p>
 <h2 id="思路">思路</h2>
@@ -209,11 +209,11 @@
 <ol>
 <li>给当前符合条件的数组计算长度。</li>
 <li>保存相同数的长度，以准备下一个不符合原先条件的数。</li>
-<li>设定一个max保存最大值</li>
+<li>设定一个 max 保存最大值</li>
 </ol>
 <p><img src="https://i.loli.net/2021/02/19/CKxVOPG5S9zo1fb.gif" alt="黑板.gif"></p>
 <h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">100006</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> prev = a[<span class="number">0</span>], max=<span class="number">1</span>, bias=<span class="number">0</span>, same=<span class="number">1</span>, has_made=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> dif = a[i] - prev;</span><br><span class="line">    <span class="keyword">if</span>(dif==<span class="number">0</span>) &#123;</span><br><span class="line">      ++same;</span><br><span class="line">      ++has_made;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(bias==dif || !bias) &#123;</span><br><span class="line">        ++has_made;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123; <span class="comment">// 2 3 2 2 2 2 2 2 2 1 2</span></span><br><span class="line">        has_made = same+<span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      same = <span class="number">1</span>;</span><br><span class="line">      prev = a[i];</span><br><span class="line">      bias = -dif;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(has_made&gt;max) &#123;</span><br><span class="line">      max = has_made;</span><br><span class="line">      <span class="comment">// printf(&quot;%d %d\n&quot;,i ,max);</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,max);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">100006</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> prev = a[<span class="number">0</span>], max=<span class="number">1</span>, bias=<span class="number">0</span>, same=<span class="number">1</span>, has_made=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> dif = a[i] - prev;</span><br><span class="line">    <span class="keyword">if</span>(dif==<span class="number">0</span>) &#123;</span><br><span class="line">      ++same;</span><br><span class="line">      ++has_made;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(bias==dif || !bias) &#123;</span><br><span class="line">        ++has_made;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123; <span class="comment">// 2 3 2 2 2 2 2 2 2 1 2</span></span><br><span class="line">        has_made = same+<span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      same = <span class="number">1</span>;</span><br><span class="line">      prev = a[i];</span><br><span class="line">      bias = -dif;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(has_made&gt;max) &#123;</span><br><span class="line">      max = has_made;</span><br><span class="line">      <span class="comment">// printf(&quot;%d %d\n&quot;,i ,max);</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,max);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -223,8 +223,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/c/" rel="tag"># c++</a>
               <a href="/tags/codeforces/" rel="tag"># codeforces</a>
+              <a href="/tags/cpp/" rel="tag"># cpp</a>
           </div>
 
         
@@ -312,7 +312,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
