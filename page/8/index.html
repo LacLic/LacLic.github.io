@@ -147,6 +147,373 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x01-%E5%B0%8F%E5%AD%A9%E6%8A%A5%E6%95%B0%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/FZU2021-0x01-%E5%B0%8F%E5%AD%A9%E6%8A%A5%E6%95%B0%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">FZU2021-0x01-小孩报数问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 11:24:51" itemprop="dateCreated datePublished" datetime="2021-01-20T11:24:51+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="Take-care-of-how-the-end-comes-back-to-the-begin">Take care of how the end comes back to the begin</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* circle problem */</span></span><br><span class="line"><span class="comment">// take care of how the end comes back to the begin</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N,W,S;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v;</span><br><span class="line">  <span class="built_in">string</span> temp;</span><br><span class="line">  <span class="keyword">for</span>(;N;--N) &#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; temp;</span><br><span class="line">    v.push_back(temp);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>,&amp;W,&amp;S);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// int len = v.size();</span></span><br><span class="line">  <span class="comment">// for(int i=0;i&lt;len;++i) &#123; // debug</span></span><br><span class="line">  <span class="comment">//   printf(&quot;%s\n&quot;,&amp;v[i][0]);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// vector&lt;string&gt;::iterator it = v.begin();</span></span><br><span class="line">  <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> lenth = v.size();</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> now=W<span class="number">-1</span>;!v.empty();++now) &#123;</span><br><span class="line">    lenth = v.size();</span><br><span class="line">    <span class="keyword">int</span> SS = S % lenth;</span><br><span class="line">    <span class="keyword">if</span>(SS == <span class="number">0</span>) SS = lenth;</span><br><span class="line">    <span class="keyword">if</span>(SS == <span class="number">1</span>) SS += lenth;</span><br><span class="line">    <span class="keyword">if</span>(now &gt;= lenth) now %= lenth;</span><br><span class="line">    <span class="keyword">if</span>(cnt==SS) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,&amp;v[now][<span class="number">0</span>]);</span><br><span class="line">      v.erase(v.begin()+now);</span><br><span class="line">      cnt = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ++cnt;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/30/spider-get-ajax-and-frame-page/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/30/spider-get-ajax-and-frame-page/" class="post-title-link" itemprop="url">spider get ajax and frame page</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-30 17:54:10 / Modified: 19:15:02" itemprop="dateCreated datePublished" datetime="2020-12-30T17:54:10+08:00">2020-12-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Copyright: LacLic</p>
+<h2 id="python-获取-ajax-和-frame-子页面"><a href="#python-获取-ajax-和-frame-子页面" class="headerlink" title="python: 获取 ajax 和 frame 子页面"></a>python: 获取 ajax 和 frame 子页面</h2><p>该博客提供的解决思路适用于需要获取子界面情况</p>
+<h3 id="事件发生"><a href="#事件发生" class="headerlink" title="事件发生"></a>事件发生</h3><p>想要爬取该页面的阅读数，审计网页元素后找到了相应信息。</p>
+<p><img src="https://i.loli.net/2020/12/30/HSun6R3z8ZM7qX4.png" alt="1.png"></p>
+<p>爬取后源代码后发现问题，审计网页源代码，发现没有阅读数的值，只发现了一串urn</p>
+<p><img src="https://i.loli.net/2020/12/30/tQDuCeJbckHaPYS.png" alt="2.png"></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>爬取urn，接入url合并为新的uri，打开对应页面，并爬取新的页面源代码，得到所需内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_page_content</span>(<span class="params">html</span>):</span></span><br><span class="line">  pattern = re.<span class="built_in">compile</span>(  <span class="comment"># Regex</span></span><br><span class="line">      <span class="string">r&#x27;&lt;div class=&quot;detail_main_content&quot;&gt;\s.*?&gt;(.*?)&lt;/p&gt;[\s\S]*fbsj.*?&gt;([0-9]*)-([0-9]*)-([0-9]*)[\s\S]*author.*?&gt;(.*?)&lt;/span&gt;[\s\S]*?Count.*?id=([0-9]*)[\s\S]*?&lt;strong&gt;(.*?)/&lt;/strong&gt;(.*?)&lt;/div&gt;&#x27;</span>, re.S) </span><br><span class="line">      <span class="comment"># 其中 Count.*?id=([0-9]*) 中 id= 后的部分便是需要的id内容                                                                                    ↑-----↑</span></span><br><span class="line">  items = re.findall(pattern, html)</span><br><span class="line">  <span class="keyword">for</span> item <span class="keyword">in</span> items:</span><br><span class="line">    response = requests.get(</span><br><span class="line">        <span class="string">f&#x27;&quot;&quot;&quot;省略无关url&quot;&quot;&quot;/getDocReadCount.do?id=<span class="subst">&#123;item[<span class="number">5</span>]&#125;</span>&#x27;</span>) <span class="comment"># &lt;--- 获阅返回读数页面的uri并爬取页面</span></span><br><span class="line">    <span class="keyword">yield</span> &#123;  <span class="comment"># convert to dict</span></span><br><span class="line">        <span class="string">&#x27;title&#x27;</span>: item[<span class="number">0</span>],</span><br><span class="line">        <span class="string">&#x27;year&#x27;</span>: item[<span class="number">1</span>],</span><br><span class="line">        <span class="string">&#x27;month&#x27;</span>: item[<span class="number">2</span>],</span><br><span class="line">        <span class="string">&#x27;day&#x27;</span>: item[<span class="number">3</span>],</span><br><span class="line">        <span class="string">&#x27;author&#x27;</span>: item[<span class="number">4</span>],</span><br><span class="line">        <span class="string">&#x27;read&#x27;</span>: response.text, <span class="comment"># &lt;--- 写入到阅读数</span></span><br><span class="line">        <span class="string">&#x27;from&#x27;</span>: item[<span class="number">6</span>],</span><br><span class="line">        <span class="string">&#x27;content&#x27;</span>: <span class="string">&quot;&quot;&quot;省略无关解析内容的表达式（写太长了，又懒得改，只好掩人耳目了！）&quot;&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>爬取成功！</p>
+<p><img src="https://i.loli.net/2020/12/30/HuiwkQFR7KCDJlI.jpg" alt="SharedScreenshot.jpg"></p>
+<h3 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h3><p>（使用火狐浏览器）F12打开开发者工具，点开network（网络）发现除了获取了主页面外，还通过POST获取了getDocReadCount的东西，如下图：</p>
+<p><img src="https://i.loli.net/2020/12/30/KlkNDj6WhfToQ9V.png" alt="3.png"></p>
+<p>通过英文审计，这不就是我们需要的阅读数吗！</p>
+<p>另外看到上面的urn，似曾相识…</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;readcount&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  $.ajax(&#123;<span class="attr">type</span>:<span class="string">&#x27;post&#x27;</span>,<span class="attr">url</span>:<span class="string">&#x27;/interFace/getDocReadCount.do?id=509488&#x27;</span>,<span class="attr">timeout</span>:<span class="number">2000</span>,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html($.trim(ret))&#125;,<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$.ajax(&#123;<span class="attr">type</span>:<span class="string">&#x27;post&#x27;</span>,<span class="attr">url</span>:<span class="string">&#x27;/ecms_external?method=syncOfflineVisitCount&#x27;</span>,<span class="attr">data</span>:<span class="string">&#x27;type=doc&amp;requestUrl=&#x27;</span>+location.href,<span class="attr">timeout</span>:<span class="number">2000</span>,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html(ret);&#125;,<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html(<span class="number">0</span>);&#125;&#125;);&#125;&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p>这不就是上面看到的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">url:&#x27;/interFace/getDocReadCount.do?id=509488&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>好了，我们只要构造request去获取 ‘(相关url)/interFace/getDocReadCount.do?id=509488’（组成成为一个网址）的页面即可！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">id</span> = (<span class="string">&quot;&quot;&quot;已经爬到的id&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">response = requests.get(</span><br><span class="line">  <span class="string">f&#x27;http://(相关url)/interFace/getDocReadCount.do?id=<span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/25/RBtree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/25/RBtree/" class="post-title-link" itemprop="url">C语言实现 红黑树 源代码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-25 16:39:21" itemprop="dateCreated datePublished" datetime="2020-12-25T16:39:21+08:00">2020-12-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-27 15:35:17" itemprop="dateModified" datetime="2020-12-27T15:35:17+08:00">2020-12-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="int-型-红黑树"><a href="#int-型-红黑树" class="headerlink" title="int 型 红黑树"></a>int 型 红黑树</h2><p>&emsp;采用了双向结构，子节点可指向父节点<br>&emsp;代码采用了多.c文件形式，需要在一个project下进行编译</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>英文释义</th>
+<th>中文释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>treeCrt()</td>
+<td>Tree Create</td>
+<td>创建树</td>
+</tr>
+<tr>
+<td>treeAdd()</td>
+<td>Tree Add</td>
+<td>向树添加节点</td>
+</tr>
+<tr>
+<td>treePrt()</td>
+<td>Tree Print</td>
+<td>打印树/输出树</td>
+</tr>
+<tr>
+<td>\</td>
+<td>\</td>
+<td>\</td>
+</tr>
+<tr>
+<td>_treeAdd_recur()</td>
+<td>Tree Add Recursion</td>
+<td>通过递归方式查找插入位点并插入</td>
+</tr>
+<tr>
+<td>_treeJug()</td>
+<td>Tree Judge</td>
+<td>比较判断节点值的大小关系</td>
+</tr>
+<tr>
+<td>_treePrt_recur()</td>
+<td>Tree Print Recursion</td>
+<td>通过递归方式打印树</td>
+</tr>
+<tr>
+<td>_treeChk()</td>
+<td>Tree Check</td>
+<td>检查节点附近的情况</td>
+</tr>
+<tr>
+<td>_treeRot()</td>
+<td>Tree Rotate</td>
+<td>选择树的结点</td>
+</tr>
+<tr>
+<td>_nodeCrt()</td>
+<td>Node Create</td>
+<td>创建并返回一个带值的节点</td>
+</tr>
+</tbody></table>
+<p>&emsp;注：开头带下划线的函数表示私有函数（不希望直接被访问，只是为了给非下划线函数使用方便）</p>
+<p>头文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _TREE_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _TREE_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">int</span> value;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">node</span> *<span class="title">p</span>[2];</span> <span class="comment">// p[0]: left-son, p[1]: right-son</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">node</span> *<span class="title">father</span>;</span></span><br><span class="line">  <span class="keyword">char</span> BR; <span class="comment">// 0: black; 1: red; </span></span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">rbtree</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Node* head;</span><br><span class="line">&#125;RBTree;</span><br><span class="line"></span><br><span class="line"><span class="function">RBTree <span class="title">treeCrt</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treeAdd</span><span class="params">(RBTree* t,<span class="keyword">int</span> value)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treePrt</span><span class="params">(RBTree t)</span></span>;</span><br><span class="line"><span class="keyword">void</span> _treeAdd_recur(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> value);</span><br><span class="line"><span class="keyword">void</span> _treePrt_recur(Node* now,<span class="keyword">int</span> layer);</span><br><span class="line"><span class="keyword">void</span> _treeChk(Node* now,<span class="keyword">int</span> son);</span><br><span class="line"><span class="keyword">int</span> _treeJdg(Node* <span class="keyword">const</span> now,<span class="keyword">const</span> <span class="keyword">int</span> value);</span><br><span class="line"><span class="keyword">void</span> _treeRot(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> drc); <span class="comment">// lift the left or right one to now position, drc means direction</span></span><br><span class="line">Node* _nodeCrt(Node* father,<span class="keyword">int</span> value);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="红黑树-的-创建-与-添加"><a href="#红黑树-的-创建-与-添加" class="headerlink" title="红黑树 的 创建 与 添加"></a>红黑树 的 创建 与 添加</h3><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>英文释义</th>
+<th>中文释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>treeCrt()</td>
+<td>Tree Create</td>
+<td>创建树</td>
+</tr>
+<tr>
+<td>treeAdd()</td>
+<td>Tree Add</td>
+<td>向树添加节点</td>
+</tr>
+<tr>
+<td>_treeAdd_recur()</td>
+<td>Tree Add Recursion</td>
+<td>通过递归方式查找插入位点并插入</td>
+</tr>
+<tr>
+<td>_treeJug()</td>
+<td>Tree Judge</td>
+<td>比较判断节点值的大小关系</td>
+</tr>
+<tr>
+<td>_nodeCrt()</td>
+<td>Node Create</td>
+<td>创建并返回一个带值的节点</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">RBTree <span class="title">treeCrt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  RBTree t = &#123;<span class="literal">NULL</span>&#125;;</span><br><span class="line">  <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treeAdd</span><span class="params">(RBTree*t,<span class="keyword">int</span> value)</span> </span>&#123; <span class="comment">// 将添加函数进行了封装，而非直接用主函数来进行递归</span></span><br><span class="line">  <span class="keyword">if</span>(t-&gt;head) _treeAdd_recur(t-&gt;head,value);</span><br><span class="line">  <span class="keyword">else</span> t-&gt;head = _nodeCrt(<span class="literal">NULL</span>,value);</span><br><span class="line">  t-&gt;head-&gt;BR = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeAdd_recur(Node* now,<span class="keyword">int</span> value) &#123;</span><br><span class="line">  <span class="keyword">int</span> drc = _treeJdg(now,value); <span class="comment">// drc: direction, left(0) or right(1) // _treeJdg()函数用于判断大小以确定</span></span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[drc]) _treeAdd_recur(now-&gt;p[drc],value);</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    now-&gt;p[drc] = _nodeCrt(now,value);</span><br><span class="line">    _treeChk(now,drc); <span class="comment">// 用于检查红黑关系的函数</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"><span class="keyword">int</span> _treeJdg(Node* <span class="keyword">const</span> now,<span class="keyword">const</span> <span class="keyword">int</span> value) &#123;</span><br><span class="line">    <span class="keyword">return</span> now-&gt;value &lt; value;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Node* _nodeCrt(Node* father,<span class="keyword">int</span> value) &#123;</span><br><span class="line">  Node* node = (Node*) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">  node-&gt;father = father;</span><br><span class="line">  node-&gt;p[<span class="number">0</span>] = <span class="literal">NULL</span>;</span><br><span class="line">  node-&gt;p[<span class="number">1</span>] = <span class="literal">NULL</span>;</span><br><span class="line">  node-&gt;value = value;</span><br><span class="line">  node-&gt;BR = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="红黑树-的-打印-输出-展示"><a href="#红黑树-的-打印-输出-展示" class="headerlink" title="红黑树 的 打印/输出/展示"></a>红黑树 的 打印/输出/展示</h3><p>&emsp;由于输出的特性，我们无法竖着输出我们所熟悉的二叉树，只能通过递归的方式来横向输出我们的二叉树</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>英文释义</th>
+<th>中文释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>treePrt()</td>
+<td>Tree Print</td>
+<td>打印树/输出树</td>
+</tr>
+<tr>
+<td>_treePrt_recur()</td>
+<td>Tree Print Recursion</td>
+<td>通过递归方式打印树</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treePrt</span><span class="params">(RBTree t)</span> </span>&#123; <span class="comment">// 同样是进行了封装</span></span><br><span class="line">  <span class="keyword">if</span>(t.head) _treePrt_recur(t.head,<span class="number">0</span>); <span class="comment">// 判断空树，如果t上有结点（不是空树）就进入递归</span></span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;This is an empty tree.\n&quot;</span>); <span class="comment">// 否则，输出空树</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;------------------------------------\n&quot;</span>); <span class="comment">// 分隔符</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treePrt_recur(Node* now,<span class="keyword">int</span> layer) &#123; <span class="comment">// layer 代指当前所处的层数/递归的深度</span></span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[<span class="number">1</span>]) _treePrt_recur(now-&gt;p[<span class="number">1</span>],layer+<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;layer;++i) <span class="built_in">printf</span>(<span class="string">&quot;\t&quot;</span>); <span class="comment">// 制表符，让格式更好看</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d(BR-%d)\n&quot;</span>,now-&gt;value,now-&gt;BR);</span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[<span class="number">0</span>]) _treePrt_recur(now-&gt;p[<span class="number">0</span>],layer+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="红黑树-的-检查与旋转"><a href="#红黑树-的-检查与旋转" class="headerlink" title="红黑树 的 检查与旋转"></a>红黑树 的 检查与旋转</h3><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>英文释义</th>
+<th>中文释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_treeChk()</td>
+<td>Tree Check</td>
+<td>检查节点附近的情况</td>
+</tr>
+<tr>
+<td>_treeRot()</td>
+<td>Tree Rotate</td>
+<td>选择树的结点</td>
+</tr>
+</tbody></table>
+<br>
+
+<p>&emsp;检查新插入节点、其父节点，以及其祖父节点（父节点的父节点）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeChk(Node* f,<span class="keyword">int</span> son) &#123; <span class="comment">// son of father(f) is the added node</span></span><br><span class="line">  <span class="keyword">int</span> status = <span class="number">0b00</span>; <span class="comment">// if (son &gt; f) ==&gt; 0b1??, son &gt; gf ==&gt; 0b?1?</span></span><br><span class="line">  Node* gf = f-&gt;father;</span><br><span class="line">  Node* s; <span class="comment">// s means son, Node*</span></span><br><span class="line">  <span class="keyword">if</span>(gf&amp;&amp;f-&gt;BR) &#123;</span><br><span class="line">    <span class="keyword">if</span>(gf-&gt;p[<span class="number">0</span>]&amp;&amp;gf-&gt;p[<span class="number">1</span>]&amp;&amp;gf-&gt;p[<span class="number">0</span>]-&gt;BR&amp;&amp;gf-&gt;p[<span class="number">1</span>]-&gt;BR) &#123; </span><br><span class="line">      <span class="comment">// left-son and right-son exists, left and right sons are both red</span></span><br><span class="line">      gf-&gt;BR = <span class="number">1</span>;</span><br><span class="line">      gf-&gt;p[<span class="number">0</span>]-&gt;BR = <span class="number">0</span>;</span><br><span class="line">      gf-&gt;p[<span class="number">1</span>]-&gt;BR = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">if</span>(gf-&gt;father) &#123;</span><br><span class="line">        _treeChk(gf-&gt;father,gf-&gt;value &gt; gf-&gt;father-&gt;value); </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      status = son;</span><br><span class="line">      s = f-&gt;p[son]; <span class="comment">// s means son of f, Node*</span></span><br><span class="line">      status = (status &lt;&lt; <span class="number">1</span>) + (f-&gt;p[son]-&gt;value &gt; gf-&gt;value);</span><br><span class="line">      <span class="keyword">switch</span>(status) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b00</span> : ;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b11</span> : </span><br><span class="line">          f-&gt;BR = <span class="number">1</span>;</span><br><span class="line">          gf-&gt;BR = <span class="number">0</span>;</span><br><span class="line">          _treeRot(gf,!(<span class="number">1</span>&amp;status));</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b10</span> : ;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b01</span> : </span><br><span class="line">          f-&gt;BR = <span class="number">1</span>;</span><br><span class="line">          gf-&gt;BR = <span class="number">0</span>;</span><br><span class="line">          _treeRot(f,!son);</span><br><span class="line">          _treeRot(gf,!(<span class="number">1</span>&amp;status));</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span> : ;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>&emsp;以下函数中的drc，0代表左旋，1代表右旋</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeRot(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> drc) &#123; <span class="comment">// left-rotate: 0</span></span><br><span class="line">  now-&gt;value ^= now-&gt;p[!drc]-&gt;value ^= now-&gt;value ^= now-&gt;p[!drc]-&gt;value; <span class="comment">// swap value</span></span><br><span class="line">  Node* temp = now-&gt;p[drc];</span><br><span class="line">  now-&gt;p[drc] = now-&gt;p[!drc];</span><br><span class="line">  now-&gt;p[!drc] = now-&gt;p[drc]-&gt;p[!drc];</span><br><span class="line">  now-&gt;p[drc]-&gt;p[!drc] = now-&gt;p[drc]-&gt;p[drc];</span><br><span class="line">  now-&gt;p[drc]-&gt;p[drc] = temp;</span><br><span class="line">  <span class="keyword">if</span>(temp) temp-&gt;father = now-&gt;p[drc];</span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[!drc]) now-&gt;p[!drc]-&gt;father = now;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/24/P1980/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -622,7 +989,7 @@ A[0~9] = {1,1,1,1,1,1,1,1,1,1} 此处考虑到方便，就先记0处为1，后�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

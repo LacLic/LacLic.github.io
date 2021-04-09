@@ -147,6 +147,213 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/31/Codeforces-Buying-a-TV-Set/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/31/Codeforces-Buying-a-TV-Set/" class="post-title-link" itemprop="url">Codeforces-Buying a TV Set</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-31 11:24:00" itemprop="dateCreated datePublished" datetime="2021-01-31T11:24:00+08:00">2021-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有个人（摩诺卡普Monocarp）给自家的墙装个电视，商店街的电视尺寸只有一种比例的，而且长宽均为整数（题外话：汗…要是换个单位，小数不也能变整数）</p>
+<p>现在告诉你他家的墙的长宽，和其中一种尺寸的电视的长宽，请问至多能买多少种尺寸的电视？</p>
+<h2 id="思路">思路</h2>
+<p>将电视长宽分解，得出互质的长宽比例（长除以最大公约数gcd，宽同理），然后算出墙长最多能容纳多少种电视，宽同理，二者取最小值即为答案。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> a,b,x,y;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld %lld %lld&quot;</span>,&amp;a,&amp;b,&amp;x,&amp;y); <span class="comment">// 数据较大，用longlong</span></span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> xx=x,yy=y,temp;</span><br><span class="line">  <span class="keyword">do</span> &#123;</span><br><span class="line">    temp = xx%yy;</span><br><span class="line">    xx = yy;</span><br><span class="line">    yy = temp;</span><br><span class="line">  &#125;<span class="keyword">while</span>(temp!=<span class="number">0</span>); </span><br><span class="line">  <span class="comment">// gcd is xx</span></span><br><span class="line">  x /= xx;</span><br><span class="line">  y /= xx;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> count_x = a/x;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> count_y = b/y;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> ans = count_x&gt;count_y?count_y:count_x;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,ans);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/31/Codeforces-Heist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/31/Codeforces-Heist/" class="post-title-link" itemprop="url">Codeforces-Heist</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-31 11:18:37" itemprop="dateCreated datePublished" datetime="2021-01-31T11:18:37+08:00">2021-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有家键盘店被抢劫了，已知键盘标号是连续的（比如最小是 5，最大时 10，那原来至少是有标号为 5，6，7，8，9，10 共 6 把键盘）。</p>
+<p>现在知道还剩 n 个键盘，并给出他们的标号，请问，至少有多少把键盘被盗走？</p>
+<h2 id="思路">思路</h2>
+<p>找出标号的最大值最小值，得出原来至少有多少把键盘，减去剩余键盘数，便是被盗键盘数。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">int</span> temp;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> max=<span class="number">0</span>, min=<span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    <span class="keyword">if</span>(temp&gt;max) max = temp;</span><br><span class="line">    <span class="keyword">if</span>(temp&lt;min) min = temp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,max-min+<span class="number">1</span>-n);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/30/Codeforces-Problem-for-Nazar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/30/Codeforces-Problem-for-Nazar/" class="post-title-link" itemprop="url">Codeforces-Problem for Nazar</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-30 23:52:40 / Modified: 23:44:07" itemprop="dateCreated datePublished" datetime="2021-01-30T23:52:40+08:00">2021-01-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>将所有正整数分为奇偶两部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">第一次，取1个奇数</span><br><span class="line">第二次，取2个偶数</span><br><span class="line">第三次，取4个奇数</span><br><span class="line">第四次，取8个偶数</span><br><span class="line">第五次，取16个奇数</span><br><span class="line">第六次，取32个偶数</span><br><span class="line">以此类推……</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2   4</span><br><span class="line">3   5   7   9</span><br><span class="line">6   8   10  12  14  16  18  20</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们要读入2个数据l和r，从第l个累加到第r个，最后结果对1000000007取余</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>将l到r根据2的n次方分为很多个小区间，计算每个小区间之和（首项+末项）×项数÷2</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>由于涉及高精度，使用python</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">1</span></span><br><span class="line"><span class="string">2   4</span></span><br><span class="line"><span class="string">3   5   7   9</span></span><br><span class="line"><span class="string">6   8   10  12  14  16  18  20</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">s = <span class="built_in">input</span>(<span class="string">&quot;&quot;</span>).split()</span><br><span class="line">l = <span class="built_in">int</span>(s[<span class="number">0</span>])</span><br><span class="line">r = <span class="built_in">int</span>(s[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">sign = <span class="number">1</span></span><br><span class="line">dic = &#123;&#125;</span><br><span class="line"><span class="keyword">while</span> sign &lt; l:</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    sign *= <span class="number">2</span></span><br><span class="line"><span class="keyword">while</span> sign &lt;= r:</span><br><span class="line">    dic[i] = sign</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    sign *= <span class="number">2</span></span><br><span class="line">dic[i] = sign</span><br><span class="line">i += <span class="number">1</span></span><br><span class="line">sign *= <span class="number">2</span></span><br><span class="line"></span><br><span class="line">dic2 = &#123;&#125;</span><br><span class="line">ans = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> dic.items():  <span class="comment"># v == 2**k</span></span><br><span class="line">    <span class="keyword">if</span> k % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">        summ = (v*<span class="number">2</span><span class="number">-1</span>) // (<span class="number">4</span><span class="number">-1</span>)</span><br><span class="line">        highest = <span class="number">2</span>*summ - <span class="number">1</span>  <span class="comment"># num == 2**k - 1</span></span><br><span class="line">        num2 = v - <span class="number">1</span></span><br><span class="line">        lowest = highest - v + <span class="number">2</span>  <span class="comment"># num == 2**(k-1)</span></span><br><span class="line">        num1 = v//<span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> k % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">        summ = (v*<span class="number">2</span><span class="number">-2</span>) // (<span class="number">4</span><span class="number">-1</span>)</span><br><span class="line">        highest = <span class="number">2</span>*summ  <span class="comment"># num == 2**k - 1</span></span><br><span class="line">        num2 = v - <span class="number">1</span></span><br><span class="line">        lowest = highest - v + <span class="number">2</span>  <span class="comment"># num == 2**(k-1)</span></span><br><span class="line">        num1 = v//<span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> l &gt; num1:</span><br><span class="line">        left = (l - num1)*<span class="number">2</span> + lowest</span><br><span class="line">        numl = l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        left = lowest</span><br><span class="line">        numl = num1</span><br><span class="line">    <span class="keyword">if</span> r &lt; num2:</span><br><span class="line">        right = (r - num1)*<span class="number">2</span> + lowest</span><br><span class="line">        numr = r</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        right = highest</span><br><span class="line">        numr = num2</span><br><span class="line">    ans += (left+right)*(numr-numl+<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line"></span><br><span class="line">print(ans % <span class="number">1000000007</span>, end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/30/Codeforces-Maxim-and-Biology/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -706,219 +913,6 @@ if __name__ == &quot;__main__&quot;:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/28/Codeforces-Stickers-and-Toys/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/28/Codeforces-Stickers-and-Toys/" class="post-title-link" itemprop="url">Codeforces-Stickers and Toys</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-28 13:32:16" itemprop="dateCreated datePublished" datetime="2021-01-28T13:32:16+08:00">2021-01-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>有 n 个健达奇趣蛋，其中有 s 个贴纸，t 个玩具，每个蛋至多有 1 个贴纸、也至多有 1 个玩具（但可以既有 1 个贴纸又有 1 个玩具）。</p>
-<p>问：至少要买几个，才会必定又获得玩具又获得贴纸</p>
-<h2 id="思路">思路</h2>
-<p>s 和 t 取最小值，再寻找最差情况</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">  <span class="keyword">for</span>(;N;--N) &#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,c;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">    <span class="keyword">int</span> min;</span><br><span class="line">    <span class="keyword">if</span>(b&gt;c) min = c;</span><br><span class="line">    <span class="keyword">else</span> min = b;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a+<span class="number">1</span>-min);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/28/Codeforces-Letters-Shop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/28/Codeforces-Letters-Shop/" class="post-title-link" itemprop="url">Codeforces-Letters Shop</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-28 13:32:03" itemprop="dateCreated datePublished" datetime="2021-01-28T13:32:03+08:00">2021-01-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>先读入一串长字符串，再读入一串短字符串，要求从左开始遍历到所有短字符串所有字母都出现为止（且出现次数亦有要求，短字符串所有字母出现次数小于等于已遍历的长字符串的）</p>
-<h2 id="思路">思路</h2>
-<p>记录所有字母第 x 次出现的位置（不这么做会超时），取最大值</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> s[<span class="number">200006</span>];</span><br><span class="line"><span class="keyword">char</span> input[<span class="number">200006</span>];</span><br><span class="line"><span class="keyword">int</span> letter[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// &#x27;a&#x27; == 97</span></span><br><span class="line"><span class="keyword">int</span> mapp[<span class="number">26</span>][<span class="number">200006</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,m;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;s[i]!=<span class="string">&#x27;\0&#x27;</span>;++i) &#123;</span><br><span class="line">    mapp[s[i]<span class="number">-97</span>][letter[s[i]<span class="number">-97</span>]] = i;</span><br><span class="line">    ++letter[s[i]<span class="number">-97</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(;m;--m) &#123;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;++i) &#123;</span><br><span class="line">      letter[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,input);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;input[i]!=<span class="string">&#x27;\0&#x27;</span>;++i) &#123;</span><br><span class="line">      <span class="keyword">int</span> now = mapp[input[i]<span class="number">-97</span>][letter[input[i]<span class="number">-97</span>]];</span><br><span class="line">      ++letter[input[i]<span class="number">-97</span>];</span><br><span class="line">      <span class="keyword">if</span>(now&gt;max) max = now;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,max+<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/27/FZU2021-0x16-%E5%93%88%E5%AF%86%E9%A1%BF%E7%BB%95%E8%A1%8C%E4%B8%96%E7%95%8C%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/27/FZU2021-0x16-%E5%93%88%E5%AF%86%E9%A1%BF%E7%BB%95%E8%A1%8C%E4%B8%96%E7%95%8C%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">FZU2021-0x16-哈密顿绕行世界问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-27 12:12:35" itemprop="dateCreated datePublished" datetime="2021-01-27T12:12:35+08:00">2021-01-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>有一个十二面体（20 个顶点），现在给出这 20 个顶点相邻的顶点，以及起点 m，要求你输出所有（60 种）绕行所有点最后回到 m 点的方案。</p>
-<h2 id="思路">思路</h2>
-<p>一开始以为这题用枚举，大 O 会有 A^20^~20~的量级，后来想想每次只能选&lt;=3 个的路径，对于 20 个点撑死也只有 3^7^*2^7^，完全可以考虑暴力枚举</p>
-<p>所以我们用 20*3 大小的数组存储这 20 个点相邻点的数据，并用长度为 20 的数组以 0（没经过）/1（已经过）来记录是否经过，再用一个长度 20 的数组来存储已经被选择的数。</p>
-<p>递归到 20 层时（选了 20 个数时），我们进行检查，是否能回到 m 点，如果能，则输出，反之 return。</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">21</span>][<span class="number">3</span>];</span><br><span class="line"><span class="keyword">int</span> status[<span class="number">21</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="keyword">int</span> chosen[<span class="number">21</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> now)</span> </span>&#123; <span class="comment">// 判断能否返回原点</span></span><br><span class="line">  <span class="keyword">if</span>(a[chosen[<span class="number">1</span>]][<span class="number">0</span>]==now||a[chosen[<span class="number">1</span>]][<span class="number">1</span>]==now||a[chosen[<span class="number">1</span>]][<span class="number">2</span>]==now) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">go</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> layer)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(layer==<span class="number">20</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(check(now))&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d: &quot;</span>,cnt);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">20</span>;++i) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,chosen[i]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d\n&quot;</span>,chosen[<span class="number">1</span>]);</span><br><span class="line">      ++cnt;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span>;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123; <span class="comment">// 用for循环也可以，只是觉得只有3次，加之用for还要消耗判断的性能</span></span><br><span class="line">    <span class="keyword">if</span>(!status[a[now][<span class="number">0</span>]]) &#123;</span><br><span class="line">      status[a[now][<span class="number">0</span>]] = <span class="number">1</span>;</span><br><span class="line">      chosen[layer+<span class="number">1</span>] = a[now][<span class="number">0</span>]; <span class="comment">// 因为到layer==20的时候不会进else，所以不必担心数组溢出</span></span><br><span class="line">      go(a[now][<span class="number">0</span>],layer+<span class="number">1</span>);</span><br><span class="line">      status[a[now][<span class="number">0</span>]] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!status[a[now][<span class="number">1</span>]]) &#123;</span><br><span class="line">      status[a[now][<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">      chosen[layer+<span class="number">1</span>] = a[now][<span class="number">1</span>];</span><br><span class="line">      go(a[now][<span class="number">1</span>],layer+<span class="number">1</span>);</span><br><span class="line">      status[a[now][<span class="number">1</span>]] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!status[a[now][<span class="number">2</span>]]) &#123;</span><br><span class="line">      status[a[now][<span class="number">2</span>]] = <span class="number">1</span>;</span><br><span class="line">      chosen[layer+<span class="number">1</span>] = a[now][<span class="number">2</span>];</span><br><span class="line">      go(a[now][<span class="number">2</span>],layer+<span class="number">1</span>);</span><br><span class="line">      status[a[now][<span class="number">2</span>]] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">20</span>;++i) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">3</span>;++j) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> m;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    cnt = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line">    <span class="keyword">if</span>(m==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    status[m] = <span class="number">1</span>;</span><br><span class="line">    chosen[<span class="number">1</span>] = m;</span><br><span class="line">    go(m,<span class="number">1</span>);</span><br><span class="line">    status[m] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -988,7 +982,7 @@ if __name__ == &quot;__main__&quot;:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
