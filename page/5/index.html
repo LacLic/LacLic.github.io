@@ -147,6 +147,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/01/Codeforces-Tanya-and-Stairways/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/01/Codeforces-Tanya-and-Stairways/" class="post-title-link" itemprop="url">Codeforces-Tanya and Stairways</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-01 11:33:55" itemprop="dateCreated datePublished" datetime="2021-02-01T11:33:55+08:00">2021-02-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有一座很高的建筑，有很多层，每一层都有很多阶梯（可能不一样，这到底是什么鬼建筑），现在告诉你一共有几个阶梯，并且告诉你每个阶梯是当前层的第几阶</p>
+<p>现在要你求出有多少层，并且每层有多少阶梯。</p>
+<h2 id="思路">思路</h2>
+<p>每检测到第 1 阶的时候，层数+1，并记录上一层的有多少阶梯。</p>
+<p>首个就随便给个数据，之后弃用。</p>
+<p>最后一层的阶梯数信息还存储在阶数计数器中，直接在最后读取即可。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>,temp,max;</span><br><span class="line">  <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; que;</span><br><span class="line">  <span class="keyword">for</span>(;n;--n) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    <span class="keyword">if</span>(temp==<span class="number">1</span>) &#123; <span class="comment">// 检测到阶数==1</span></span><br><span class="line">      que.push(max); <span class="comment">// 将层数推入队列</span></span><br><span class="line">      max = temp;</span><br><span class="line">      ++cnt;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      max = temp;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,cnt);</span><br><span class="line"></span><br><span class="line">  que.pop(); <span class="comment">// 第一个数据是无效的，踢出队列</span></span><br><span class="line">  <span class="keyword">while</span>(!que.empty()) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,que.front());</span><br><span class="line">    que.pop();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,max); <span class="comment">// 最后一层的阶数</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/31/Codeforces-Buying-a-TV-Set/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -777,142 +850,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/28/Python-dpkt-study-note/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/28/Python-dpkt-study-note/" class="post-title-link" itemprop="url">Python dpkt study note</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-28 20:50:50" itemprop="dateCreated datePublished" datetime="2021-01-28T20:50:50+08:00">2021-01-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-29 16:05:35" itemprop="dateModified" datetime="2021-01-29T16:05:35+08:00">2021-01-29</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <pre><code class="python"># from: https://blog.csdn.net/javajiawei/article/details/100513267
-import sys
-import os
-import dpkt
-
-
-def checkIfHTTPRes(data):  # 检查是否为HTTP协议
-
-    if len(data) &lt; 4:
-        return False
-
-    if data[:4] == str.encode(&#39;HTTP&#39;):
-        return True
-
-    return False
-
-
-def httpPacketParser(http):  # 分析流
-
-    if checkIfHTTPRes(http):  # 检查是否为HTTP协议
-        try:
-            response = dpkt.http.Response(http)  # 尝试以HTTP读取响应
-            print(response.status)
-
-        except Exception as e:
-            # print(e)
-            pass
-    # else:
-    #     print(&quot;Not HTTP&quot;)
-
-
-def tcpPacketParser(tcp):  # 获取流
-
-    stream = tcp.data
-    if len(stream):
-        httpPacketParser(stream)  # 尝试以HTTP分析流
-
-
-def ipPacketParser(ip):  # 获取TCP包
-    if isinstance(ip.data, dpkt.tcp.TCP):
-        &quot;&quot;&quot;这里也许可以考虑一下加一条来读UDP包？&quot;&quot;&quot;
-        tcpPacketParser(ip.data)  # 分析tcp包
-
-
-def decodePacket(packet):  # 解码获取以太网包
-    eth = dpkt.ethernet.Ethernet(packet)
-    if isinstance(eth.data, dpkt.ip.IP):
-        ipPacketParser(eth.data)  # 分析ip包
-
-
-def pcapReader(filename):  # 打开.pcap文件
-    try:
-        with open(filename, &#39;rb&#39;) as f:
-            capture = dpkt.pcap.Reader(f)
-            i = 1
-            for timestamp, packet in capture:  # 键值对，提取packet进行解码
-                decodePacket(packet)
-                i += 1
-
-    except Exception as e:
-        print(&#39;parse &#123;&#125;, error:&#123;&#125;&#39;.format(filename, e))
-
-
-if __name__ == &quot;__main__&quot;:
-    if len(sys.argv) &lt; 2:
-        print(&#39;HELP: python &#123;&#125; &lt;PCAP_PATH&gt;&#39;.format(sys.argv[0]))
-        sys.exit(0)
-        # _EXIT_
-    filename = sys.argv[1]
-
-    if filename:
-        pcapReader(filename)</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -982,13 +919,13 @@ if __name__ == &quot;__main__&quot;:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">80</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
