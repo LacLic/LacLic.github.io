@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>记一次docker桥接失败</title>
+      <link href="2021/04/19/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E6%A1%A5%E6%8E%A5%E5%A4%B1%E8%B4%A5/"/>
+      <url>2021/04/19/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E6%A1%A5%E6%8E%A5%E5%A4%B1%E8%B4%A5/</url>
+      
+        <content type="html"><![CDATA[<h2 id="创建虚拟机">创建虚拟机</h2><p>随便创建个虚拟机即可，进去先<code>su root</code>切换到root账户，然后<code>apt update</code>升级apt</p><p>接下来<code>apt install docker</code>或<code>snap install docker</code>下载docker</p><p>输入<code>docker --version</code>查看是否有回显版本号</p><p><em>如果是用snap下载的docker，应该会有环境变量的问题</em></p><p><em>使用</em><code>vim /etc/profile</code><em>，在最底下加一行</em></p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;/snap/bin/:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure><p><em>接下来再</em><code>docker --version</code><em>查看是否有回显</em></p><h2 id="创建镜像并安装工具">创建镜像并安装工具</h2><p>拉取镜像<code>docker pull ubuntu:latest</code></p><p>创建容器<code>docker create --name=u1 -it ubuntu:latest bash</code></p><p>启动<code>docker start u1</code>并进入容器<code>docker exec -it u1 bash</code></p><p>升级apt<code>apt update</code></p><p>然后预装一些工具包</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt install vim</span><br><span class="line">apt install curl</span><br><span class="line">apt install iproute2</span><br><span class="line">apt install net-tools</span><br><span class="line">apt install traceroute</span><br><span class="line">apt install iputils-ping</span><br></pre></td></tr></table></figure><h2 id="打包镜像">打包镜像</h2><p>先退出<code>exit</code>并停止容器<code>docker stop u1</code></p><p>打包成镜像<code>docker commit -a=&quot;laclic&quot; -m=&quot;:)&quot; u1 laclic:latest</code>（-a表示author，-m表示描述，最后表示名称:标签）</p><h2 id="创建第二个容器">创建第二个容器</h2><p>有打包好的镜像了，我们直接<code>docker create --name=u2 -it laclic:latest bash</code>，里面已经有装好的工具包了</p><h2 id="创建新的网桥">创建新的网桥</h2><figure class="highlight docker"><figcaption><span>network create --internal bdg```--internal标签表示不与外网相连</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## 整理网桥连接关系</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>docker network disconnect bridge u1<br>docker network connect bdg u1<br>docker network connect bdg u2</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 启动容器并配置u1</span><br><span class="line"></span><br><span class="line">启动两个容器</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>docker start u1<br>docker start u2</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;docker exec -it u2 bash&#96;&#96;&#96;进入u2并&#96;&#96;&#96;ifconfig&#96;&#96;&#96;查看以太网卡（eth0是默认网桥bridge，eth1是我们新建的bdg）</span><br><span class="line"></span><br><span class="line">记录eth1网卡的ip（我这里是172.20.0.3），之后都用\[ip.ip.ip.ip\]指代。</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;exit&#96;&#96;&#96;退出u2并&#96;&#96;&#96;docker exec -it u1 bash&#96;&#96;&#96;进入u1</span><br><span class="line"></span><br><span class="line">重写默认路由</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>ip route del default<br>ip route add default via [ip.ip.ip.ip]<br>// 我这里是172.20.0.3，就用 ip route add default via 172.20.0.3</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 内核启用包转发</span><br><span class="line"></span><br><span class="line">回到宿主机（容器默认的包转发都是已经打开的）</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>sysctl net.ipv4.conf.all.forwarding=1<br>sudo iptables -P FORWARD ACCEPT</p><pre><code>如果没有iptables就```apt install iptables```下一个至此，如图配置基本完成，但发现u1仍旧无法ping通外网……</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> network </tag>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Codeforces-Okabe_and_City</title>
       <link href="2021/04/16/Codeforces-Okabe-and-City/"/>
       <url>2021/04/16/Codeforces-Okabe-and-City/</url>

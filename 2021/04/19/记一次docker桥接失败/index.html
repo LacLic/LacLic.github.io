@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="创建虚拟机 随便创建个虚拟机即可，进去先su root切换到root账户，然后apt update升级apt 接下来apt install docker或snap install docker下载docker 输入docker --version查看是否有回显版本号 如果是用snap下载的docker，应该会有环境变量的问题 使用vim &#x2F;etc&#x2F;profile，在最底下加一行 1export P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次docker桥接失败">
+<meta property="og:url" content="http://laclic.github.io/2021/04/19/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E6%A1%A5%E6%8E%A5%E5%A4%B1%E8%B4%A5/index.html">
+<meta property="og:site_name" content="LacLic&#39;s Blog">
+<meta property="og:description" content="创建虚拟机 随便创建个虚拟机即可，进去先su root切换到root账户，然后apt update升级apt 接下来apt install docker或snap install docker下载docker 输入docker --version查看是否有回显版本号 如果是用snap下载的docker，应该会有环境变量的问题 使用vim &#x2F;etc&#x2F;profile，在最底下加一行 1export P">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-19T13:21:07.000Z">
+<meta property="article:modified_time" content="2021-04-19T14:11:42.641Z">
+<meta property="article:author" content="LacLic Vanilla">
+<meta property="article:tag" content="network">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://laclic.github.io/2021/04/19/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E6%A1%A5%E6%8E%A5%E5%A4%B1%E8%B4%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>记一次docker桥接失败 | LacLic's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LacLic's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Living with bustle, hearing of isolation.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/04/19/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E6%A1%A5%E6%8E%A5%E5%A4%B1%E8%B4%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记一次docker桥接失败
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-19 21:21:07 / Modified: 22:11:42" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="创建虚拟机">创建虚拟机</h2>
+<p>随便创建个虚拟机即可，进去先<code>su root</code>切换到root账户，然后<code>apt update</code>升级apt</p>
+<p>接下来<code>apt install docker</code>或<code>snap install docker</code>下载docker</p>
+<p>输入<code>docker --version</code>查看是否有回显版本号</p>
+<p><em>如果是用snap下载的docker，应该会有环境变量的问题</em></p>
+<p><em>使用</em><code>vim /etc/profile</code><em>，在最底下加一行</em></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;/snap/bin/:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p><em>接下来再</em><code>docker --version</code><em>查看是否有回显</em></p>
+<h2 id="创建镜像并安装工具">创建镜像并安装工具</h2>
+<p>拉取镜像<code>docker pull ubuntu:latest</code></p>
+<p>创建容器<code>docker create --name=u1 -it ubuntu:latest bash</code></p>
+<p>启动<code>docker start u1</code>并进入容器<code>docker exec -it u1 bash</code></p>
+<p>升级apt<code>apt update</code></p>
+<p>然后预装一些工具包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt install vim</span><br><span class="line">apt install curl</span><br><span class="line">apt install iproute2</span><br><span class="line">apt install net-tools</span><br><span class="line">apt install traceroute</span><br><span class="line">apt install iputils-ping</span><br></pre></td></tr></table></figure>
+<h2 id="打包镜像">打包镜像</h2>
+<p>先退出<code>exit</code>并停止容器<code>docker stop u1</code></p>
+<p>打包成镜像<code>docker commit -a=&quot;laclic&quot; -m=&quot;:)&quot; u1 laclic:latest</code>（-a表示author，-m表示描述，最后表示名称:标签）</p>
+<h2 id="创建第二个容器">创建第二个容器</h2>
+<p>有打包好的镜像了，我们直接<code>docker create --name=u2 -it laclic:latest bash</code>，里面已经有装好的工具包了</p>
+<h2 id="创建新的网桥">创建新的网桥</h2>
+<figure class="highlight docker"><figcaption><span>network create --internal bdg```--internal标签表示不与外网相连</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## 整理网桥连接关系</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>docker network disconnect bridge u1<br>
+docker network connect bdg u1<br>
+docker network connect bdg u2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 启动容器并配置u1</span><br><span class="line"></span><br><span class="line">启动两个容器</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>docker start u1<br>
+docker start u2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;docker exec -it u2 bash&#96;&#96;&#96;进入u2并&#96;&#96;&#96;ifconfig&#96;&#96;&#96;查看以太网卡（eth0是默认网桥bridge，eth1是我们新建的bdg）</span><br><span class="line"></span><br><span class="line">记录eth1网卡的ip（我这里是172.20.0.3），之后都用\[ip.ip.ip.ip\]指代。</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;exit&#96;&#96;&#96;退出u2并&#96;&#96;&#96;docker exec -it u1 bash&#96;&#96;&#96;进入u1</span><br><span class="line"></span><br><span class="line">重写默认路由</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>ip route del default<br>
+ip route add default via [ip.ip.ip.ip]<br>
+// 我这里是172.20.0.3，就用 ip route add default via 172.20.0.3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 内核启用包转发</span><br><span class="line"></span><br><span class="line">回到宿主机（容器默认的包转发都是已经打开的）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>sysctl net.ipv4.conf.all.forwarding=1<br>
+sudo iptables -P FORWARD ACCEPT</p>
+<pre><code>
+如果没有iptables就```apt install iptables```下一个
+
+
+至此，如图配置基本完成，但发现u1仍旧无法ping通外网……
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/network/" rel="tag"># network</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/16/Codeforces-Okabe-and-City/" rel="prev" title="Codeforces-Okabe_and_City">
+      <i class="fa fa-chevron-left"></i> Codeforces-Okabe_and_City
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">创建虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F%E5%B9%B6%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">创建镜像并安装工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E9%95%9C%E5%83%8F"><span class="nav-number">3.</span> <span class="nav-text">打包镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%AE%B9%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">创建第二个容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%BD%91%E6%A1%A5"><span class="nav-number">5.</span> <span class="nav-text">创建新的网桥</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">LacLic Vanilla</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LacLic" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LacLic" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Friendly Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.seraphjack.top/" title="https:&#x2F;&#x2F;blog.seraphjack.top&#x2F;" rel="noopener" target="_blank">Seraph_Jack</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LacLic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
