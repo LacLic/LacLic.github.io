@@ -284,7 +284,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-19 21:21:07 / Modified: 22:11:42" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
+              <time title="Created: 2021-04-19 21:21:07 / Modified: 22:14:49" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
             </span>
 
           
@@ -319,7 +319,7 @@ mjx-container[display="true"] + br {
 <h2 id="创建第二个容器">创建第二个容器</h2>
 <p>有打包好的镜像了，我们直接<code>docker create --name=u2 -it laclic:latest bash</code>，里面已经有装好的工具包了</p>
 <h2 id="创建新的网桥">创建新的网桥</h2>
-<figure class="highlight docker"><figcaption><span>network create --internal bdg```--internal标签表示不与外网相连</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## 整理网桥连接关系</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight docker"><figcaption><span>network create --internal bdg```（--internal标签表示不与外网相连）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## 整理网桥连接关系</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>docker network disconnect bridge u1<br>
 docker network connect bdg u1<br>
 docker network connect bdg u2</p>
