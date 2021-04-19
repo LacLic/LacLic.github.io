@@ -284,7 +284,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-19 21:21:07 / Modified: 22:16:54" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
+              <time title="Created: 2021-04-19 21:21:07 / Modified: 22:18:33" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
             </span>
 
           
@@ -326,19 +326,16 @@ mjx-container[display="true"] + br {
 <h2 id="启动容器并配置u1">启动容器并配置u1</h2>
 <p>启动两个容器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker start u1</span><br><span class="line">docker start u2</span><br></pre></td></tr></table></figure>
-<figure class="highlight docker"><figcaption><span>exec -it u2 bash```进入u2并```ifconfig```查看以太网卡（eth0是默认网桥bridge，eth1是我们新建的bdg）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">记录eth1网卡的ip（我这里是<span class="number">172.20</span>.<span class="number">0.3</span>），之后都用\[ip.ip.ip.ip\]指代。</span><br><span class="line"></span><br><span class="line">```exit```退出u2并```docker exec -it u1 bash```进入u1</span><br><span class="line"></span><br><span class="line">重写默认路由</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>ip route del default<br>
-ip route add default via [ip.ip.ip.ip]<br>
-// 我这里是172.20.0.3，就用 ip route add default via 172.20.0.3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 内核启用包转发</span><br><span class="line"></span><br><span class="line">回到宿主机（容器默认的包转发都是已经打开的）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>sysctl net.ipv4.conf.all.forwarding=1<br>
-sudo iptables -P FORWARD ACCEPT</p>
-<pre><code>
-如果没有iptables就```apt install iptables```下一个
-
-
-至此，如图配置基本完成，但发现u1仍旧无法ping通外网……
-</code></pre>
+<p>使用<code>docker exec -it u2 bash</code>进入u2并<code>ifconfig</code>查看以太网卡（eth0是默认网桥bridge，eth1是我们新建的bdg）</p>
+<p>记录eth1网卡的ip（我这里是172.20.0.3），之后都用[ip.ip.ip.ip]指代。</p>
+<p>使用<code>exit</code>退出u2并<code>docker exec -it u1 bash</code>进入u1</p>
+<p>重写默认路由</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ip route del default</span><br><span class="line">ip route add default via [ip.ip.ip.ip]</span><br><span class="line">&#x2F;&#x2F; 我这里是172.20.0.3，就用 ip route add default via 172.20.0.3</span><br></pre></td></tr></table></figure>
+<h2 id="内核启用包转发">内核启用包转发</h2>
+<p>回到宿主机（容器默认的包转发都是已经打开的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.conf.all.forwarding&#x3D;1</span><br><span class="line">sudo iptables -P FORWARD ACCEPT </span><br></pre></td></tr></table></figure>
+<p>如果没有iptables就<code>apt install iptables</code>下一个</p>
+<p>至此，如图配置基本完成，但发现u1仍旧无法ping通外网……</p>
 
       
     </div>
