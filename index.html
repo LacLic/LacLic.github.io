@@ -284,7 +284,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-04-19 21:21:07 / Modified: 22:14:49" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
+              <time title="Created: 2021-04-19 21:21:07 / Modified: 22:16:54" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
             </span>
 
           
@@ -319,14 +319,14 @@ mjx-container[display="true"] + br {
 <h2 id="创建第二个容器">创建第二个容器</h2>
 <p>有打包好的镜像了，我们直接<code>docker create --name=u2 -it laclic:latest bash</code>，里面已经有装好的工具包了</p>
 <h2 id="创建新的网桥">创建新的网桥</h2>
-<figure class="highlight docker"><figcaption><span>network create --internal bdg```（--internal标签表示不与外网相连）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## 整理网桥连接关系</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>docker network disconnect bridge u1<br>
-docker network connect bdg u1<br>
-docker network connect bdg u2</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 启动容器并配置u1</span><br><span class="line"></span><br><span class="line">启动两个容器</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>docker start u1<br>
-docker start u2</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;docker exec -it u2 bash&#96;&#96;&#96;进入u2并&#96;&#96;&#96;ifconfig&#96;&#96;&#96;查看以太网卡（eth0是默认网桥bridge，eth1是我们新建的bdg）</span><br><span class="line"></span><br><span class="line">记录eth1网卡的ip（我这里是172.20.0.3），之后都用\[ip.ip.ip.ip\]指代。</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;exit&#96;&#96;&#96;退出u2并&#96;&#96;&#96;docker exec -it u1 bash&#96;&#96;&#96;进入u1</span><br><span class="line"></span><br><span class="line">重写默认路由</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create --internal bdg</span><br></pre></td></tr></table></figure>
+<p>（–internal标签表示不与外网相连）</p>
+<h2 id="整理网桥连接关系">整理网桥连接关系</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker network disconnect bridge u1</span><br><span class="line">docker network connect bdg u1</span><br><span class="line">docker network connect bdg u2</span><br></pre></td></tr></table></figure>
+<h2 id="启动容器并配置u1">启动容器并配置u1</h2>
+<p>启动两个容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker start u1</span><br><span class="line">docker start u2</span><br></pre></td></tr></table></figure>
+<figure class="highlight docker"><figcaption><span>exec -it u2 bash```进入u2并```ifconfig```查看以太网卡（eth0是默认网桥bridge，eth1是我们新建的bdg）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">记录eth1网卡的ip（我这里是<span class="number">172.20</span>.<span class="number">0.3</span>），之后都用\[ip.ip.ip.ip\]指代。</span><br><span class="line"></span><br><span class="line">```exit```退出u2并```docker exec -it u1 bash```进入u1</span><br><span class="line"></span><br><span class="line">重写默认路由</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>ip route del default<br>
 ip route add default via [ip.ip.ip.ip]<br>
 // 我这里是172.20.0.3，就用 ip route add default via 172.20.0.3</p>
