@@ -259,6 +259,94 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/04/22/Codeforces-715-Div-1-A-Binary-Literature/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/22/Codeforces-715-Div-1-A-Binary-Literature/" class="post-title-link" itemprop="url">Codeforces#715(Div.1)A - Binary Literature</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-22 14:56:35 / Modified: 15:42:56" itemprop="dateCreated datePublished" datetime="2021-04-22T14:56:35+08:00">2021-04-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>Koyomi Kanou参加了一场二进制（?）写作比赛。给定n和3个二进制字符串（长度为2n），现在要你写出一个长度为3n的新字符串，使得3个字符串中的2个是新字符串的子串。</p>
+<p>字串定义距离：对于下面样例中的第二个case，有<strong>011</strong>0<strong>0</strong>1<strong>01</strong>0, 0<strong>11</strong>00<strong>1010</strong> and <strong>0</strong>1<strong>100</strong>1<strong>01</strong>0。</p>
+<p>每次给出t组数据。</p>
+<h3 id="Example">Example</h3>
+<div class="sample-test"><div class="input"><div class="title">Input</div><pre id="id006706365924689337">2
+1
+00
+11
+01
+3
+011001
+111010
+010001
+</pre></div><div class="output"><div class="title">Output</div><pre id="id009510512010192955">010
+011001010
+</pre></div></div></div>
+<h2 id="思路">思路</h2>
+<p>模拟栈（栈是处理字符串常用的数据结构）</p>
+<p>首先，对于给定的3个字符串，每个长度为2n，总长度为6n，我们一共能输出3n长度的字符串。</p>
+<p>那么，我们将三个字符串塞入（模拟）栈中，栈顶为字符串第一个元素，栈基为字符串最后一个元素。</p>
+<p>每次3个栈顶元素，由于只有0和1，必然存在一个数出现2次或以上，我们pop出这个数，并记录到ans中，直到有一个字符串全部pop完毕，此时生成的字串长度在2n到3n之间。</p>
+<p>证明：<em>如此，每次必然pop出2个数，最多经过3n次操作，6n个元素全部pop出来。显然最少得经过2n次操作，就能把一个串给pop出来。</em></p>
+<p>此时，已经pop出来的那个（可能不止一个）字符串处理完毕，只剩下至多2个字符串了，</p>
+<p>如果已经pop完2个字符串了，直接填充至3n后跑路。√</p>
+<p>如果只pop完1个字符串，剩下2个字符串。</p>
+<p>假定已经总共pop了 2n+k 次，那么剩下2个字符串总的字符个数最多（一次最多pop3个元素，最少pop2个元素）就是 2n-2k 个，那么至少有1个字符串的剩余字符数小于等于 n-k 个。</p>
+<p>而我们现在刚好还有 3n-(2n+k) = n-k 个字符待填充，就用来填充那个字符串的剩余字符，同样，如果不足3n则补齐后跑路。√</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cassert&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">  <span class="keyword">int</span> n2 = n*<span class="number">2</span>, n3 = n*<span class="number">3</span>;</span><br><span class="line">  <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">s</span><span class="params">(<span class="number">3</span>)</span></span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;++i) &#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s[i]; <span class="comment">// 模拟栈</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> now[<span class="number">3</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// 模拟栈顶指针</span></span><br><span class="line">  <span class="built_in">string</span> ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">while</span>(now[<span class="number">0</span>]&lt;n2&amp;&amp;now[<span class="number">1</span>]&lt;n2&amp;&amp;now[<span class="number">2</span>]&lt;n2) &#123;</span><br><span class="line">    <span class="built_in">pair</span>&lt;<span class="keyword">char</span>,<span class="keyword">int</span>&gt; nowat[<span class="number">3</span>] = &#123;<span class="built_in">make_pair</span>(s[<span class="number">0</span>][now[<span class="number">0</span>]],<span class="number">0</span>),<span class="built_in">make_pair</span>(s[<span class="number">1</span>][now[<span class="number">1</span>]],<span class="number">1</span>),<span class="built_in">make_pair</span>(s[<span class="number">2</span>][now[<span class="number">2</span>]],<span class="number">2</span>)&#125;;</span><br><span class="line">    sort(nowat,nowat+<span class="number">3</span>,[&amp;](<span class="keyword">const</span> <span class="built_in">pair</span>&lt;<span class="keyword">char</span>,<span class="keyword">int</span>&gt;&amp;o1,<span class="keyword">const</span> <span class="built_in">pair</span>&lt;<span class="keyword">char</span>,<span class="keyword">int</span>&gt;&amp;o2) &#123;<span class="keyword">return</span> o1.first&lt;o2.first;&#125; );</span><br><span class="line">    <span class="comment">// 巧妙地取出了出现多的那个数</span></span><br><span class="line">    ans += nowat[<span class="number">1</span>].first;</span><br><span class="line">    <span class="keyword">if</span>(nowat[<span class="number">0</span>].first==nowat[<span class="number">1</span>].first) ++now[nowat[<span class="number">0</span>].second];</span><br><span class="line">    ++now[nowat[<span class="number">1</span>].second];</span><br><span class="line">    <span class="keyword">if</span>(nowat[<span class="number">2</span>].first==nowat[<span class="number">1</span>].first) ++now[nowat[<span class="number">2</span>].second];</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* Method 1: 处理最后一个字符串，这里用的是给的思路中的写法 */</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;++i) &#123; <span class="comment">// slower than next method</span></span><br><span class="line">    <span class="keyword">if</span>(now[i]&lt;ans.size()-n||now[i]&gt;=n2) <span class="keyword">continue</span>;</span><br><span class="line">    <span class="keyword">for</span>(;now[i]&lt;n2;++now[i]) &#123;</span><br><span class="line">      ans += s[i][now[i]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/* Method 2: 直接弃用剩余字符最多的那个字符串，会快很多，可能是不用调用ans.size() */</span></span><br><span class="line">  <span class="comment">// int lowest = 0;</span></span><br><span class="line">  <span class="comment">// for(int i=1;i&lt;3;++i) &#123;</span></span><br><span class="line">  <span class="comment">//   if(now[lowest]&gt;now[i]) lowest = i;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="comment">// for(int i=0;i&lt;3;++i) &#123;</span></span><br><span class="line">  <span class="comment">//   if(i==lowest||now[i]&gt;=n2) continue;</span></span><br><span class="line">    <span class="comment">// for(;now[i]&lt;n2;++now[i]) &#123;</span></span><br><span class="line">    <span class="comment">//   ans += s[i][now[i]];</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  assert(ans.size()&lt;=n3); <span class="comment">// 断言，如果括号内不成立则抛出error</span></span><br><span class="line">  ans.resize(n3,<span class="string">&#x27;0&#x27;</span>); <span class="comment">// 填充0（1也行）</span></span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">  <span class="built_in">cin</span>.tie(<span class="literal">NULL</span>);</span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line">  <span class="keyword">int</span> t;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">  <span class="keyword">for</span>(;t;--t) &#123;</span><br><span class="line">    solve();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/04/19/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E6%A1%A5%E6%8E%A5%E5%A4%B1%E8%B4%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -282,10 +370,16 @@ mjx-container[display="true"] + br {
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-04-19 21:21:07 / Modified: 22:18:33" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
+              <time title="Created: 2021-04-19 21:21:07" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-21 18:50:36" itemprop="dateModified" datetime="2021-04-21T18:50:36+08:00">2021-04-21</time>
+              </span>
 
           
 
@@ -1022,80 +1116,10 @@ $$</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/23/Codeforces-Vlad-and-Cafes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/23/Codeforces-Vlad-and-Cafes/" class="post-title-link" itemprop="url">Codeforces-Vlad and Cafes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-23 21:31:37" itemprop="dateCreated datePublished" datetime="2021-03-23T21:31:37+08:00">2021-03-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-06 22:56:57" itemprop="dateModified" datetime="2021-04-06T22:56:57+08:00">2021-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>Vlad 喜欢去咖啡厅。现给定共 n 个天数<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex" xmlns="http://www.w3.org/2000/svg" width="16.73ex" height="2.52ex" role="img" focusable="false" viewBox="0 -864 7394.7 1114"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(389, 0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(889, 0)"><path data-c="2009" d=""></path></g><g data-mml-node="mo" transform="translate(1222.7, 0)"><path data-c="2A7D" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM94 170Q102 172 104 172Q110 171 254 103T535 -30T678 -98Q694 -106 694 -118Q694 -136 676 -138H670L382 -2Q92 135 90 137Q83 142 83 154Q84 164 94 170Z"></path></g><g data-mml-node="mo" transform="translate(2000.7, 0)"><path data-c="2009" d=""></path></g><g data-mml-node="mi" transform="translate(2334.3, 0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(2934.3, 0)"><path data-c="2009" d=""></path></g><g data-mml-node="mo" transform="translate(3268, 0)"><path data-c="2A7D" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM94 170Q102 172 104 172Q110 171 254 103T535 -30T678 -98Q694 -106 694 -118Q694 -136 676 -138H670L382 -2Q92 135 90 137Q83 142 83 154Q84 164 94 170Z"></path></g><g data-mml-node="mo" transform="translate(4046, 0)"><path data-c="2009" d=""></path></g><g data-mml-node="mn" transform="translate(4379.7, 0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mo" transform="translate(5101.9, 0)"><path data-c="B7" d="M78 250Q78 274 95 292T138 310Q162 310 180 294T199 251Q199 226 182 208T139 190T96 207T78 250Z"></path></g><g data-mml-node="msup" transform="translate(5602.1, 0)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500, 0)"></path></g><g data-mml-node="mn" transform="translate(1000, 393.1) scale(0.707)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path></g></g><g data-mml-node="mo" transform="translate(7005.7, 0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>和这 n 天中 Vlad 分别所去的咖啡的代号，求 Vlad 距离上一次去最久远的咖啡厅。</p>
-<h2 id="思路">思路</h2>
-<p>使用 map，给每个咖啡厅代号赋值为当前的天数，最后遍历 map 中所有元素，寻找 value 最小值并输出 key。</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">int</span> N;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N);</span><br><span class="line">  <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; m;</span><br><span class="line">  <span class="keyword">int</span> tmp;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;++i) {</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;tmp);</span><br><span class="line">    m[tmp] = i;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">int</span> ans=m.begin()-&gt;first;</span><br><span class="line">  <span class="keyword">for</span>(<span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;::iterator it=m.begin();it!=m.end();++it) {</span><br><span class="line">    <span class="keyword">if</span>(m[ans]&gt;it-&gt;second) ans = it-&gt;first;</span><br><span class="line">  }</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1161,13 +1185,13 @@ $$</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">81</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-count">82</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
