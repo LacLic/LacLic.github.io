@@ -147,6 +147,169 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/21/wsl2-ubuntu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/21/wsl2-ubuntu/" class="post-title-link" itemprop="url">安装 wsl2-ubuntu</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-21 17:49:27" itemprop="dateCreated datePublished" datetime="2021-01-21T17:49:27+08:00">2021-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-27 13:58:30" itemprop="dateModified" datetime="2021-01-27T13:58:30+08:00">2021-01-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>为了搭建临时测试网络，我们需要linux环境，ubuntu是一个比较易上手的linux发行版</p>
+<p>官方教程：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10">链接</a></p>
+<p>以下是我自己电脑安装wsl2-ubuntu的过程（比较简单，但是可能有些设置是不一样的，比如我这个win10的wsl是默认开启的，还有win10版本是默认最新的）</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="为何需要使用-linux"><a href="#为何需要使用-linux" class="headerlink" title="为何需要使用 linux"></a>为何需要使用 linux</h3><p>因为很多教程命令都是基于linux系统撰写的，也为了防止由于系统版本问题而产生与教程结果不一致的问题</p>
+<h3 id="为何使用-wsl2-windows-subsystem-linux-2"><a href="#为何使用-wsl2-windows-subsystem-linux-2" class="headerlink" title="为何使用 wsl2(windows-subsystem-linux 2)"></a>为何使用 wsl2(windows-subsystem-linux 2)</h3><p>因为方便好装（win10商店就有），而且不用安装双系统天天重启切换，并且性能比虚拟机好（如果已经有虚拟机，嫌麻烦其实不用装wsl也可以）</p>
+<p>另外，wsl2还有很多好用的功能，在这里就不列举了（因为我也没体会过），就作个引用好了。<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144583887">原文</a>.</p>
+<blockquote>
+<p>为什么要升级到WSL2<br>用过 WSL 第一代的朋友一定都遇到过一些比较蛋疼兼容性的问题，这些问题是由于 WSL 并不“完整”导致的。说到底 WSL 还只是一个用于访问 Linux 环境的兼容层，并没有实现 Linux 内核的完整功能。比如，我遇到了这些情况：<br>· 无法启动Go的 Debug 进程，导致调试Go程序很麻烦<br>· 需要在 WSL 下单独安装一套 Docker 引擎，并进行额外配置<br>· 在 WSL 下启动 VS Code 后，会出现目录中文件被占用的情况，导致无法重命名，必须要先退出 VS Code<br>· 无法正常使用 Linux 下全部命令，比如netstat<br>而 WSL2 基于Hyper-V功能的子集提供了“真正的 Linux 内核”，因此上述问题也被解决了。同时，WSL2 也 支持 Windows 10 家庭版，因此之前家庭版不能用 Docker Desktop 的情况也已经成了历史。 这对于习惯使用 Linux 开发，但是又需要 Windows 玩游戏，同时不希望用盗版的有志青年们来说简直是天大的福音。</p>
+</blockquote>
+<h2 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h2><h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><p>单击你的<code>win</code>键（没有输入框，但是你可以试试随便按一个字幕/数字键，会自动切换到搜索输入框），输入<code>Microsoft store</code>（如果你经常用的话，输入个M可能就能出来了）</p>
+<p><img src="https://i.loli.net/2021/01/21/QLD1cZU94WGmBqi.png" alt="KK__3_Y6J6@_G_HEY_2A2HT.png"></p>
+<p>搜索<code>ubuntu</code>（无需穿墙），下载安装（免费）<br>三个版本其实都可以</p>
+<p><img src="https://i.loli.net/2021/01/21/wQOZCMpjLd5AYFc.png" alt="Z_TUN5KBRH_A``60_FO__R0.png"></p>
+<p>此时，单击<code>win</code>键输入<code>ubuntu</code>，点击即可打开</p>
+<p><img src="https://i.loli.net/2021/01/21/MzGW2tvuSLmxNei.png" alt="1.png"></p>
+<p>打开后，什么都没有，嗯<br>也可能会显示版本信息，一天显示一次<br>现在我们处于欢迎视窗（刚进wsl-ubuntu时候就会打开的东西，我也不知道有什么用，反正挺迷惑的）<br>需要我们自行退出</p>
+<p><img src="https://i.loli.net/2021/01/21/qrumyPz1MfQnobB.png" alt="2.png"></p>
+<p>键盘进行<code>ctrl+C</code>，退出欢迎视窗</p>
+<p>然后你就可以关掉了，因为现在装的是wsl1，我们需要升级wsl2</p>
+<h3 id="升级-wsl2"><a href="#升级-wsl2" class="headerlink" title="升级 wsl2"></a>升级 wsl2</h3><p>单击<code>win</code>，输入<code>powershell</code>，<strong>右键</strong>一个蓝蓝的东西<code>Microsoft Powershell</code>（别开PowerPoint去了），点击<code>以管理员身份运行</code>（一定要是这样开！！不然后面会<strong>报错</strong>的！）</p>
+<p><img src="https://i.loli.net/2021/01/21/ydsKO3k5JcIqVHv.png" alt="AVNGX20E_SBY6__PS7IKUFI.png"></p>
+<p>输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-default-version 2</span><br></pre></td></tr></table></figure>
+
+<p>会提示你安装wsl2内核，按照提示安装即可</p>
+<p>（或者试试下面这条命令，请注意，一定要以管理员身份打开powershell）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe &#x2F;online &#x2F;enable-feature &#x2F;featurename:VirtualMachinePlatform &#x2F;all &#x2F;norestart</span><br></pre></td></tr></table></figure>
+
+<p>然后再来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-default-version 2</span><br></pre></td></tr></table></figure>
+
+<p>最后输入<code>wsl --list --verbose</code>检查一下确实是装上了wsl2-ubuntu</p>
+<p><img src="https://i.loli.net/2021/01/21/97UBE3HqlmtQRIr.png" alt="3.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x05-Train-Problem-I/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/FZU2021-0x05-Train-Problem-I/" class="post-title-link" itemprop="url">FZU2021-0x05-Train Problem I</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 14:41:01" itemprop="dateCreated datePublished" datetime="2021-01-20T14:41:01+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="同样是消消乐"><s>同样是消消乐</s></h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// use stack</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TOTAL 10</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> cmd[<span class="number">18</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// 1: IN, 2: OUT, 0: end</span></span><br><span class="line"><span class="keyword">char</span> now_at = <span class="number">0</span>; <span class="comment">// to point out where to push the next cmd</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">cmd_push</span><span class="params">(<span class="keyword">int</span> command)</span> </span>&#123;</span><br><span class="line">  cmd[now_at] = command;</span><br><span class="line">  ++now_at;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// inline void clear(stack&lt;char&gt;&amp;thiz) &#123; // no need to initialize it, when one problem is over, because stack will be disposed before going to the next roop</span></span><br><span class="line"><span class="comment">//   stack&lt;char&gt; empty;</span></span><br><span class="line"><span class="comment">//   swap(thiz,empty);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N;</span><br><span class="line">  <span class="keyword">char</span> in[TOTAL],out[TOTAL];</span><br><span class="line">  <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N)!=EOF) &#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; stk;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s %s&quot;</span>,in,out);</span><br><span class="line">    <span class="keyword">int</span> mouse[<span class="number">3</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// 1: in, 2: out, 0: of no use</span></span><br><span class="line">    <span class="keyword">while</span>(mouse[<span class="number">1</span>]&lt;N) &#123;</span><br><span class="line">      <span class="keyword">if</span>(in[mouse[<span class="number">1</span>]]==out[mouse[<span class="number">2</span>]]) &#123;</span><br><span class="line">        ++mouse[<span class="number">1</span>];</span><br><span class="line">        ++mouse[<span class="number">2</span>];</span><br><span class="line">        cmd_push(<span class="number">1</span>);</span><br><span class="line">        cmd_push(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">while</span>(!stk.empty()&amp;&amp;stk.top()==out[mouse[<span class="number">2</span>]]) &#123;</span><br><span class="line">          ++mouse[<span class="number">2</span>];</span><br><span class="line">          stk.pop();</span><br><span class="line">          cmd_push(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        stk.push(in[mouse[<span class="number">1</span>]]);</span><br><span class="line">        ++mouse[<span class="number">1</span>];</span><br><span class="line">        cmd_push(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cmd[now_at] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(!stk.empty()) <span class="built_in">printf</span>(<span class="string">&quot;No.\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Yes.\n&quot;</span>);</span><br><span class="line">      <span class="comment">// print the content in cmd[]</span></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;cmd[i]!=<span class="number">0</span>;++i) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (cmd[i]) &#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">1</span>: <span class="built_in">printf</span>(<span class="string">&quot;in\n&quot;</span>);  <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">2</span>: <span class="built_in">printf</span>(<span class="string">&quot;out\n&quot;</span>); <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;FINISH\n&quot;</span>);</span><br><span class="line">    <span class="comment">// reset now_at</span></span><br><span class="line">    now_at = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x06-%E7%9C%8B%E7%97%85%E8%A6%81%E6%8E%92%E9%98%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -894,160 +1057,6 @@ A[0~9] = {1,1,1,1,1,1,1,1,1,1} 此处考虑到方便，就先记0处为1，后�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/11/16/Flutter-Exception-multiple-heroes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/16/Flutter-Exception-multiple-heroes/" class="post-title-link" itemprop="url">Flutter_Exception_multiple_heroes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-11-16 22:31:23" itemprop="dateCreated datePublished" datetime="2020-11-16T22:31:23+08:00">2020-11-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-03 18:09:37" itemprop="dateModified" datetime="2020-12-03T18:09:37+08:00">2020-12-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Flutter-Exception：-emsp-There-are-multiple-heroes-that-share-the-same-tag-within-a-subtree"><a href="#Flutter-Exception：-emsp-There-are-multiple-heroes-that-share-the-same-tag-within-a-subtree" class="headerlink" title="Flutter Exception： &emsp;There are multiple heroes that share the same tag within a subtree"></a>Flutter Exception： <br>&emsp;<em>There are multiple heroes that share the same tag within a subtree</em></h1><p>Created by: © LacLic</p>
-<h2 id="错误发生"><a href="#错误发生" class="headerlink" title="错误发生"></a>错误发生</h2><p>&emsp;这个异常(exception)主要出现于一个页面/路由(route)中有<strong>两个及以上</strong>的浮标按钮(FloatingActionButtom)。</p>
-<p>&emsp;以下是异常报错代码及状况：<br>*<del>仅展示了部分代码</del>*</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_MyHomePageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">MyHomePage</span>&gt; </span>&#123;</span><br><span class="line"><span class="comment">// ...省略无关代码</span></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> Scaffold(</span><br><span class="line">    appBar: <span class="comment">/* ...省略无关代码 */</span>,</span><br><span class="line">    body: Center(</span><br><span class="line">      child: Column(</span><br><span class="line">        mainAxisAlignment: MainAxisAlignment.center,</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          <span class="comment">/*...省略无关widget代码 */</span></span><br><span class="line">          FloatingActionButton(</span><br><span class="line">            onPressed: () =&gt; Navigator.pushNamed(context, <span class="string">&quot;test_form&quot;</span>),</span><br><span class="line">            child: Icon(Icons.plus_one),</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">    floatingActionButton: FloatingActionButton(</span><br><span class="line">      onPressed: () &#123;</span><br><span class="line">        Navigator.pushNamed(context, <span class="string">&quot;test_theme&quot;</span>);</span><br><span class="line">        _decrementCounter();</span><br><span class="line">      &#125;,</span><br><span class="line">      tooltip: <span class="string">&#x27;new page&#x27;</span>,</span><br><span class="line">      child: Icon(Icons.home),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-</br>
-
-<p><img src="https://i.loli.net/2020/11/16/2NzUaxAYipJShn4.gif" alt="example.gif" title="example"></p>
-<p>&emsp;会出现如图所示的异常(exception)</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>&emsp;只需要向各个浮标按钮的heroTag参数传入一个与其它浮标按钮不同的值（字符串）即可：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">FloatingActionButton(</span><br><span class="line">  onPressed: () =&gt; Navigator.pushNamed(context, <span class="string">&quot;test_form&quot;</span>),</span><br><span class="line">  child: Icon(Icons.plus_one),</span><br><span class="line">  heroTag: <span class="string">&#x27;example&#x27;</span>, <span class="comment">// &lt;- here</span></span><br><span class="line">),</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>里面的example可以替换成任意你想输入的值，只要不与其它的浮标按钮(FloatingActionButtom)的heroTag值相同即可  </p>
-<h2 id="错误原理"><a href="#错误原理" class="headerlink" title="错误原理"></a>错误原理</h2><p>&emsp;<em>首先得知道Hero是Flutter中的一种动画形式，两个带有同样hero标识的元素在页面切换时会有一个飞动的效果，该效果由flutter自动实现。该标识对应的属性名为heroTag，在同一个页面内，每个heroTag只能拥有一个独一无二的值（和 html 中的 id 一样），如果重复就会抛出标题所示的异常 ‘There are multiple heroes that share the same tag within a subtree.’</em> [^REF]</p>
-<p>&emsp;Flutter 相应部分源码：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> FloatingActionButton(&#123;</span><br><span class="line">  <span class="comment">//省略无关参数</span></span><br><span class="line">  <span class="keyword">this</span>.heroTag = <span class="keyword">const</span> _DefaultHeroTag(),</span><br><span class="line">  <span class="comment">//省略无关参数</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>其中：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_DefaultHeroTag</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> _DefaultHeroTag();</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String</span> toString() =&gt; <span class="string">&#x27;&lt;default FloatingActionButton tag&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;明显看出，heroTag会被默认初始化为 ‘&lt;default FloatingActionButton tag&gt;‘ ，导致未向heroTag传入参数的地方，全都默认为上面那段字符串</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="built_in">Object</span> heroTag;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// <span class="markdown">The callback that is called when the button is tapped or otherwise activated.</span></span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// <span class="markdown">If this is set to null, the button will be disabled.</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>&emsp;就是说这个参数是用来管理这个按钮的点击等事件的，如果多个按钮使用同一个heroTag则会触发联动，造成问题，为了防止问题，flutter提前进行了异常报错</p>
-<p>[^REF]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_37828249/article/details/105185954">CSDN id: in_motion 的博客</a>.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/11/07/my-first-blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/07/my-first-blog/" class="post-title-link" itemprop="url">my-first-blog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-11-07 20:11:54" itemprop="dateCreated datePublished" datetime="2020-11-07T20:11:54+08:00">2020-11-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-03 18:07:27" itemprop="dateModified" datetime="2020-12-03T18:07:27+08:00">2020-12-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Make it great!</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1117,13 +1126,13 @@ A[0~9] = {1,1,1,1,1,1,1,1,1,1} 此处考虑到方便，就先记0处为1，后�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">82</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

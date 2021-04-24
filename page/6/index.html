@@ -147,6 +147,156 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/30/Codeforces-Vasya-And-Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/30/Codeforces-Vasya-And-Array/" class="post-title-link" itemprop="url">Codeforces-Vasya And Array</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-30 14:31:30" itemprop="dateCreated datePublished" datetime="2021-01-30T14:31:30+08:00">2021-01-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>给定一个有 n 个数的数组，再给定一些输入 t,l,r</p>
+<p>其中，t 只能为 0 或 1</p>
+<p>t==1 时，数组中下标从 l 到 r 的数均为非递减</p>
+<p>t==0 时，数组中下标从 l 到 r 的数不全为非递减，即至少有 2 个是递减的，即存在 i 使得 A<em>i&gt;A</em>(i+1)</p>
+<h2 id="思路">思路</h2>
+<p>先记录所有严格非递减区间的首位，经过一次变量全部标记为非递减区间（下图绿色），并将所有 t==0 情况压入栈中（队列也行，无先后顺序要求），最后便利栈中所有的区间，碰到的第一个非递增区间（已标记递减的亦可），标记为递减，最后处理输出</p>
+<p>详情见图</p>
+<p><img src="https://i.loli.net/2021/01/28/r4saMN1pJimPBdQ.gif" alt="黑板.gif"></p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">dis</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> from;</span><br><span class="line">  <span class="keyword">int</span> to;</span><br><span class="line">&#125;Dis;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,m,isPossible=<span class="number">1</span>;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m);</span><br><span class="line">  <span class="keyword">int</span> a[n+<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">  <span class="built_in">stack</span>&lt;Dis&gt; stk;</span><br><span class="line">  Dis temp;</span><br><span class="line">  <span class="keyword">for</span>(;m;--m) &#123;</span><br><span class="line">    <span class="keyword">int</span> cmd;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;cmd,&amp;temp.from,&amp;temp.to);</span><br><span class="line">    <span class="keyword">if</span>(cmd==<span class="number">1</span>) &#123;</span><br><span class="line">      ++a[temp.from];</span><br><span class="line">      --a[temp.to];</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      stk.push(temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i) &#123;</span><br><span class="line">    flag+=a[i];</span><br><span class="line">    <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">      a[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(!stk.empty()) &#123;</span><br><span class="line">    temp = stk.top();</span><br><span class="line">    stk.pop();</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=temp.from;i&lt;temp.to;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(a[i]!=<span class="number">1</span>) &#123;</span><br><span class="line">        a[i] = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(i==temp.to) &#123;</span><br><span class="line">      isPossible = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(isPossible) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;YES\n&quot;</span>);</span><br><span class="line">    <span class="comment">// int now = 1; // (WARNING: 1 ≤ ai ≤ 10^9)</span></span><br><span class="line">    <span class="keyword">int</span> now = <span class="number">500000000</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;500000000&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i) &#123;</span><br><span class="line">      now += a[i];</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,now);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/29/Codeforces-Gambling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/29/Codeforces-Gambling/" class="post-title-link" itemprop="url">Codeforces-Gambling</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-29 11:45:43" itemprop="dateCreated datePublished" datetime="2021-01-29T11:45:43+08:00">2021-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有两个人纸牌游戏（相互明牌），每个人起手有 n 张牌，每回合由 A 开始再 B，可丢弃自己的一张牌并给自己加分，或者丢弃对方一张牌（没有加分）。</p>
+<p>求每个人都进行了最佳选择后，A 的得分减去 B 的得分的值（可为负）</p>
+<h2 id="思路">思路</h2>
+<p>竞争性游戏，只求分差</p>
+<p>丢弃对方一张牌其实某种意义上是给自己加分了</p>
+<p>我的思路是 2 个人分别存储手牌</p>
+<p>不过后来想想，不需要这么麻烦，其实只要一个 set，光加分就够了</p>
+<h2 id="代码">代码</h2>
+<p>使用 multiset</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,temp;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; a,b;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> <span class="comment">/*score*/</span>sa=<span class="number">0</span>,sb=<span class="number">0</span>; <span class="comment">// need long long</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    a.insert(temp);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    b.insert(temp);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt;::iterator ita,itb; <span class="comment">// multi</span></span><br><span class="line">  <span class="keyword">int</span> flag;</span><br><span class="line">  ita = a.end(); --ita;</span><br><span class="line">  itb = b.end(); --itb;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// A round:</span></span><br><span class="line">    <span class="keyword">if</span>(*ita&gt;*itb) &#123;</span><br><span class="line">      sa += *ita;</span><br><span class="line">      a.erase(ita);</span><br><span class="line">      <span class="keyword">if</span>(a.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b00</span>; <span class="comment">// round, empty set</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ita = a.end(); --ita;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      b.erase(itb);</span><br><span class="line">      <span class="keyword">if</span>(b.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b01</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      itb = b.end(); --itb;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// B round:</span></span><br><span class="line">    <span class="keyword">if</span>(*itb&gt;*ita) &#123;</span><br><span class="line">      sb += *itb;</span><br><span class="line">      b.erase(itb);</span><br><span class="line">      <span class="keyword">if</span>(b.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b11</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      itb = b.end(); --itb;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      a.erase(ita);</span><br><span class="line">      <span class="keyword">if</span>(a.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b10</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ita = a.end(); --ita;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">switch</span>(flag) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b00</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// B round:</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        sb += *itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">        <span class="keyword">if</span>(b.empty()) <span class="keyword">break</span>; <span class="comment">// roop condition</span></span><br><span class="line">        <span class="comment">// A round:</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b01</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">        <span class="keyword">if</span>(a.empty()) <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        sa += *ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b10</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(!b.empty()) &#123;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        sb += *itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b11</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(!a.empty()) &#123;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        sa += *ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,sa-sb);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/29/Codeforces-Non-Coprime-Partition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -806,145 +956,6 @@ if __name__ == &quot;__main__&quot;:
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/25/Codeforces-Chunga-Changa/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/25/Codeforces-Chunga-Changa/" class="post-title-link" itemprop="url">Codeforces-Chunga-Changa</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-01-25 14:48:27 / Modified: 15:11:36" itemprop="dateCreated datePublished" datetime="2021-01-25T14:48:27+08:00">2021-01-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有2个小女孩去买椰子，手上分别有x元，y元，一个椰子要z元。</p>
-<p>她们可以合起来买，但此时就要让一个人给另一个一些钱。</p>
-<p>问：她们合起来最多买几个？最少要让一个人给另一个人多少钱？</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>两个人先分开买，剩下的钱再合并到一起买，分别计算二人还需要多少钱才能买得起最后一个，取最小值</p>
-<p>如果买不起就为0（不给钱）</p>
-<h2 id="代码（python）"><a href="#代码（python）" class="headerlink" title="代码（python）"></a>代码（python）</h2><p>不能用int强制转换，只能用//整除。为什么呢？求dalao告知，感激不尽！（邮箱<a href="mailto:&#x65;&#52;&#49;&#113;&#101;&#52;&#64;&#49;&#50;&#54;&#x2e;&#99;&#x6f;&#x6d;">&#x65;&#52;&#49;&#113;&#101;&#52;&#64;&#49;&#50;&#54;&#x2e;&#99;&#x6f;&#x6d;</a>，麻烦注明一下是从这题来的，thx~）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">xyz = <span class="built_in">input</span>(<span class="string">&quot;&quot;</span>).split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">x = <span class="built_in">int</span>(xyz[<span class="number">0</span>])</span><br><span class="line">y = <span class="built_in">int</span>(xyz[<span class="number">1</span>])</span><br><span class="line">z = <span class="built_in">int</span>(xyz[<span class="number">2</span>])</span><br><span class="line">total = <span class="number">0</span></span><br><span class="line"><span class="comment"># get how many coconuts one person can buy</span></span><br><span class="line">total += x//z  <span class="comment"># total += int(x/z) #</span></span><br><span class="line">x %= z</span><br><span class="line">total += y//z  <span class="comment"># total += int(y/z) #</span></span><br><span class="line">y %= z</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">If you replace things in ##, you will get WA.</span></span><br><span class="line"><span class="string">WHY was that? I don&#x27;t know.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">exchange = <span class="number">0</span></span><br><span class="line">left = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> x+y &gt;= z:</span><br><span class="line">  total += <span class="number">1</span></span><br><span class="line">  <span class="keyword">if</span> z-x &gt; z-y:</span><br><span class="line">    exchange = (z-y) % z</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    exchange = (z-x) % z</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">f&quot;<span class="subst">&#123;total&#125;</span> <span class="subst">&#123;exchange&#125;</span>&quot;</span>, end=<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/25/FZU2021-0x13-%E6%A3%8B%E7%9B%98%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/25/FZU2021-0x13-%E6%A3%8B%E7%9B%98%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">FZU2021-0x13-棋盘问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-25 14:46:52" itemprop="dateCreated datePublished" datetime="2021-01-25T14:46:52+08:00">2021-01-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>组合问题，暴力枚举</p>
-<h2 id="题意">题意</h2>
-<p>有个 N*N 的棋盘，里面有一定位置可以放棋子（为#的地方），现在有 k 个棋子。</p>
-<p>问：有多少种摆放方式，使得每个棋子都被放下，每个棋子所在行列不能有其他棋子（且每一行/每一列至多只有一个棋子）</p>
-<h2 id="思路">思路</h2>
-<p>用将所有#所在位置信息记录（在 posX 和 posY），模拟键值对，并且每行/每列都加上状态信息（statusX 和 statusY；其中，0:为没旗子，可放棋子；1:代表该行/列已有棋子，不能放其他棋子了）。</p>
-<h2 id="小技巧">小技巧</h2>
-<p>当剩余棋子数不足（i&lt;=max）以供剩下棋子放置时，提前退出递归，以减少计算量。</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> a[<span class="number">8</span>][<span class="number">8</span>];</span><br><span class="line"><span class="keyword">int</span> statusX[<span class="number">8</span>]=&#123;<span class="number">0</span>&#125;,statusY[<span class="number">8</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> posX[<span class="number">66</span>],posY[<span class="number">66</span>];</span><br><span class="line"><span class="keyword">int</span> cnt,k,ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recur</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> layer)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(layer==k) &#123;</span><br><span class="line">    ++ans;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> max = cnt - k + layer;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=now+<span class="number">1</span>;i&lt;=max;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(!statusX[posX[i]]&amp;&amp;!statusY[posY[i]]) &#123;</span><br><span class="line">        statusX[posX[i]] = <span class="number">1</span>;</span><br><span class="line">        statusY[posY[i]] = <span class="number">1</span>;</span><br><span class="line">        recur(i,layer+<span class="number">1</span>);</span><br><span class="line">        statusX[posX[i]] = <span class="number">0</span>;</span><br><span class="line">        statusY[posY[i]] = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">int</span> mouse = <span class="number">0</span>;</span><br><span class="line">    ans = <span class="number">0</span>;</span><br><span class="line">    cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;k);</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">-1</span>&amp;&amp;k==<span class="number">-1</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">      getchar();</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;++j) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;a[i][j]);</span><br><span class="line">        <span class="keyword">if</span>(a[i][j]==<span class="string">&#x27;#&#x27;</span>) &#123;</span><br><span class="line">          posX[mouse] = i;</span><br><span class="line">          posY[mouse] = j;</span><br><span class="line">          ++mouse;</span><br><span class="line">          ++cnt;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    --k;</span><br><span class="line">    <span class="keyword">int</span> max = cnt-k;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;max;++i) &#123;</span><br><span class="line">      statusX[posX[i]] = <span class="number">1</span>;</span><br><span class="line">      statusY[posY[i]] = <span class="number">1</span>;</span><br><span class="line">      recur(i,<span class="number">0</span>);</span><br><span class="line">      statusX[posX[i]] = <span class="number">0</span>;</span><br><span class="line">      statusY[posY[i]] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">2 1</span></span><br><span class="line"><span class="comment">#.</span></span><br><span class="line"><span class="comment">.#</span></span><br><span class="line"><span class="comment">4 4</span></span><br><span class="line"><span class="comment">...#</span></span><br><span class="line"><span class="comment">..#.</span></span><br><span class="line"><span class="comment">.#..</span></span><br><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="comment">-1 -1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1014,13 +1025,13 @@ if __name__ == &quot;__main__&quot;:
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">82</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

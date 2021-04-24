@@ -147,6 +147,155 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/03/Codeforces-Polycarp-and-Div-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/03/Codeforces-Polycarp-and-Div-3/" class="post-title-link" itemprop="url">Codeforces-Polycarp and Div 3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-03 09:26:16" itemprop="dateCreated datePublished" datetime="2021-02-03T09:26:16+08:00">2021-02-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>给定一个很长的数字串，现在要你将其分割为很多小子串，使得能被 3 整除的子数字串最多，输出最多有多少个。</p>
+<h2 id="思路">思路</h2>
+<p>分情况：<br>
+对于数字串中，新开始的一位：（mod3 代表对 3 取余）</p>
+<ol>
+<li>若本身 mod3 就是 0，直接成为一个符合条件的串，前面的舍弃</li>
+<li>若与前面串之和 mod3 为 0，则一起成为符合条件的串</li>
+<li>若与前面串之和-最首位后，mod3 为 0，则成为符合条件的串，最首位舍弃</li>
+<li>都不符合，则前往下一位</li>
+</ol>
+<p>当然有一个可能的例外，比如最首 2 位都去掉才能变成 mod3 位 0 呢？</p>
+<p>答：因为 mod3 只会有 3 中情况，0，1，2。最首位（head1）为 0 则直接自成一串。head1 为 1 时，首第二位（head2）mod3 为 0 则自成一串，head1 舍弃；head2 mod3 为 2，则合成一串；head2 为 1 时，再前往下一位；若再下一位（head3）为 0，自成一串；若为 1，head1+2+3 合成一串，若为 2，则 head2+3 合成一串，舍弃 head1，完美填满了所有情况，head1 mod3 为 2 时同理，所以只需要记录一个 head1 即可。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> a[<span class="number">200006</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,a);</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>,total=<span class="number">0</span>,head;</span><br><span class="line">  head = a[<span class="number">0</span>] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;a[i]!=<span class="number">0</span>;) &#123;</span><br><span class="line">    <span class="keyword">if</span>(a[i]%<span class="number">3</span>==<span class="number">0</span>) &#123;</span><br><span class="line">      ++cnt;</span><br><span class="line">      ++i;</span><br><span class="line">      head = a[i] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">      total = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      total += a[i] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">      <span class="keyword">if</span>(total%<span class="number">3</span>==<span class="number">0</span>) &#123;</span><br><span class="line">        ++cnt;</span><br><span class="line">        ++i;</span><br><span class="line">        head = a[i] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(head!=total&amp;&amp;(total-head)%<span class="number">3</span>==<span class="number">0</span>) &#123;</span><br><span class="line">        ++cnt;</span><br><span class="line">        ++i;</span><br><span class="line">        head = a[i] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ++i;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,cnt);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/02/Codeforces-Fingerprints/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/02/Codeforces-Fingerprints/" class="post-title-link" itemprop="url">Codeforces-Fingerprints</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-02 13:52:46" itemprop="dateCreated datePublished" datetime="2021-02-02T13:52:46+08:00">2021-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>其实有点没看懂，大意就是，给定 n 和 k，给你 n 个数，再告诉你其中 k 个数上有标记，现在让你按输入这 n 个数时的顺序，输出所有有标记的数。</p>
+<h2 id="思路">思路</h2>
+<p>将 k 个数写入一个数组，0 为没标记，1 为有标记，最后去遍历 n 个数的数组，有标记就输出</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,m;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m);</span><br><span class="line">  <span class="keyword">int</span> a[n],mapp[<span class="number">10</span>]=&#123;<span class="number">0</span>&#125;,temp;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    ++mapp[temp];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">int</span> i=<span class="number">0</span>, flag=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(i;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mapp[a[i]]==<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a[i]);</span><br><span class="line">      flag = <span class="number">1</span>;</span><br><span class="line">      ++i;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mapp[a[i]]==<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,a[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/02/Codeforces-Delete-from-the-Left/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -697,156 +846,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/30/Codeforces-Vasya-And-Array/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/30/Codeforces-Vasya-And-Array/" class="post-title-link" itemprop="url">Codeforces-Vasya And Array</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-30 14:31:30" itemprop="dateCreated datePublished" datetime="2021-01-30T14:31:30+08:00">2021-01-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>给定一个有 n 个数的数组，再给定一些输入 t,l,r</p>
-<p>其中，t 只能为 0 或 1</p>
-<p>t==1 时，数组中下标从 l 到 r 的数均为非递减</p>
-<p>t==0 时，数组中下标从 l 到 r 的数不全为非递减，即至少有 2 个是递减的，即存在 i 使得 A<em>i&gt;A</em>(i+1)</p>
-<h2 id="思路">思路</h2>
-<p>先记录所有严格非递减区间的首位，经过一次变量全部标记为非递减区间（下图绿色），并将所有 t==0 情况压入栈中（队列也行，无先后顺序要求），最后便利栈中所有的区间，碰到的第一个非递增区间（已标记递减的亦可），标记为递减，最后处理输出</p>
-<p>详情见图</p>
-<p><img src="https://i.loli.net/2021/01/28/r4saMN1pJimPBdQ.gif" alt="黑板.gif"></p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">dis</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> from;</span><br><span class="line">  <span class="keyword">int</span> to;</span><br><span class="line">&#125;Dis;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,m,isPossible=<span class="number">1</span>;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;m);</span><br><span class="line">  <span class="keyword">int</span> a[n+<span class="number">1</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">  <span class="built_in">stack</span>&lt;Dis&gt; stk;</span><br><span class="line">  Dis temp;</span><br><span class="line">  <span class="keyword">for</span>(;m;--m) &#123;</span><br><span class="line">    <span class="keyword">int</span> cmd;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;cmd,&amp;temp.from,&amp;temp.to);</span><br><span class="line">    <span class="keyword">if</span>(cmd==<span class="number">1</span>) &#123;</span><br><span class="line">      ++a[temp.from];</span><br><span class="line">      --a[temp.to];</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      stk.push(temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i) &#123;</span><br><span class="line">    flag+=a[i];</span><br><span class="line">    <span class="keyword">if</span>(flag) &#123;</span><br><span class="line">      a[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(!stk.empty()) &#123;</span><br><span class="line">    temp = stk.top();</span><br><span class="line">    stk.pop();</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=temp.from;i&lt;temp.to;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(a[i]!=<span class="number">1</span>) &#123;</span><br><span class="line">        a[i] = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(i==temp.to) &#123;</span><br><span class="line">      isPossible = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(isPossible) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;YES\n&quot;</span>);</span><br><span class="line">    <span class="comment">// int now = 1; // (WARNING: 1 ≤ ai ≤ 10^9)</span></span><br><span class="line">    <span class="keyword">int</span> now = <span class="number">500000000</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;500000000&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i) &#123;</span><br><span class="line">      now += a[i];</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,now);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/29/Codeforces-Gambling/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/29/Codeforces-Gambling/" class="post-title-link" itemprop="url">Codeforces-Gambling</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-29 11:45:43" itemprop="dateCreated datePublished" datetime="2021-01-29T11:45:43+08:00">2021-01-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>有两个人纸牌游戏（相互明牌），每个人起手有 n 张牌，每回合由 A 开始再 B，可丢弃自己的一张牌并给自己加分，或者丢弃对方一张牌（没有加分）。</p>
-<p>求每个人都进行了最佳选择后，A 的得分减去 B 的得分的值（可为负）</p>
-<h2 id="思路">思路</h2>
-<p>竞争性游戏，只求分差</p>
-<p>丢弃对方一张牌其实某种意义上是给自己加分了</p>
-<p>我的思路是 2 个人分别存储手牌</p>
-<p>不过后来想想，不需要这么麻烦，其实只要一个 set，光加分就够了</p>
-<h2 id="代码">代码</h2>
-<p>使用 multiset</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,temp;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; a,b;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> <span class="comment">/*score*/</span>sa=<span class="number">0</span>,sb=<span class="number">0</span>; <span class="comment">// need long long</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    a.insert(temp);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    b.insert(temp);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt;::iterator ita,itb; <span class="comment">// multi</span></span><br><span class="line">  <span class="keyword">int</span> flag;</span><br><span class="line">  ita = a.end(); --ita;</span><br><span class="line">  itb = b.end(); --itb;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// A round:</span></span><br><span class="line">    <span class="keyword">if</span>(*ita&gt;*itb) &#123;</span><br><span class="line">      sa += *ita;</span><br><span class="line">      a.erase(ita);</span><br><span class="line">      <span class="keyword">if</span>(a.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b00</span>; <span class="comment">// round, empty set</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ita = a.end(); --ita;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      b.erase(itb);</span><br><span class="line">      <span class="keyword">if</span>(b.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b01</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      itb = b.end(); --itb;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// B round:</span></span><br><span class="line">    <span class="keyword">if</span>(*itb&gt;*ita) &#123;</span><br><span class="line">      sb += *itb;</span><br><span class="line">      b.erase(itb);</span><br><span class="line">      <span class="keyword">if</span>(b.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b11</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      itb = b.end(); --itb;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      a.erase(ita);</span><br><span class="line">      <span class="keyword">if</span>(a.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b10</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ita = a.end(); --ita;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">switch</span>(flag) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b00</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// B round:</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        sb += *itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">        <span class="keyword">if</span>(b.empty()) <span class="keyword">break</span>; <span class="comment">// roop condition</span></span><br><span class="line">        <span class="comment">// A round:</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b01</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">        <span class="keyword">if</span>(a.empty()) <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        sa += *ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b10</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(!b.empty()) &#123;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        sb += *itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b11</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(!a.empty()) &#123;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        sa += *ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,sa-sb);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -916,13 +915,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">82</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
