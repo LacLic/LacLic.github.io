@@ -259,6 +259,94 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/04/27/Codeforces-712-Div-1-A-Balance-the-Bits/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/27/Codeforces-712-Div-1-A-Balance-the-Bits/" class="post-title-link" itemprop="url">Codeforces-712(Div.1)A - Balance the Bits</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-27 13:46:08 / Modified: 13:47:51" itemprop="dateCreated datePublished" datetime="2021-04-27T13:46:08+08:00">2021-04-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>给定t个case，每个case给定n与n长度的字符串（只包含0和1）。要求你输出2个长度为n的（只包含左右括号()）字符串，要求：对于每个1对应的部分，括号方向相同；对于每个0对应的部分，括号方向相反。并且，括号应当符合语法（每个左括号都有对应的右括号，如同数学表达式中的括号一样）。现在要求你判断能否输出这样的两个字符串，如果能，则YES，并输出字符串；如果不能，则NO。</p>
+<h3 id="数据范围">数据范围</h3>
+<p>$1\le t\le 10^4$</p>
+<p>$2\le n\le 2⋅10^5$</p>
+<p>且t个case的n之和不超过$2⋅10^5$</p>
+<h3 id="Examples">Examples</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line"></span><br><span class="line">3</span><br><span class="line">6</span><br><span class="line">101101</span><br><span class="line">10</span><br><span class="line">1001101101</span><br><span class="line">4</span><br><span class="line">1100</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line"></span><br><span class="line">YES</span><br><span class="line">()()()</span><br><span class="line">((()))</span><br><span class="line">YES</span><br><span class="line">()()((()))</span><br><span class="line">(())()()()</span><br><span class="line">NO</span><br></pre></td></tr></table></figure>
+<h2 id="思路">思路</h2>
+<p>首先进行两个剪枝：</p>
+<ol>
+<li>首或尾非1者，必然为NO（显而易见）</li>
+<li>1或0的个数为奇数者，必然为NO（必有一个括号因反向而无法配对）</li>
+</ol>
+<p>再证一个引理：任意一个YES样例，对于不在开头/结尾两侧的成对1，总能在不影响内外部顺序的情况下凑对</p>
+<p>我们将这两个1分别分配左括号(和右括号)</p>
+<p>将括号前中后分为三个部分 记作情况1：S1(S2)S3</p>
+<p>情况2：当不存在这对括号1时，则会是 S1 S2 S3</p>
+<p>以栈的形式存储三个字符串，如果括号匹配成功则()出栈，不成功则继续入栈，以此来记录配对情况</p>
+<p>情况1：没有两个括号的时候，S2入栈完毕后，记还剩余x个左括号（x&gt;=0）</p>
+<p>情况2：当有两个括号的时候，S2入栈完毕后，还剩余x+1个左括号，这个右括号)入栈后，还剩余x个左括号</p>
+<p>证毕。</p>
+<p>可见，对于非首尾位置的成对1，可通过分别分配左右括号来消去，从而简化问题。</p>
+<p>接下来：</p>
+<p>对于任意 10000…001 （中间有偶数个0） 格式的输入，总有如下格式可以符合要求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1 00 1</span><br><span class="line">( () )</span><br><span class="line">( )( )</span><br><span class="line"></span><br><span class="line">1 0000 1</span><br><span class="line">( ()() )</span><br><span class="line">( )()( )</span><br><span class="line"></span><br><span class="line">1 000000 1</span><br><span class="line">( ()()() )</span><br><span class="line">( )()()( )</span><br></pre></td></tr></table></figure>
+<p>一个字符串的00都分配()，另一个的都分配)(，显然是完全能满足题意的。</p>
+<h2 id="代码">代码</h2>
+<p>注：代码中对于成对1的处理是，前一半的1都分配左括号，后一半都分配右括号，效果相同。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">string</span> s;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; s;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(s[<span class="number">0</span>]==<span class="string">&#x27;0&#x27;</span>||s[n<span class="number">-1</span>]==<span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> cnt1=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(s[i]==<span class="string">&#x27;1&#x27;</span>) ++cnt1;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(cnt1%<span class="number">2</span>) &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;NO&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    cnt1 /= <span class="number">2</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">char</span> ans[<span class="number">2</span>][n+<span class="number">1</span>];</span><br><span class="line">  ans[<span class="number">0</span>][n] = ans[<span class="number">1</span>][n] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">  <span class="keyword">int</span> has0=<span class="number">0</span>,cntt1=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(s[i]==<span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">      ans[<span class="number">0</span>][i] = cntt1&gt;=cnt1?<span class="string">&#x27;)&#x27;</span>:<span class="string">&#x27;(&#x27;</span>;</span><br><span class="line">      ans[<span class="number">1</span>][i] = ans[<span class="number">0</span>][i];</span><br><span class="line">      ++cntt1;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      ans[<span class="number">0</span>][i] = has0?<span class="string">&#x27;(&#x27;</span>:<span class="string">&#x27;)&#x27;</span>;</span><br><span class="line">      ans[<span class="number">1</span>][i] = has0?<span class="string">&#x27;)&#x27;</span>:<span class="string">&#x27;(&#x27;</span>;</span><br><span class="line">      has0 = !has0;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;YES&quot;</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; ans[<span class="number">0</span>] &lt;&lt; <span class="built_in">endl</span> &lt;&lt; ans[<span class="number">1</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">  <span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line">  <span class="keyword">int</span> t;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(;t;--t) &#123;</span><br><span class="line">    solve();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/04/24/Codeforces-Div-1%E5%8F%8A%E6%A0%BC%E8%AE%A1%E5%88%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1149,63 +1237,6 @@ $$</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/28/Win10-%E9%87%8D%E7%BD%AE%E7%BD%91%E7%BB%9C%E5%90%8EWLAN%E6%B6%88%E5%A4%B1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/28/Win10-%E9%87%8D%E7%BD%AE%E7%BD%91%E7%BB%9C%E5%90%8EWLAN%E6%B6%88%E5%A4%B1/" class="post-title-link" itemprop="url">Win10-重置网络后WLAN消失</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-28 10:46:34" itemprop="dateCreated datePublished" datetime="2021-03-28T10:46:34+08:00">2021-03-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1275,7 +1306,7 @@ $$</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
