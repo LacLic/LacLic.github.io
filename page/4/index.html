@@ -72,7 +72,119 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -143,6 +255,395 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/08/FZU2021-0xd7-%E5%90%89%E5%93%A5%E7%B3%BB%E5%88%97%E6%95%85%E4%BA%8B%E2%80%94%E2%80%94%E6%81%A87%E4%B8%8D%E6%88%90%E5%A6%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/08/FZU2021-0xd7-%E5%90%89%E5%93%A5%E7%B3%BB%E5%88%97%E6%95%85%E4%BA%8B%E2%80%94%E2%80%94%E6%81%A87%E4%B8%8D%E6%88%90%E5%A6%BB/" class="post-title-link" itemprop="url">FZU2021-0xd7-吉哥系列故事——恨7不成妻</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-08 18:36:56" itemprop="dateCreated datePublished" datetime="2021-03-08T18:36:56+08:00">2021-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-06 22:59:03" itemprop="dateModified" datetime="2021-04-06T22:59:03+08:00">2021-04-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>非常好的一道题目，需要及其清晰的思路，以及对取模的理解，受益匪浅！</p>
+<h2 id="题意">题意</h2>
+<p>有个人很讨厌7相关的数，现在他给定你L和R，要你求取[L,R]中（闭区间，取L和R两端）所有于7<strong>无关</strong>的数的平方和。</p>
+<p>定义：只要满足以下<strong>任意一个</strong>条件即为与7<strong>有关</strong>的数</p>
+<ol>
+<li>任意一位为7（数字中带有7）</li>
+<li>所有位上数字之和为7</li>
+<li>可被7整除</li>
+</ol>
+<p>数据范围：<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex" xmlns="http://www.w3.org/2000/svg" width="14.903ex" height="2.52ex" role="img" focusable="false" viewBox="0 -864 6587 1114"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g><g data-mml-node="mo" transform="translate(681, 0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mi" transform="translate(1125.7, 0)"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g><g data-mml-node="mo" transform="translate(2162.4, 0)"><path data-c="2208" d="M84 250Q84 372 166 450T360 539Q361 539 377 539T419 540T469 540H568Q583 532 583 520Q583 511 570 501L466 500Q355 499 329 494Q280 482 242 458T183 409T147 354T129 306T124 272V270H568Q583 262 583 250T568 230H124V228Q124 207 134 177T167 112T231 48T328 7Q355 1 466 0H570Q583 -10 583 -20Q583 -32 568 -40H471Q464 -40 446 -40T417 -41Q262 -41 172 45Q84 127 84 250Z"></path></g><g data-mml-node="mo" transform="translate(3107.2, 0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(3496.2, 0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(3996.2, 0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msup" transform="translate(4440.9, 0)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500, 0)"></path></g><g data-mml-node="TeXAtom" transform="translate(1000, 393.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z" transform="translate(500, 0)"></path></g></g></g><g data-mml-node="mo" transform="translate(6198, 0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></p>
+<p>由于最后数非常大，要求答案对10^9+7取模</p>
+<h2 id="思路">思路</h2>
+<p>数位DP，备忘录算法，将已经算好的位存储到数组中，方便直接读取</p>
+<p>状态转移方程：</p>
+<p><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -1.018ex" xmlns="http://www.w3.org/2000/svg" width="60.933ex" height="3.167ex" role="img" focusable="false" viewBox="0 -950 26932.2 1400"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(389, 0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(989, 0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(1474, 0)"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mo" transform="translate(2412.2, 0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(3412.4, 0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(3881.4, 0)"><path data-c="1D462" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(4453.4, 0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(5331.4, 0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mn" transform="translate(389, 413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(6401.8, 0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(7457.6, 0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mi" transform="translate(7890.6, 0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(8490.6, 0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(9073.8, 0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mi" transform="translate(10074, 0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(10674, 0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="msup" transform="translate(11159, 0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mn" transform="translate(716, 413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(12500.8, 0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(13501, 0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mo" transform="translate(14223.2, 0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mi" transform="translate(15223.4, 0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(15823.4, 0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(16308.4, 0)"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mo" transform="translate(17246.7, 0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mo" transform="translate(18246.9, 0)"><path data-c="2211" d="M60 948Q63 950 665 950H1267L1325 815Q1384 677 1388 669H1348L1341 683Q1320 724 1285 761Q1235 809 1174 838T1033 881T882 898T699 902H574H543H251L259 891Q722 258 724 252Q725 250 724 246Q721 243 460 -56L196 -356Q196 -357 407 -357Q459 -357 548 -357T676 -358Q812 -358 896 -353T1063 -332T1204 -283T1307 -196Q1328 -170 1348 -124H1388Q1388 -125 1381 -145T1356 -210T1325 -294L1267 -449L666 -450Q64 -450 61 -448Q55 -446 55 -439Q55 -437 57 -433L590 177Q590 178 557 222T452 366T322 544L56 909L55 924Q55 945 60 948Z"></path></g><g data-mml-node="mi" transform="translate(19857.6, 0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(20326.6, 0)"><path data-c="1D462" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(20898.6, 0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(21998.8, 0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mo" transform="translate(22999, 0)"><path data-c="2211" d="M60 948Q63 950 665 950H1267L1325 815Q1384 677 1388 669H1348L1341 683Q1320 724 1285 761Q1235 809 1174 838T1033 881T882 898T699 902H574H543H251L259 891Q722 258 724 252Q725 250 724 246Q721 243 460 -56L196 -356Q196 -357 407 -357Q459 -357 548 -357T676 -358Q812 -358 896 -353T1063 -332T1204 -283T1307 -196Q1328 -170 1348 -124H1388Q1388 -125 1381 -145T1356 -210T1325 -294L1267 -449L666 -450Q64 -450 61 -448Q55 -446 55 -439Q55 -437 57 -433L590 177Q590 178 557 222T452 366T322 544L56 909L55 924Q55 945 60 948Z"></path></g><g data-mml-node="mi" transform="translate(24609.7, 0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(25078.7, 0)"><path data-c="1D462" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(25650.7, 0)"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(878, 413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg></mjx-container></p>
+<p>DP状态为：当前所处位数、当前各位数之和对7取模的余数、当前数对7取模的余数</p>
+<p>取模的性质：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a+b取模 == （a取模 + b取模）取模</span><br><span class="line">a*b取模 == （a取模*b取模）*取模</span><br><span class="line">a^N取模 == （a取模^N）取模</span><br></pre></td></tr></table></figure>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MOD 1000000007</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">dp</span>{</span></span><br><span class="line">  ll cnt;</span><br><span class="line">  ll sum;</span><br><span class="line">  ll sq_sum;</span><br><span class="line">}DP;</span><br><span class="line"></span><br><span class="line">DP dp[<span class="number">18</span>][<span class="number">7</span>][<span class="number">7</span>]; <span class="comment">// dp[bits][num on bits sum%7][this num%7]</span></span><br><span class="line">ll table10[<span class="number">19</span>];</span><br><span class="line"><span class="keyword">char</span> digits[<span class="number">18</span>];</span><br><span class="line"></span><br><span class="line"><span class="function">DP <span class="title">dfs</span><span class="params">(<span class="keyword">bool</span> isMax,<span class="keyword">int</span> layer,<span class="keyword">int</span> prev_digits_sum,<span class="keyword">int</span> prev_mod7)</span> </span>{</span><br><span class="line">  <span class="comment">// layer==0为个位，1为十位，以此类推...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// edge</span></span><br><span class="line">  <span class="keyword">if</span>(layer==<span class="number">-1</span>) { <span class="comment">// 当前处于-1层，为问题边界，只返回当前数是否与7相关</span></span><br><span class="line">    <span class="keyword">if</span>(prev_digits_sum==<span class="number">0</span>||prev_mod7==<span class="number">0</span>) {</span><br><span class="line">      <span class="keyword">return</span> {<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>};</span><br><span class="line">    }<span class="keyword">else</span> {</span><br><span class="line">      <span class="keyword">return</span> {<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>};</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// note</span></span><br><span class="line">  <span class="keyword">if</span>(!isMax&amp;&amp;dp[layer][prev_digits_sum][prev_mod7].cnt) {</span><br><span class="line">    <span class="keyword">return</span> dp[layer][prev_digits_sum][prev_mod7];</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// get max</span></span><br><span class="line">  <span class="keyword">int</span> maxx = isMax?digits[layer]:<span class="number">9</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// check every digit</span></span><br><span class="line">  DP ret = {<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>};</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=maxx;++i) {</span><br><span class="line">    <span class="keyword">if</span>(i==<span class="number">7</span>) <span class="keyword">continue</span>;</span><br><span class="line">    ll now = i*table10[layer]%MOD;</span><br><span class="line">    DP tmp = dfs(isMax&amp;&amp;i==maxx,layer<span class="number">-1</span>,(prev_digits_sum+i)%<span class="number">7</span>,(prev_mod7+table10[layer]%<span class="number">7</span>*i)%<span class="number">7</span>);</span><br><span class="line">    ret.cnt = (ret.cnt + tmp.cnt)%MOD;</span><br><span class="line">    ret.sum = (ret.sum + now*tmp.cnt%MOD + tmp.sum)%MOD;</span><br><span class="line">    ret.sq_sum = (ret.sq_sum + tmp.cnt*((now*now)%MOD)%MOD + <span class="number">2</span>*((now*tmp.sum)%MOD)%MOD + tmp.sq_sum)%MOD;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// take note in dp</span></span><br><span class="line">  <span class="keyword">if</span>(!isMax) {</span><br><span class="line">    dp[layer][prev_digits_sum][prev_mod7] = ret;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">cal</span><span class="params">(ll x)</span> </span>{</span><br><span class="line">  <span class="keyword">int</span> len=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(;x;x/=<span class="number">10</span>) {</span><br><span class="line">    digits[len] = x%<span class="number">10</span>;</span><br><span class="line">    ++len;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> dfs(<span class="literal">true</span>,len<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>).sq_sum;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="comment">// freopen("in.txt","r",stdin); // 读取输入</span></span><br><span class="line">  <span class="comment">// initialize</span></span><br><span class="line">  <span class="built_in">memset</span>(dp,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">  table10[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">18</span>;++i) {</span><br><span class="line">    table10[i] = table10[i<span class="number">-1</span>]*<span class="number">10</span>;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> N;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;N);</span><br><span class="line">  ll L,R;</span><br><span class="line">  <span class="keyword">for</span>(;N;--N) {</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lld %lld"</span>,&amp;L,&amp;R);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,(cal(R)-cal(L<span class="number">-1</span>)+MOD)%MOD);</span><br><span class="line">  }</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-gradle-sync%E5%87%BA%E9%94%99%E8%A7%A3%E5%86%B3-Failed-to-open-zip-file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/22/Android%E5%BC%80%E5%8F%91-gradle-sync%E5%87%BA%E9%94%99%E8%A7%A3%E5%86%B3-Failed-to-open-zip-file/" class="post-title-link" itemprop="url">Android开发-gradle sync出错解决: Failed to open zip file.</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-22 22:41:10" itemprop="dateCreated datePublished" datetime="2021-02-22T22:41:10+08:00">2021-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-13 13:23:55" itemprop="dateModified" datetime="2021-03-13T13:23:55+08:00">2021-03-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Created by: © LacLic</p>
+<h2 id="错误发生">错误发生</h2>
+<p>进行gradle sync的时候，下载完文件发现出现报错<code>Failed to open zip file.</code></p>
+<p> 报错：<em>无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）</em></p>
+<p><img src="https://i.loli.net/2021/02/22/p25ztxFT4S9q7bV.png" alt="1.png"></p>
+<h2 id="解决方案">解决方案</h2>
+<p>删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见<a href="##%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0">错误原因</a></p>
+<h2 id="错误原因">错误原因</h2>
+<p>错误报告中显示，无法打开zip文件，使用<code>ctrl+shift+R</code>进行全局搜索，寻找关于<code>.zip</code>文件的信息</p>
+<p><img src="https://i.loli.net/2021/02/22/iPnbyKzGJ5qrTFU.png" alt="2.png"></p>
+<p>找到下载所需的gradle包的网址，丢入浏览器下载zip文件（记得删除里面的反斜杠，那是用来逃逸冒号的）</p>
+<p>将下载好的文件丢入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\[用户]\.gradle\wrapper\dists\gradle-[版本号]-all\[奇怪的序列]\</span><br></pre></td></tr></table></figure>
+<p>的目录下后，重新进行gradle sync或者直接试运行程序</p>
+<p><img src="https://i.loli.net/2021/02/22/25k8K1J9OVzAwlI.png" alt="3.png"></p>
+<p>成功！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-%E7%99%BE%E5%88%86%E6%AF%94%E5%B8%83%E5%B1%80%E7%9A%84gradle%E4%BE%9D%E8%B5%96%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/22/Android%E5%BC%80%E5%8F%91-%E7%99%BE%E5%88%86%E6%AF%94%E5%B8%83%E5%B1%80%E7%9A%84gradle%E4%BE%9D%E8%B5%96%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">Android开发-百分比布局percentLayout的gradle依赖添加与报错</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-22 20:40:34" itemprop="dateCreated datePublished" datetime="2021-02-22T20:40:34+08:00">2021-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-13 13:24:19" itemprop="dateModified" datetime="2021-03-13T13:24:19+08:00">2021-03-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Created by: © LacLic</p>
+<h2 id="错误发生">错误发生</h2>
+<p>在工程文件夹的app/build.gradle的依赖中添加<code>compile 'com.android.support:percent:24.2.1'</code>的时候，出现的报错（代码来自《第一行代码（第二版）》）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Version 28 (intended for Android Pie and below) is the last version of the legacy support library, so we recommend that you migrate to AndroidX libraries when using Android Q and moving forward. The IDE can help with this: Refactor &gt; Migrate to AndroidX...</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2021/02/22/IuriaKpYSZgCDQe.png" alt="1.png"></p>
+<h2 id="解决方案">解决方案</h2>
+<p><font color=#cc3f40>谷歌开发者文档注：</font></p>
+<blockquote>
+<p>此工件及其类已弃用。请改用 ConstraintLayout 和关联布局。</p>
+</blockquote>
+<hr>
+<p>将</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile &#39;com.android.support:percent:24.2.1&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation &quot;androidx.percentlayout:percentlayout:1.0.0&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即可，之后记得点击视窗上端的<code>sync now</code></p>
+<p><img src="https://i.loli.net/2021/02/22/ZCYhavm4z2lAgKS.png" alt="2.png"></p>
+<h2 id="错误原因">错误原因</h2>
+<p>考虑到书本教程<strong>过时了</strong>，没有办法及时同步开发工具的更新。</p>
+<p>一开始的确是<code>compile</code>开头的方式引入依赖</p>
+<p>后来改为了下图中红色的样式</p>
+<p><img src="https://i.loli.net/2021/02/22/dplx8nhmI6MAisD.png" alt="3.png"></p>
+<p>再后来才改为<code>implementation &quot;androidx.percentlayout:percentlayout:1.0.0&quot;</code>的形式</p>
+<p>我们到谷歌的 <a target="_blank" rel="noopener" href="https://developer.android.google.cn/jetpack/androidx/releases/percentlayout?hl=zh-cn">开发者文档</a> 中查询到</p>
+<p><img src="https://i.loli.net/2021/02/22/flehy16c2C3Uuki.png" alt="4.png"></p>
+<p>这个工件已被谷歌官方弃用，但仍旧是可以使用的。猜测：应该是为了方便熟悉这个工件不愿使用其他布局的程序员（要与时俱进啊！），或者是为了方便旧项目的维护而保留的（毕竟一改就要改一堆）。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/21/Android%E5%BC%80%E5%8F%91-%E6%89%8B%E7%BB%98%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3%E6%B4%BB%E5%8A%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/21/Android%E5%BC%80%E5%8F%91-%E6%89%8B%E7%BB%98%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3%E6%B4%BB%E5%8A%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">Android开发-手绘图文详解活动的生命周期</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-21 19:09:19" itemprop="dateCreated datePublished" datetime="2021-02-21T19:09:19+08:00">2021-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-13 13:24:37" itemprop="dateModified" datetime="2021-03-13T13:24:37+08:00">2021-03-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Created by: © LacLic</p>
+<p>绘图软件为 GoodNotes 5</p>
+<h2 id="详解">详解</h2>
+<ol>
+<li>打开app，第一个活动Acitivity入栈，调用3个act1方法</li>
+<li>点击按钮button，第二个活动入栈，调用2个act1方法，3个act2方法</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/21/KIptrYC5FJAbXBz.jpg" alt="Android-2.jpg"></p>
+<ol start="3">
+<li>点击menu，调用act2的创建菜单方法</li>
+<li>点击菜单选项option，调用选项选择方法</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/21/cdeJlCb1rtBqwOz.jpg" alt="Android-3.jpg"></p>
+<ol start="5">
+<li>点击button，对话dialog活动入栈，调用act2的1个方法，调用对话活动actDlg的3个方法</li>
+<li>点击返回，finish()了actDlg，调用actDlg的的3个方法，调用act2的1个方法</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/21/Nsxj4dmMQInzFGh.jpg" alt="Android-4.jpg"></p>
+<ol start="7">
+<li>点击返回，finish()了act2，调用act2的3个方法，调用act1的2个方法</li>
+<li>再次点击返回，finish()了act1，调用了act1的3个方法，并退出app</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/21/4KsxUREH1c2hvWA.jpg" alt="Android-5.jpg"></p>
+<h3 id="总结">总结</h3>
+<p>当新活动不完全置顶（上一个活动还有效）时，只会调用上一个活动的onPause。<br>
+恢复后，只会调用onResume。</p>
+<p>当新活动完全置顶（上一个活动完全被遮盖），会调用onPasue和onStop。<br>
+恢复后，会调用onResume和onStart。</p>
+<p>当一个活动finish()后，会调用onPasue, onStop与onDestroy。<br>
+启动时，会调用onResume, onStart和onCreate。</p>
+<h3 id="启动与终止的对应关系">启动与终止的对应关系</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">onCreate</th>
+<th style="text-align:center">onStart</th>
+<th style="text-align:center">onResume</th>
+<th style="text-align:center">onPasue</th>
+<th style="text-align:center">onStop</th>
+<th style="text-align:center">onDestroy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://i.loli.net/2021/02/21/8XdvikqcteGJM7U.png" alt="6CJJ_GG1BA92GB2BSS_YYLQ.png"><br>
+图来自《第一行代码（第二版）》</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -628,351 +1129,6 @@ F(x) = A~n~ _ 2^n-1^ + A~n-1~ _ 2^n-2^ + … + A~2~ _ 2 + A~1~ _ 1</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/09/FZU2021-0xd3-Space-Elevator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/09/FZU2021-0xd3-Space-Elevator/" class="post-title-link" itemprop="url">FZU2021-0xd3-Space Elevator</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-09 23:06:21" itemprop="dateCreated datePublished" datetime="2021-02-09T23:06:21+08:00">2021-02-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>牛牛要上天啦！为了让他们在轨道上转，要建造一个高塔（这是要在高塔上把他们踢飞，然后变成卫星？？？）。</p>
-<p>我们有 K 种方块，第 i 种方块高为 h_i（可以把 i 当成数组下标），有 c_i 个，他们最高只能叠到高度 a_i（题目说是因为有太空射线，太高容易坏掉，我也不知道什么怪异原理…）</p>
-<p>(1 &lt;= K &lt;= 400)，<br>
-(1 &lt;= h_i &lt;= 100)，<br>
-(1 &lt;= c_i &lt;= 10)，<br>
-(1 &lt;= a_i &lt;= 40000)</p>
-<p>现在请你寻求一种方法，使得叠出最高高度来（只要输出最高高度即可）</p>
-<h2 id="分析">分析</h2>
-<h3 id="题目分析">题目分析</h3>
-<p>和前两题一样，是凑数型动态规划。</p>
-<p>只要上一种高度 dp（目前求高度 减去 当前种类方块）能凑出，手上还有当前种类方块，该高度 dp 一定能凑出。</p>
-<p>如果该高度 dp 已经能凑出了，就不用浪费方块啦。</p>
-<p>不过这题有个特点：<strong>高度限制</strong></p>
-<p> 也就是说，你要先根据高度排序（从小到大开始），一个个去试，试到当前种类方块不能再往上叠了为止，否则会出现上一个方块叠满了（比如 7 高度，5 个，限高 80 方块叠到了 35），下一种方块（比如 5 高度，5 个，限高 25，遍历不到 25 以后的数据了）根本一个不能叠（只能到 35 了，但是 5 高度*5=25，没超限高，外加上 7 高度*5=60，明显更可行）。所有要先给他们排序。而 c++里面库 algorithm 的 sort()函数很好用 √。</p>
-<h3 id="数据分析">数据分析</h3>
-<p>看到数据量后，我去 dev-cpp 跑了一下 for 循环看看遍历 1600 万个数据（400*40000）效率怎么样，结果好像挺好的</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">400</span>;++j) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">40000</span>;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(i==<span class="number">15</span>);</span><br><span class="line">      <span class="keyword">if</span>(i==<span class="number">69999</span>);</span><br><span class="line">      <span class="keyword">if</span>(i==<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">单个循环：i to 1600000</span><br><span class="line">Process exited after 0.1482 seconds with return value 0</span><br><span class="line"></span><br><span class="line">双层循环：i to 40000, j to 400</span><br><span class="line">Process exited after 0.1369 seconds with return value 0</span><br></pre></td></tr></table></figure>
-<p>貌似双层还快了点？不过应该只是运气问题，总之 1600w 数据+3 个判断遍历大概只需要 0.14s，或者说 140ms 这样，完全能完成题目时长 1s 的要求</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">block</span>&#123;</span></span><br><span class="line">  <span class="keyword">int</span> h;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  <span class="keyword">int</span> c;</span><br><span class="line">&#125;Block;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义结构体的比大小~</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> Block &amp;x,<span class="keyword">const</span> Block &amp;y)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x.a &lt; y.a; <span class="comment">// 升序</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin); // 把in.txt内容当成输入，submit的时候要记得注释掉</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 读取输入</span></span><br><span class="line">  <span class="keyword">int</span> K;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;K);</span><br><span class="line">  Block block[K];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;K;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;block[i].h,&amp;block[i].a,&amp;block[i].c);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 排序~</span></span><br><span class="line">  sort(block,block+K,cmp); <span class="comment">// 三个参数分别为，数组，数组终止处，（可选）数组排序标准函数</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 找最大值</span></span><br><span class="line">  <span class="keyword">int</span> max = block[K<span class="number">-1</span>].a;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// dp预备</span></span><br><span class="line">  <span class="keyword">int</span> dp_isTrue[max+<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">int</span> used[max+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>(dp_isTrue,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp_isTrue));</span><br><span class="line">  dp_isTrue[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// dp开始</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;K;++i) &#123;</span><br><span class="line">    <span class="comment">// 情况used[]数组</span></span><br><span class="line">    <span class="built_in">memset</span>(used,<span class="number">0</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=block[i].h;j&lt;=block[i].a;++j) &#123;</span><br><span class="line">      <span class="keyword">if</span>(dp_isTrue[j-block[i].h]&amp;&amp;used[j-block[i].h]&lt;block[i].c&amp;&amp;!dp_isTrue[j]) &#123;</span><br><span class="line">        dp_isTrue[j] = <span class="number">1</span>;</span><br><span class="line">        used[j] = used[j-block[i].h] + <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 遍历寻找最大值</span></span><br><span class="line">  <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=max;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(dp_isTrue[i]) ans = i;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,ans);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/09/FZU2021-0xd2-Dividing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/09/FZU2021-0xd2-Dividing/" class="post-title-link" itemprop="url">FZU2021-0xd2-Dividing</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-09 09:22:42" itemprop="dateCreated datePublished" datetime="2021-02-09T09:22:42+08:00">2021-02-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>有两个人捡到了一组大理石，价值有 1-6 元，它们的个数分别有 n1-n6 个（总数不超过 20000 个）。</p>
-<p>问，两人想以价值为基准平摊这组大理石，请你设计一个程序告诉他们能不能平摊</p>
-<h2 id="思路">思路</h2>
-<p>计算价值总和 total，除以 2 得到 target，通过 dp 计算出，能不能凑出价值为 target 的大理石组</p>
-<p>剪枝：若 total 为奇数，必不可能成功</p>
-<p>状态转移同前一题，每种大理石都去试一次</p>
-<p>另外，记录使用大理石个数时，只有之前无法凑出的数字才需要使用新的大理石</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line">  <span class="keyword">int</span> n[<span class="number">7</span>];</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> isTrue[<span class="number">60006</span>];</span><br><span class="line">    <span class="comment">// int isTrue[36];</span></span><br><span class="line">    <span class="keyword">int</span> used[<span class="number">60006</span>];</span><br><span class="line">    <span class="comment">// int used[36];</span></span><br><span class="line">  &#125; dp;</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d %d %d&quot;</span>,&amp;n[<span class="number">1</span>],&amp;n[<span class="number">2</span>],&amp;n[<span class="number">3</span>],&amp;n[<span class="number">4</span>],&amp;n[<span class="number">5</span>],&amp;n[<span class="number">6</span>]);</span><br><span class="line">    <span class="keyword">if</span>(!n[<span class="number">1</span>]&amp;&amp;!n[<span class="number">2</span>]&amp;&amp;!n[<span class="number">3</span>]&amp;&amp;!n[<span class="number">4</span>]&amp;&amp;!n[<span class="number">5</span>]&amp;&amp;!n[<span class="number">6</span>]) <span class="keyword">break</span>;</span><br><span class="line">    ++cnt;</span><br><span class="line">    <span class="built_in">memset</span>(dp.isTrue,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp.isTrue));</span><br><span class="line">    dp.isTrue[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> target=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">6</span>;++i) &#123;</span><br><span class="line">      target += i*n[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(target%<span class="number">2</span>==<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan&#x27;t be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">      dp.isTrue[target] = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    target /= <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">6</span>;++i) &#123;</span><br><span class="line">      <span class="built_in">memset</span>(dp.used,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp.used));</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;=target;++j) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dp.isTrue[j-i]&amp;&amp;dp.used[j-i]&lt;n[i]&amp;&amp;!dp.isTrue[j]) &#123; <span class="comment">// 上一种dp能否凑出相应价值来，上一种dp用了多少第i种石头，该种dp是否之前就能凑出来了</span></span><br><span class="line">          dp.isTrue[j] = <span class="number">1</span>;</span><br><span class="line">          dp.used[j] = dp.used[j-i] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    here: ;</span><br><span class="line">    <span class="keyword">if</span>(dp.isTrue[target]) <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan&#x27;t be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9A%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B9%B6%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97/" class="post-title-link" itemprop="url">深度学习：构建神经网络并识别手写数字</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-08 12:14:19" itemprop="dateCreated datePublished" datetime="2021-02-08T12:14:19+08:00">2021-02-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-09 09:46:22" itemprop="dateModified" datetime="2021-02-09T09:46:22+08:00">2021-02-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>可以看出（10个数据，分别是认为该数字为0-9的程度，最后取最高的那个即为结果）基本能正确识别</p>
-<p><img src="https://i.loli.net/2021/02/08/wANkfxl8VdML4Zn.png" alt="Z.png"></p>
-<p>但是1和7，4和9还是不太容易识别的</p>
-<p><img src="https://i.loli.net/2021/02/08/c7LmsOK9vDI3Cbk.png" alt="O.png"></p>
-<h2 id="github链接"><a href="#github链接" class="headerlink" title="github链接"></a>github链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/LacLic/hand-writting-num-recognizer">Github</a>.</p>
-<h2 id="全代码（ipynb）"><a href="#全代码（ipynb）" class="headerlink" title="全代码（ipynb）"></a>全代码（ipynb）</h2><h3 id="引入库"><a href="#引入库" class="headerlink" title="引入库"></a>引入库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"><span class="comment"># scipy.special for the sigmoid function expit()</span></span><br><span class="line"><span class="keyword">import</span> scipy.special</span><br><span class="line"><span class="comment"># library for plotting arrays</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot</span><br><span class="line"><span class="comment"># (?) ensure the plots are inside this notebook, not an external window</span></span><br><span class="line"><span class="comment"># %matplotlib inline</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="构建神经网络类"><a href="#构建神经网络类" class="headerlink" title="构建神经网络类"></a>构建神经网络类</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">neuralNetwork</span>():</span>  <span class="comment"># neural network class definition</span></span><br><span class="line">    <span class="comment"># initialize the neural network</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, inputNodes, hiddenNodes, outputNodes, learningRate</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># set number of nodes in each input, hidden, output layer</span></span><br><span class="line">        self.iNodes = inputNodes</span><br><span class="line">        self.hNodes = hiddenNodes</span><br><span class="line">        self.oNodes = outputNodes</span><br><span class="line"></span><br><span class="line">        <span class="comment"># learning rate</span></span><br><span class="line">        self.learnRate = learningRate</span><br><span class="line"></span><br><span class="line">        <span class="comment"># link weight matrices, wih and who</span></span><br><span class="line">        <span class="comment"># weight inside the arrays are w_i_j, where link is from node i to node j in the next layer</span></span><br><span class="line">        <span class="comment"># w11 w21</span></span><br><span class="line">        <span class="comment"># w12 w22 etc</span></span><br><span class="line">        self.wih = numpy.random.normal(</span><br><span class="line">            <span class="number">0.0</span>, <span class="built_in">pow</span>(self.hNodes, <span class="number">-0.5</span>), (self.hNodes, self.iNodes))</span><br><span class="line">        self.who = numpy.random.normal(</span><br><span class="line">            <span class="number">0.0</span>, <span class="built_in">pow</span>(self.oNodes, <span class="number">-0.5</span>), (self.oNodes, self.hNodes))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># annoymous func</span></span><br><span class="line">        self.actiFunc = <span class="keyword">lambda</span> x: scipy.special.expit(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># train the neural network</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">self, inputs_list, targets_list</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># convert inputs and targets list to 2d array</span></span><br><span class="line">        inputs = numpy.array(inputs_list, ndmin=<span class="number">2</span>).T</span><br><span class="line">        targets = numpy.array(targets_list, ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into hidden layer</span></span><br><span class="line">        hidden_inputs = numpy.dot(self.wih, inputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from hidden layer</span></span><br><span class="line">        hidden_outputs = self.actiFunc(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into final output layer</span></span><br><span class="line">        final_inputs = numpy.dot(self.who, hidden_outputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from final output layer</span></span><br><span class="line">        final_outputs = self.actiFunc(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># error is the difference of target and output</span></span><br><span class="line">        output_errors = targets - final_inputs</span><br><span class="line">        <span class="comment"># hidden layer error is the output_errors, split by weights, recombined at hidden nodes</span></span><br><span class="line">        hidden_errors = numpy.dot(self.who.T, output_errors)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># update the weights for the links between the hidden and output layers</span></span><br><span class="line">        self.who += self.learnRate * \</span><br><span class="line">            numpy.dot((output_errors*final_outputs*(<span class="number">1.0</span>-final_outputs)),</span><br><span class="line">                      numpy.transpose(hidden_outputs))</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        self.who += self.learnRate * \</span></span><br><span class="line"><span class="string">            numpy.dot((output_errors*final_outputs*(1.0-final_outputs)),</span></span><br><span class="line"><span class="string">                      hidden_outputs.T)&quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># between the input and hidden layers</span></span><br><span class="line">        self.wih += self.learnRate * \</span><br><span class="line">            numpy.dot((hidden_errors*hidden_outputs *</span><br><span class="line">                       (<span class="number">1.0</span> - hidden_outputs)), numpy.transpose(inputs))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># query the neural network</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">query</span>(<span class="params">self, inputs_list</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># convert inputs list to 2d array</span></span><br><span class="line">        inputs = numpy.array(inputs_list, ndmin=<span class="number">2</span>).T</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into hidden layer</span></span><br><span class="line">        hidden_inputs = numpy.dot(self.wih, inputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from hidden layer</span></span><br><span class="line">        hidden_outputs = self.actiFunc(hidden_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># calculate signals into final output layer</span></span><br><span class="line">        final_inputs = numpy.dot(self.who, hidden_outputs)</span><br><span class="line">        <span class="comment"># calculate the signals emerging from final output layer</span></span><br><span class="line">        final_outputs = self.actiFunc(final_inputs)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> final_outputs</span><br></pre></td></tr></table></figure>
-
-<h3 id="网络布置"><a href="#网络布置" class="headerlink" title="网络布置"></a>网络布置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input_nodes = <span class="number">784</span>  <span class="comment"># 28*28</span></span><br><span class="line">hidden_nodes = <span class="number">100</span></span><br><span class="line">output_nodes = <span class="number">10</span></span><br><span class="line">learning_rate = <span class="number">0.3</span></span><br><span class="line">network = neuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)</span><br></pre></td></tr></table></figure>
-
-<h3 id="打开训练数据文件"><a href="#打开训练数据文件" class="headerlink" title="打开训练数据文件"></a>打开训练数据文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;train.csv&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> data_file:</span><br><span class="line">    data_list = data_file.readlines()[<span class="number">1</span>:]  <span class="comment"># 除首行外，全部读取到内存中</span></span><br><span class="line">    <span class="comment"># print(data_list)</span></span><br><span class="line">    data_file.close()</span><br></pre></td></tr></table></figure>
-
-<h3 id="训练神经网络"><a href="#训练神经网络" class="headerlink" title="训练神经网络"></a>训练神经网络</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> data_list:</span><br><span class="line">    all_values = record.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">    <span class="comment"># make data into 0.01 ~ 1.00</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot; Remains problem</span></span><br><span class="line"><span class="string">    (why?)</span></span><br><span class="line"><span class="string">    0.01: prevent 0.00 leading to failing to update the weight</span></span><br><span class="line"><span class="string">    1.00: just preventing the output value being 1.00 is enough</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    inputs = (numpy.asfarray(all_values[<span class="number">1</span>:])/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.01</span></span><br><span class="line">    <span class="comment"># create the target output values (all 0.01, except the desired label which is 0.99)</span></span><br><span class="line">    <span class="comment"># numpy.zeros(): use 0 to pad the array</span></span><br><span class="line">    targets = numpy.zeros(output_nodes) + <span class="number">0.01</span></span><br><span class="line">    <span class="comment"># all_values[0] is the label of the record</span></span><br><span class="line">    targets[<span class="built_in">int</span>(all_values[<span class="number">0</span>])] = <span class="number">0.99</span></span><br><span class="line">    network.train(inputs, targets)</span><br></pre></td></tr></table></figure>
-
-<h3 id="打开测试数据集"><a href="#打开测试数据集" class="headerlink" title="打开测试数据集"></a>打开测试数据集</h3><p>test.csv里的数据集是无标签的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># load the test data CSV file into a list</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.csv&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> test_data_file:</span><br><span class="line">    test_data_list = test_data_file.readlines()[<span class="number">1</span>:]</span><br><span class="line">    test_data_file.close()</span><br></pre></td></tr></table></figure>
-
-<h3 id="测试数据并输出"><a href="#测试数据并输出" class="headerlink" title="测试数据并输出"></a>测试数据并输出</h3><p>使用test.csv的数据集进行测试输出（无标签）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from test.csv</span></span><br><span class="line">test = test_data_list[<span class="number">0</span>] <span class="comment"># 调度第0个测试数据</span></span><br><span class="line">test_values = test.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">test_inputs = (numpy.asfarray(test_values)/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.01</span></span><br><span class="line">print(network.query(test_inputs))</span><br><span class="line"><span class="comment"># print(test_data_list[0].strip().split(&#x27;,&#x27;))</span></span><br></pre></td></tr></table></figure>
-
-<p>使用train.csv的数据集进行测试输出（带标签）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from train.csv</span></span><br><span class="line">test = data_list[<span class="number">999</span>]</span><br><span class="line">print(<span class="string">&#x27;Answer is&#x27;</span>, test[<span class="number">0</span>])</span><br><span class="line">test_values = test.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">test_inputs = (numpy.asfarray(test_values[<span class="number">1</span>:])/<span class="number">255.0</span> * <span class="number">0.99</span>) + <span class="number">0.01</span></span><br><span class="line">print(network.query(test_inputs))</span><br></pre></td></tr></table></figure>
-
-<h2 id="疑难杂症"><a href="#疑难杂症" class="headerlink" title="疑难杂症"></a>疑难杂症</h2><h3 id="tenserflow把numpy卸载了…"><a href="#tenserflow把numpy卸载了…" class="headerlink" title="tenserflow把numpy卸载了…"></a>tenserflow把numpy卸载了…</h3><p>没关系，会安装对应版本的numpy的</p>
-<h3 id="Python关于-matplotlib-inline报错"><a href="#Python关于-matplotlib-inline报错" class="headerlink" title="Python关于%matplotlib inline报错"></a>Python关于%matplotlib inline报错</h3><p>这个是 jupyter notebook 或者 jupyter qtconsole 的专属代码，使用<code>%matplotlib inline</code>这段代码可以输出图像。但是vscode编辑器并没有这个功能。（但这并不妨碍vscode是宇宙第一编辑器的事实）</p>
-<h3 id="FileNotFoundError"><a href="#FileNotFoundError" class="headerlink" title="FileNotFoundError"></a>FileNotFoundError</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS F:\Programme_works\Python&gt; python -u &quot;f:\Programme_works\Python\DeepLearning\numRecog\neuralNetwork.py&quot;</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;f:\Programme_works\Python\DeepLearning\numRecog\neuralNetwork.py&quot;, line 106, in \&lt;module\&gt;</span><br><span class="line">    with open(&#x27;train.csv&#x27;, &#x27;r&#x27;) as data_file:</span><br><span class="line">FileNotFoundError: [Errno 2] No such file or directory: &#x27;train.csv&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>未找到文件，检查一下文件是否在命令执行时的目录（一般都是vscode打开的文件夹，或者jupyter notebook运行的文件所在的文件夹）</p>
-<h3 id="非jupyter编辑器输出csv图像"><a href="#非jupyter编辑器输出csv图像" class="headerlink" title="非jupyter编辑器输出csv图像"></a>非jupyter编辑器输出csv图像</h3><p>将</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matplotlib.pyplot.imshow(image_array, cmap=<span class="string">&#x27;Greys&#x27;</span>, interpolation=<span class="string">&#x27;None&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>改为</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matplotlib.pyplot.imsave(<span class="string">&#x27;temp.png&#x27;</span>, image_array, cmap=<span class="string">&#x27;Greys&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>便会保存在目录下</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/07/FZUACM-%E5%8A%A8%E8%A7%84DP%E7%88%86%E9%94%A4%E8%AE%A1%E5%88%92%EF%BC%81/" class="post-title-link" itemprop="url">FZUACM-动规DP爆锤计划！（持续更新ing...）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-07 11:09:56" itemprop="dateCreated datePublished" datetime="2021-02-07T11:09:56+08:00">2021-02-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-09 17:56:05" itemprop="dateModified" datetime="2021-03-09T17:56:05+08:00">2021-03-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="DP教程">DP教程</h2>
-<p>程序员小灰的<a target="_blank" rel="noopener" href="https://www.cxyxiaowu.com/4055.html">漫画解DP</a>.</p>
-<p>强推！图很多，思路也很清晰。</p>
-<h2 id="题目题解（内含题目大意）">题目题解（内含题目大意）</h2>
-<p>所有题目复制到百度上都能找到oj题（たぶん）</p>
-<h3 id="00-hex-最短Hamilton路径">00(hex)-最短Hamilton路径</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/03/09/CH0103-0x00%E3%80%8C%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95%E3%80%8D%E4%BE%8B%E9%A2%98-%E6%9C%80%E7%9F%ADHamilton%E8%B7%AF%E5%BE%84/">最短Hamilton路径</a></p>
-<h3 id="01-hex-Charlie’s-Change">01(hex)-Charlie’s Change</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/06/FZU2021-0xd1-Charlie-s-Change/">买咖啡-Charlie’s Change</a></p>
-<h3 id="02-hex-Dividing">02(hex)-Dividing</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/09/FZU2021-0xd2-Dividing/">分石头-Dividing</a></p>
-<h3 id="03-hex-Space-Elevator">03(hex)-Space Elevator</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/09/FZU2021-0xd3-Space-Elevator/">牛牛上天计划-Space Elevator</a></p>
-<h3 id="04-hex-FOUR-QUARTERS">04(hex)-FOUR QUARTERS</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/12/FZU2021-0xd4-FOUR-QUARTERS/">投硬币-FOUR QUARTERS</a></p>
-<h3 id="05-hex-不要62">05(hex)-不要62</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/14/FZU2021-0xd5-%E4%B8%8D%E8%A6%8162/">No 4 No 62-不要62</a></p>
-<h3 id="06-hex-F-x">06(hex)-F(x)</h3>
-<p><a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/02/17/FZU2021-0xd6-F-x/">F(x)-十进制变二进制再变十进制</a></p>
-<h3 id="07-hex-吉哥系列故事——恨7不成妻">07(hex)-吉哥系列故事——恨7不成妻</h3>
-<p>[吉哥系列故事——恨7不成妻-no 7！](<a target="_blank" rel="noopener" href="https://blog.laclic.ink/2021/03/08/FZU2021-0xd7-%E5%90%89%E5%93%A5%E7%B3%BB%E5%88%97%E6%95%85%E4%BA%8B%E2%80%94%E2%80%94%E6%81%A87%E4%B8%8D%E6%88%90%E5%A6%BB/">https://blog.laclic.ink/2021/03/08/FZU2021-0xd7-吉哥系列故事——恨7不成妻/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1042,7 +1198,7 @@ F(x) = A~n~ _ 2^n-1^ + A~n-1~ _ 2^n-2^ + … + A~2~ _ 2 + A~1~ _ 1</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">86</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1150,6 +1306,59 @@ F(x) = A~n~ _ 2^n-1^ + A~n-1~ _ 2^n-2^ + … + A~2~ _ 2 + A~1~ _ 1</p>
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
