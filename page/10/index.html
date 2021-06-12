@@ -147,6 +147,722 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x05-Train-Problem-I/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/FZU2021-0x05-Train-Problem-I/" class="post-title-link" itemprop="url">FZU2021-0x05-Train Problem I</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 14:41:01" itemprop="dateCreated datePublished" datetime="2021-01-20T14:41:01+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="同样是消消乐"><s>同样是消消乐</s></h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// use stack</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TOTAL 10</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> cmd[<span class="number">18</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// 1: IN, 2: OUT, 0: end</span></span><br><span class="line"><span class="keyword">char</span> now_at = <span class="number">0</span>; <span class="comment">// to point out where to push the next cmd</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">cmd_push</span><span class="params">(<span class="keyword">int</span> command)</span> </span>&#123;</span><br><span class="line">  cmd[now_at] = command;</span><br><span class="line">  ++now_at;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// inline void clear(stack&lt;char&gt;&amp;thiz) &#123; // no need to initialize it, when one problem is over, because stack will be disposed before going to the next roop</span></span><br><span class="line"><span class="comment">//   stack&lt;char&gt; empty;</span></span><br><span class="line"><span class="comment">//   swap(thiz,empty);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N;</span><br><span class="line">  <span class="keyword">char</span> in[TOTAL],out[TOTAL];</span><br><span class="line">  <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N)!=EOF) &#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; stk;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s %s&quot;</span>,in,out);</span><br><span class="line">    <span class="keyword">int</span> mouse[<span class="number">3</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// 1: in, 2: out, 0: of no use</span></span><br><span class="line">    <span class="keyword">while</span>(mouse[<span class="number">1</span>]&lt;N) &#123;</span><br><span class="line">      <span class="keyword">if</span>(in[mouse[<span class="number">1</span>]]==out[mouse[<span class="number">2</span>]]) &#123;</span><br><span class="line">        ++mouse[<span class="number">1</span>];</span><br><span class="line">        ++mouse[<span class="number">2</span>];</span><br><span class="line">        cmd_push(<span class="number">1</span>);</span><br><span class="line">        cmd_push(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">while</span>(!stk.empty()&amp;&amp;stk.top()==out[mouse[<span class="number">2</span>]]) &#123;</span><br><span class="line">          ++mouse[<span class="number">2</span>];</span><br><span class="line">          stk.pop();</span><br><span class="line">          cmd_push(<span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        stk.push(in[mouse[<span class="number">1</span>]]);</span><br><span class="line">        ++mouse[<span class="number">1</span>];</span><br><span class="line">        cmd_push(<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cmd[now_at] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(!stk.empty()) <span class="built_in">printf</span>(<span class="string">&quot;No.\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Yes.\n&quot;</span>);</span><br><span class="line">      <span class="comment">// print the content in cmd[]</span></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;cmd[i]!=<span class="number">0</span>;++i) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (cmd[i]) &#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">1</span>: <span class="built_in">printf</span>(<span class="string">&quot;in\n&quot;</span>);  <span class="keyword">break</span>;</span><br><span class="line">          <span class="keyword">case</span> <span class="number">2</span>: <span class="built_in">printf</span>(<span class="string">&quot;out\n&quot;</span>); <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;FINISH\n&quot;</span>);</span><br><span class="line">    <span class="comment">// reset now_at</span></span><br><span class="line">    now_at = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x06-%E7%9C%8B%E7%97%85%E8%A6%81%E6%8E%92%E9%98%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/FZU2021-0x06-%E7%9C%8B%E7%97%85%E8%A6%81%E6%8E%92%E9%98%9F/" class="post-title-link" itemprop="url">FZU2021-0x06-看病要排队</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 11:26:14" itemprop="dateCreated datePublished" datetime="2021-01-20T11:26:14+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="Remain">Remain</h4>
+<h5 id="Cause-error-if-using-Class-Patient-with-reload-operator-WHY">  Cause error if using Class Patient with reload operator&lt;, WHY?</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// priority_queue</span></span><br><span class="line"><span class="comment">// need to clear queue before new problem comes</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// class Patient &#123;</span></span><br><span class="line"><span class="comment">//   public:</span></span><br><span class="line"><span class="comment">//     int id;</span></span><br><span class="line"><span class="comment">//     int prior;</span></span><br><span class="line"><span class="comment">//     bool operator &lt; (const Patient other) &#123;</span></span><br><span class="line"><span class="comment">//       if(this-&gt;prior == other.prior) return this-&gt;id &gt; other.id;</span></span><br><span class="line"><span class="comment">//       else return this-&gt;prior &lt; other.prior;</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">patient</span>&#123;</span></span><br><span class="line">  <span class="keyword">int</span> id;</span><br><span class="line">  <span class="keyword">int</span> prior;</span><br><span class="line">&#125;Patient;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Patient&amp;thiz,<span class="keyword">const</span> Patient other) &#123;</span><br><span class="line">  <span class="keyword">if</span>(thiz.prior == other.prior) <span class="keyword">return</span> thiz.id &gt; other.id;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">return</span> thiz.prior &lt; other.prior;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">(<span class="built_in">priority_queue</span>&lt;Patient&gt; &amp;target)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">priority_queue</span>&lt;Patient&gt; empty;</span><br><span class="line">  target.swap(empty);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N,doctor,prior;</span><br><span class="line">  <span class="keyword">char</span> cmd[<span class="number">4</span>];</span><br><span class="line">  <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N)!=EOF) &#123;</span><br><span class="line">    <span class="built_in">priority_queue</span>&lt;Patient&gt; que[<span class="number">4</span>];</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(;N;--N) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,cmd);</span><br><span class="line">      <span class="keyword">if</span>(cmd[<span class="number">0</span>]==<span class="string">&#x27;I&#x27;</span>) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;doctor,&amp;prior);</span><br><span class="line">        Patient temp = &#123;i,prior&#125;;</span><br><span class="line">        que[doctor].push(temp);</span><br><span class="line">        ++i;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;doctor);</span><br><span class="line">        <span class="keyword">if</span>(que[doctor].empty()) <span class="built_in">printf</span>(<span class="string">&quot;EMPTY\n&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,que[doctor].top().id);</span><br><span class="line">          que[doctor].pop();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">4</span>;++i) &#123;</span><br><span class="line">      clear(que[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">7</span></span><br><span class="line"><span class="comment">IN 1 1</span></span><br><span class="line"><span class="comment">IN 1 2</span></span><br><span class="line"><span class="comment">OUT 1</span></span><br><span class="line"><span class="comment">OUT 2</span></span><br><span class="line"><span class="comment">IN 2 1</span></span><br><span class="line"><span class="comment">OUT 2</span></span><br><span class="line"><span class="comment">OUT 1</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">IN 1 1</span></span><br><span class="line"><span class="comment">OUT 1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">8</span></span><br><span class="line"><span class="comment">IN 1 1</span></span><br><span class="line"><span class="comment">IN 1 1</span></span><br><span class="line"><span class="comment">IN 1 1</span></span><br><span class="line"><span class="comment">IN 1 1</span></span><br><span class="line"><span class="comment">OUT 1</span></span><br><span class="line"><span class="comment">OUT 1</span></span><br><span class="line"><span class="comment">OUT 1</span></span><br><span class="line"><span class="comment">OUT 1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x04-Replace-To-Make-Regular-Bracket-Sequence/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/FZU2021-0x04-Replace-To-Make-Regular-Bracket-Sequence/" class="post-title-link" itemprop="url">FZU2021-0x04-Replace To Make Regular Bracket Sequence</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 11:25:55" itemprop="dateCreated datePublished" datetime="2021-01-20T11:25:55+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="消消乐"><s>消消乐</s></h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Use stack</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">1000006</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// &lt; &gt;, &#123; &#125;, [ ], ( ).</span></span><br><span class="line"><span class="comment">// 0 4  1 5  2 6  3 7</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">table</span><span class="params">(<span class="keyword">char</span> ch)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (ch) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;&lt;&#x27;</span>: <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;&#123;&#x27;</span>: <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;[&#x27;</span>: <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;(&#x27;</span>: <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;&gt;&#x27;</span>: <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;&#125;&#x27;</span>: <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;]&#x27;</span>: <span class="keyword">return</span> <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;)&#x27;</span>: <span class="keyword">return</span> <span class="number">7</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,s)!=EOF) &#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; stk;</span><br><span class="line">    <span class="keyword">int</span> impossible = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;s[i]!=<span class="string">&#x27;\0&#x27;</span>;++i) &#123;</span><br><span class="line">      <span class="keyword">int</span> temp = table(s[i]);</span><br><span class="line">      <span class="keyword">if</span>(temp&gt;=<span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(stk.empty()) &#123;</span><br><span class="line">          impossible = <span class="number">1</span>;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(temp - stk.top()==<span class="number">4</span>) &#123;</span><br><span class="line">          stk.pop();</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">          stk.pop();</span><br><span class="line">          ++cnt;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        stk.push(temp);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!stk.empty()) impossible=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(impossible) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Impossible\n&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,cnt);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x02-Broken-Keyboard-a-k-a-Beiju-Text/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/FZU2021-0x02-Broken-Keyboard-a-k-a-Beiju-Text/" class="post-title-link" itemprop="url">FZU2021-0x02-Broken Keyboard (a.k.a. Beiju Text)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 11:25:21" itemprop="dateCreated datePublished" datetime="2021-01-20T11:25:21+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">100007</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,s)==<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">deque</span>&lt;<span class="keyword">char</span>*&gt; v;</span><br><span class="line">    v.push_back(s);</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;s[i]!=<span class="string">&#x27;\0&#x27;</span>;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(s[i]==<span class="string">&#x27;[&#x27;</span>) &#123;</span><br><span class="line">        s[i] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        v.push_front(s+i+<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(s[i]==<span class="string">&#x27;]&#x27;</span>) &#123;</span><br><span class="line">        s[i] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        v.push_back(s+i+<span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    s[i] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    s[i+<span class="number">1</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// int len = v.size();</span></span><br><span class="line">    <span class="comment">// for(i=0;i&lt;len;++i) &#123;</span></span><br><span class="line">    <span class="comment">//   printf(&quot;%s&quot;,v[i]);</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">deque</span>&lt;<span class="keyword">char</span>*&gt;::iterator it=v.begin();it!=v.end();++it) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,*it);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    <span class="comment">// printf(&quot;#&quot;);</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x01-%E5%B0%8F%E5%AD%A9%E6%8A%A5%E6%95%B0%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/FZU2021-0x01-%E5%B0%8F%E5%AD%A9%E6%8A%A5%E6%95%B0%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">FZU2021-0x01-小孩报数问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 11:24:51" itemprop="dateCreated datePublished" datetime="2021-01-20T11:24:51+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="Take-care-of-how-the-end-comes-back-to-the-begin">Take care of how the end comes back to the begin</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* circle problem */</span></span><br><span class="line"><span class="comment">// take care of how the end comes back to the begin</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N,W,S;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v;</span><br><span class="line">  <span class="built_in">string</span> temp;</span><br><span class="line">  <span class="keyword">for</span>(;N;--N) &#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; temp;</span><br><span class="line">    v.push_back(temp);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>,&amp;W,&amp;S);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// int len = v.size();</span></span><br><span class="line">  <span class="comment">// for(int i=0;i&lt;len;++i) &#123; // debug</span></span><br><span class="line">  <span class="comment">//   printf(&quot;%s\n&quot;,&amp;v[i][0]);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// vector&lt;string&gt;::iterator it = v.begin();</span></span><br><span class="line">  <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> lenth = v.size();</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> now=W<span class="number">-1</span>;!v.empty();++now) &#123;</span><br><span class="line">    lenth = v.size();</span><br><span class="line">    <span class="keyword">int</span> SS = S % lenth;</span><br><span class="line">    <span class="keyword">if</span>(SS == <span class="number">0</span>) SS = lenth;</span><br><span class="line">    <span class="keyword">if</span>(SS == <span class="number">1</span>) SS += lenth;</span><br><span class="line">    <span class="keyword">if</span>(now &gt;= lenth) now %= lenth;</span><br><span class="line">    <span class="keyword">if</span>(cnt==SS) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,&amp;v[now][<span class="number">0</span>]);</span><br><span class="line">      v.erase(v.begin()+now);</span><br><span class="line">      cnt = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ++cnt;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/30/spider-get-ajax-and-frame-page/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/30/spider-get-ajax-and-frame-page/" class="post-title-link" itemprop="url">spider get ajax and frame page</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-30 17:54:10 / Modified: 19:15:02" itemprop="dateCreated datePublished" datetime="2020-12-30T17:54:10+08:00">2020-12-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Copyright: LacLic</p>
+<h2 id="python-获取-ajax-和-frame-子页面"><a href="#python-获取-ajax-和-frame-子页面" class="headerlink" title="python: 获取 ajax 和 frame 子页面"></a>python: 获取 ajax 和 frame 子页面</h2><p>该博客提供的解决思路适用于需要获取子界面情况</p>
+<h3 id="事件发生"><a href="#事件发生" class="headerlink" title="事件发生"></a>事件发生</h3><p>想要爬取该页面的阅读数，审计网页元素后找到了相应信息。</p>
+<p><img src="https://i.loli.net/2020/12/30/HSun6R3z8ZM7qX4.png" alt="1.png"></p>
+<p>爬取后源代码后发现问题，审计网页源代码，发现没有阅读数的值，只发现了一串urn</p>
+<p><img src="https://i.loli.net/2020/12/30/tQDuCeJbckHaPYS.png" alt="2.png"></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>爬取urn，接入url合并为新的uri，打开对应页面，并爬取新的页面源代码，得到所需内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_page_content</span>(<span class="params">html</span>):</span></span><br><span class="line">  pattern = re.<span class="built_in">compile</span>(  <span class="comment"># Regex</span></span><br><span class="line">      <span class="string">r&#x27;&lt;div class=&quot;detail_main_content&quot;&gt;\s.*?&gt;(.*?)&lt;/p&gt;[\s\S]*fbsj.*?&gt;([0-9]*)-([0-9]*)-([0-9]*)[\s\S]*author.*?&gt;(.*?)&lt;/span&gt;[\s\S]*?Count.*?id=([0-9]*)[\s\S]*?&lt;strong&gt;(.*?)/&lt;/strong&gt;(.*?)&lt;/div&gt;&#x27;</span>, re.S) </span><br><span class="line">      <span class="comment"># 其中 Count.*?id=([0-9]*) 中 id= 后的部分便是需要的id内容                                                                                    ↑-----↑</span></span><br><span class="line">  items = re.findall(pattern, html)</span><br><span class="line">  <span class="keyword">for</span> item <span class="keyword">in</span> items:</span><br><span class="line">    response = requests.get(</span><br><span class="line">        <span class="string">f&#x27;&quot;&quot;&quot;省略无关url&quot;&quot;&quot;/getDocReadCount.do?id=<span class="subst">&#123;item[<span class="number">5</span>]&#125;</span>&#x27;</span>) <span class="comment"># &lt;--- 获阅返回读数页面的uri并爬取页面</span></span><br><span class="line">    <span class="keyword">yield</span> &#123;  <span class="comment"># convert to dict</span></span><br><span class="line">        <span class="string">&#x27;title&#x27;</span>: item[<span class="number">0</span>],</span><br><span class="line">        <span class="string">&#x27;year&#x27;</span>: item[<span class="number">1</span>],</span><br><span class="line">        <span class="string">&#x27;month&#x27;</span>: item[<span class="number">2</span>],</span><br><span class="line">        <span class="string">&#x27;day&#x27;</span>: item[<span class="number">3</span>],</span><br><span class="line">        <span class="string">&#x27;author&#x27;</span>: item[<span class="number">4</span>],</span><br><span class="line">        <span class="string">&#x27;read&#x27;</span>: response.text, <span class="comment"># &lt;--- 写入到阅读数</span></span><br><span class="line">        <span class="string">&#x27;from&#x27;</span>: item[<span class="number">6</span>],</span><br><span class="line">        <span class="string">&#x27;content&#x27;</span>: <span class="string">&quot;&quot;&quot;省略无关解析内容的表达式（写太长了，又懒得改，只好掩人耳目了！）&quot;&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>爬取成功！</p>
+<p><img src="https://i.loli.net/2020/12/30/HuiwkQFR7KCDJlI.jpg" alt="SharedScreenshot.jpg"></p>
+<h3 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h3><p>（使用火狐浏览器）F12打开开发者工具，点开network（网络）发现除了获取了主页面外，还通过POST获取了getDocReadCount的东西，如下图：</p>
+<p><img src="https://i.loli.net/2020/12/30/KlkNDj6WhfToQ9V.png" alt="3.png"></p>
+<p>通过英文审计，这不就是我们需要的阅读数吗！</p>
+<p>另外看到上面的urn，似曾相识…</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;readcount&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  $.ajax(&#123;<span class="attr">type</span>:<span class="string">&#x27;post&#x27;</span>,<span class="attr">url</span>:<span class="string">&#x27;/interFace/getDocReadCount.do?id=509488&#x27;</span>,<span class="attr">timeout</span>:<span class="number">2000</span>,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html($.trim(ret))&#125;,<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$.ajax(&#123;<span class="attr">type</span>:<span class="string">&#x27;post&#x27;</span>,<span class="attr">url</span>:<span class="string">&#x27;/ecms_external?method=syncOfflineVisitCount&#x27;</span>,<span class="attr">data</span>:<span class="string">&#x27;type=doc&amp;requestUrl=&#x27;</span>+location.href,<span class="attr">timeout</span>:<span class="number">2000</span>,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html(ret);&#125;,<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html(<span class="number">0</span>);&#125;&#125;);&#125;&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p>这不就是上面看到的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">url:&#x27;/interFace/getDocReadCount.do?id=509488&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>好了，我们只要构造request去获取 ‘(相关url)/interFace/getDocReadCount.do?id=509488’（组成成为一个网址）的页面即可！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">id</span> = (<span class="string">&quot;&quot;&quot;已经爬到的id&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">response = requests.get(</span><br><span class="line">  <span class="string">f&#x27;http://(相关url)/interFace/getDocReadCount.do?id=<span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/25/RBtree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/25/RBtree/" class="post-title-link" itemprop="url">C语言实现 红黑树 源代码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-25 16:39:21" itemprop="dateCreated datePublished" datetime="2020-12-25T16:39:21+08:00">2020-12-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-27 15:35:17" itemprop="dateModified" datetime="2020-12-27T15:35:17+08:00">2020-12-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="int-型-红黑树"><a href="#int-型-红黑树" class="headerlink" title="int 型 红黑树"></a>int 型 红黑树</h2><p>&emsp;采用了双向结构，子节点可指向父节点<br>&emsp;代码采用了多.c文件形式，需要在一个project下进行编译</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>英文释义</th>
+<th>中文释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>treeCrt()</td>
+<td>Tree Create</td>
+<td>创建树</td>
+</tr>
+<tr>
+<td>treeAdd()</td>
+<td>Tree Add</td>
+<td>向树添加节点</td>
+</tr>
+<tr>
+<td>treePrt()</td>
+<td>Tree Print</td>
+<td>打印树/输出树</td>
+</tr>
+<tr>
+<td>\</td>
+<td>\</td>
+<td>\</td>
+</tr>
+<tr>
+<td>_treeAdd_recur()</td>
+<td>Tree Add Recursion</td>
+<td>通过递归方式查找插入位点并插入</td>
+</tr>
+<tr>
+<td>_treeJug()</td>
+<td>Tree Judge</td>
+<td>比较判断节点值的大小关系</td>
+</tr>
+<tr>
+<td>_treePrt_recur()</td>
+<td>Tree Print Recursion</td>
+<td>通过递归方式打印树</td>
+</tr>
+<tr>
+<td>_treeChk()</td>
+<td>Tree Check</td>
+<td>检查节点附近的情况</td>
+</tr>
+<tr>
+<td>_treeRot()</td>
+<td>Tree Rotate</td>
+<td>选择树的结点</td>
+</tr>
+<tr>
+<td>_nodeCrt()</td>
+<td>Node Create</td>
+<td>创建并返回一个带值的节点</td>
+</tr>
+</tbody></table>
+<p>&emsp;注：开头带下划线的函数表示私有函数（不希望直接被访问，只是为了给非下划线函数使用方便）</p>
+<p>头文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _TREE_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _TREE_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">int</span> value;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">node</span> *<span class="title">p</span>[2];</span> <span class="comment">// p[0]: left-son, p[1]: right-son</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">node</span> *<span class="title">father</span>;</span></span><br><span class="line">  <span class="keyword">char</span> BR; <span class="comment">// 0: black; 1: red; </span></span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">rbtree</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Node* head;</span><br><span class="line">&#125;RBTree;</span><br><span class="line"></span><br><span class="line"><span class="function">RBTree <span class="title">treeCrt</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treeAdd</span><span class="params">(RBTree* t,<span class="keyword">int</span> value)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treePrt</span><span class="params">(RBTree t)</span></span>;</span><br><span class="line"><span class="keyword">void</span> _treeAdd_recur(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> value);</span><br><span class="line"><span class="keyword">void</span> _treePrt_recur(Node* now,<span class="keyword">int</span> layer);</span><br><span class="line"><span class="keyword">void</span> _treeChk(Node* now,<span class="keyword">int</span> son);</span><br><span class="line"><span class="keyword">int</span> _treeJdg(Node* <span class="keyword">const</span> now,<span class="keyword">const</span> <span class="keyword">int</span> value);</span><br><span class="line"><span class="keyword">void</span> _treeRot(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> drc); <span class="comment">// lift the left or right one to now position, drc means direction</span></span><br><span class="line">Node* _nodeCrt(Node* father,<span class="keyword">int</span> value);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="红黑树-的-创建-与-添加"><a href="#红黑树-的-创建-与-添加" class="headerlink" title="红黑树 的 创建 与 添加"></a>红黑树 的 创建 与 添加</h3><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>英文释义</th>
+<th>中文释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>treeCrt()</td>
+<td>Tree Create</td>
+<td>创建树</td>
+</tr>
+<tr>
+<td>treeAdd()</td>
+<td>Tree Add</td>
+<td>向树添加节点</td>
+</tr>
+<tr>
+<td>_treeAdd_recur()</td>
+<td>Tree Add Recursion</td>
+<td>通过递归方式查找插入位点并插入</td>
+</tr>
+<tr>
+<td>_treeJug()</td>
+<td>Tree Judge</td>
+<td>比较判断节点值的大小关系</td>
+</tr>
+<tr>
+<td>_nodeCrt()</td>
+<td>Node Create</td>
+<td>创建并返回一个带值的节点</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">RBTree <span class="title">treeCrt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  RBTree t = &#123;<span class="literal">NULL</span>&#125;;</span><br><span class="line">  <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treeAdd</span><span class="params">(RBTree*t,<span class="keyword">int</span> value)</span> </span>&#123; <span class="comment">// 将添加函数进行了封装，而非直接用主函数来进行递归</span></span><br><span class="line">  <span class="keyword">if</span>(t-&gt;head) _treeAdd_recur(t-&gt;head,value);</span><br><span class="line">  <span class="keyword">else</span> t-&gt;head = _nodeCrt(<span class="literal">NULL</span>,value);</span><br><span class="line">  t-&gt;head-&gt;BR = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeAdd_recur(Node* now,<span class="keyword">int</span> value) &#123;</span><br><span class="line">  <span class="keyword">int</span> drc = _treeJdg(now,value); <span class="comment">// drc: direction, left(0) or right(1) // _treeJdg()函数用于判断大小以确定</span></span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[drc]) _treeAdd_recur(now-&gt;p[drc],value);</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    now-&gt;p[drc] = _nodeCrt(now,value);</span><br><span class="line">    _treeChk(now,drc); <span class="comment">// 用于检查红黑关系的函数</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"><span class="keyword">int</span> _treeJdg(Node* <span class="keyword">const</span> now,<span class="keyword">const</span> <span class="keyword">int</span> value) &#123;</span><br><span class="line">    <span class="keyword">return</span> now-&gt;value &lt; value;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Node* _nodeCrt(Node* father,<span class="keyword">int</span> value) &#123;</span><br><span class="line">  Node* node = (Node*) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">  node-&gt;father = father;</span><br><span class="line">  node-&gt;p[<span class="number">0</span>] = <span class="literal">NULL</span>;</span><br><span class="line">  node-&gt;p[<span class="number">1</span>] = <span class="literal">NULL</span>;</span><br><span class="line">  node-&gt;value = value;</span><br><span class="line">  node-&gt;BR = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="红黑树-的-打印-输出-展示"><a href="#红黑树-的-打印-输出-展示" class="headerlink" title="红黑树 的 打印/输出/展示"></a>红黑树 的 打印/输出/展示</h3><p>&emsp;由于输出的特性，我们无法竖着输出我们所熟悉的二叉树，只能通过递归的方式来横向输出我们的二叉树</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>英文释义</th>
+<th>中文释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>treePrt()</td>
+<td>Tree Print</td>
+<td>打印树/输出树</td>
+</tr>
+<tr>
+<td>_treePrt_recur()</td>
+<td>Tree Print Recursion</td>
+<td>通过递归方式打印树</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">treePrt</span><span class="params">(RBTree t)</span> </span>&#123; <span class="comment">// 同样是进行了封装</span></span><br><span class="line">  <span class="keyword">if</span>(t.head) _treePrt_recur(t.head,<span class="number">0</span>); <span class="comment">// 判断空树，如果t上有结点（不是空树）就进入递归</span></span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;This is an empty tree.\n&quot;</span>); <span class="comment">// 否则，输出空树</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;------------------------------------\n&quot;</span>); <span class="comment">// 分隔符</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treePrt_recur(Node* now,<span class="keyword">int</span> layer) &#123; <span class="comment">// layer 代指当前所处的层数/递归的深度</span></span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[<span class="number">1</span>]) _treePrt_recur(now-&gt;p[<span class="number">1</span>],layer+<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;layer;++i) <span class="built_in">printf</span>(<span class="string">&quot;\t&quot;</span>); <span class="comment">// 制表符，让格式更好看</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d(BR-%d)\n&quot;</span>,now-&gt;value,now-&gt;BR);</span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[<span class="number">0</span>]) _treePrt_recur(now-&gt;p[<span class="number">0</span>],layer+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="红黑树-的-检查与旋转"><a href="#红黑树-的-检查与旋转" class="headerlink" title="红黑树 的 检查与旋转"></a>红黑树 的 检查与旋转</h3><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>英文释义</th>
+<th>中文释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_treeChk()</td>
+<td>Tree Check</td>
+<td>检查节点附近的情况</td>
+</tr>
+<tr>
+<td>_treeRot()</td>
+<td>Tree Rotate</td>
+<td>选择树的结点</td>
+</tr>
+</tbody></table>
+<br>
+
+<p>&emsp;检查新插入节点、其父节点，以及其祖父节点（父节点的父节点）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeChk(Node* f,<span class="keyword">int</span> son) &#123; <span class="comment">// son of father(f) is the added node</span></span><br><span class="line">  <span class="keyword">int</span> status = <span class="number">0b00</span>; <span class="comment">// if (son &gt; f) ==&gt; 0b1??, son &gt; gf ==&gt; 0b?1?</span></span><br><span class="line">  Node* gf = f-&gt;father;</span><br><span class="line">  Node* s; <span class="comment">// s means son, Node*</span></span><br><span class="line">  <span class="keyword">if</span>(gf&amp;&amp;f-&gt;BR) &#123;</span><br><span class="line">    <span class="keyword">if</span>(gf-&gt;p[<span class="number">0</span>]&amp;&amp;gf-&gt;p[<span class="number">1</span>]&amp;&amp;gf-&gt;p[<span class="number">0</span>]-&gt;BR&amp;&amp;gf-&gt;p[<span class="number">1</span>]-&gt;BR) &#123; </span><br><span class="line">      <span class="comment">// left-son and right-son exists, left and right sons are both red</span></span><br><span class="line">      gf-&gt;BR = <span class="number">1</span>;</span><br><span class="line">      gf-&gt;p[<span class="number">0</span>]-&gt;BR = <span class="number">0</span>;</span><br><span class="line">      gf-&gt;p[<span class="number">1</span>]-&gt;BR = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">if</span>(gf-&gt;father) &#123;</span><br><span class="line">        _treeChk(gf-&gt;father,gf-&gt;value &gt; gf-&gt;father-&gt;value); </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      status = son;</span><br><span class="line">      s = f-&gt;p[son]; <span class="comment">// s means son of f, Node*</span></span><br><span class="line">      status = (status &lt;&lt; <span class="number">1</span>) + (f-&gt;p[son]-&gt;value &gt; gf-&gt;value);</span><br><span class="line">      <span class="keyword">switch</span>(status) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b00</span> : ;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b11</span> : </span><br><span class="line">          f-&gt;BR = <span class="number">1</span>;</span><br><span class="line">          gf-&gt;BR = <span class="number">0</span>;</span><br><span class="line">          _treeRot(gf,!(<span class="number">1</span>&amp;status));</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b10</span> : ;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0b01</span> : </span><br><span class="line">          f-&gt;BR = <span class="number">1</span>;</span><br><span class="line">          gf-&gt;BR = <span class="number">0</span>;</span><br><span class="line">          _treeRot(f,!son);</span><br><span class="line">          _treeRot(gf,!(<span class="number">1</span>&amp;status));</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span> : ;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>&emsp;以下函数中的drc，0代表左旋，1代表右旋</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;tree.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _treeRot(Node* now,<span class="keyword">const</span> <span class="keyword">int</span> drc) &#123; <span class="comment">// left-rotate: 0</span></span><br><span class="line">  now-&gt;value ^= now-&gt;p[!drc]-&gt;value ^= now-&gt;value ^= now-&gt;p[!drc]-&gt;value; <span class="comment">// swap value</span></span><br><span class="line">  Node* temp = now-&gt;p[drc];</span><br><span class="line">  now-&gt;p[drc] = now-&gt;p[!drc];</span><br><span class="line">  now-&gt;p[!drc] = now-&gt;p[drc]-&gt;p[!drc];</span><br><span class="line">  now-&gt;p[drc]-&gt;p[!drc] = now-&gt;p[drc]-&gt;p[drc];</span><br><span class="line">  now-&gt;p[drc]-&gt;p[drc] = temp;</span><br><span class="line">  <span class="keyword">if</span>(temp) temp-&gt;father = now-&gt;p[drc];</span><br><span class="line">  <span class="keyword">if</span>(now-&gt;p[!drc]) now-&gt;p[!drc]-&gt;father = now;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/24/P1980/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/24/P1980/" class="post-title-link" itemprop="url">P1980 最优解（30ms）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-24 13:07:50" itemprop="dateCreated datePublished" datetime="2020-12-24T13:07:50+08:00">2020-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- # P1980 最优解（30ms） -->
+<p>Copyright LacLic</p>
+<h2 id="思路">思路</h2>
+<p>每一位 = 去尾数据 + 此位值 * 此位后的输入</p>
+<p>显然，需要重点考虑0出现的次数</p>
+<h2 id="举例">举例</h2>
+<p>记 输入为 26759，（不考虑x，直接把0~9全都算出来，最后再输出）</p>
+<p>记 答案数组 为 A[0~9](26759)（10长度的数组）</p>
+<p> 其中，A是长度为10的数组，用以表示数字出现的次数，0~9表示0到9每一位，括号内表示输入</p>
+<p>A[0~9](26759) = A[0~9](20000) + A[2](6759)</p>
+<p>A[0~9](6759) = A[0~9](6000) + A[6](759)</p>
+<p>A[0~9](759) = A[0~9](700) + A[7](59)</p>
+<p>A[0~9](59) = A[0~9](50) + A[5](9)</p>
+<p>A[0~9](759) = A[0~9](9) + A[9](0)</p>
+<p>A[9](0) = 0<br>
+A[0~9] = {1,1,1,1,1,1,1,1,1,1} 此处考虑到方便，就先记0处为1，后续进行删除</p>
+<br>
+<p>最终代码（虽然用的是c++，但是完全用的是c的语法，30ms）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// copyright LacLic</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BITS 8</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM 10</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> storage[BITS] = &#123;<span class="number">1</span>,<span class="number">20</span>,<span class="number">300</span>,<span class="number">4000</span>,<span class="number">50000</span>,<span class="number">600000</span>,<span class="number">7000000</span>,<span class="number">80000000</span>&#125;;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> a[NUM] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">intPow</span><span class="params">(<span class="keyword">int</span> base,<span class="keyword">int</span> power)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> ret = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(;power;--power) &#123;</span><br><span class="line">    ret *= base;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> b[BITS]; <span class="comment">// 10 000 000</span></span><br><span class="line">  <span class="keyword">int</span> n,x,height;</span><br><span class="line">  <span class="keyword">int</span> LEN; <span class="comment">// means the total bits-1</span></span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;x);</span><br><span class="line">  ++n; <span class="comment">// 这句只是因为发现最后算出来的数据会不到n，所以++后刚刚好</span></span><br><span class="line">  <span class="keyword">int</span> N = n;</span><br><span class="line">  <span class="keyword">for</span>(LEN=<span class="number">0</span>;<span class="number">1</span>;++LEN) &#123;</span><br><span class="line">    b[LEN] = n%<span class="number">10</span>;</span><br><span class="line">    n /= <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">if</span>(!n) <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  height = intPow(<span class="number">10</span>,LEN);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=LEN;i&gt;=<span class="number">0</span>;--i) &#123;</span><br><span class="line">    <span class="keyword">int</span> numOfBit = intPow(NUM,i);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;b[i];++j) &#123;</span><br><span class="line">      a[j] += numOfBit;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;NUM;++k) &#123;</span><br><span class="line">        a[k] += storage[i<span class="number">-1</span>];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    a[b[i]] += N % numOfBit;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span>(;height;height/=<span class="number">10</span>) &#123; <span class="comment">// 发现0处有问题，所以添加这段来修正a[0]</span></span><br><span class="line">    a[<span class="number">0</span>] -= height;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a[x]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 30ms</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>普通递归算法(129ms)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">count</span><span class="params">(<span class="keyword">int</span> now)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(;now;now/=<span class="number">10</span>) &#123;</span><br><span class="line">    ++a[now%<span class="number">10</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N,x;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;N,&amp;x);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    count(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// for(int i=0;i&lt;10;++i) &#123;</span></span><br><span class="line">  <span class="comment">//   printf(&quot;a[%d] = %d\n&quot;,i,a[i]);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,a[x]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/11/25/Flutter-autovalidate-is-deprecated/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -333,145 +1049,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/11/07/my-first-blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/07/my-first-blog/" class="post-title-link" itemprop="url">my-first-blog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-11-07 20:11:54" itemprop="dateCreated datePublished" datetime="2020-11-07T20:11:54+08:00">2020-11-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-03 18:07:27" itemprop="dateModified" datetime="2020-12-03T18:07:27+08:00">2020-12-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Make it great!</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/11/07/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/07/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-11-07 16:26:14" itemprop="dateCreated datePublished" datetime="2020-11-07T16:26:14+08:00">2020-11-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -537,13 +1118,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-count">97</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

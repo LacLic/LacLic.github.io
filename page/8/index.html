@@ -147,6 +147,646 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/29/Codeforces-Gambling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/29/Codeforces-Gambling/" class="post-title-link" itemprop="url">Codeforces-Gambling</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-29 11:45:43" itemprop="dateCreated datePublished" datetime="2021-01-29T11:45:43+08:00">2021-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有两个人纸牌游戏（相互明牌），每个人起手有 n 张牌，每回合由 A 开始再 B，可丢弃自己的一张牌并给自己加分，或者丢弃对方一张牌（没有加分）。</p>
+<p>求每个人都进行了最佳选择后，A 的得分减去 B 的得分的值（可为负）</p>
+<h2 id="思路">思路</h2>
+<p>竞争性游戏，只求分差</p>
+<p>丢弃对方一张牌其实某种意义上是给自己加分了</p>
+<p>我的思路是 2 个人分别存储手牌</p>
+<p>不过后来想想，不需要这么麻烦，其实只要一个 set，光加分就够了</p>
+<h2 id="代码">代码</h2>
+<p>使用 multiset</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,temp;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; a,b;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> <span class="comment">/*score*/</span>sa=<span class="number">0</span>,sb=<span class="number">0</span>; <span class="comment">// need long long</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    a.insert(temp);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp);</span><br><span class="line">    b.insert(temp);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt;::iterator ita,itb; <span class="comment">// multi</span></span><br><span class="line">  <span class="keyword">int</span> flag;</span><br><span class="line">  ita = a.end(); --ita;</span><br><span class="line">  itb = b.end(); --itb;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// A round:</span></span><br><span class="line">    <span class="keyword">if</span>(*ita&gt;*itb) &#123;</span><br><span class="line">      sa += *ita;</span><br><span class="line">      a.erase(ita);</span><br><span class="line">      <span class="keyword">if</span>(a.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b00</span>; <span class="comment">// round, empty set</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ita = a.end(); --ita;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      b.erase(itb);</span><br><span class="line">      <span class="keyword">if</span>(b.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b01</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      itb = b.end(); --itb;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// B round:</span></span><br><span class="line">    <span class="keyword">if</span>(*itb&gt;*ita) &#123;</span><br><span class="line">      sb += *itb;</span><br><span class="line">      b.erase(itb);</span><br><span class="line">      <span class="keyword">if</span>(b.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b11</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      itb = b.end(); --itb;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      a.erase(ita);</span><br><span class="line">      <span class="keyword">if</span>(a.empty()) &#123;</span><br><span class="line">        flag = <span class="number">0b10</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ita = a.end(); --ita;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">switch</span>(flag) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b00</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// B round:</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        sb += *itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">        <span class="keyword">if</span>(b.empty()) <span class="keyword">break</span>; <span class="comment">// roop condition</span></span><br><span class="line">        <span class="comment">// A round:</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b01</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">        <span class="keyword">if</span>(a.empty()) <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        sa += *ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b10</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(!b.empty()) &#123;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        itb = b.end(); --itb;</span><br><span class="line">        sb += *itb;</span><br><span class="line">        b.erase(itb);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0b11</span>: &#123;</span><br><span class="line">      <span class="keyword">while</span>(!a.empty()) &#123;</span><br><span class="line">        <span class="comment">// A</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        sa += *ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">        <span class="comment">// B</span></span><br><span class="line">        ita = a.end(); --ita;</span><br><span class="line">        a.erase(ita);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,sa-sb);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/29/Codeforces-Non-Coprime-Partition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/29/Codeforces-Non-Coprime-Partition/" class="post-title-link" itemprop="url">Codeforces-Non-Coprime Partition</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-29 11:44:01" itemprop="dateCreated datePublished" datetime="2021-01-29T11:44:01+08:00">2021-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>给定一个 n，求一种方式，把由 1 到 n 的数分成 A、B 两组，使得 A 之和与 B 之和不互质</p>
+<h2 id="思路">思路</h2>
+<p><strong>存在性问题</strong>，只需要求取一种解法即可</p>
+<ol>
+<li>对于所有奇数，由于 1 到 n-1 之和为((n-1)*n)/2 == (n-1)/2*n，且 n-1 为偶数，必含因子 n。所以，把 1 到 n-1 丢入一个集合，n 丢到另一个集合</li>
+<li>对于 4 的倍数，由于有偶数个奇数（和必为偶数），将所有奇数和偶数分开为两个集合，必定含公约数 2</li>
+<li>对于 4 取模为 2 的数，从中间切开，得到 n/2（奇数，n-1 为偶数），前半部分之和(n-1)/2*n 必定含因子 n/2，后半部分之和(n-1)*(n/2)也必定含因子 n/2</li>
+</ol>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">if</span>(n&lt;=<span class="number">2</span>) <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,n<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n1 %d&quot;</span>,n);</span><br><span class="line">  &#125;<span class="keyword">else</span> <span class="keyword">if</span>(n%<span class="number">4</span>==<span class="number">2</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> mid = n/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,mid);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=mid;++i) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n%d&quot;</span>,mid);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=mid+<span class="number">1</span>;i&lt;=n;++i) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,n/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i+=<span class="number">2</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n%d&quot;</span>,n/<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i+=<span class="number">2</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/29/Codeforces-Equality/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/29/Codeforces-Equality/" class="post-title-link" itemprop="url">Codeforces-Equality</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-29 11:43:53" itemprop="dateCreated datePublished" datetime="2021-01-29T11:43:53+08:00">2021-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>给定 n 长度字符串，一共有前 k 个字母（大写），求该串中最多有多少个字符使得前 k 个字母的个数相同</p>
+<h2 id="思路">思路</h2>
+<p>给每个字母计数，最小值即为答案</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,k;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;k);</span><br><span class="line">  <span class="keyword">int</span> mapp[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">  <span class="keyword">char</span> a[n+<span class="number">6</span>];</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,a);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;a[i]!=<span class="string">&#x27;\0&#x27;</span>;++i) &#123;</span><br><span class="line">    ++mapp[a[i]-<span class="string">&#x27;A&#x27;</span>]; <span class="comment">// &#x27;A&#x27; == 65</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> min = <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mapp[i]&lt;min) min = mapp[i];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,min*k);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/28/Python-dpkt-study-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/28/Python-dpkt-study-note/" class="post-title-link" itemprop="url">Python dpkt study note</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-28 20:50:50" itemprop="dateCreated datePublished" datetime="2021-01-28T20:50:50+08:00">2021-01-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-29 16:05:35" itemprop="dateModified" datetime="2021-01-29T16:05:35+08:00">2021-01-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <pre><code class="python"># from: https://blog.csdn.net/javajiawei/article/details/100513267
+import sys
+import os
+import dpkt
+
+
+def checkIfHTTPRes(data):  # 检查是否为HTTP协议
+
+    if len(data) &lt; 4:
+        return False
+
+    if data[:4] == str.encode(&#39;HTTP&#39;):
+        return True
+
+    return False
+
+
+def httpPacketParser(http):  # 分析流
+
+    if checkIfHTTPRes(http):  # 检查是否为HTTP协议
+        try:
+            response = dpkt.http.Response(http)  # 尝试以HTTP读取响应
+            print(response.status)
+
+        except Exception as e:
+            # print(e)
+            pass
+    # else:
+    #     print(&quot;Not HTTP&quot;)
+
+
+def tcpPacketParser(tcp):  # 获取流
+
+    stream = tcp.data
+    if len(stream):
+        httpPacketParser(stream)  # 尝试以HTTP分析流
+
+
+def ipPacketParser(ip):  # 获取TCP包
+    if isinstance(ip.data, dpkt.tcp.TCP):
+        &quot;&quot;&quot;这里也许可以考虑一下加一条来读UDP包？&quot;&quot;&quot;
+        tcpPacketParser(ip.data)  # 分析tcp包
+
+
+def decodePacket(packet):  # 解码获取以太网包
+    eth = dpkt.ethernet.Ethernet(packet)
+    if isinstance(eth.data, dpkt.ip.IP):
+        ipPacketParser(eth.data)  # 分析ip包
+
+
+def pcapReader(filename):  # 打开.pcap文件
+    try:
+        with open(filename, &#39;rb&#39;) as f:
+            capture = dpkt.pcap.Reader(f)
+            i = 1
+            for timestamp, packet in capture:  # 键值对，提取packet进行解码
+                decodePacket(packet)
+                i += 1
+
+    except Exception as e:
+        print(&#39;parse &#123;&#125;, error:&#123;&#125;&#39;.format(filename, e))
+
+
+if __name__ == &quot;__main__&quot;:
+    if len(sys.argv) &lt; 2:
+        print(&#39;HELP: python &#123;&#125; &lt;PCAP_PATH&gt;&#39;.format(sys.argv[0]))
+        sys.exit(0)
+        # _EXIT_
+    filename = sys.argv[1]
+
+    if filename:
+        pcapReader(filename)</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/28/Codeforces-Stickers-and-Toys/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/28/Codeforces-Stickers-and-Toys/" class="post-title-link" itemprop="url">Codeforces-Stickers and Toys</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-28 13:32:16" itemprop="dateCreated datePublished" datetime="2021-01-28T13:32:16+08:00">2021-01-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有 n 个健达奇趣蛋，其中有 s 个贴纸，t 个玩具，每个蛋至多有 1 个贴纸、也至多有 1 个玩具（但可以既有 1 个贴纸又有 1 个玩具）。</p>
+<p>问：至少要买几个，才会必定又获得玩具又获得贴纸</p>
+<h2 id="思路">思路</h2>
+<p>s 和 t 取最小值，再寻找最差情况</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">  <span class="keyword">for</span>(;N;--N) &#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,c;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">    <span class="keyword">int</span> min;</span><br><span class="line">    <span class="keyword">if</span>(b&gt;c) min = c;</span><br><span class="line">    <span class="keyword">else</span> min = b;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a+<span class="number">1</span>-min);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/28/Codeforces-Letters-Shop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/28/Codeforces-Letters-Shop/" class="post-title-link" itemprop="url">Codeforces-Letters Shop</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-28 13:32:03" itemprop="dateCreated datePublished" datetime="2021-01-28T13:32:03+08:00">2021-01-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>先读入一串长字符串，再读入一串短字符串，要求从左开始遍历到所有短字符串所有字母都出现为止（且出现次数亦有要求，短字符串所有字母出现次数小于等于已遍历的长字符串的）</p>
+<h2 id="思路">思路</h2>
+<p>记录所有字母第 x 次出现的位置（不这么做会超时），取最大值</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> s[<span class="number">200006</span>];</span><br><span class="line"><span class="keyword">char</span> input[<span class="number">200006</span>];</span><br><span class="line"><span class="keyword">int</span> letter[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// &#x27;a&#x27; == 97</span></span><br><span class="line"><span class="keyword">int</span> mapp[<span class="number">26</span>][<span class="number">200006</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n,m;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,s);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;s[i]!=<span class="string">&#x27;\0&#x27;</span>;++i) &#123;</span><br><span class="line">    mapp[s[i]<span class="number">-97</span>][letter[s[i]<span class="number">-97</span>]] = i;</span><br><span class="line">    ++letter[s[i]<span class="number">-97</span>];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(;m;--m) &#123;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;++i) &#123;</span><br><span class="line">      letter[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,input);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;input[i]!=<span class="string">&#x27;\0&#x27;</span>;++i) &#123;</span><br><span class="line">      <span class="keyword">int</span> now = mapp[input[i]<span class="number">-97</span>][letter[input[i]<span class="number">-97</span>]];</span><br><span class="line">      ++letter[input[i]<span class="number">-97</span>];</span><br><span class="line">      <span class="keyword">if</span>(now&gt;max) max = now;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,max+<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/27/FZU2021-0x16-%E5%93%88%E5%AF%86%E9%A1%BF%E7%BB%95%E8%A1%8C%E4%B8%96%E7%95%8C%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/27/FZU2021-0x16-%E5%93%88%E5%AF%86%E9%A1%BF%E7%BB%95%E8%A1%8C%E4%B8%96%E7%95%8C%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">FZU2021-0x16-哈密顿绕行世界问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-27 12:12:35" itemprop="dateCreated datePublished" datetime="2021-01-27T12:12:35+08:00">2021-01-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有一个十二面体（20 个顶点），现在给出这 20 个顶点相邻的顶点，以及起点 m，要求你输出所有（60 种）绕行所有点最后回到 m 点的方案。</p>
+<h2 id="思路">思路</h2>
+<p>一开始以为这题用枚举，大 O 会有 A^20^~20~的量级，后来想想每次只能选&lt;=3 个的路径，对于 20 个点撑死也只有 3^7^*2^7^，完全可以考虑暴力枚举</p>
+<p>所以我们用 20*3 大小的数组存储这 20 个点相邻点的数据，并用长度为 20 的数组以 0（没经过）/1（已经过）来记录是否经过，再用一个长度 20 的数组来存储已经被选择的数。</p>
+<p>递归到 20 层时（选了 20 个数时），我们进行检查，是否能回到 m 点，如果能，则输出，反之 return。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">21</span>][<span class="number">3</span>];</span><br><span class="line"><span class="keyword">int</span> status[<span class="number">21</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="keyword">int</span> chosen[<span class="number">21</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> now)</span> </span>&#123; <span class="comment">// 判断能否返回原点</span></span><br><span class="line">  <span class="keyword">if</span>(a[chosen[<span class="number">1</span>]][<span class="number">0</span>]==now||a[chosen[<span class="number">1</span>]][<span class="number">1</span>]==now||a[chosen[<span class="number">1</span>]][<span class="number">2</span>]==now) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">go</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> layer)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(layer==<span class="number">20</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(check(now))&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d: &quot;</span>,cnt);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">20</span>;++i) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,chosen[i]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d\n&quot;</span>,chosen[<span class="number">1</span>]);</span><br><span class="line">      ++cnt;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span>;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123; <span class="comment">// 用for循环也可以，只是觉得只有3次，加之用for还要消耗判断的性能</span></span><br><span class="line">    <span class="keyword">if</span>(!status[a[now][<span class="number">0</span>]]) &#123;</span><br><span class="line">      status[a[now][<span class="number">0</span>]] = <span class="number">1</span>;</span><br><span class="line">      chosen[layer+<span class="number">1</span>] = a[now][<span class="number">0</span>]; <span class="comment">// 因为到layer==20的时候不会进else，所以不必担心数组溢出</span></span><br><span class="line">      go(a[now][<span class="number">0</span>],layer+<span class="number">1</span>);</span><br><span class="line">      status[a[now][<span class="number">0</span>]] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!status[a[now][<span class="number">1</span>]]) &#123;</span><br><span class="line">      status[a[now][<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">      chosen[layer+<span class="number">1</span>] = a[now][<span class="number">1</span>];</span><br><span class="line">      go(a[now][<span class="number">1</span>],layer+<span class="number">1</span>);</span><br><span class="line">      status[a[now][<span class="number">1</span>]] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!status[a[now][<span class="number">2</span>]]) &#123;</span><br><span class="line">      status[a[now][<span class="number">2</span>]] = <span class="number">1</span>;</span><br><span class="line">      chosen[layer+<span class="number">1</span>] = a[now][<span class="number">2</span>];</span><br><span class="line">      go(a[now][<span class="number">2</span>],layer+<span class="number">1</span>);</span><br><span class="line">      status[a[now][<span class="number">2</span>]] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">20</span>;++i) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">3</span>;++j) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> m;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    cnt = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line">    <span class="keyword">if</span>(m==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    status[m] = <span class="number">1</span>;</span><br><span class="line">    chosen[<span class="number">1</span>] = m;</span><br><span class="line">    go(m,<span class="number">1</span>);</span><br><span class="line">    status[m] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/26/FZU2021-0x15-%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/26/FZU2021-0x15-%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">FZU2021-0x15-迷宫问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-26 18:34:05" itemprop="dateCreated datePublished" datetime="2021-01-26T18:34:05+08:00">2021-01-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题意">题意</h2>
+<p>有一个迷宫，要求你从坐标(0,0)走到(4,4)，其中1的地方是墙壁，不能通行，这个迷宫保证有唯一解</p>
+<h2 id="思路">思路</h2>
+<p>注意，是可以往上和左走的，只要不原路返回即可</p>
+<p>采用外面围一圈墙壁的方法，省去很多判断溢出的麻烦</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 7</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LEN 5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> START 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RIGHT 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DOWN 2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LEFT 3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UP 4</span></span><br><span class="line"><span class="keyword">int</span> a[MAX][MAX];</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">pos</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> x;</span><br><span class="line">  <span class="keyword">int</span> y;</span><br><span class="line">&#125;Pos;</span><br><span class="line"></span><br><span class="line">Pos chosen[<span class="number">25</span>]; <span class="comment">// 存储已经过的路程</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> layer,<span class="keyword">int</span> went)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(x==<span class="number">5</span>&amp;&amp;y==<span class="number">5</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span>&lt;layer) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;(%d, %d)&quot;</span>,chosen[<span class="number">0</span>].x<span class="number">-1</span>,chosen[<span class="number">0</span>].y<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;layer;++i) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;\n(%d, %d)&quot;</span>,chosen[i].x<span class="number">-1</span>,chosen[i].y<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(!a[x+<span class="number">1</span>][y]&amp;&amp;went!=UP) &#123;</span><br><span class="line">      chosen[layer].x = x+<span class="number">1</span>; <span class="comment">// 直接覆写即可</span></span><br><span class="line">      chosen[layer].y = y;</span><br><span class="line">      go(x+<span class="number">1</span>,y,layer+<span class="number">1</span>,DOWN);<span class="comment">// went参数用来记录这一步是向什么方向走的</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!a[x][y+<span class="number">1</span>]&amp;&amp;went!=LEFT) &#123;</span><br><span class="line">      chosen[layer].x = x;</span><br><span class="line">      chosen[layer].y = y+<span class="number">1</span>;</span><br><span class="line">      go(x,y+<span class="number">1</span>,layer+<span class="number">1</span>,RIGHT);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!a[x<span class="number">-1</span>][y]&amp;&amp;went!=DOWN) &#123;</span><br><span class="line">      chosen[layer].x = x+<span class="number">1</span>;</span><br><span class="line">      chosen[layer].y = y;</span><br><span class="line">      go(x+<span class="number">1</span>,y,layer+<span class="number">1</span>,UP);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!a[x][y<span class="number">-1</span>]&amp;&amp;went!=RIGHT) &#123;</span><br><span class="line">      chosen[layer].x = x+<span class="number">1</span>;</span><br><span class="line">      chosen[layer].y = y;</span><br><span class="line">      go(x+<span class="number">1</span>,y,layer+<span class="number">1</span>,LEFT);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;MAX;++i) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;MAX;++j) &#123;</span><br><span class="line">      a[i][j] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=LEN;++i) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=LEN;++j) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Pos now;</span><br><span class="line">  chosen[<span class="number">0</span>].x = <span class="number">1</span>;</span><br><span class="line">  chosen[<span class="number">0</span>].y = <span class="number">1</span>;</span><br><span class="line">  go(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,START);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/25/Python-%E5%B0%8F%E6%95%99%E7%A8%8B%EF%BC%88%E5%B8%A6%E4%BD%9C%E4%B8%9A%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -306,693 +946,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/25/FZU2021-0x13-%E6%A3%8B%E7%9B%98%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/25/FZU2021-0x13-%E6%A3%8B%E7%9B%98%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">FZU2021-0x13-棋盘问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-25 14:46:52" itemprop="dateCreated datePublished" datetime="2021-01-25T14:46:52+08:00">2021-01-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>组合问题，暴力枚举</p>
-<h2 id="题意">题意</h2>
-<p>有个 N*N 的棋盘，里面有一定位置可以放棋子（为#的地方），现在有 k 个棋子。</p>
-<p>问：有多少种摆放方式，使得每个棋子都被放下，每个棋子所在行列不能有其他棋子（且每一行/每一列至多只有一个棋子）</p>
-<h2 id="思路">思路</h2>
-<p>用将所有#所在位置信息记录（在 posX 和 posY），模拟键值对，并且每行/每列都加上状态信息（statusX 和 statusY；其中，0:为没旗子，可放棋子；1:代表该行/列已有棋子，不能放其他棋子了）。</p>
-<h2 id="小技巧">小技巧</h2>
-<p>当剩余棋子数不足（i&lt;=max）以供剩下棋子放置时，提前退出递归，以减少计算量。</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> a[<span class="number">8</span>][<span class="number">8</span>];</span><br><span class="line"><span class="keyword">int</span> statusX[<span class="number">8</span>]=&#123;<span class="number">0</span>&#125;,statusY[<span class="number">8</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> posX[<span class="number">66</span>],posY[<span class="number">66</span>];</span><br><span class="line"><span class="keyword">int</span> cnt,k,ans;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recur</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> layer)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(layer==k) &#123;</span><br><span class="line">    ++ans;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> max = cnt - k + layer;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=now+<span class="number">1</span>;i&lt;=max;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(!statusX[posX[i]]&amp;&amp;!statusY[posY[i]]) &#123;</span><br><span class="line">        statusX[posX[i]] = <span class="number">1</span>;</span><br><span class="line">        statusY[posY[i]] = <span class="number">1</span>;</span><br><span class="line">        recur(i,layer+<span class="number">1</span>);</span><br><span class="line">        statusX[posX[i]] = <span class="number">0</span>;</span><br><span class="line">        statusY[posY[i]] = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">int</span> mouse = <span class="number">0</span>;</span><br><span class="line">    ans = <span class="number">0</span>;</span><br><span class="line">    cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;n,&amp;k);</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">-1</span>&amp;&amp;k==<span class="number">-1</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i) &#123;</span><br><span class="line">      getchar();</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;++j) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;a[i][j]);</span><br><span class="line">        <span class="keyword">if</span>(a[i][j]==<span class="string">&#x27;#&#x27;</span>) &#123;</span><br><span class="line">          posX[mouse] = i;</span><br><span class="line">          posY[mouse] = j;</span><br><span class="line">          ++mouse;</span><br><span class="line">          ++cnt;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    --k;</span><br><span class="line">    <span class="keyword">int</span> max = cnt-k;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;max;++i) &#123;</span><br><span class="line">      statusX[posX[i]] = <span class="number">1</span>;</span><br><span class="line">      statusY[posY[i]] = <span class="number">1</span>;</span><br><span class="line">      recur(i,<span class="number">0</span>);</span><br><span class="line">      statusX[posX[i]] = <span class="number">0</span>;</span><br><span class="line">      statusY[posY[i]] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">2 1</span></span><br><span class="line"><span class="comment">#.</span></span><br><span class="line"><span class="comment">.#</span></span><br><span class="line"><span class="comment">4 4</span></span><br><span class="line"><span class="comment">...#</span></span><br><span class="line"><span class="comment">..#.</span></span><br><span class="line"><span class="comment">.#..</span></span><br><span class="line"><span class="comment">#...</span></span><br><span class="line"><span class="comment">-1 -1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/25/Linux-%E4%B8%8B%E8%BF%90%E8%A1%8C-C-C-%E4%B8%8E-Python-%E4%BB%A3%E7%A0%81/" class="post-title-link" itemprop="url">Linux 下运行 C/C++ 与 Python 代码</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-25 12:08:36" itemprop="dateCreated datePublished" datetime="2021-01-25T12:08:36+08:00">2021-01-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇使用的是 ubuntu 发行版</p>
-<h2 id="gcc-g-编译运行-C-C-代码">gcc/g++ 编译运行 C/C++ 代码</h2>
-<h3 id="安装编译器">安装编译器</h3>
-<p>先建立并进入文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir programme</span><br><span class="line">cd programme&#x2F;</span><br><span class="line">mkdir c</span><br><span class="line">cd c&#x2F;</span><br></pre></td></tr></table></figure>
-<p>输入<code>gcc --version</code>检查是否安装 gcc（ubuntu20.04 版本是默认自带安装的）</p>
-<p>若显示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0</span><br><span class="line">Copyright (C) 2019 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
-<p>表示已安装，没有的话输入如下命令通过 apt（ubuntu/debian）安装（centOS 用 yum, manjaro/Arch 用 pacman）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install build-essential</span><br></pre></td></tr></table></figure>
-<p>一次性安装 gcc, g++, make，安装后同样输入<code>gcc --version</code>检查是否成功安装 gcc，若成功回显版本信息，则成功安装</p>
-<h3 id="写出你的-Hello-world">写出你的 Hello world!</h3>
-<p>这里使用<code>vim编辑器</code>（当然你要是喜欢<code>vi</code>或者<code>nano</code>还有<code>gedit</code>编辑器也不是不可以）</p>
-<p>输入<code>vim test.c</code>，进入 vim 编辑器界面，<code>小写状态下按下 i 键</code>进入<code>insert</code>模式，输入如下代码</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Hello world!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输入后，按下<code>esc</code>，输入<code>:wq</code>并<code>enter</code>以写入并退出</p>
-<p>用<code>gcc test.c -o test.o</code>进行编译并生成可执行文件 test.o（如果是 c++则用<code>g++</code>命令）</p>
-<p>用<code>./test.o</code>运行可执行文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;programme&#x2F;c# .&#x2F;test.o</span><br><span class="line">Hello world!</span><br></pre></td></tr></table></figure>
-<p>至此，C/C++编译器配置完成（make 是用来编译安装软件的，这里不作演示了）</p>
-<h2 id="python3-运行-python-代码">python3 运行 python 代码</h2>
-<h3 id="安装-python3">安装 python3</h3>
-<p>先创建并进入 python 文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;programme&#x2F;</span><br><span class="line">mkdir python</span><br><span class="line">cd python&#x2F;</span><br></pre></td></tr></table></figure>
-<p>通过输入命令<code>python3</code>或<code>python3 --version</code>查看版本，如果你使用<code>python3</code>，则会进入 python 交互式编程，在这里可以输入<code>print(&quot;hello world&quot;)</code>来输出<code>hello world</code></p>
-<p>输入<code>exit()</code>或按下<code>ctrl+Z</code>来退出交互式编程界面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;programme&#x2F;python# python3</span><br><span class="line">Python 3.8.2 (default, Jul 16 2020, 14:00:26)</span><br><span class="line">[GCC 9.3.0] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt; print(&quot;hello world&quot;)</span><br><span class="line">hello world</span><br><span class="line">&gt;&gt;&gt; exit()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;programme&#x2F;python# python3 --version</span><br><span class="line">Python 3.8.2</span><br></pre></td></tr></table></figure>
-<p>如果没有安装 python3，推荐使用<code>sudo apt install python3</code>快速安装 python3</p>
-<p>或者，可以用<code>wget</code>下载 linux 下安装包，通过<code>make</code>编译安装，并自行添加环境变量和建立 pip 与 python 的软链</p>
-<p>之后，同样通过输入命令<code>python3</code>或<code>python3 --version</code>查看版本，就不过多赘述</p>
-<h3 id="执行-python-代码文件">执行 python 代码文件</h3>
-<p>通过<code>echo</code>快速建立<code>test.py</code>文件并写入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;print(&#39;\n&#39;.join([&#39;&#39;.join([(&#39;ZhangDong&#39;[(x-y)%9]if((x*0.05)**2+(y*0.1)**2-1)**3-(x*0.05)**2*(y*0.1)**3&lt;&#x3D;0 else&#39; &#39;)for x in range(-30,30)])for y in range(15,-15,-1)])) # 一个大大的爱心，该版本为python3.x，若为python2.x版本请去掉最外层的括号&quot; &gt; test.py</span><br><span class="line">python3 test.py</span><br></pre></td></tr></table></figure>
-<p>然后通过<code>python3 test.py</code>来执行代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">python3 test.py</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                hangDongZ           ngDongZha</span><br><span class="line">            ngZhangDongZhangD   ZhangDongZhangDon</span><br><span class="line">          ongZhangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">         ongZhangDongZhangDongZhangDongZhangDongZhan</span><br><span class="line">        ongZhangDongZhangDongZhangDongZhangDongZhangD</span><br><span class="line">        ngZhangDongZhangDongZhangDongZhangDongZhangDo</span><br><span class="line">        gZhangDongZhangDongZhangDongZhangDongZhangDon</span><br><span class="line">        ZhangDongZhangDongZhangDongZhangDongZhangDong</span><br><span class="line">        hangDongZhangDongZhangDongZhangDongZhangDongZ</span><br><span class="line">        angDongZhangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">         gDongZhangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">          ongZhangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">          ngZhangDongZhangDongZhangDongZhangDongZha</span><br><span class="line">            hangDongZhangDongZhangDongZhangDongZh</span><br><span class="line">             ngDongZhangDongZhangDongZhangDongZh</span><br><span class="line">              DongZhangDongZhangDongZhangDongZh</span><br><span class="line">                gZhangDongZhangDongZhangDongZ</span><br><span class="line">                  angDongZhangDongZhangDong</span><br><span class="line">                    DongZhangDongZhangDon</span><br><span class="line">                       ZhangDongZhangD</span><br><span class="line">                          gDongZhan</span><br><span class="line">                             gZh</span><br><span class="line">                              h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>当然你也可以和写入 c 文件一样，使用文本编辑器来写代码</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/24/Codeforces-Ropewalkers/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/24/Codeforces-Ropewalkers/" class="post-title-link" itemprop="url">Codeforces-Ropewalkers</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-24 11:52:11" itemprop="dateCreated datePublished" datetime="2021-01-24T11:52:11+08:00">2021-01-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>题意：有3个人分别在一条平直的绳子（数轴）上的a,b,c处，3个人中，每秒只有一个人能移动，而且他/她/它(?)每次只能移动一格。问：经过多少秒，他们两两间距才会不小于d？</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 让靠两边的人往外走即可</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>&amp; a,<span class="keyword">int</span>&amp; b)</span> </span>&#123;</span><br><span class="line">  a^=b^=a^=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>&amp; min,<span class="keyword">int</span>&amp; mid,<span class="keyword">int</span>&amp; max)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(min&gt;mid) swap(min,mid);</span><br><span class="line">  <span class="keyword">if</span>(min&gt;max) swap(min,max);</span><br><span class="line">  <span class="keyword">if</span>(mid&gt;max) swap(mid,max);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 2,141,783,647</span></span><br><span class="line">  <span class="comment">// 1,000,000,000</span></span><br><span class="line">  <span class="keyword">int</span> a,b,c,d;</span><br><span class="line">  <span class="keyword">long</span> <span class="keyword">long</span> ans=<span class="number">0</span>; <span class="comment">// maybe no need to use long long</span></span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d&quot;</span>,&amp;a,&amp;b,&amp;c,&amp;d);</span><br><span class="line">  sort(a,b,c); <span class="comment">// now, a==min, b==mid, c==max</span></span><br><span class="line">  <span class="keyword">int</span> Dab = b-a, Dbc = c-b; <span class="comment">// distance of a,b; distance of c,b</span></span><br><span class="line">  <span class="keyword">if</span>(Dab&lt;d) ans += d - Dab;</span><br><span class="line">  <span class="keyword">if</span>(Dbc&lt;d) ans += d - Dbc;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,ans);</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/24/Codeforces-Email-from-Polycarp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/24/Codeforces-Email-from-Polycarp/" class="post-title-link" itemprop="url">Codeforces-Email from Polycarp</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-24 11:51:51" itemprop="dateCreated datePublished" datetime="2021-01-24T11:51:51+08:00">2021-01-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="字符串问题">字符串问题</h2>
-<p>题意：有一个键盘，打字的时候会失控，同一个字符打很多个出来，比如hello会打成heeeellllooo（YES情况），但是不会打成hell或者helo（NO情况）。输入给出了原文和失控后的文本，需要判断，失控后文本是否符合YES情况</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 逐字判断 --若字不同--&gt; 判断重复 --变为相同--&gt; 继续逐字判断 ----都到底了----&gt; YES!</span></span><br><span class="line"><span class="comment">//                               --还是不同--&gt; NO！        --另一个没到底--&gt; NO!</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="comment">// #include &lt;iostream&gt;</span></span><br><span class="line"><span class="comment">// using namespace std;</span></span><br><span class="line"><span class="keyword">char</span> origin[<span class="number">1000006</span>];</span><br><span class="line"><span class="keyword">char</span> input[<span class="number">1000006</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">  <span class="keyword">int</span> mouse1, mouse2;</span><br><span class="line">  <span class="keyword">for</span>(;n;--n) &#123;</span><br><span class="line">    <span class="keyword">int</span> isTrue = <span class="number">1</span>;</span><br><span class="line">    mouse1 = <span class="number">0</span>;</span><br><span class="line">    mouse2 = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,origin);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,input);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(origin[mouse1]!=<span class="string">&#x27;\0&#x27;</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span>(origin[mouse1]==input[mouse2]) &#123;</span><br><span class="line">        ++mouse1;</span><br><span class="line">        ++mouse2;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(mouse2&lt;<span class="number">1</span>||input[mouse2<span class="number">-1</span>]!=input[mouse2]) &#123;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(input[mouse2<span class="number">-1</span>]==input[mouse2]) &#123;</span><br><span class="line">          ++mouse2;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(origin[mouse1]!=<span class="string">&#x27;\0&#x27;</span>) <span class="built_in">printf</span>(<span class="string">&quot;NO\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">while</span>(origin[mouse1<span class="number">-1</span>]==input[mouse2]) &#123;</span><br><span class="line">        ++mouse2;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(input[mouse2]==<span class="string">&#x27;\0&#x27;</span>) <span class="built_in">printf</span>(<span class="string">&quot;YES\n&quot;</span>);</span><br><span class="line">      <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;NO\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/23/Codeforces-Finding-Sasuke/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/23/Codeforces-Finding-Sasuke/" class="post-title-link" itemprop="url">Codeforces-Finding Sasuke</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-23 19:26:25" itemprop="dateCreated datePublished" datetime="2021-01-23T19:26:25+08:00">2021-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="思路">思路</h2>
-<p>存在性问题，只要找到一个通解即可<br>
-我们选取每一对（2个）数，取相反数后交换位置<br>
-相乘后必为0</p>
-<p>e.g. there is A(a1) and B(a2), A<em>B+B</em>(-A) == 0, just let b1 = B, b2 = -A.</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> T,n;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;T);</span><br><span class="line">  <span class="keyword">for</span>(;T;--T) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    <span class="keyword">int</span> temp1,temp2;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i+=<span class="number">2</span>) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp1);</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;temp2);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,-temp2);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,temp1);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/23/FZU2021-0x12-Prime-Ring-Problem/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/23/FZU2021-0x12-Prime-Ring-Problem/" class="post-title-link" itemprop="url">FZU2021-0x12-Prime Ring Problem</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-23 19:25:53" itemprop="dateCreated datePublished" datetime="2021-01-23T19:25:53+08:00">2021-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Just do what the problem tell you to do.</p>
-<p>Take care of the format (I got a presentation error).</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// brute force</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> status[<span class="number">23</span>]; <span class="comment">// to node whether a num is chosen</span></span><br><span class="line"><span class="keyword">int</span> chosen[<span class="number">23</span>];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isPrime</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">// prime table since the max of sum is 20+19=39</span></span><br><span class="line">  <span class="keyword">switch</span> (x) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">11</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">13</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">17</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">19</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">23</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">29</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">31</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">37</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">41</span>: <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">default</span>: <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recur</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; now,<span class="keyword">const</span> <span class="keyword">int</span>&amp; layer)</span> </span>&#123; <span class="comment">// recur is the abbr of &quot;recursion&quot;</span></span><br><span class="line">  chosen[layer] = now; <span class="comment">// just over-write it!</span></span><br><span class="line">  <span class="keyword">if</span>(layer==n) &#123;</span><br><span class="line">    <span class="keyword">if</span>(!isPrime(now+<span class="number">1</span>)) <span class="keyword">return</span>; <span class="comment">// check whether the sum of 1st and last is prime</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;1&quot;</span>); <span class="comment">// print the first</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;++i) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,chosen[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;<span class="number">1</span>;++i) &#123;</span><br><span class="line">      <span class="keyword">for</span>(;!status[i];++i); <span class="comment">// skip chosen nums (whose status is 0)</span></span><br><span class="line">      <span class="keyword">if</span>(i&gt;n) <span class="keyword">break</span>; <span class="comment">// roop condition</span></span><br><span class="line">      <span class="keyword">if</span>(!isPrime(now+i)) <span class="keyword">continue</span>;</span><br><span class="line">      status[i] = <span class="number">0</span>;</span><br><span class="line">      recur(i,layer+<span class="number">1</span>);</span><br><span class="line">      status[i] = <span class="number">1</span>; <span class="comment">// restore the origin stage</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">23</span>;++i) &#123;</span><br><span class="line">    status[i] = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">int</span> case_count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n)!=EOF) &#123;</span><br><span class="line">    ++case_count;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Case %d:\n&quot;</span>,case_count);</span><br><span class="line">    recur(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/23/FZU2021-0x11-Lake-Counting/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/23/FZU2021-0x11-Lake-Counting/" class="post-title-link" itemprop="url">FZU2021-0x11-Lake Counting</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-23 19:25:05" itemprop="dateCreated datePublished" datetime="2021-01-23T19:25:05+08:00">2021-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-22 15:16:53" itemprop="dateModified" datetime="2021-03-22T15:16:53+08:00">2021-03-22</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="idea：">idea：</h3>
-<p>Just read the input,<br>
-then fill the water(‘W’) with land(‘.’) one by one,<br>
-the count of filling water times is the answer.</p>
-<p>小 心 换 行 符</p>
-<p>Be care of line-breaker</p>
-<h3 id="code：">code：</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">10 12</span></span><br><span class="line"><span class="comment">....W....WW.</span></span><br><span class="line"><span class="comment">.WWW.....WWW</span></span><br><span class="line"><span class="comment">....WW...WW.</span></span><br><span class="line"><span class="comment">.........WW.</span></span><br><span class="line"><span class="comment">.........W..</span></span><br><span class="line"><span class="comment">..W......W..</span></span><br><span class="line"><span class="comment">.W.W.....WW.</span></span><br><span class="line"><span class="comment">W.W.W.....W.</span></span><br><span class="line"><span class="comment">.W.W......W.</span></span><br><span class="line"><span class="comment">..W.......W.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">char</span> a[<span class="number">106</span>][<span class="number">106</span>];</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> b[<span class="number">8</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">-1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">1</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">-1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">1</span>,<span class="number">1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">fill</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">  a[x][y] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;++i) &#123;</span><br><span class="line">    <span class="keyword">if</span>(a[x+b[i][<span class="number">0</span>]][y+b[i][<span class="number">1</span>]]==<span class="string">&#x27;W&#x27;</span>) &#123;</span><br><span class="line">      fill(x+b[i][<span class="number">0</span>],y+b[i][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> N,M;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;N,&amp;M);</span><br><span class="line">  <span class="keyword">int</span> M1 = M+<span class="number">1</span>,N1 = N+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> min = M&gt;N?N:M;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=min;++i) &#123;</span><br><span class="line">    a[i][<span class="number">0</span>] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[i][M1] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[<span class="number">0</span>][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[N1][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=min+<span class="number">1</span>;i&lt;=M;++i) &#123;</span><br><span class="line">    a[<span class="number">0</span>][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[N1][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=min+<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    a[i][<span class="number">0</span>] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">    a[i][M1] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  a[N1][M1] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    getchar(); <span class="comment">// &lt;--- 读取换行符，刷新输入流</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=M;++j) &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;a[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=N;++i) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=M;++j) &#123;</span><br><span class="line">      <span class="keyword">if</span>(a[i][j]==<span class="string">&#x27;W&#x27;</span>) cnt += fill(i,j);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,cnt);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/22/%E6%90%AD%E5%BB%BAvnt-chain%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C%EF%BC%88%E5%B0%8F%E7%99%BD%E7%89%88%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/22/%E6%90%AD%E5%BB%BAvnt-chain%E5%BC%80%E5%8F%91%E6%B5%8B%E8%AF%95%E7%BD%91%E7%BB%9C%EF%BC%88%E5%B0%8F%E7%99%BD%E7%89%88%EF%BC%89/" class="post-title-link" itemprop="url">搭建vnt-chain开发测试网络（小白版）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-01-22 13:27:10 / Modified: 19:54:39" itemprop="dateCreated datePublished" datetime="2021-01-22T13:27:10+08:00">2021-01-22</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://github.com/vntchain/vnt-documentation/blob/master/introduction/set-up-vnt-network/set-up-4-node-vnt-network.md">原文</a>有些地方没讲清楚，有些坑不好绕（比如golang环境配置，gvnt环境变量添加等，这些都没讲，而且由于用的人少，百度谷歌都搜不到，我拉了一整个目录下来去找才知道gvnt怎么装），所以这边重新整理归纳一遍。</p>
-<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><p>这个原文里完全没有这个步骤，百度也搜不到，找了好久</p>
-<h3 id="安装golang环境"><a href="#安装golang环境" class="headerlink" title="安装golang环境"></a>安装golang环境</h3><p>首先查看是否安装了golang环境</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> go version</span></span><br></pre></td></tr></table></figure>
-
-<p>如果显示</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go version go1.13.8 linux/amd64  &lt;--- 如果有这句话，则说明你已经安装了golang，这步可以跳过啦~（不过可能要注意一下版本问题）</span><br></pre></td></tr></table></figure>
-
-<p>如果是</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Command &#x27;go&#x27; not found, but can be installed with:</span><br><span class="line"></span><br><span class="line">apt install golang-go  # version 2:1.13~1ubuntu2, or</span><br><span class="line">apt install gccgo-go   # version 2:1.13~1ubuntu2</span><br></pre></td></tr></table></figure>
-
-<p>那我们进入下面的步骤手动安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建文件夹并下载压缩包：</span></span><br><span class="line">mkdir golang</span><br><span class="line">cd golang</span><br><span class="line">wget https://golang.google.cn/dl/go1.15.7.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>等待安装包下载完毕（是国内镜像，应该挺快）</p>
-<p>解压</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -zxvf  go1.15.7.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>将golang添加至环境变量<br>先用vim编辑器打开环境变量文件<code>vim /etc/profile</code><br>大写状态下按下 L 将光标转移至最末尾<br>小写状态下按下 i 进入插入模式<br>在最后新建几行，添加</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/usr/local/go/bin/go</span><br><span class="line">export PATH=$PATH:$GOROOT/bin</span><br></pre></td></tr></table></figure>
-
-<p>然后按esc，输入:wq，回车，写入并退出</p>
-<p>接下来输入<code>source /etc/profile</code>重新载入一下</p>
-<p>或者 用管理员身份打开powershell重启wsl</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop LxssManager</span><br><span class="line">net start LxssManager</span><br></pre></td></tr></table></figure>
-
-<p>或者<code>reboot</code>重启虚拟机（wsl是无法重启的，只能用powershell关开）</p>
-<p>然后<code>go version</code>检查一下是否安装并配置成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@LacLic-S-LaPToP:~&#x2F;testnet# go version</span><br><span class="line">go version go1.13.8 linux&#x2F;amd64   &lt;--- 表示golang安装成功</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装go-vnt（gvnt）"><a href="#安装go-vnt（gvnt）" class="headerlink" title="安装go-vnt（gvnt）"></a>安装go-vnt（gvnt）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;src&#x2F;github.com&#x2F;vntchain&#x2F;</span><br><span class="line">cd &#x2F;src&#x2F;github.com&#x2F;vntchain&#x2F;</span><br></pre></td></tr></table></figure>
-<p>然后<code>git clone https://github.com/vntchain/go-vnt</code>克隆仓库</p>
-<p>如果慢的话可以试试我拉取到gitee上的镜像</p>
-<p><code>git clone https://gitee.com/LacLic/go-vnt</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd go-vnt</span><br></pre></td></tr></table></figure>
-<p>如果有以前的版本，请更新到最新: <code>git pull</code></p>
-<p>然后，使用命令编译gvnt: <code>make gvnt</code></p>
-<p>或者使用命令编译gvnt和所有工具: <code>make all</code></p>
-<p>编译完成后，进入gvnt的bin文件夹</p>
-<p><code>cd /src/github.com/vntchain/go-vnt/build/bin/</code></p>
-<p>运行gvnt<code>./gvnt version</code>，查看版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">WARN [01-22|12:14:39] Sanitizing cache to Go&#x27;s GC limits       provided=1024 updated=662</span><br><span class="line">Gvnt</span><br><span class="line">Version: 0.6.4</span><br><span class="line">Git Commit: 298e779f11a2cab8da88ec9afaae756cf297463b</span><br><span class="line">Architecture: amd64</span><br><span class="line">Protocol Versions: [63 62]</span><br><span class="line">Network Id: 1</span><br><span class="line">Go Version: go1.15.7</span><br><span class="line">Operating System: linux</span><br><span class="line">GOPATH=/usr/local/go/bin/go</span><br><span class="line">GOROOT=/usr/local/go</span><br></pre></td></tr></table></figure>
-
-<p>至此，gvnt安装完成，我们将其添加至环境变量</p>
-<p>老办法，<code>vim /etc/profile</code>打开环境变量配置文件，在最后添加一句</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/src/github.com/vntchain/go-vnt/build/bin</span><br></pre></td></tr></table></figure>
-
-<p>保存退出，忘了vim编辑器怎么用的话，回到上面再看一下，这里不再赘述（如果会用nano编辑器的话其实用nano也没问题）</p>
-<p>接下来输入<code>source /etc/profile</code>重新载入一下</p>
-<p>或者 用管理员身份打开powershell重启wsl</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net stop LxssManager</span><br><span class="line">net start LxssManager</span><br></pre></td></tr></table></figure>
-
-<p>或者<code>reboot</code>重启虚拟机</p>
-<p>此时运行<code>gvnt version</code></p>
-<p>同样回显了版本信息，至此，gvnt环境变量配置成功</p>
-<h2 id="搭建开发测试网络"><a href="#搭建开发测试网络" class="headerlink" title="搭建开发测试网络"></a>搭建开发测试网络</h2><p>这里就和原文差不多了，只是集成一下命令，另外提醒一下注意的点</p>
-<h3 id="创建4个初始见证人的账号"><a href="#创建4个初始见证人的账号" class="headerlink" title="创建4个初始见证人的账号"></a>创建4个初始见证人的账号</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">mkdir testnet</span><br><span class="line">cd testnet</span><br></pre></td></tr></table></figure>
-
-<p>通过<code>gvnt account new --datadir node0</code>，建立node0节点，可以不用输入密码（直接按两下回车）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INFO [12-16|14:47:13] Maximum peer count                       VNT=25 LES=0 total=25</span><br><span class="line">Your new account is locked with a password. Please give a password. Do not forget this password.</span><br><span class="line">Passphrase:</span><br><span class="line">Repeat passphrase:</span><br><span class="line">Address: &#123;&quot;node0的address，先记录下来，后面有用&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>同理，现在请你再建立3个节点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gvnt account new --datadir node1</span><br><span class="line">gvnt account new --datadir node2</span><br><span class="line">gvnt account new --datadir node3</span><br></pre></td></tr></table></figure>
-
-<p>输入<code>tree .</code>检查文件目录，大概是这样子的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── node0</span><br><span class="line">│   └── keystore</span><br><span class="line">│       └── UTC--2021-01-22T04-30-41.086197018Z--(这里是node0的地址)</span><br><span class="line">├── node1</span><br><span class="line">│   └── keystore</span><br><span class="line">│       └── UTC--2021-01-22T04-30-57.796677093Z--(这里是node1的地址)</span><br><span class="line">├── node2</span><br><span class="line">│   └── keystore</span><br><span class="line">│       └── UTC--2021-01-22T04-31-03.028884008Z--(这里是node2的地址)</span><br><span class="line">└── node3</span><br><span class="line">    └── keystore</span><br><span class="line">        └── UTC--2021-01-22T04-31-07.940695653Z--(这里是node3的地址)</span><br></pre></td></tr></table></figure>
-
-<p>现在请要生成每个节点的p2p地址，我们分别分配端口号12340~12343<br><code>gvnt --datadir node0 --port 12340 console</code><br>启动后，输入<code>admin.nodeInfo.vnode</code>查看node0的p2p地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 省略很多输出</span><br><span class="line">&gt; admin.nodeInfo.vnode ← 这是你的控制台输入</span><br><span class="line">&quot;&#x2F;ip4&#x2F;127.0.0.1&#x2F;tcp&#x2F;12340&#x2F;ipfs&#x2F;(一串字符))&quot;</span><br><span class="line">~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">这就是node0的p2p地址，请自行记录下来（不是记录这上面的），要记录你自己的机器上的</span><br></pre></td></tr></table></figure>
-
-<p>然后按ctrl+D退出</p>
-<p>这时候node0目录下多了很多文件<code>ls node0</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜ ls node0</span><br><span class="line">gvnt     history  keystore vntdb</span><br></pre></td></tr></table></figure>
-
-<p>vntdb文件夹下面保存了p2p地址，由于node0的p2p地址比较重要，我们需要将其备份<br><code>cp node0/vntdb node0/vntdb.bk -r</code></p>
-<p>其他三个如法炮制，用下面的命令分别启动后，控制台输入<code>admin.nodeInfo.vnode</code>获取p2p地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gvnt --datadir node1 --port 12341 console</span><br><span class="line">gvnt --datadir node2 --port 12342 console</span><br><span class="line">gvnt --datadir node3 --port 12343 console</span><br></pre></td></tr></table></figure>
-
-<p>接下来，移除节点0的临时数据gvnt目录: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf node0&#x2F;gvnt</span><br></pre></td></tr></table></figure>
-
-<p>另外还要清理节点1，2，3的临时数据，否则使用配置文件初始化节点时会失败。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm -rf node1&#x2F;gvnt</span><br><span class="line">rm -rf node2&#x2F;gvnt</span><br><span class="line">rm -rf node3&#x2F;gvnt</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建创世块配置文件dpos-json"><a href="#创建创世块配置文件dpos-json" class="headerlink" title="创建创世块配置文件dpos.json"></a>创建创世块配置文件dpos.json</h3><p>我们可以直接直接拿仓库中的模板过来改</p>
-<p>先把东西复制过来<code>cp /src/github.com/vntchain/go-vnt/genesis_dpos.json dpos.json</code></p>
-<p>然后<code>vim dpos.json</code>开始编辑文件，总共有8个地方需要改，已经全部用（括号形式）和 &lt;— here 标注</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;config&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;chainId&quot;</span>: <span class="number">1012</span>,</span><br><span class="line">    <span class="attr">&quot;dpos&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;period&quot;</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">&quot;witnessesNum&quot;</span>: <span class="number">4</span>,</span><br><span class="line">      <span class="attr">&quot;witnessesUrl&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;（node0的p2p地址）&quot;</span>, &lt;--- here1</span><br><span class="line">        <span class="string">&quot;（node1的p2p地址）&quot;</span>, &lt;--- here2</span><br><span class="line">        <span class="string">&quot;（node2的p2p地址）&quot;</span>, &lt;--- here3</span><br><span class="line">        <span class="string">&quot;（node3的p2p地址）&quot;</span>  &lt;--- here4</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;timestamp&quot;</span>: <span class="string">&quot;0x5c2a3d00&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;extraData&quot;</span>: <span class="string">&quot;0x&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasLimit&quot;</span>: <span class="string">&quot;0x47b760&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;difficulty&quot;</span>: <span class="string">&quot;0x1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;coinbase&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;alloc&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;0x122369f04f32269598789998de33e3d56e2c507a&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x3dcf0b3787c31b2bdf62d5bc9128a79c2bb18829&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x42a875ac43f2b4e6d17f54d288071f5952bf8911&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0xbf66d398226f200467cd27b14e85b25a8c232384&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x491f4e8d914e30b1a5e8c804789094fe30971807&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0xe23f3ed4b6969f29284f667c16761212678c917d&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;witnesses&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;（node0的address）&quot;</span>, &lt;--- here5</span><br><span class="line">    <span class="string">&quot;（node1的address）&quot;</span>, &lt;--- here6</span><br><span class="line">    <span class="string">&quot;（node2的address）&quot;</span>, &lt;--- here7</span><br><span class="line">    <span class="string">&quot;（node3的address）&quot;</span>  &lt;--- here8</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;number&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasUsed&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;parentHash&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>别写反了，最后大概会是这个样子</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;config&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;chainId&quot;</span>: <span class="number">1012</span>,</span><br><span class="line">    <span class="attr">&quot;dpos&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;period&quot;</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">&quot;witnessesNum&quot;</span>: <span class="number">4</span>,</span><br><span class="line">      <span class="attr">&quot;witnessesUrl&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;/ip4/127.0.0.1/tcp/12340/ipfs/1kHcch6yuBCgC5nPPSK3Yp7Es4c4eenxAeK167pYwUvNjRo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;/ip4/127.0.0.1/tcp/12341/ipfs/1kHJFKr2bzUnMr1NbeyYbYJa3RXT18cEu7cNDrHWjg8XYKB&quot;</span>,</span><br><span class="line">        <span class="string">&quot;/ip4/127.0.0.1/tcp/12342/ipfs/1kHfop9dnUHHmtBXVkLB5UauAmACtrsEX5H5t6oCRpdL198&quot;</span>,</span><br><span class="line">        <span class="string">&quot;/ip4/127.0.0.1/tcp/12343/ipfs/1kHHWuQNUVV2wgE8SqzQjWhiFQcfpkP5tRVTdJXAPWVj4nR&quot;</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;nonce&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;timestamp&quot;</span>: <span class="string">&quot;0x5b45b949&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;extraData&quot;</span>: <span class="string">&quot;0x&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasLimit&quot;</span>: <span class="string">&quot;0x47b760&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;difficulty&quot;</span>: <span class="string">&quot;0x1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;mixHash&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;coinbase&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;alloc&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;0x122369f04f32269598789998de33e3d56e2c507a&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x3dcf0b3787c31b2bdf62d5bc9128a79c2bb18829&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x42a875ac43f2b4e6d17f54d288071f5952bf8911&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0xbf66d398226f200467cd27b14e85b25a8c232384&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0x491f4e8d914e30b1a5e8c804789094fe30971807&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;0xe23f3ed4b6969f29284f667c16761212678c917d&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;balance&quot;</span>: <span class="string">&quot;0x200000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;witnesses&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;0xf31a08c03e03e36214f737755c235e6eadc5502e&quot;</span>,</span><br><span class="line">    <span class="string">&quot;0x9689e062952b71b825cd9dfc1d1d01a6319c6ebc&quot;</span>,</span><br><span class="line">    <span class="string">&quot;0x54604da2bad12b66e9aef6b8c04629b68771778e&quot;</span>,</span><br><span class="line">    <span class="string">&quot;0xe3d4f3e7d1b82dcc210efe1e0666b45e5a619a2d&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;number&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasUsed&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;parentHash&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>经过以上操作后，查看<code>testnet tree . -L 2</code>testnet的目录应当如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">➜  testnet tree . -L 2</span><br><span class="line">.</span><br><span class="line">├── dpos.json</span><br><span class="line">├── node0</span><br><span class="line">│   ├── history</span><br><span class="line">│   ├── keystore</span><br><span class="line">│   └── vntdb</span><br><span class="line">├── node1</span><br><span class="line">│   ├── history</span><br><span class="line">│   ├── keystore</span><br><span class="line">│   └── vntdb</span><br><span class="line">├── node2</span><br><span class="line">│   ├── history</span><br><span class="line">│   ├── keystore</span><br><span class="line">│   └── vntdb</span><br><span class="line">└── node3</span><br><span class="line">    ├── history</span><br><span class="line">    ├── keystore</span><br><span class="line">    └── vntdb</span><br></pre></td></tr></table></figure>
-
-<h3 id="启动节点"><a href="#启动节点" class="headerlink" title="启动节点"></a>启动节点</h3><p>这里原文没详细讲怎么同时运行，我用的screen来同时部署运行的</p>
-<h4 id="启动0节点（bootnode）"><a href="#启动0节点（bootnode）" class="headerlink" title="启动0节点（bootnode）"></a>启动0节点（bootnode）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen -S node0</span><br><span class="line">gvnt --networkid 1012 --datadir node0 --port 12340 console</span><br></pre></td></tr></table></figure>
-
-<p>注意不要ctrl+D关闭了，我们直接关闭wsl-ubuntu(shell)窗口就好，screen窗口会在后台持续运行，不会随着关闭shell窗口而停止</p>
-<h4 id="启动剩余节点"><a href="#启动剩余节点" class="headerlink" title="启动剩余节点"></a>启动剩余节点</h4><p>重新打开ubuntu，输入<code>cd testnet</code>，进入测试网目录，剩下的如法炮制</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">screen -S node1</span><br><span class="line">gvnt --networkid 1012 --datadir node1 --port 12341 --vntbootnode &quot;（这里填入是node0的p2p地址，不是node1&#x2F;2&#x2F;3）&quot; console</span><br><span class="line">screen -S node2</span><br><span class="line">gvnt --networkid 1012 --datadir node2 --port 12342 --vntbootnode &quot;（这里填入是node0的p2p地址，不是node1&#x2F;2&#x2F;3）&quot; console</span><br><span class="line">screen -S node3</span><br><span class="line">gvnt --networkid 1012 --datadir node3 --port 12343 --vntbootnode &quot;（这里填入是node0的p2p地址，不是node1&#x2F;2&#x2F;3）&quot; console</span><br></pre></td></tr></table></figure>
-
-<p>之后如果想回到控制页面的话，只要<code>screen -r node0/1/2/3</code>回到相应screen就好了</p>
-<p>节点3上的peer信息如下，各节点上都会有3个节点，说明我们的测试网络已经搭建起来了：大概会是这样的（id什么的有不同很正常）</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&gt; admin.peers</span><br><span class="line">[&#123;</span><br><span class="line">    caps: null,</span><br><span class="line">    id: &quot;&lt;peer.ID 1kHJFKr2bzUnMr1NbeyYbYJa3RXT18cEu7cNDrHWjg8XYKB&gt;&quot;,</span><br><span class="line">    name: &quot;&quot;,</span><br><span class="line">    network: &#123;</span><br><span class="line">      inbound: false,</span><br><span class="line">      localAddress: &quot;/ip4/127.0.0.1/tcp/12343&quot;,</span><br><span class="line">      remoteAddress: &quot;/ip4/127.0.0.1/tcp/12341&quot;,</span><br><span class="line">      static: false,</span><br><span class="line">      trusted: false</span><br><span class="line">    &#125;,</span><br><span class="line">    protocols: null</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    caps: null,</span><br><span class="line">    id: &quot;&lt;peer.ID 1kHcch6yuBCgC5nPPSK3Yp7Es4c4eenxAeK167pYwUvNjRo&gt;&quot;,</span><br><span class="line">    name: &quot;&quot;,</span><br><span class="line">    network: &#123;</span><br><span class="line">      inbound: false,</span><br><span class="line">      localAddress: &quot;/ip4/127.0.0.1/tcp/12343&quot;,</span><br><span class="line">      remoteAddress: &quot;/ip4/127.0.0.1/tcp/12340&quot;,</span><br><span class="line">      static: false,</span><br><span class="line">      trusted: false</span><br><span class="line">    &#125;,</span><br><span class="line">    protocols: null</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    caps: null,</span><br><span class="line">    id: &quot;&lt;peer.ID 1kHfop9dnUHHmtBXVkLB5UauAmACtrsEX5H5t6oCRpdL198&gt;&quot;,</span><br><span class="line">    name: &quot;&quot;,</span><br><span class="line">    network: &#123;</span><br><span class="line">      inbound: false,</span><br><span class="line">      localAddress: &quot;/ip4/127.0.0.1/tcp/12343&quot;,</span><br><span class="line">      remoteAddress: &quot;/ip4/127.0.0.1/tcp/12342&quot;,</span><br><span class="line">      static: false,</span><br><span class="line">      trusted: false</span><br><span class="line">    &#125;,</span><br><span class="line">    protocols: null</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
-
-<h4 id="打包区块"><a href="#打包区块" class="headerlink" title="打包区块"></a>打包区块</h4><p>在每个初始见证人节点上解锁账户、开启共识，可以看到区块不断产生。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">personal.unlockAccount(core.coinbase, &quot;账户密码&quot;, 3153600000) &#x2F;&#x2F; 3153600000指解锁的秒数，这段时间之后，账户会自动锁住</span><br><span class="line">bp.start()</span><br></pre></td></tr></table></figure>
-
-<p>以上，开发测试网络就搭建起来了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1058,13 +1015,13 @@ the count of filling water times is the answer.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-count">97</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
