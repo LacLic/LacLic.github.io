@@ -147,6 +147,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-gradle-sync%E5%87%BA%E9%94%99%E8%A7%A3%E5%86%B3-Failed-to-open-zip-file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/22/Android%E5%BC%80%E5%8F%91-gradle-sync%E5%87%BA%E9%94%99%E8%A7%A3%E5%86%B3-Failed-to-open-zip-file/" class="post-title-link" itemprop="url">Android开发-gradle sync出错解决: Failed to open zip file.</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-22 22:41:10" itemprop="dateCreated datePublished" datetime="2021-02-22T22:41:10+08:00">2021-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-13 13:23:55" itemprop="dateModified" datetime="2021-03-13T13:23:55+08:00">2021-03-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Created by: © LacLic</p>
+<h2 id="错误发生">错误发生</h2>
+<p>进行gradle sync的时候，下载完文件发现出现报错<code>Failed to open zip file.</code></p>
+<p> 报错：<em>无法打开zip文件，gradle的缓存文件损坏（可能是网络连接超时的缘故）</em></p>
+<p><img src="https://i.loli.net/2021/02/22/p25ztxFT4S9q7bV.png" alt="1.png"></p>
+<h2 id="解决方案">解决方案</h2>
+<p>删除原来的缓存文件，重新下载gradle包丢入缓存文件夹即可，详见<a href="##%E9%94%99%E8%AF%AF%E5%8E%9F%E5%9B%A0">错误原因</a></p>
+<h2 id="错误原因">错误原因</h2>
+<p>错误报告中显示，无法打开zip文件，使用<code>ctrl+shift+R</code>进行全局搜索，寻找关于<code>.zip</code>文件的信息</p>
+<p><img src="https://i.loli.net/2021/02/22/iPnbyKzGJ5qrTFU.png" alt="2.png"></p>
+<p>找到下载所需的gradle包的网址，丢入浏览器下载zip文件（记得删除里面的反斜杠，那是用来逃逸冒号的）</p>
+<p>将下载好的文件丢入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\[用户]\.gradle\wrapper\dists\gradle-[版本号]-all\[奇怪的序列]\</span><br></pre></td></tr></table></figure>
+<p>的目录下后，重新进行gradle sync或者直接试运行程序</p>
+<p><img src="https://i.loli.net/2021/02/22/25k8K1J9OVzAwlI.png" alt="3.png"></p>
+<p>成功！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/22/Android%E5%BC%80%E5%8F%91-%E7%99%BE%E5%88%86%E6%AF%94%E5%B8%83%E5%B1%80%E7%9A%84gradle%E4%BE%9D%E8%B5%96%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%8A%A5%E9%94%99/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -939,80 +1019,6 @@ F(x) = A~n~ _ 2^n-1^ + A~n-1~ _ 2^n-2^ + … + A~2~ _ 2 + A~1~ _ 1</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/02/09/FZU2021-0xd2-Dividing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/09/FZU2021-0xd2-Dividing/" class="post-title-link" itemprop="url">FZU2021-0xd2-Dividing</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-09 09:22:42" itemprop="dateCreated datePublished" datetime="2021-02-09T09:22:42+08:00">2021-02-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>有两个人捡到了一组大理石，价值有 1-6 元，它们的个数分别有 n1-n6 个（总数不超过 20000 个）。</p>
-<p>问，两人想以价值为基准平摊这组大理石，请你设计一个程序告诉他们能不能平摊</p>
-<h2 id="思路">思路</h2>
-<p>计算价值总和 total，除以 2 得到 target，通过 dp 计算出，能不能凑出价值为 target 的大理石组</p>
-<p>剪枝：若 total 为奇数，必不可能成功</p>
-<p>状态转移同前一题，每种大理石都去试一次</p>
-<p>另外，记录使用大理石个数时，只有之前无法凑出的数字才需要使用新的大理石</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line">  <span class="keyword">int</span> n[<span class="number">7</span>];</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> isTrue[<span class="number">60006</span>];</span><br><span class="line">    <span class="comment">// int isTrue[36];</span></span><br><span class="line">    <span class="keyword">int</span> used[<span class="number">60006</span>];</span><br><span class="line">    <span class="comment">// int used[36];</span></span><br><span class="line">  &#125; dp;</span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d %d %d %d&quot;</span>,&amp;n[<span class="number">1</span>],&amp;n[<span class="number">2</span>],&amp;n[<span class="number">3</span>],&amp;n[<span class="number">4</span>],&amp;n[<span class="number">5</span>],&amp;n[<span class="number">6</span>]);</span><br><span class="line">    <span class="keyword">if</span>(!n[<span class="number">1</span>]&amp;&amp;!n[<span class="number">2</span>]&amp;&amp;!n[<span class="number">3</span>]&amp;&amp;!n[<span class="number">4</span>]&amp;&amp;!n[<span class="number">5</span>]&amp;&amp;!n[<span class="number">6</span>]) <span class="keyword">break</span>;</span><br><span class="line">    ++cnt;</span><br><span class="line">    <span class="built_in">memset</span>(dp.isTrue,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp.isTrue));</span><br><span class="line">    dp.isTrue[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> target=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">6</span>;++i) &#123;</span><br><span class="line">      target += i*n[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(target%<span class="number">2</span>==<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan&#x27;t be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">      dp.isTrue[target] = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    target /= <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">6</span>;++i) &#123;</span><br><span class="line">      <span class="built_in">memset</span>(dp.used,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp.used));</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;=target;++j) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dp.isTrue[j-i]&amp;&amp;dp.used[j-i]&lt;n[i]&amp;&amp;!dp.isTrue[j]) &#123; <span class="comment">// 上一种dp能否凑出相应价值来，上一种dp用了多少第i种石头，该种dp是否之前就能凑出来了</span></span><br><span class="line">          dp.isTrue[j] = <span class="number">1</span>;</span><br><span class="line">          dp.used[j] = dp.used[j-i] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    here: ;</span><br><span class="line">    <span class="keyword">if</span>(dp.isTrue[target]) <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;Collection #%d:\nCan&#x27;t be divided.\n\n&quot;</span>,cnt);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1082,13 +1088,13 @@ F(x) = A~n~ _ 2^n-1^ + A~n-1~ _ 2^n-2^ + … + A~2~ _ 2 + A~1~ _ 1</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">108</span>
+          <span class="site-state-item-count">109</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">102</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
