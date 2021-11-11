@@ -72,6 +72,7 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
 <style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
@@ -184,8 +185,7 @@ mjx-container[display="true"] {
 mjx-container[display="true"] + br {
   display: none;
 }
-</style><link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
-</head>
+</style></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -255,6 +255,108 @@ mjx-container[display="true"] + br {
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/04/19/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E6%A1%A5%E6%8E%A5%E5%A4%B1%E8%B4%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/19/%E8%AE%B0%E4%B8%80%E6%AC%A1docker%E6%A1%A5%E6%8E%A5%E5%A4%B1%E8%B4%A5/" class="post-title-link" itemprop="url">记一次docker桥接失败</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-04-19 21:21:07" itemprop="dateCreated datePublished" datetime="2021-04-19T21:21:07+08:00">2021-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-21 18:50:36" itemprop="dateModified" datetime="2021-04-21T18:50:36+08:00">2021-04-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="创建虚拟机">创建虚拟机</h2>
+<p>随便创建个虚拟机即可，进去先<code>su root</code>切换到root账户，然后<code>apt update</code>升级apt</p>
+<p>接下来<code>apt install docker</code>或<code>snap install docker</code>下载docker</p>
+<p>输入<code>docker --version</code>查看是否有回显版本号</p>
+<p><em>如果是用snap下载的docker，应该会有环境变量的问题</em></p>
+<p><em>使用</em><code>vim /etc/profile</code><em>，在最底下加一行</em></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;/snap/bin/:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p><em>接下来再</em><code>docker --version</code><em>查看是否有回显</em></p>
+<h2 id="创建镜像并安装工具">创建镜像并安装工具</h2>
+<p>拉取镜像<code>docker pull ubuntu:latest</code></p>
+<p>创建容器<code>docker create --name=u1 -it ubuntu:latest bash</code></p>
+<p>启动<code>docker start u1</code>并进入容器<code>docker exec -it u1 bash</code></p>
+<p>升级apt<code>apt update</code></p>
+<p>然后预装一些工具包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt install vim</span><br><span class="line">apt install curl</span><br><span class="line">apt install iproute2</span><br><span class="line">apt install net-tools</span><br><span class="line">apt install traceroute</span><br><span class="line">apt install iputils-ping</span><br></pre></td></tr></table></figure>
+<h2 id="打包镜像">打包镜像</h2>
+<p>先退出<code>exit</code>并停止容器<code>docker stop u1</code></p>
+<p>打包成镜像<code>docker commit -a=&quot;laclic&quot; -m=&quot;:)&quot; u1 laclic:latest</code>（-a表示author，-m表示描述，最后表示名称:标签）</p>
+<h2 id="创建第二个容器">创建第二个容器</h2>
+<p>有打包好的镜像了，我们直接<code>docker create --name=u2 -it laclic:latest bash</code>，里面已经有装好的工具包了</p>
+<h2 id="创建新的网桥">创建新的网桥</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create --internal bdg</span><br></pre></td></tr></table></figure>
+<p>（–internal标签表示不与外网相连）</p>
+<h2 id="整理网桥连接关系">整理网桥连接关系</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker network disconnect bridge u1</span><br><span class="line">docker network connect bdg u1</span><br><span class="line">docker network connect bdg u2</span><br></pre></td></tr></table></figure>
+<h2 id="启动容器并配置u1">启动容器并配置u1</h2>
+<p>启动两个容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker start u1</span><br><span class="line">docker start u2</span><br></pre></td></tr></table></figure>
+<p>使用<code>docker exec -it u2 bash</code>进入u2并<code>ifconfig</code>查看以太网卡（eth0是默认网桥bridge，eth1是我们新建的bdg）</p>
+<p>记录eth1网卡的ip（我这里是172.20.0.3），之后都用[ip.ip.ip.ip]指代。</p>
+<p>使用<code>exit</code>退出u2并<code>docker exec -it u1 bash</code>进入u1</p>
+<p>重写默认路由</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ip route del default</span><br><span class="line">ip route add default via [ip.ip.ip.ip]</span><br><span class="line">&#x2F;&#x2F; 我这里是172.20.0.3，就用 ip route add default via 172.20.0.3</span><br></pre></td></tr></table></figure>
+<h2 id="内核启用包转发">内核启用包转发</h2>
+<p>回到宿主机（容器默认的包转发都是已经打开的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.conf.all.forwarding&#x3D;1</span><br><span class="line">sudo iptables -P FORWARD ACCEPT </span><br></pre></td></tr></table></figure>
+<p>如果没有iptables就<code>apt install iptables</code>下一个</p>
+<p>至此，如图配置基本完成，但发现u1仍旧无法ping通外网……</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -996,79 +1098,6 @@ $$</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/23/Codeforces-ACM-ICPC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/23/Codeforces-ACM-ICPC/" class="post-title-link" itemprop="url">Codeforces-ACM ICPC</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-23 21:31:27" itemprop="dateCreated datePublished" datetime="2021-03-23T21:31:27+08:00">2021-03-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目">题目</h2>
-<p>给定 6 个数，将它们 3 个 3 个等分为 2 组，要求 2 组数的和相等</p>
-<h2 id="思路">思路</h2>
-<ol>
-<li>求总和，若为奇数则比不能等分</li>
-<li>求总和折半值，一个个数试过去看看是否能达到折半值</li>
-</ol>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a[<span class="number">6</span>],sum;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i]);</span><br><span class="line">    sum += a[i];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span>(sum%<span class="number">2</span>==<span class="number">1</span>) ans = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> tar = sum/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;++i) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;<span class="number">5</span>;++j) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k=j+<span class="number">1</span>;k&lt;<span class="number">6</span>;++k) &#123;</span><br><span class="line">          <span class="keyword">if</span>(a[i]+a[j]+a[k]==tar) &#123;</span><br><span class="line">            ans = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(ans) <span class="built_in">printf</span>(<span class="string">&quot;YES&quot;</span>);</span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1138,13 +1167,13 @@ $$</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">110</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">102</span>
+        <span class="site-state-item-count">104</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
