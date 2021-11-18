@@ -259,6 +259,79 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/23/Codeforces-Restoration-of-string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/23/Codeforces-Restoration-of-string/" class="post-title-link" itemprop="url">Codeforces-Restoration of string</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-23 21:31:57 / Modified: 23:54:37" itemprop="dateCreated datePublished" datetime="2021-03-23T21:31:57+08:00">2021-03-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="题目">题目</h2>
+<p>给定最频繁子串定义：若该子串在原串中出现次数不少于任意一个其他字串出现的次数，则称该子串为最频繁子串。</p>
+<p>现在给定你N与N个子串（只有小写的a到z），求最短的原串，使得这N个子串均为原串的最频繁子串（若有多个则输出字典序最小的）。若无这种原串则输出NO。</p>
+<p>n和字串的长度均大于等于1小于等于1e5。</p>
+<h2 id="思路">思路</h2>
+<p>审计题目，考虑到如果有字母重复的话，则必为NO，只需要记录每个字母的前后关系。</p>
+<p>开一个长度26（代表各个字母）的双向链表，遍历每个串的每个字符，若当前字符没有使用过，则记录下每个字符前后的字符，若没有字符则为空（可用-1表示）。</p>
+<p>特殊情况：</p>
+<ol>
+<li>注意abc，abd的形式，此时d并没有被使用，但是仍应当为NO，所以我们还要检测d前一个字符b的后方是不是没有字符。</li>
+<li>注意abc，def，cd的形式，cd会连结原来的2个串，如果只检查发现d前面不是c，c后面不是d，就会是NO。所以我们还要检查c后方和d前方是不是没有字符，如果没有，则连结他们</li>
+<li>注意abc，def，cd，fa的形式，cd和fa会将原来的两个串连成闭环而为NO，所以我们最后要检查是否出现了闭环，若出现则为NO</li>
+</ol>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> tmp[<span class="number">100006</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">letter</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> oc_str; <span class="comment">// letter所在串，没啥用，但是被我用来标记是否被使用过</span></span><br><span class="line">  <span class="keyword">int</span> oc_pos; <span class="comment">// letter所在串的位置，这个是真的没啥用</span></span><br><span class="line">  <span class="keyword">int</span> next_letter; <span class="comment">// a~z ==&gt; 0~25</span></span><br><span class="line">  <span class="keyword">int</span> prev_letter;</span><br><span class="line">&#125;Letter;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;N);</span><br><span class="line">  <span class="keyword">int</span> prev;</span><br><span class="line">  Letter a[<span class="number">26</span>]=&#123;&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;&#125;;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;++i) &#123;</span><br><span class="line">    a[i].prev_letter = <span class="number">-1</span>;</span><br><span class="line">    a[i].next_letter = <span class="number">-1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">int</span> isTrue = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;++i) &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,tmp);</span><br><span class="line">    prev = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;tmp[j]!=<span class="number">0</span>;++j) &#123;</span><br><span class="line">      <span class="keyword">if</span>(!a[tmp[j]-<span class="string">&#x27;a&#x27;</span>].oc_str &amp;&amp; (prev==<span class="number">-1</span>||a[prev].next_letter==<span class="number">-1</span>)) &#123; <span class="comment">// 检查当前字符是否被使用过 而且 它为当前子串第一个字符（防止访问到-1）或者前一个字符后面没有字符</span></span><br><span class="line">        a[tmp[j]-<span class="string">&#x27;a&#x27;</span>].oc_str = i+<span class="number">1</span>; <span class="comment">// +1以预留0，若为0则说明该字母没有被使用过</span></span><br><span class="line">        a[tmp[j]-<span class="string">&#x27;a&#x27;</span>].oc_pos = j; <span class="comment">// 没啥用，写了懒得删</span></span><br><span class="line">        a[tmp[j]-<span class="string">&#x27;a&#x27;</span>].prev_letter = prev; <span class="comment">// 连接到上一个字符</span></span><br><span class="line">        <span class="keyword">if</span>(prev!=<span class="number">-1</span>) a[prev].next_letter = tmp[j]-<span class="string">&#x27;a&#x27;</span>; <span class="comment">// 连结上一个字符到这一个字符</span></span><br><span class="line">        prev = tmp[j]-<span class="string">&#x27;a&#x27;</span>; <span class="comment">// 记录上一个字符</span></span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(prev==<span class="number">-1</span>) &#123; <span class="comment">// 检查是否为当前子串第一个字符</span></span><br><span class="line">          prev = tmp[j]-<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">if</span>(a[prev].next_letter == tmp[j]-<span class="string">&#x27;a&#x27;</span>) &#123; <span class="comment">// 检查是否为上一个字符的下一个字符（是否连结正确）</span></span><br><span class="line">            prev = tmp[j]-<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">          &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a[prev].next_letter==<span class="number">-1</span> &amp;&amp; a[tmp[j]-<span class="string">&#x27;a&#x27;</span>].prev_letter==<span class="number">-1</span>) &#123; <span class="comment">// 检查是否能使得两个串连结（特殊情况2）</span></span><br><span class="line">            a[prev].next_letter = tmp[j]-<span class="string">&#x27;a&#x27;</span>; <span class="comment">// 连结它们</span></span><br><span class="line">            a[tmp[j]-<span class="string">&#x27;a&#x27;</span>].prev_letter = prev; <span class="comment">// 连结它们</span></span><br><span class="line">            prev = tmp[j]-<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">          &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            isTrue = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">goto</span> out;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  out:</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!isTrue) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123; <span class="comment">// check whether letters make a circle</span></span><br><span class="line">    <span class="comment">/* 检查闭环 开始 */</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> status = <span class="number">0b11111111111111111111111111</span>; <span class="comment">// 记录26个字母的使用情况</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;++i) &#123; <span class="comment">// 检查各个首字符</span></span><br><span class="line">      <span class="keyword">if</span>(!status&amp;(<span class="number">1</span>&lt;&lt;i)||a[i].prev_letter!=<span class="number">-1</span>) <span class="keyword">continue</span>; <span class="comment">// 若被使用过或该字符不为首字符，则跳过</span></span><br><span class="line">      <span class="keyword">if</span>(a[i].oc_str) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;<span class="number">1</span>;j=a[j].next_letter) &#123; <span class="comment">// 从首字符开始遍历串</span></span><br><span class="line">          status ^= <span class="number">1</span>&lt;&lt;j; <span class="comment">// 将串上的字符状态改为0</span></span><br><span class="line">          <span class="keyword">if</span>(a[j].next_letter==<span class="number">-1</span>) <span class="keyword">break</span>; <span class="comment">// 退出循环</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;++i) &#123;</span><br><span class="line">      <span class="keyword">if</span>(status&amp;(<span class="number">1</span>&lt;&lt;i)&amp;&amp;a[i].oc_str) &#123; <span class="comment">// 找闭环：如果有个字符是已经被使用的，但是由于是闭环没有检查到首字符，所以不会被修改状态</span></span><br><span class="line">        isTrue = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*检查闭环 结束*/</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 输出，就比原来的循环多了一句putchar</span></span><br><span class="line">    <span class="keyword">if</span>(isTrue) &#123;</span><br><span class="line">      status = <span class="number">0b11111111111111111111111111</span>;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">26</span>;++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!status&amp;(<span class="number">1</span>&lt;&lt;i)||a[i].prev_letter!=<span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(a[i].oc_str) &#123;</span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> j=i;<span class="number">1</span>;j=a[j].next_letter) &#123;</span><br><span class="line">            <span class="built_in">putchar</span>(<span class="string">&#x27;a&#x27;</span>+j);</span><br><span class="line">            status ^= <span class="number">1</span>&lt;&lt;j;</span><br><span class="line">            <span class="keyword">if</span>(a[j].next_letter==<span class="number">-1</span>) <span class="keyword">break</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;NO&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/23/Codeforces-Petya-and-Catacombs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -888,81 +961,6 @@ mjx-container[display="true"] + br {
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/03/21/Codeforces-Cloning-Toys/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/21/Codeforces-Cloning-Toys/" class="post-title-link" itemprop="url">Codeforces-Cloning Toys</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-21 18:28:00" itemprop="dateCreated datePublished" datetime="2021-03-21T18:28:00+08:00">2021-03-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-04-01 20:30:02" itemprop="dateModified" datetime="2021-04-01T20:30:02+08:00">2021-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>imp 有一台玩具复制机和 1 个真玩具。当玩具复制机放入一个真玩具时，能<strong>额外</strong>复制出 1 个假玩具+1 个真玩具；当放入一个假玩具时，能<strong>额外</strong>复制出 2 个假玩具。现在 imp 想要 x 个假玩具，y 个真玩具（包括原来那个），请问是否能做到？</p>
-<h2 id="思路">思路</h2>
-<ol>
-<li>没有假玩具的时候（y==1 的时候），只能为 0 才会 Yes，否则都是 No</li>
-<li>不需要真玩具的时候（y==0 的时候），都是 No</li>
-<li>由于每次复制真玩具都会产生假玩具，所以假玩具少于复制所得真玩具（假玩具少于真玩具总数-1），即为 No</li>
-<li>正常情况，先复制真玩具，同时得到假玩具，计算还需要多少假玩具。由于复制假玩具一次会得到 2 个，剩下的假玩具数量必须要为 2 的倍数才会 Yes，否则为 No</li>
-</ol>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> x,y;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;x,&amp;y);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 情况1</span></span><br><span class="line">  <span class="keyword">if</span>(y==<span class="number">1</span>) &#123; <span class="comment">// no additional copy condition</span></span><br><span class="line">    <span class="keyword">if</span>(x==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;Yes&quot;</span>); <span class="comment">// don&#x27;t need copy condition</span></span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>); <span class="comment">// need copy condition</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// exit program</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  --y;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 情况2、3</span></span><br><span class="line">  <span class="keyword">if</span>(y==<span class="number">-1</span>||x&lt;y) &#123; <span class="comment">// need no original copy condition ||or|| additonal copy requrement is more than original ones</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  x -= y;</span><br><span class="line">  <span class="keyword">if</span>(x%<span class="number">2</span>==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;Yes&quot;</span>); <span class="comment">// can apply addtional copy the machine (get two at one time)</span></span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1032,13 +1030,13 @@ mjx-container[display="true"] + br {
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-count">113</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">105</span>
+        <span class="site-state-item-count">106</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
