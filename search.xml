@@ -4,6 +4,52 @@
   
     
     <entry>
+      <title>the Intersection of RE and CFL is still CFL</title>
+      <link href="2023/04/24/the-Intersection-of-RE-and-CFL-is-still-CFL/"/>
+      <url>2023/04/24/the-Intersection-of-RE-and-CFL-is-still-CFL/</url>
+      
+        <content type="html"><![CDATA[<h1>证明正则语言和上下文无关语言的交集还是一个上下文无关语言</h1><h2 id="写在前面">写在前面</h2><p>首先，默认读者已经了解 DFA/NFA (Finite Automaton) 的概念，及其和 RE (Regular Expression) 的等价性。</p><p>其次，默认读者已经了解 PDA (non-deterministic Pushdown Automaton) 的概念，及其和 CFG (Context-free Grammar) 的等价性。</p><p>如果你不知道，可以通过列出的全称来查阅相关资料，总之，这里需要频繁用到 DFA=NFA=RE，PDA=CFG 的性质。</p><h2 id="问题背景">问题背景</h2><p>起因是 JustinRochester 考了我一个问题：</p><blockquote><p>证明，DFA 和 CFG 的交是 CFG</p></blockquote><p>想了想，干脆直接 PDA 同时模拟 DFA 和 CFG 即可，不过我一拍脑袋想的办法，加之没有图示，加上当时前额叶可能还没长出来，说的不清不楚，特此写一篇博客。</p><h2 id="引理-1：PDA-可以模拟-DFA-NFA">引理 1：PDA 可以模拟 DFA/NFA</h2><p>这个引理是显然的，PDA 其实就是一个带栈的 NFA，不用栈即可。</p><h2 id="引理-2：双状态单栈操作的-PDA-和单状态单栈操作的-PDA-等价">引理 2：双状态单栈操作的 PDA 和单状态单栈操作的 PDA 等价</h2><p>这里的名词定义是笔者自己定义的，仅在本文中有效。</p><p>单状态单栈操作的 PDA 就是读者所了解的普通的 PDA。</p><p>这里引入一个双状态单栈操作的 PDA 的定义，与普通 PDA 的不同仅在，从一个状态扩充到了两个状态，而对栈的操作仍然相同，一次只能做压入/弹出/压入并弹出/无操作。</p><p>主要扩充 2 个内容，以及修改一下起始状态和接受状态：</p><p>$G = \Big(Q, \Sigma, \Tau, \delta, [u_0,v_0], F\Big)$：</p><ol><li>$Q$ 中的每个元素是一个二元组 $[u,v]$，是两个状态；</li><li>$\delta$ 中的转移是从一个二元组状态经过读取输入和取出栈顶字符后 到 另一个二元组状态并压入字符的过程（注意字符可以是空串 $\epsilon$）；</li><li>$[u_0,v_0]$ 是起始二元组状态；</li><li>$F$ 是一个接受二元组状态集。</li></ol><p>下面证明双状态单栈操作的 PDA 与单状态单栈操作的 PDA 等价。</p><p>（$\Leftarrow$）</p><p>这个方向没什么好证的，二元组状态 $[u,v]$ 保持 $u=v$ 即可。</p><p>（$\Rightarrow$）</p><p>构造 PDA $G’ = (Q’, \Sigma, \Tau, \delta’, q_0, F’)$：</p><ol><li>对 $G$ 中的每个二元组状态 $[u,v] \in Q$，在 $G’$ 中有 $q_{u,v} \in Q’$；</li><li>对 $G$ 中的每个转移函数 $\delta\big([u,v], x, \alpha \big) = ([m,n],\beta)$，在 $G’$ 中有 $\delta\big(q_{u,v}, x, \alpha \big) = (q_{m,n},\beta)$，其中 $\alpha, \beta \in \Tau \cup {\epsilon}$；</li><li>对 $G$ 中的起始二元组状态 $[u_0,v_0]$，在 $G’$ 中有起始状态 $q_{u_0,v_0}$；</li><li>对 $G$ 中的接受二元组状态 $[u_f,v_f] \in F$，在 $G’$ 中有接受状态 $q_{u_f,v_f} \in F’$。</li></ol><p>显然，该单状态单栈操作的 PDA 通过扩充状态集就可以模拟双状态单栈操作的 PDA（扩充到 $n \times m$ 个状态即可），故引理 2 得证。</p><h2 id="下证：正则语言和上下文无关语言的交集是双状态单栈操作的-PDA-所能接受的语言">下证：正则语言和上下文无关语言的交集是双状态单栈操作的 PDA 所能接受的语言</h2><p>即证明：双状态单栈操作的 PDA 可以模拟 DFA 和 PDA 同时运行的结果。</p><p>这里有一个前提，就是 DFA 和 PDA 的字符集 $\Sigma$ 相同。</p><p>对于正则语言 R，存在 DFA $M(Q_1, \Sigma, \delta_1, q_1, F_1)$ 识别 R；</p><p>对于上下文无关语言 G，存在 PDA $N(Q_2, \Sigma, \Tau, \delta_2, q_0, F_2)$ 识别 G；</p><p>接下来构造双状态单栈操作的 PDA $S = \Big(Q_3, \Sigma, \Tau, \delta_3, [q_1,q_2], F_3\Big)$ 识别 R$\cap$G：</p><ol><li>若状态 $u \in Q_1 \land v \in Q_2$, 则 $[u,v] \in Q_3$；</li><li>若状态 $\delta_1(u,\alpha)=m\ \land\ \delta_2(v,\alpha,\tau)=(n,\theta)$, 则 $\delta_3([u,v],\alpha, \tau) = ([m,n], \theta)$, 其中 $\alpha \in \Sigma$ 且 $ \tau,\theta \in \Tau$；</li><li>若状态 $u_f \in F_1\ \land\ v_f \in F_2$，则 $[u_f,v_f] \in F_3$。</li></ol><p>显然，此时就相当于同时模拟了 M 和 N，并且 M 和 N 都接受时，S 才接受。</p><p>又由引理 2，可知存在一个普通的 PDA 与 S 等价，又一直存在 CFG 与普通 PDA 等价，故正则语言和上下文无关语言的交集仍然是一个上下文无关语言，原命题得证！</p><p>$<br>Q.E.D!<br>$</p><h2 id="后记">后记</h2><p>这里聪明的读者可能会思考：双状态单栈操作的 PDA 是否也可以模拟 CFL 和 CFL 的交？</p><p>我们知道 PDA 不具有封闭性，两台 PDA 就可以模拟 TM (Turing Machine) 了，所能接受的语言大相径庭，而有一个例子（JustinRochester 告诉我的），$0^n1^n2^m$ 和 $0^m1^n2^n$ 的交是 $0^n1^n2^n$，显然前二者是上下文无关的，而第三者在《计算理论导引》一书上，已经可以用 CFL 泵引理证明非上下文无关了。</p><p>那么笔者的双状态单栈操作的 PDA 在此时会出什么问题呢？显然，问题就出在不断重复提到的“单栈操作”上，如果是两个 PDA 同时运行，他们都需要用到栈。而如果是一个 PDA 一个 DFA，栈只被 PDA 独享，后者不需要用到栈。</p><h2 id="后记-2">后记 2</h2><p>笔者还想到了一种废弃的判定 DFA 是否接受的办法，即在运行 DFA 前，压入一个特殊字符，在 DFA 接受后，弹出这个特殊字符，表示 DFA 接受。经过思考之后，好像并不适用于交问题，但是也许可以用在 RE 和 CFL 的连接语言上。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CFG </tag>
+            
+            <tag> PDA </tag>
+            
+            <tag> DFA </tag>
+            
+            <tag> RE </tag>
+            
+            <tag> theory of computation </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>浅记 MiWiFi AX5 设置 WOL 功能和修改转发包 TTL</title>
+      <link href="2022/09/14/%E6%B5%85%E8%AE%B0-MiWiFi-AX5-%E8%AE%BE%E7%BD%AE-WOL-%E5%8A%9F%E8%83%BD%E5%92%8C%E4%BF%AE%E6%94%B9%E8%BD%AC%E5%8F%91%E5%8C%85-TTL/"/>
+      <url>2022/09/14/%E6%B5%85%E8%AE%B0-MiWiFi-AX5-%E8%AE%BE%E7%BD%AE-WOL-%E5%8A%9F%E8%83%BD%E5%92%8C%E4%BF%AE%E6%94%B9%E8%BD%AC%E5%8F%91%E5%8C%85-TTL/</url>
+      
+        <content type="html"><![CDATA[<h2 id="背景">背景</h2><p>由于有一台电脑开机键寄了, 又懒得去找主板对应的线 故有 wake on LAN 的需求, 幸好本人预先在主板 BIOS 里开启了 WOL 功能, 此外, 还有修改 ttl 的需求</p><h2 id="过程">过程</h2><h3 id="下载安装固件">下载安装固件</h3><p>由于 MiWiFi AX5 并不支持开发者模式, 需要我们自己打开 ssh, 旧版本中的固件有系统注入的漏洞, 可以通过这种方法打开 ssh 的连接</p><p>参考 <a href="https://zhuanlan.zhihu.com/p/355530975">知乎链接</a> 的方法</p><p>可以从 <a href="http://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/ra67/miwifi_ra67_all_f3fac_1.0.26.bin">下装链接</a> 中直接下载</p><p>登录 MiWiFi 后台系统, 点开&quot;常用设置-系统状态&quot;, 手动升级选择 .bin 固件, 建议清除所有用户信息, 等待重启后重新配置路由器, 并记得取消自动更新固件的选择</p><h3 id="登录-ssh">登录 ssh</h3><p>先登录自己的 MiWiFi 获取自己登录路由器的 STOK</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;miwifi.com&#x2F;cgi-bin&#x2F;luci&#x2F;;stok&#x3D;&lt;STOK&gt;&#x2F;web&#x2F;home#router</span><br></pre></td></tr></table></figure><p>把 <code>/web</code> 及其之后的部分替换为下面 <code>/api</code> 极其之后的部分</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.31.1&#x2F;cgi-bin&#x2F;luci&#x2F;;stok&#x3D;&lt;STOK&gt;&#x2F;api&#x2F;misystem&#x2F;set_config_iotdev?bssid&#x3D;Xiaomi&amp;user_id&#x3D;longdike&amp;ssid&#x3D;-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20&#39;s%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg&#39;%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B%20echo%20-e%20&#39;admin%5Cnadmin&#39;%20%7C%20passwd%20root%3B</span><br></pre></td></tr></table></figure><p>现在就成功打开了 ssh 连接, 并设置 <code>root</code> 用户的密码为 <code>admin</code></p><p>接下来使用 powershell 或其他带 ssh 功能的软件, 连接至 <code>root@192.168.31.1</code></p><p>密码是 <code>admin</code></p><p>会弹出 are U OK, 雷军的梗, 看过的发布会之类的话可以笑一下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-----------------------------------------------------</span><br><span class="line">      Welcome to XiaoQiang!</span><br><span class="line">-----------------------------------------------------</span><br><span class="line"> $$$$$$\  $$$$$$$\  $$$$$$$$\      $$\      $$\        $$$$$$\  $$\   $$\</span><br><span class="line">$$  __$$\ $$  __$$\ $$  _____|     $$ |     $$ |      $$  __$$\ $$ | $$  |</span><br><span class="line">$$ &#x2F;  $$ |$$ |  $$ |$$ |           $$ |     $$ |      $$ &#x2F;  $$ |$$ |$$  &#x2F;</span><br><span class="line">$$$$$$$$ |$$$$$$$  |$$$$$\         $$ |     $$ |      $$ |  $$ |$$$$$  &#x2F;</span><br><span class="line">$$  __$$ |$$  __$$&lt; $$  __|        $$ |     $$ |      $$ |  $$ |$$  $$&lt;</span><br><span class="line">$$ |  $$ |$$ |  $$ |$$ |           $$ |     $$ |      $$ |  $$ |$$ |\$$\</span><br><span class="line">$$ |  $$ |$$ |  $$ |$$$$$$$$\       $$$$$$$$$  |       $$$$$$  |$$ | \$$\</span><br><span class="line">\__|  \__|\__|  \__|\________|      \_________&#x2F;        \______&#x2F; \__|  \__|</span><br></pre></td></tr></table></figure><p>记得修改一下 root 用户的密码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd root</span><br></pre></td></tr></table></figure><h3 id="Wake-on-LAN">Wake on LAN</h3><p>vi 编辑器打开配置文件, 不会用的话可以搜一下如何进入 insert 模式和保存退出</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;rc.local</span><br></pre></td></tr></table></figure><p>在 exit 0 前添加</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp -s 192.168.31.123 00:AA:BB:CC:DD:EE</span><br></pre></td></tr></table></figure><p>该命令表示绑定 MAC 地址 00:AA:BB:CC:DD:EE 于局域网 IP 地址 192.168.31.123</p><p>接下来登录 MiWiFi 后台, 同样地绑定 MAC 地址和 IP 地址</p><p>然后就设置成功了, 可以在手机上下载一个 WOL 软件, 然后填入刚刚写的 IP, 就可以成功发送 Magic Packet 了, 记得路由器要有线连接到主板的网卡上</p><h3 id="Modify-the-TTL">Modify the TTL</h3><p>登陆了后台就很简单了, windows 的包默认 TTL 是 128, linux 一般默认 64, 直接 iptables 爆炒就行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t mangle -A FORWARD -j TTL --ttl-set 128</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> network </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>The 2021 ICPC Asia Shanghai Regional Programming Contest - B. Strange Permutations</title>
       <link href="2021/12/13/The-2021-ICPC-Asia-Shanghai-Regional-Programming-Contest-B-Strange-Permutations/"/>
       <url>2021/12/13/The-2021-ICPC-Asia-Shanghai-Regional-Programming-Contest-B-Strange-Permutations/</url>

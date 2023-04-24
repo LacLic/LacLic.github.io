@@ -147,6 +147,152 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/01/20/FZU2021-0x01-%E5%B0%8F%E5%AD%A9%E6%8A%A5%E6%95%B0%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/FZU2021-0x01-%E5%B0%8F%E5%AD%A9%E6%8A%A5%E6%95%B0%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">FZU2021-0x01-小孩报数问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 11:24:51" itemprop="dateCreated datePublished" datetime="2021-01-20T11:24:51+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-01 20:30:04" itemprop="dateModified" datetime="2021-04-01T20:30:04+08:00">2021-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h5 id="Take-care-of-how-the-end-comes-back-to-the-begin">Take care of how the end comes back to the begin</h5>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* circle problem */</span></span><br><span class="line"><span class="comment">// take care of how the end comes back to the begin</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> N,W,S;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v;</span><br><span class="line">  <span class="built_in">string</span> temp;</span><br><span class="line">  <span class="keyword">for</span>(;N;--N) &#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; temp;</span><br><span class="line">    v.push_back(temp);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d,%d&quot;</span>,&amp;W,&amp;S);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// int len = v.size();</span></span><br><span class="line">  <span class="comment">// for(int i=0;i&lt;len;++i) &#123; // debug</span></span><br><span class="line">  <span class="comment">//   printf(&quot;%s\n&quot;,&amp;v[i][0]);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// vector&lt;string&gt;::iterator it = v.begin();</span></span><br><span class="line">  <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> lenth = v.size();</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> now=W<span class="number">-1</span>;!v.empty();++now) &#123;</span><br><span class="line">    lenth = v.size();</span><br><span class="line">    <span class="keyword">int</span> SS = S % lenth;</span><br><span class="line">    <span class="keyword">if</span>(SS == <span class="number">0</span>) SS = lenth;</span><br><span class="line">    <span class="keyword">if</span>(SS == <span class="number">1</span>) SS += lenth;</span><br><span class="line">    <span class="keyword">if</span>(now &gt;= lenth) now %= lenth;</span><br><span class="line">    <span class="keyword">if</span>(cnt==SS) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,&amp;v[now][<span class="number">0</span>]);</span><br><span class="line">      v.erase(v.begin()+now);</span><br><span class="line">      cnt = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ++cnt;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/30/spider-get-ajax-and-frame-page/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/30/spider-get-ajax-and-frame-page/" class="post-title-link" itemprop="url">spider get ajax and frame page</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-12-30 17:54:10 / Modified: 19:15:02" itemprop="dateCreated datePublished" datetime="2020-12-30T17:54:10+08:00">2020-12-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Copyright: LacLic</p>
+<h2 id="python-获取-ajax-和-frame-子页面"><a href="#python-获取-ajax-和-frame-子页面" class="headerlink" title="python: 获取 ajax 和 frame 子页面"></a>python: 获取 ajax 和 frame 子页面</h2><p>该博客提供的解决思路适用于需要获取子界面情况</p>
+<h3 id="事件发生"><a href="#事件发生" class="headerlink" title="事件发生"></a>事件发生</h3><p>想要爬取该页面的阅读数，审计网页元素后找到了相应信息。</p>
+<p><img src="https://i.loli.net/2020/12/30/HSun6R3z8ZM7qX4.png" alt="1.png"></p>
+<p>爬取后源代码后发现问题，审计网页源代码，发现没有阅读数的值，只发现了一串urn</p>
+<p><img src="https://i.loli.net/2020/12/30/tQDuCeJbckHaPYS.png" alt="2.png"></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>爬取urn，接入url合并为新的uri，打开对应页面，并爬取新的页面源代码，得到所需内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_page_content</span>(<span class="params">html</span>):</span></span><br><span class="line">  pattern = re.<span class="built_in">compile</span>(  <span class="comment"># Regex</span></span><br><span class="line">      <span class="string">r&#x27;&lt;div class=&quot;detail_main_content&quot;&gt;\s.*?&gt;(.*?)&lt;/p&gt;[\s\S]*fbsj.*?&gt;([0-9]*)-([0-9]*)-([0-9]*)[\s\S]*author.*?&gt;(.*?)&lt;/span&gt;[\s\S]*?Count.*?id=([0-9]*)[\s\S]*?&lt;strong&gt;(.*?)/&lt;/strong&gt;(.*?)&lt;/div&gt;&#x27;</span>, re.S) </span><br><span class="line">      <span class="comment"># 其中 Count.*?id=([0-9]*) 中 id= 后的部分便是需要的id内容                                                                                    ↑-----↑</span></span><br><span class="line">  items = re.findall(pattern, html)</span><br><span class="line">  <span class="keyword">for</span> item <span class="keyword">in</span> items:</span><br><span class="line">    response = requests.get(</span><br><span class="line">        <span class="string">f&#x27;&quot;&quot;&quot;省略无关url&quot;&quot;&quot;/getDocReadCount.do?id=<span class="subst">&#123;item[<span class="number">5</span>]&#125;</span>&#x27;</span>) <span class="comment"># &lt;--- 获阅返回读数页面的uri并爬取页面</span></span><br><span class="line">    <span class="keyword">yield</span> &#123;  <span class="comment"># convert to dict</span></span><br><span class="line">        <span class="string">&#x27;title&#x27;</span>: item[<span class="number">0</span>],</span><br><span class="line">        <span class="string">&#x27;year&#x27;</span>: item[<span class="number">1</span>],</span><br><span class="line">        <span class="string">&#x27;month&#x27;</span>: item[<span class="number">2</span>],</span><br><span class="line">        <span class="string">&#x27;day&#x27;</span>: item[<span class="number">3</span>],</span><br><span class="line">        <span class="string">&#x27;author&#x27;</span>: item[<span class="number">4</span>],</span><br><span class="line">        <span class="string">&#x27;read&#x27;</span>: response.text, <span class="comment"># &lt;--- 写入到阅读数</span></span><br><span class="line">        <span class="string">&#x27;from&#x27;</span>: item[<span class="number">6</span>],</span><br><span class="line">        <span class="string">&#x27;content&#x27;</span>: <span class="string">&quot;&quot;&quot;省略无关解析内容的表达式（写太长了，又懒得改，只好掩人耳目了！）&quot;&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>爬取成功！</p>
+<p><img src="https://i.loli.net/2020/12/30/HuiwkQFR7KCDJlI.jpg" alt="SharedScreenshot.jpg"></p>
+<h3 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h3><p>（使用火狐浏览器）F12打开开发者工具，点开network（网络）发现除了获取了主页面外，还通过POST获取了getDocReadCount的东西，如下图：</p>
+<p><img src="https://i.loli.net/2020/12/30/KlkNDj6WhfToQ9V.png" alt="3.png"></p>
+<p>通过英文审计，这不就是我们需要的阅读数吗！</p>
+<p>另外看到上面的urn，似曾相识…</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;readcount&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  $.ajax(&#123;<span class="attr">type</span>:<span class="string">&#x27;post&#x27;</span>,<span class="attr">url</span>:<span class="string">&#x27;/interFace/getDocReadCount.do?id=509488&#x27;</span>,<span class="attr">timeout</span>:<span class="number">2000</span>,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html($.trim(ret))&#125;,<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$.ajax(&#123;<span class="attr">type</span>:<span class="string">&#x27;post&#x27;</span>,<span class="attr">url</span>:<span class="string">&#x27;/ecms_external?method=syncOfflineVisitCount&#x27;</span>,<span class="attr">data</span>:<span class="string">&#x27;type=doc&amp;requestUrl=&#x27;</span>+location.href,<span class="attr">timeout</span>:<span class="number">2000</span>,<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">ret</span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html(ret);&#125;,<span class="attr">error</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;$(<span class="string">&#x27;#readcount&#x27;</span>).html(<span class="number">0</span>);&#125;&#125;);&#125;&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p>这不就是上面看到的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">url:&#x27;/interFace/getDocReadCount.do?id=509488&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>好了，我们只要构造request去获取 ‘(相关url)/interFace/getDocReadCount.do?id=509488’（组成成为一个网址）的页面即可！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">id</span> = (<span class="string">&quot;&quot;&quot;已经爬到的id&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">response = requests.get(</span><br><span class="line">  <span class="string">f&#x27;http://(相关url)/interFace/getDocReadCount.do?id=<span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2020/12/25/RBtree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -843,13 +989,13 @@ A[0~9] = {1,1,1,1,1,1,1,1,1,1} 此处考虑到方便，就先记0处为1，后�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">110</span>
+        <span class="site-state-item-count">115</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -892,7 +1038,7 @@ A[0~9] = {1,1,1,1,1,1,1,1,1,1} 此处考虑到方便，就先记0处为1，后�
 <div class="copyright">
   
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

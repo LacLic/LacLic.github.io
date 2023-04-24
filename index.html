@@ -72,7 +72,6 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
 <style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
@@ -185,7 +184,8 @@ mjx-container[display="true"] {
 mjx-container[display="true"] + br {
   display: none;
 }
-</style></head>
+</style><link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -255,6 +255,212 @@ mjx-container[display="true"] + br {
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2023/04/24/the-Intersection-of-RE-and-CFL-is-still-CFL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/24/the-Intersection-of-RE-and-CFL-is-still-CFL/" class="post-title-link" itemprop="url">the Intersection of RE and CFL is still CFL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-04-24 14:18:12 / Modified: 15:51:59" itemprop="dateCreated datePublished" datetime="2023-04-24T14:18:12+08:00">2023-04-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1>证明正则语言和上下文无关语言的交集还是一个上下文无关语言</h1>
+<h2 id="写在前面">写在前面</h2>
+<p>首先，默认读者已经了解 DFA/NFA (Finite Automaton) 的概念，及其和 RE (Regular Expression) 的等价性。</p>
+<p>其次，默认读者已经了解 PDA (non-deterministic Pushdown Automaton) 的概念，及其和 CFG (Context-free Grammar) 的等价性。</p>
+<p>如果你不知道，可以通过列出的全称来查阅相关资料，总之，这里需要频繁用到 DFA=NFA=RE，PDA=CFG 的性质。</p>
+<h2 id="问题背景">问题背景</h2>
+<p>起因是 JustinRochester 考了我一个问题：</p>
+<blockquote>
+<p>证明，DFA 和 CFG 的交是 CFG</p>
+</blockquote>
+<p>想了想，干脆直接 PDA 同时模拟 DFA 和 CFG 即可，不过我一拍脑袋想的办法，加之没有图示，加上当时前额叶可能还没长出来，说的不清不楚，特此写一篇博客。</p>
+<h2 id="引理-1：PDA-可以模拟-DFA-NFA">引理 1：PDA 可以模拟 DFA/NFA</h2>
+<p>这个引理是显然的，PDA 其实就是一个带栈的 NFA，不用栈即可。</p>
+<h2 id="引理-2：双状态单栈操作的-PDA-和单状态单栈操作的-PDA-等价">引理 2：双状态单栈操作的 PDA 和单状态单栈操作的 PDA 等价</h2>
+<p>这里的名词定义是笔者自己定义的，仅在本文中有效。</p>
+<p>单状态单栈操作的 PDA 就是读者所了解的普通的 PDA。</p>
+<p>这里引入一个双状态单栈操作的 PDA 的定义，与普通 PDA 的不同仅在，从一个状态扩充到了两个状态，而对栈的操作仍然相同，一次只能做压入/弹出/压入并弹出/无操作。</p>
+<p>主要扩充 2 个内容，以及修改一下起始状态和接受状态：</p>
+<p>$G = \Big(Q, \Sigma, \Tau, \delta, [u_0,v_0], F\Big)$：</p>
+<ol>
+<li>$Q$ 中的每个元素是一个二元组 $[u,v]$，是两个状态；</li>
+<li>$\delta$ 中的转移是从一个二元组状态经过读取输入和取出栈顶字符后 到 另一个二元组状态并压入字符的过程（注意字符可以是空串 $\epsilon$）；</li>
+<li>$[u_0,v_0]$ 是起始二元组状态；</li>
+<li>$F$ 是一个接受二元组状态集。</li>
+</ol>
+<p>下面证明双状态单栈操作的 PDA 与单状态单栈操作的 PDA 等价。</p>
+<p>（$\Leftarrow$）</p>
+<p>这个方向没什么好证的，二元组状态 $[u,v]$ 保持 $u=v$ 即可。</p>
+<p>（$\Rightarrow$）</p>
+<p>构造 PDA $G’ = (Q’, \Sigma, \Tau, \delta’, q_0, F’)$：</p>
+<ol>
+<li>对 $G$ 中的每个二元组状态 $[u,v] \in Q$，在 $G’$ 中有 $q_{u,v} \in Q’$；</li>
+<li>对 $G$ 中的每个转移函数 $\delta\big([u,v], x, \alpha \big) = ([m,n],\beta)$，在 $G’$ 中有 $\delta\big(q_{u,v}, x, \alpha \big) = (q_{m,n},\beta)$，其中 $\alpha, \beta \in \Tau \cup {\epsilon}$；</li>
+<li>对 $G$ 中的起始二元组状态 $[u_0,v_0]$，在 $G’$ 中有起始状态 $q_{u_0,v_0}$；</li>
+<li>对 $G$ 中的接受二元组状态 $[u_f,v_f] \in F$，在 $G’$ 中有接受状态 $q_{u_f,v_f} \in F’$。</li>
+</ol>
+<p>显然，该单状态单栈操作的 PDA 通过扩充状态集就可以模拟双状态单栈操作的 PDA（扩充到 $n \times m$ 个状态即可），故引理 2 得证。</p>
+<h2 id="下证：正则语言和上下文无关语言的交集是双状态单栈操作的-PDA-所能接受的语言">下证：正则语言和上下文无关语言的交集是双状态单栈操作的 PDA 所能接受的语言</h2>
+<p>即证明：双状态单栈操作的 PDA 可以模拟 DFA 和 PDA 同时运行的结果。</p>
+<p>这里有一个前提，就是 DFA 和 PDA 的字符集 $\Sigma$ 相同。</p>
+<p>对于正则语言 R，存在 DFA $M(Q_1, \Sigma, \delta_1, q_1, F_1)$ 识别 R；</p>
+<p>对于上下文无关语言 G，存在 PDA $N(Q_2, \Sigma, \Tau, \delta_2, q_0, F_2)$ 识别 G；</p>
+<p>接下来构造双状态单栈操作的 PDA $S = \Big(Q_3, \Sigma, \Tau, \delta_3, [q_1,q_2], F_3\Big)$ 识别 R$\cap$G：</p>
+<ol>
+<li>若状态 $u \in Q_1 \land v \in Q_2$, 则 $[u,v] \in Q_3$；</li>
+<li>若状态 $\delta_1(u,\alpha)=m\ \land\ \delta_2(v,\alpha,\tau)=(n,\theta)$, 则 $\delta_3([u,v],\alpha, \tau) = ([m,n], \theta)$, 其中 $\alpha \in \Sigma$ 且 $ \tau,\theta \in \Tau$；</li>
+<li>若状态 $u_f \in F_1\ \land\ v_f \in F_2$，则 $[u_f,v_f] \in F_3$。</li>
+</ol>
+<p>显然，此时就相当于同时模拟了 M 和 N，并且 M 和 N 都接受时，S 才接受。</p>
+<p>又由引理 2，可知存在一个普通的 PDA 与 S 等价，又一直存在 CFG 与普通 PDA 等价，故正则语言和上下文无关语言的交集仍然是一个上下文无关语言，原命题得证！</p>
+<p>$<br>
+Q.E.D!<br>
+$</p>
+<h2 id="后记">后记</h2>
+<p>这里聪明的读者可能会思考：双状态单栈操作的 PDA 是否也可以模拟 CFL 和 CFL 的交？</p>
+<p>我们知道 PDA 不具有封闭性，两台 PDA 就可以模拟 TM (Turing Machine) 了，所能接受的语言大相径庭，而有一个例子（JustinRochester 告诉我的），$0^n1^n2^m$ 和 $0^m1^n2^n$ 的交是 $0^n1^n2^n$，显然前二者是上下文无关的，而第三者在《计算理论导引》一书上，已经可以用 CFL 泵引理证明非上下文无关了。</p>
+<p>那么笔者的双状态单栈操作的 PDA 在此时会出什么问题呢？显然，问题就出在不断重复提到的“单栈操作”上，如果是两个 PDA 同时运行，他们都需要用到栈。而如果是一个 PDA 一个 DFA，栈只被 PDA 独享，后者不需要用到栈。</p>
+<h2 id="后记-2">后记 2</h2>
+<p>笔者还想到了一种废弃的判定 DFA 是否接受的办法，即在运行 DFA 前，压入一个特殊字符，在 DFA 接受后，弹出这个特殊字符，表示 DFA 接受。经过思考之后，好像并不适用于交问题，但是也许可以用在 RE 和 CFL 的连接语言上。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2022/09/14/%E6%B5%85%E8%AE%B0-MiWiFi-AX5-%E8%AE%BE%E7%BD%AE-WOL-%E5%8A%9F%E8%83%BD%E5%92%8C%E4%BF%AE%E6%94%B9%E8%BD%AC%E5%8F%91%E5%8C%85-TTL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/14/%E6%B5%85%E8%AE%B0-MiWiFi-AX5-%E8%AE%BE%E7%BD%AE-WOL-%E5%8A%9F%E8%83%BD%E5%92%8C%E4%BF%AE%E6%94%B9%E8%BD%AC%E5%8F%91%E5%8C%85-TTL/" class="post-title-link" itemprop="url">浅记 MiWiFi AX5 设置 WOL 功能和修改转发包 TTL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-09-14 10:51:48 / Modified: 11:35:33" itemprop="dateCreated datePublished" datetime="2022-09-14T10:51:48+08:00">2022-09-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="背景">背景</h2>
+<p>由于有一台电脑开机键寄了, 又懒得去找主板对应的线 故有 wake on LAN 的需求, 幸好本人预先在主板 BIOS 里开启了 WOL 功能, 此外, 还有修改 ttl 的需求</p>
+<h2 id="过程">过程</h2>
+<h3 id="下载安装固件">下载安装固件</h3>
+<p>由于 MiWiFi AX5 并不支持开发者模式, 需要我们自己打开 ssh, 旧版本中的固件有系统注入的漏洞, 可以通过这种方法打开 ssh 的连接</p>
+<p>参考 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/355530975">知乎链接</a> 的方法</p>
+<p>可以从 <a target="_blank" rel="noopener" href="http://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/ra67/miwifi_ra67_all_f3fac_1.0.26.bin">下装链接</a> 中直接下载</p>
+<p>登录 MiWiFi 后台系统, 点开&quot;常用设置-系统状态&quot;, 手动升级选择 .bin 固件, 建议清除所有用户信息, 等待重启后重新配置路由器, 并记得取消自动更新固件的选择</p>
+<h3 id="登录-ssh">登录 ssh</h3>
+<p>先登录自己的 MiWiFi 获取自己登录路由器的 STOK</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;miwifi.com&#x2F;cgi-bin&#x2F;luci&#x2F;;stok&#x3D;&lt;STOK&gt;&#x2F;web&#x2F;home#router</span><br></pre></td></tr></table></figure>
+<p>把 <code>/web</code> 及其之后的部分替换为下面 <code>/api</code> 极其之后的部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.31.1&#x2F;cgi-bin&#x2F;luci&#x2F;;stok&#x3D;&lt;STOK&gt;&#x2F;api&#x2F;misystem&#x2F;set_config_iotdev?bssid&#x3D;Xiaomi&amp;user_id&#x3D;longdike&amp;ssid&#x3D;-h%3B%20nvram%20set%20ssh_en%3D1%3B%20nvram%20commit%3B%20sed%20-i%20&#39;s%2Fchannel%3D.*%2Fchannel%3D%5C%22debug%5C%22%2Fg&#39;%20%2Fetc%2Finit.d%2Fdropbear%3B%20%2Fetc%2Finit.d%2Fdropbear%20start%3B%20echo%20-e%20&#39;admin%5Cnadmin&#39;%20%7C%20passwd%20root%3B</span><br></pre></td></tr></table></figure>
+<p>现在就成功打开了 ssh 连接, 并设置 <code>root</code> 用户的密码为 <code>admin</code></p>
+<p>接下来使用 powershell 或其他带 ssh 功能的软件, 连接至 <code>root@192.168.31.1</code></p>
+<p>密码是 <code>admin</code></p>
+<p>会弹出 are U OK, 雷军的梗, 看过的发布会之类的话可以笑一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-----------------------------------------------------</span><br><span class="line">      Welcome to XiaoQiang!</span><br><span class="line">-----------------------------------------------------</span><br><span class="line"> $$$$$$\  $$$$$$$\  $$$$$$$$\      $$\      $$\        $$$$$$\  $$\   $$\</span><br><span class="line">$$  __$$\ $$  __$$\ $$  _____|     $$ |     $$ |      $$  __$$\ $$ | $$  |</span><br><span class="line">$$ &#x2F;  $$ |$$ |  $$ |$$ |           $$ |     $$ |      $$ &#x2F;  $$ |$$ |$$  &#x2F;</span><br><span class="line">$$$$$$$$ |$$$$$$$  |$$$$$\         $$ |     $$ |      $$ |  $$ |$$$$$  &#x2F;</span><br><span class="line">$$  __$$ |$$  __$$&lt; $$  __|        $$ |     $$ |      $$ |  $$ |$$  $$&lt;</span><br><span class="line">$$ |  $$ |$$ |  $$ |$$ |           $$ |     $$ |      $$ |  $$ |$$ |\$$\</span><br><span class="line">$$ |  $$ |$$ |  $$ |$$$$$$$$\       $$$$$$$$$  |       $$$$$$  |$$ | \$$\</span><br><span class="line">\__|  \__|\__|  \__|\________|      \_________&#x2F;        \______&#x2F; \__|  \__|</span><br></pre></td></tr></table></figure>
+<p>记得修改一下 root 用户的密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd root</span><br></pre></td></tr></table></figure>
+<h3 id="Wake-on-LAN">Wake on LAN</h3>
+<p>vi 编辑器打开配置文件, 不会用的话可以搜一下如何进入 insert 模式和保存退出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+<p>在 exit 0 前添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp -s 192.168.31.123 00:AA:BB:CC:DD:EE</span><br></pre></td></tr></table></figure>
+<p>该命令表示绑定 MAC 地址 00:AA:BB:CC:DD:EE 于局域网 IP 地址 192.168.31.123</p>
+<p>接下来登录 MiWiFi 后台, 同样地绑定 MAC 地址和 IP 地址</p>
+<p>然后就设置成功了, 可以在手机上下载一个 WOL 软件, 然后填入刚刚写的 IP, 就可以成功发送 Magic Packet 了, 记得路由器要有线连接到主板的网卡上</p>
+<h3 id="Modify-the-TTL">Modify the TTL</h3>
+<p>登陆了后台就很简单了, windows 的包默认 TTL 是 128, linux 一般默认 64, 直接 iptables 爆炒就行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t mangle -A FORWARD -j TTL --ttl-set 128</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1024,169 +1230,6 @@ b = mul(a,ksm(inv8,k-1)); -->
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/07/03/Codeforces-Round726-Div-2-D-Deleting-Divisors/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/03/Codeforces-Round726-Div-2-D-Deleting-Divisors/" class="post-title-link" itemprop="url">Codeforces-Round726(Div.2)D - Deleting Divisors</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-07-03 12:21:29 / Modified: 19:42:39" itemprop="dateCreated datePublished" datetime="2021-07-03T12:21:29+08:00">2021-07-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>Alice和Bob在玩一个游戏：给定一个数n，从Alice开始，每个人进行一次操作：将n减去一个n的约数（不能是1或n），然后生成的数交给另一个人</p>
-<p>若轮到这个人的时候，没有办法进行任何操作时，对方就赢了，输出获胜人的名字</p>
-<h2 id="思路">思路</h2>
-<p>根据题意和样例解释，这是给定输入后，结果就已经确定的问题</p>
-<p>考虑必胜情况：</p>
-<ol>
-<li>n为质数，Alice必输</li>
-<li>若拿到了奇数，该人必输</li>
-<li>若拿到了非$2^k$的偶数，该人必赢</li>
-<li>拿到了$2^k$的偶数，若k为偶数，该人必赢，若k为奇数，该人必输</li>
-</ol>
-<hr>
-<p>情况1极其显然</p>
-<hr>
-<p>情况2和情况3证明如下：</p>
-<p>若拿到了奇数，则该奇数只能减去一个奇数因子，还给对方一个偶数</p>
-<p>由于约数的特性：若 $n=m\cdot p$ (其中m为奇数)，则$n-m=m\cdot(p-1)$也就是说，奇数$m$仍然为$n$的约数，不会跳到情况4</p>
-<p>若拿到了非$2^k$的偶数，必定含一个奇数因子，此时，可以丢给对方一个奇数</p>
-<p>因此，拿到这样的偶数的人总有办法丢一个奇数给对方，而拿到的奇数有可能为质数，所以拿到这样偶数的人必赢</p>
-<hr>
-<p>情况4：</p>
-<p>若拿到了$2^k$的偶数，则有2种选择（有一种可以舍去）</p>
-<ol>
-<li>$n = 2^k-2^{k-1} = 2^{k-1}$ 分解为子问题：另一个人拿到了$2^{k-1}$</li>
-<li>$n$减去一个其他偶数，导致 $n = 2^k - 2^m = 2^m\cdot (2^{k-m}-1)$，其中$2^{k-m}-1$必为奇数，则对方拿到了一个非$2^k$的偶数，回到了情况3，对方必胜，不合题意，舍去</li>
-</ol>
-<p>故只有选择1成立</p>
-<p>接下来单独讨论一下选择1就好了：为2的时候Bob赢；为4的时候可以转换成对方拿到2，Alice赢；为8的时候，可以转换为对方拿到4，Bob赢……如此交替…</p>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> dd(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">&quot;=&quot;</span> &lt;&lt; x &lt;&lt; <span class="meta-string">&quot;, &quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> de(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">&quot;=&quot;</span> &lt;&lt; x &lt;&lt; endl</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">/* If u think it all right but WA, check the problem limits. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">A</span>, <span class="keyword">class</span> <span class="title">B</span>&gt;</span> ostream&amp; <span class="keyword">operator</span> &lt;&lt;(ostream&amp; out, <span class="keyword">const</span> <span class="built_in">pair</span>&lt;A, B&gt; &amp;p) &#123;<span class="keyword">return</span> out &lt;&lt; <span class="string">&quot;(&quot;</span> &lt;&lt; p.first &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; p.second &lt;&lt; <span class="string">&quot;)&quot;</span>;&#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">A</span>&gt;</span> ostream&amp; <span class="keyword">operator</span> &lt;&lt;(ostream&amp; out, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;A&gt; &amp;v) &#123;out &lt;&lt; <span class="string">&quot;[&quot;</span>; <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;v.size();++i) &#123; <span class="keyword">if</span>(i) out &lt;&lt; <span class="string">&quot;, &quot;</span>; out &lt;&lt; v[i];	&#125;	<span class="keyword">return</span> out &lt;&lt; <span class="string">&quot;]&quot;</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sol</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">  <span class="built_in">string</span> A = <span class="string">&quot;Alice&quot;</span>, B = <span class="string">&quot;Bob&quot;</span>;</span><br><span class="line">  <span class="built_in">string</span> ans;</span><br><span class="line">  <span class="keyword">if</span>(n==<span class="number">1</span>||n==<span class="number">2</span>||n==<span class="number">3</span>) &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Bob&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> nn = n;</span><br><span class="line">  <span class="keyword">while</span>(nn%<span class="number">2</span>==<span class="number">0</span>) &#123;</span><br><span class="line">    nn/=<span class="number">2</span>;</span><br><span class="line">    ++cnt;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(nn==<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(cnt%<span class="number">2</span>==<span class="number">1</span>) &#123;</span><br><span class="line">      ans = B;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      ans = A;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">1</span>) &#123;</span><br><span class="line">      ans = B;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      ans = A;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">  <span class="built_in">cin</span>.tie(<span class="literal">nullptr</span>); <span class="built_in">cout</span>.tie(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> t;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">  <span class="keyword">for</span>(;t;--t) &#123;</span><br><span class="line">    sol();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2021/07/03/Codeforces-Round726-Div-2-E-Erase-and-Extend/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="LacLic Vanilla">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LacLic's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/03/Codeforces-Round726-Div-2-E-Erase-and-Extend/" class="post-title-link" itemprop="url">Codeforces-Round726(Div.2)E - Erase and Extend</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-07-03 12:21:12 / Modified: 20:08:54" itemprop="dateCreated datePublished" datetime="2021-07-03T12:21:12+08:00">2021-07-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题意">题意</h2>
-<p>给定一个n和n长度的字符串s以及一个值k，要求你取s的子串（必须从首字符开始，且至少有1个字符），然后不断复读s(<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex" xmlns="http://www.w3.org/2000/svg" width="9.595ex" height="1.505ex" role="img" focusable="false" viewBox="0 -583 4241 665"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mo" transform="translate(746.8, 0)"><path data-c="3A" d="M78 370Q78 394 95 412T138 430Q162 430 180 414T199 371Q199 346 182 328T139 310T96 327T78 370ZM78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" transform="translate(278, 0)"></path></g><g data-mml-node="mi" transform="translate(2080.6, 0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mo" transform="translate(2771.8, 0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(3772, 0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></svg></mjx-container>)直至s的长度大于等于k，取前k个字符为新串并输出</p>
-<p>要求你根据给定的字符串复读出一个字典序最小的新串</p>
-<h2 id="思路">思路</h2>
-<p>首先，最简单的情况（记A），dcba这种字典序递减的字符，遇到字典序变小时必定取该字符串</p>
-<p>其次，若碰到dcbe，这种e比首字符d字典序靠后的时候，必定不如直接复读dcb，直接break后输出</p>
-<p>最后也是难点，考虑新串是否比复读更优即可</p>
-<p>对于已经准备好的原串（dcb），我们比较后续串是否比复读原串更优：比对后续串和原串中的每个元素，如果一样（dcbdc），则继续比对；如果后续串更优（dcbdca），说明加上后续串（dca）后，结果更优；如果后续串不优，则break跑路</p>
-<p>如果超出原串大小怎么办？那说明后续串和复读原串效果一样（必然是不断dcbdcbdcb），可以继续比对，不用在意</p>
-<h2 id="代码">代码</h2>
-<h3 id="Easy-Version">Easy Version</h3>
-<p>这个方法hard version会TLE，和substring的复杂度为<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex" xmlns="http://www.w3.org/2000/svg" width="4.844ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 2141 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763, 0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1152, 0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1752, 0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container>有关，暂时没想到优化方法</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> dd(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">"="</span> &lt;&lt; x &lt;&lt; <span class="meta-string">", "</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> de(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">"="</span> &lt;&lt; x &lt;&lt; endl</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> i64;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">pair</span>&lt;i64,i64&gt; pll;</span><br><span class="line"><span class="comment">/* If u think it all right but WA, check the problem limits. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">A</span>, <span class="keyword">class</span> <span class="title">B</span>&gt;</span> ostream&amp; <span class="keyword">operator</span> &lt;&lt;(ostream&amp; out, <span class="keyword">const</span> <span class="built_in">pair</span>&lt;A, B&gt; &amp;p) {<span class="keyword">return</span> out &lt;&lt; <span class="string">"("</span> &lt;&lt; p.first &lt;&lt; <span class="string">", "</span> &lt;&lt; p.second &lt;&lt; <span class="string">")"</span>;}</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">A</span>&gt;</span> ostream&amp; <span class="keyword">operator</span> &lt;&lt;(ostream&amp; out, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;A&gt; &amp;v) {out &lt;&lt; <span class="string">"["</span>; <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;v.size();++i) { <span class="keyword">if</span>(i) out &lt;&lt; <span class="string">", "</span>; out &lt;&lt; v[i];	}	<span class="keyword">return</span> out &lt;&lt; <span class="string">"]"</span>;}</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,k;</span><br><span class="line"><span class="built_in">string</span> s;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">chk</span><span class="params">(<span class="keyword">int</span> l1,<span class="keyword">int</span> r1,<span class="keyword">int</span> l2,<span class="keyword">int</span> r2)</span> </span>{</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;s[l1+i]!=<span class="string">'\0'</span>&amp;&amp;s[l2+i]!=<span class="string">'\0'</span>;++i) {</span><br><span class="line">    <span class="keyword">if</span>(s[l1+i]&lt;s[l2+i]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(s[l1+i]&gt;s[l2+i]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">  <span class="built_in">cin</span>.tie(<span class="literal">nullptr</span>); <span class="built_in">cout</span>.tie(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// freopen("in.txt","r",stdin);</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">bool</span> pass = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">int</span> t=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;++i) {</span><br><span class="line">    <span class="keyword">if</span>(s[i]&lt;s[<span class="number">0</span>]) {</span><br><span class="line">      pass = <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span>(s[i]&gt;s[<span class="number">0</span>]) <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span>(s[i]==s[<span class="number">0</span>]&amp;&amp;pass) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> l1 = <span class="number">0</span>, r1 = i;</span><br><span class="line">    <span class="keyword">int</span> l2 = i, r2 = min(<span class="keyword">int</span>(s.length()),<span class="number">2</span>*i);</span><br><span class="line">    <span class="keyword">if</span>(chk(l1,r1,l2,r2)==<span class="literal">true</span>) {</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    }<span class="keyword">else</span> {</span><br><span class="line">      pass = <span class="literal">true</span>;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="built_in">string</span> ans = s.substr(<span class="number">0</span>,i);</span><br><span class="line">  <span class="keyword">while</span>(ans.back()==ans[<span class="number">0</span>]&amp;&amp;ans.length()&gt;=<span class="number">2</span>) {</span><br><span class="line">    ans.pop_back();</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;++i) {</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans[i%ans.length()];</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<h3 id="Hard-Version">Hard Version</h3>
-<p>思路取自Stump（如果不同于官方题解，懒得再取看官方题解了x）</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> dd(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">"="</span> &lt;&lt; x &lt;&lt; <span class="meta-string">", "</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> de(x) cout &lt;&lt; #x &lt;&lt; <span class="meta-string">"="</span> &lt;&lt; x &lt;&lt; endl</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> i64;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">pair</span>&lt;i64,i64&gt; pll;</span><br><span class="line"><span class="comment">/* If u think it all right but WA, check the problem limits. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">A</span>, <span class="keyword">class</span> <span class="title">B</span>&gt;</span> ostream&amp; <span class="keyword">operator</span> &lt;&lt;(ostream&amp; out, <span class="keyword">const</span> <span class="built_in">pair</span>&lt;A, B&gt; &amp;p) {<span class="keyword">return</span> out &lt;&lt; <span class="string">"("</span> &lt;&lt; p.first &lt;&lt; <span class="string">", "</span> &lt;&lt; p.second &lt;&lt; <span class="string">")"</span>;}</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">A</span>&gt;</span> ostream&amp; <span class="keyword">operator</span> &lt;&lt;(ostream&amp; out, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;A&gt; &amp;v) {out &lt;&lt; <span class="string">"["</span>; <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;v.size();++i) { <span class="keyword">if</span>(i) out &lt;&lt; <span class="string">", "</span>; out &lt;&lt; v[i];	}	<span class="keyword">return</span> out &lt;&lt; <span class="string">"]"</span>;}</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,k;</span><br><span class="line"><span class="built_in">string</span> s;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">  <span class="built_in">cin</span>.tie(<span class="literal">nullptr</span>); <span class="built_in">cout</span>.tie(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// freopen("in.txt","r",stdin);</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k;</span><br><span class="line">  <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">int</span> j=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n;++i) {</span><br><span class="line">    <span class="keyword">if</span>(s[i]&lt;s[j]) {</span><br><span class="line">      r = i;</span><br><span class="line">      j = <span class="number">0</span>;</span><br><span class="line">    }<span class="keyword">else</span> <span class="keyword">if</span>(s[i]==s[j]) {</span><br><span class="line">      ++j;</span><br><span class="line">    }<span class="keyword">else</span> {</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="built_in">string</span> ans = s.substr(<span class="number">0</span>,r+<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">while</span>(ans.back()==ans[<span class="number">0</span>]&amp;&amp;ans.length()&gt;=<span class="number">2</span>) {</span><br><span class="line">    ans.pop_back();</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;++i) {</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans[i%ans.length()];</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1256,13 +1299,13 @@ b = mul(a,ksm(inv8,k-1)); -->
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-count">118</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">110</span>
+        <span class="site-state-item-count">115</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1305,7 +1348,7 @@ b = mul(a,ksm(inv8,k-1)); -->
 <div class="copyright">
   
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
