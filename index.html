@@ -284,7 +284,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2023-04-24 14:18:12 / Modified: 15:51:59" itemprop="dateCreated datePublished" datetime="2023-04-24T14:18:12+08:00">2023-04-24</time>
+              <time title="Created: 2023-04-24 14:18:12 / Modified: 16:10:08" itemprop="dateCreated datePublished" datetime="2023-04-24T14:18:12+08:00">2023-04-24</time>
             </span>
 
           
@@ -316,7 +316,7 @@ mjx-container[display="true"] + br {
 <p>单状态单栈操作的 PDA 就是读者所了解的普通的 PDA。</p>
 <p>这里引入一个双状态单栈操作的 PDA 的定义，与普通 PDA 的不同仅在，从一个状态扩充到了两个状态，而对栈的操作仍然相同，一次只能做压入/弹出/压入并弹出/无操作。</p>
 <p>主要扩充 2 个内容，以及修改一下起始状态和接受状态：</p>
-<p>$G = \Big(Q, \Sigma, \Tau, \delta, [u_0,v_0], F\Big)$：</p>
+<p>$G = \Big(Q, \Sigma, \Gamma, \delta, [u_0,v_0], F\Big)$：</p>
 <ol>
 <li>$Q$ 中的每个元素是一个二元组 $[u,v]$，是两个状态；</li>
 <li>$\delta$ 中的转移是从一个二元组状态经过读取输入和取出栈顶字符后 到 另一个二元组状态并压入字符的过程（注意字符可以是空串 $\epsilon$）；</li>
@@ -327,10 +327,10 @@ mjx-container[display="true"] + br {
 <p>（$\Leftarrow$）</p>
 <p>这个方向没什么好证的，二元组状态 $[u,v]$ 保持 $u=v$ 即可。</p>
 <p>（$\Rightarrow$）</p>
-<p>构造 PDA $G’ = (Q’, \Sigma, \Tau, \delta’, q_0, F’)$：</p>
+<p>构造 PDA $G’ = (Q’, \Sigma, \Gamma, \delta’, q_0, F’)$：</p>
 <ol>
 <li>对 $G$ 中的每个二元组状态 $[u,v] \in Q$，在 $G’$ 中有 $q_{u,v} \in Q’$；</li>
-<li>对 $G$ 中的每个转移函数 $\delta\big([u,v], x, \alpha \big) = ([m,n],\beta)$，在 $G’$ 中有 $\delta\big(q_{u,v}, x, \alpha \big) = (q_{m,n},\beta)$，其中 $\alpha, \beta \in \Tau \cup {\epsilon}$；</li>
+<li>对 $G$ 中的每个转移函数 $\delta\big([u,v], x, \alpha \big) = ([m,n],\beta)$，在 $G’$ 中有 $\delta\big(q_{u,v}, x, \alpha \big) = (q_{m,n},\beta)$，其中 $\alpha, \beta \in \Gamma \cup {\epsilon}$；</li>
 <li>对 $G$ 中的起始二元组状态 $[u_0,v_0]$，在 $G’$ 中有起始状态 $q_{u_0,v_0}$；</li>
 <li>对 $G$ 中的接受二元组状态 $[u_f,v_f] \in F$，在 $G’$ 中有接受状态 $q_{u_f,v_f} \in F’$。</li>
 </ol>
@@ -339,11 +339,11 @@ mjx-container[display="true"] + br {
 <p>即证明：双状态单栈操作的 PDA 可以模拟 DFA 和 PDA 同时运行的结果。</p>
 <p>这里有一个前提，就是 DFA 和 PDA 的字符集 $\Sigma$ 相同。</p>
 <p>对于正则语言 R，存在 DFA $M(Q_1, \Sigma, \delta_1, q_1, F_1)$ 识别 R；</p>
-<p>对于上下文无关语言 G，存在 PDA $N(Q_2, \Sigma, \Tau, \delta_2, q_0, F_2)$ 识别 G；</p>
-<p>接下来构造双状态单栈操作的 PDA $S = \Big(Q_3, \Sigma, \Tau, \delta_3, [q_1,q_2], F_3\Big)$ 识别 R$\cap$G：</p>
+<p>对于上下文无关语言 G，存在 PDA $N(Q_2, \Sigma, \Gamma, \delta_2, q_0, F_2)$ 识别 G；</p>
+<p>接下来构造双状态单栈操作的 PDA $S = \Big(Q_3, \Sigma, \Gamma, \delta_3, [q_1,q_2], F_3\Big)$ 识别 R$\cap$G：</p>
 <ol>
 <li>若状态 $u \in Q_1 \land v \in Q_2$, 则 $[u,v] \in Q_3$；</li>
-<li>若状态 $\delta_1(u,\alpha)=m\ \land\ \delta_2(v,\alpha,\tau)=(n,\theta)$, 则 $\delta_3([u,v],\alpha, \tau) = ([m,n], \theta)$, 其中 $\alpha \in \Sigma$ 且 $ \tau,\theta \in \Tau$；</li>
+<li>若状态 $\delta_1(u,\alpha)=m\ \land\ \delta_2(v,\alpha,\tau)=(n,\theta)$, 则 $\delta_3([u,v],\alpha, \tau) = ([m,n], \theta)$, 其中 $\alpha \in \Sigma$ 且 $\tau,\theta \in \Gamma$；</li>
 <li>若状态 $u_f \in F_1\ \land\ v_f \in F_2$，则 $[u_f,v_f] \in F_3$。</li>
 </ol>
 <p>显然，此时就相当于同时模拟了 M 和 N，并且 M 和 N 都接受时，S 才接受。</p>
