@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"laclic.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言 其实上课 os 之前，我对操作系统的理解，几乎可以等同于 windows XP、linux kde 之类的桌面环境，或者是提供命令行交互环境，来给我们“操作”。 而实际学习过后，我才意识到 os 的主要职责。 其中极其之多的细节，只有动手编写，才会真正地想明白各个地方。 而之前，我一直觉得实现一个 os 的工程量之大，是一个人需要以月、甚至于年才能做到的。 但 JYY 老师的 50 行代码建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析 NJU-os-JYY 的五十行建模操作系统">
+<meta property="og:url" content="http://laclic.github.io/2023/07/07/%E6%B5%85%E6%9E%90-NJU-os-JYY-%E7%9A%84%E4%BA%94%E5%8D%81%E8%A1%8C%E5%BB%BA%E6%A8%A1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="LacLic&#39;s Blog">
+<meta property="og:description" content="前言 其实上课 os 之前，我对操作系统的理解，几乎可以等同于 windows XP、linux kde 之类的桌面环境，或者是提供命令行交互环境，来给我们“操作”。 而实际学习过后，我才意识到 os 的主要职责。 其中极其之多的细节，只有动手编写，才会真正地想明白各个地方。 而之前，我一直觉得实现一个 os 的工程量之大，是一个人需要以月、甚至于年才能做到的。 但 JYY 老师的 50 行代码建">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-07T13:22:02.000Z">
+<meta property="article:modified_time" content="2023-07-12T10:35:24.655Z">
+<meta property="article:author" content="LacLic Vanilla">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="os">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://laclic.github.io/2023/07/07/%E6%B5%85%E6%9E%90-NJU-os-JYY-%E7%9A%84%E4%BA%94%E5%8D%81%E8%A1%8C%E5%BB%BA%E6%A8%A1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>浅析 NJU-os-JYY 的五十行建模操作系统 | LacLic's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="LacLic's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LacLic's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Living with bustle, hearing of isolation.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://laclic.github.io/2023/07/07/%E6%B5%85%E6%9E%90-NJU-os-JYY-%E7%9A%84%E4%BA%94%E5%8D%81%E8%A1%8C%E5%BB%BA%E6%A8%A1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="LacLic Vanilla">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LacLic's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浅析 NJU-os-JYY 的五十行建模操作系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-07 21:22:02" itemprop="dateCreated datePublished" datetime="2023-07-07T21:22:02+08:00">2023-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-12 18:35:24" itemprop="dateModified" datetime="2023-07-12T18:35:24+08:00">2023-07-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言">前言</h2>
+<p>其实上课 os 之前，我对操作系统的理解，几乎可以等同于 windows XP、linux kde 之类的桌面环境，或者是提供命令行交互环境，来给我们“操作”。</p>
+<p>而实际学习过后，我才意识到 os 的主要职责。</p>
+<p>其中极其之多的细节，只有动手编写，才会真正地想明白各个地方。</p>
+<p>而之前，我一直觉得实现一个 os 的工程量之大，是一个人需要以月、甚至于年才能做到的。</p>
+<p>但 JYY 老师的 50 行代码建模操作系统令我由衷地佩服，想着如果我在上 os 课时候如果能有这样的讲解，我一定会有更深入的理解吧。</p>
+<p>注：此代码需要在 Python 3.10 的环境下运行（<code>match</code> 关键字在 3.10 版本才被引入）</p>
+<h2 id="测试程序">测试程序</h2>
+<p>我们先来看一下给的测试程序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">0</span> <span class="comment"># variable in main()</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Tprint</span>(<span class="params">name</span>):</span></span><br><span class="line">    <span class="keyword">global</span> count <span class="comment"># get the variable in main()</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        sys_write(<span class="string">f&#x27;#<span class="subst">&#123;count:<span class="number">02</span>&#125;</span> Hello from <span class="subst">&#123;name&#125;</span><span class="subst">&#123;i+<span class="number">1</span>&#125;</span>\n&#x27;</span>)</span><br><span class="line">        sys_sched()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    n = sys_choose([<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]) <span class="comment"># random choose to assign a value to n</span></span><br><span class="line">    sys_write(<span class="string">f&#x27;#Thread = <span class="subst">&#123;n&#125;</span>\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> name <span class="keyword">in</span> <span class="string">&#x27;ABCDE&#x27;</span>[:n]: <span class="comment"># create n threads</span></span><br><span class="line">        sys_spawn(Tprint, name) </span><br><span class="line">    sys_sched() <span class="comment"># schedules to another thread</span></span><br></pre></td></tr></table></figure>
+<p>假设此时 choose 使得 n = 3, 输出<code>#Thread = 3</code>，则 spawn 了 3 个线程，然后开始调度（如果此时删去 main() 中的 sys_sched() 会怎么样？），接下来，三个线程并发运行（concurrency，在同一时间间隔内运行）每个线程在循环中自增 count 并输出后就准备调度，结果可能是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#Thread &#x3D; 3</span><br><span class="line">#01 Hello from C1</span><br><span class="line">#02 Hello from A1</span><br><span class="line">#03 Hello from A2</span><br><span class="line">#04 Hello from C2</span><br><span class="line">#05 Hello from C3</span><br><span class="line">#06 Hello from B1</span><br><span class="line">#07 Hello from A3</span><br><span class="line">#08 Hello from B2</span><br><span class="line">#09 Hello from B3</span><br></pre></td></tr></table></figure>
+<p>如果删去 sys_sched() 此时输出不会有任何变化，但是 main() 函数所在的线程结束了。<br>
+接下来衍生了一个新的问题，main() 结束了，整个进程是否会结束？</p>
+<p>理论上来说，正常情况下是不会的，在这个五十行建模操作系统中，必须得等待其他线程返回结果。</p>
+<p>也就是说，删去之前，线程列表中有 4 个线程，而删去这句话之后，main() 函数所在线程运行结束，接下来准备调度到其他线程，线程列表仅有 3 个线程。</p>
+<h2 id="建模源码分析">建模源码分析</h2>
+<p>首先，进行一个约定，下文所提到的“源代码”不是指建模源码，而是<strong>自己编写的测试程序源代码</strong></p>
+<h3 id="yield-关键字">yield 关键字</h3>
+<p>建模源码运用到了 Python <code>yield</code> 关键字的特性，这里先对 <code>yield</code> 关键字进行简单的讲解</p>
+<h4 id="线程特性">线程特性</h4>
+<figure class="highlight plain"><figcaption><span>类似 ```return``` 会给调用它的函数返回一个东西</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">但是不同在于，&#96;&#96;&#96;yield&#96;&#96;&#96; 创建了一个无栈协程，在 Python 里叫做生成器的东西</span><br><span class="line"></span><br><span class="line">接下来使用 Python 的交互式环境</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;python</span><br><span class="line">&gt;&gt;&gt; def A():</span><br><span class="line">...     for i in range(0, 3):</span><br><span class="line">...             x &#x3D; yield i</span><br><span class="line">...             print(f&quot;received &#123;x&#125;&quot;)</span><br><span class="line">... </span><br><span class="line">&gt;&gt;&gt; type(A)</span><br><span class="line">&lt;class &#39;function&#39;&gt;</span><br><span class="line">&gt;&gt;&gt; a &#x3D; A()</span><br><span class="line">&gt;&gt;&gt; type(a)</span><br><span class="line">&lt;class &#39;generator&#39;&gt;</span><br></pre></td></tr></table></figure>
+<p>可以看出，A 本身是一个函数，但是调用它返回的 a 是一个生成器</p>
+<p>此时 a 所指的生成器的线程，还未开始运行，需要给它一个 None 信号启动</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.send(<span class="literal">None</span>)</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>如此，线程已经运行到了 <code>yield</code> 语句，并停止（此时还未到达 <code>print(f&quot;received &#123;x&#125;&quot;)</code>）</p>
+<p>接下来，继续传入信号，注意此时传入的信号均为 <code>yield i</code> 在函数内的值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.send(<span class="number">9</span>)</span><br><span class="line">received <span class="number">9</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.send(<span class="number">8</span>)</span><br><span class="line">received <span class="number">8</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.send(<span class="number">7</span>)</span><br><span class="line">received <span class="number">7</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure>
+<p>可以看出，每当我们传入一个信号，就会将信号作为 <code>yield</code> 向内返回的值，并继续运行，直到下一次 <code>yield</code> 并向外返回 <code>yield</code> 后面跟的参数的值</p>
+<p>当线程运行结束，则会让生成器返回一个 <code>StopIteration</code> 类型的 <code>Exception</code></p>
+<h4 id="另一种方式运行生成器">另一种方式运行生成器</h4>
+<p>使用 <code>for ... in ...</code> 的格式，这里就不过多赘述，相信有了前面的理解，这里稍微看一眼就能感受到其用途</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = A()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> i <span class="keyword">in</span> A():</span><br><span class="line"><span class="meta">... </span>    print(i)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="number">0</span></span><br><span class="line">received <span class="literal">None</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">received <span class="literal">None</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">received <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<h4 id="yield-小结">yield 小结</h4>
+<p>如此，相信读者已经对 <code>yield</code> 关键字有了部分的理解，接下来进入整体，更多相关内容请查阅 Python 文档</p>
+<h3 id="完整建模源码">完整建模源码</h3>
+<p>这里先给出 JYY 的完整源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># ^ python environment</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OperatingSystem</span>():</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;A minimal executable operating system model.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    SYSCALLS = [<span class="string">&#x27;choose&#x27;</span>, <span class="string">&#x27;write&#x27;</span>, <span class="string">&#x27;spawn&#x27;</span>, <span class="string">&#x27;sched&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Thread</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;A &quot;freezed&quot; thread state.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func, *args</span>):</span></span><br><span class="line">            self._func = func(*args)</span><br><span class="line">            self.retval = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">step</span>(<span class="params">self</span>):</span></span><br><span class="line">            <span class="string">&quot;&quot;&quot;Proceed with the thread until its next trap.&quot;&quot;&quot;</span></span><br><span class="line">            syscall, args, *_ = self._func.send(self.retval)</span><br><span class="line">            self.retval = <span class="literal">None</span></span><br><span class="line">            <span class="keyword">return</span> syscall, args</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, src</span>):</span></span><br><span class="line">        variables = &#123;&#125;</span><br><span class="line">        exec(src, variables)</span><br><span class="line">        self._main = variables[<span class="string">&#x27;main&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">        threads = [OperatingSystem.Thread(self._main)]</span><br><span class="line">        <span class="keyword">while</span> threads:  <span class="comment"># Any thread lives</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                match (t := threads[<span class="number">0</span>]).step():</span><br><span class="line">                    case <span class="string">&#x27;choose&#x27;</span>, xs:  <span class="comment"># Return a random choice</span></span><br><span class="line">                        t.retval = random.choice(xs)</span><br><span class="line">                    case <span class="string">&#x27;write&#x27;</span>, xs:  <span class="comment"># Write to debug console</span></span><br><span class="line">                        print(xs, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                    case <span class="string">&#x27;spawn&#x27;</span>, (fn, args):  <span class="comment"># Spawn a new thread</span></span><br><span class="line">                        threads += [OperatingSystem.Thread(fn, *args)]</span><br><span class="line">                    case <span class="string">&#x27;sched&#x27;</span>, _:  <span class="comment"># Non-deterministic schedule</span></span><br><span class="line">                        random.shuffle(threads)</span><br><span class="line">            <span class="keyword">except</span> StopIteration:  <span class="comment"># A thread terminates</span></span><br><span class="line">                threads.remove(t)</span><br><span class="line">                random.shuffle(threads)  <span class="comment"># sys_sched()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &lt; <span class="number">2</span>:</span><br><span class="line">        print(<span class="string">f&#x27;Usage: <span class="subst">&#123;sys.argv[<span class="number">0</span>]&#125;</span> file&#x27;</span>)</span><br><span class="line">        exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    src = Path(sys.argv[<span class="number">1</span>]).read_text()</span><br><span class="line">    <span class="keyword">for</span> syscall <span class="keyword">in</span> OperatingSystem.SYSCALLS:</span><br><span class="line">        src = src.replace(<span class="string">f&#x27;sys_<span class="subst">&#123;syscall&#125;</span>&#x27;</span>,        <span class="comment"># sys_write(...)</span></span><br><span class="line">                          <span class="string">f&#x27;yield &quot;<span class="subst">&#123;syscall&#125;</span>&quot;, &#x27;</span>)  <span class="comment">#  -&gt; yield &#x27;write&#x27;, (...)</span></span><br><span class="line"></span><br><span class="line">    OperatingSystem(src).run()</span><br></pre></td></tr></table></figure>
+<h3 id="main">main()</h3>
+<p>以参数形式读入源码，并将 sys_{SYSCALL} 的 <code>sys_SYSCALL(args)</code> 调用形式替换为 <code>yield, SYSCALL, (args)</code></p>
+<p>至于改变形式的原因，<s>请看下回分解</s> 下文将围绕此进行解释</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OperatingSystem</span>():</span></span><br><span class="line">    SYSCALLS = [<span class="string">&#x27;choose&#x27;</span>, <span class="string">&#x27;write&#x27;</span>, <span class="string">&#x27;spawn&#x27;</span>, <span class="string">&#x27;sched&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &lt; <span class="number">2</span>:                          <span class="comment"># 检验传入参数</span></span><br><span class="line">        print(<span class="string">f&#x27;Usage: <span class="subst">&#123;sys.argv[<span class="number">0</span>]&#125;</span> file&#x27;</span>)</span><br><span class="line">        exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    src = Path(sys.argv[<span class="number">1</span>]).read_text()            <span class="comment"># 读取文件</span></span><br><span class="line">    <span class="keyword">for</span> syscall <span class="keyword">in</span> OperatingSystem.SYSCALLS:       <span class="comment"># 将文件读入，并替换 4 种系统调用为 yield 格式</span></span><br><span class="line">        src = src.replace(<span class="string">f&#x27;sys_<span class="subst">&#123;syscall&#125;</span>&#x27;</span>,        <span class="comment"># 例如替换 sys_write(...)</span></span><br><span class="line">                          <span class="string">f&#x27;yield &quot;<span class="subst">&#123;syscall&#125;</span>&quot;, &#x27;</span>)  <span class="comment">#       为 yield &#x27;write&#x27;, (...)</span></span><br><span class="line"></span><br><span class="line">    OperatingSystem(src).run()                     <span class="comment"># 接下来接入 OperatingSystem.__init__()</span></span><br></pre></td></tr></table></figure>
+<h3 id="OperatingSystem-init">OperatingSystem.<strong>init</strong>()</h3>
+<p>获取运行的源代码的 main() 函数入口</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OperatingSystem</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, src</span>):</span></span><br><span class="line">        variables = &#123;&#125;</span><br><span class="line">        exec(src, variables)            <span class="comment"># 传入源代码，并获得变量表（整个机器的状态）</span></span><br><span class="line">                                        <span class="comment"># 注: exec 与 eval 不同，后者有运行代码结束的返回值，而前者没有</span></span><br><span class="line">        self._main = variables[<span class="string">&#x27;main&#x27;</span>]  <span class="comment"># 把 main() 函数赋入 self._main，接下来接入 OperatingSystem.run()</span></span><br></pre></td></tr></table></figure>
+<h3 id="OperatingSystem-run-PART-1">OperatingSystem.run() PART.1</h3>
+<p>过渡段</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OperatingSystem</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">        threads = [OperatingSystem.Thread(self._main)] <span class="comment"># 下接 OperatingSystem.Thread.__init__()</span></span><br></pre></td></tr></table></figure>
+<h3 id="OperatingSystem-Thread-init">OperatingSystem.Thread.<strong>init</strong>()</h3>
+<p>重点部分来了，这里的 <code>self._func = func(*args)</code> 搭配前面关于 <code>yield</code> 关键字的讲解，应该不那么难理解，可以上下结合理解</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OperatingSystem</span>():</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Thread</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;A &quot;freezed&quot; thread state.&quot;&quot;&quot;</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func, *args</span>):</span></span><br><span class="line">            self._func = func(*args)      <span class="comment"># &lt;--- 运行源代码，并等待到 yield 第一个返回</span></span><br><span class="line">            self.retval = <span class="literal">None</span>            <span class="comment"># retval == return value，下接 OperatingSystem.run() 的后续部分</span></span><br></pre></td></tr></table></figure>
+<h3 id="OperatingSystem-run-PART-2">OperatingSystem.run() PART.2</h3>
+<p>每当程序 <code>yield</code> 回来，去 <code>match</code> 一个系统调用（如果有的话，给出返回值 retval）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OperatingSystem</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">        threads = [OperatingSystem.Thread(self._main)] <span class="comment"># &lt;--- PART.1 end</span></span><br><span class="line">        <span class="keyword">while</span> threads:                                 <span class="comment"># &lt;--- PART.2 begin 检查是否还有线程存活</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                match (temp := (t := threads[<span class="number">0</span>]).step()):  <span class="comment"># 将控制权交给进程</span></span><br><span class="line">                                                           <span class="comment"># temp 是 t := threads[0]).step() 的返回值</span></span><br><span class="line">                                                           <span class="comment"># 即 temp 是一个元组 (函数名, 参数)，这里的 temp 没有实际用途，只是方便说明</span></span><br><span class="line">                                                           <span class="comment"># 下接 OperatingSystem.Thread.step()</span></span><br></pre></td></tr></table></figure>
+<h3 id="OperatingSystem-Thread-step">OperatingSystem.Thread.step()</h3>
+<p>将线程进行一步，但这里的一步是指，到下一次系统调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OperatingSystem</span>():</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Thread</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">step</span>(<span class="params">self</span>):</span></span><br><span class="line">            <span class="string">&quot;&quot;&quot;Proceed with the thread until its next trap.&quot;&quot;&quot;</span></span><br><span class="line">            syscall, args, *_ = self._func.send(self.retval)  <span class="comment"># 向对应生成器发送信号，送入 retval</span></span><br><span class="line">            self.retval = <span class="literal">None</span>                                <span class="comment"># 清空 retval</span></span><br><span class="line">            <span class="keyword">return</span> syscall, args                              <span class="comment"># 返回元组 (函数名, 参数)，即返回给上文提到的 temp</span></span><br></pre></td></tr></table></figure>
+<h3 id="OperatingSystem-run-PART-3">OperatingSystem.run() PART.3</h3>
+<p>接下来是 <code>match</code> 到相应系统调用后，检查线程是否结束，做出相应操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OperatingSystem</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">        threads = [OperatingSystem.Thread(self._main)]</span><br><span class="line">        <span class="keyword">while</span> threads:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                match (temp := (t := threads[<span class="number">0</span>]).step()): <span class="comment"># &lt;--- PART.2 end     temp 是一个元组 (函数名, 参数)</span></span><br><span class="line">                    case <span class="string">&#x27;choose&#x27;</span>, xs:                    <span class="comment"># &lt;--- PART.3 begin   随机选择一个元素</span></span><br><span class="line">                        t.retval = random.choice(xs)      <span class="comment"># 这里将 t.retval 设置为随机选取的值，准备作为信号送回线程</span></span><br><span class="line">                    case <span class="string">&#x27;write&#x27;</span>, xs:                     <span class="comment"># 写入 stdout</span></span><br><span class="line">                        print(xs, end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">                    case <span class="string">&#x27;spawn&#x27;</span>, (fn, args):             <span class="comment"># 产生一个新线程，在这个模型玩具中，只需要将其加入到 Thread 的 list 中即可</span></span><br><span class="line">                        threads += [OperatingSystem.Thread(fn, *args)]</span><br><span class="line">                    case <span class="string">&#x27;sched&#x27;</span>, _:                      <span class="comment"># 非确定性调度</span></span><br><span class="line">                        random.shuffle(threads)           <span class="comment"># 随机排序一下即可（因为从 match 那句话可以看出，永远是选择 thread[0] 进行一步） </span></span><br><span class="line">            <span class="keyword">except</span> StopIteration:        <span class="comment"># 某一个线程结束</span></span><br><span class="line">                threads.remove(t)        <span class="comment"># 移除结束的线程</span></span><br><span class="line">                random.shuffle(threads)  <span class="comment"># 等同于 sys_sched()</span></span><br></pre></td></tr></table></figure>
+<p>此后，各线程不断运行，直至所有线程全部结束，threads 内容为空，退出循环，运行结束。</p>
+<h2 id="小结">小结</h2>
+<p>再次佩服一下 JYY 老师的这个 50 行操作系统的巧妙，使用了 <code>yield</code> 的机制完美的描述出了系统调用时管、目态（内核态、用户态）的切换</p>
+<p>线程 <code>yield</code> 后将控制权交给操作系统（发送 0x80 中断信号），接下来操作系统查询对应系统调用编号（eax 寄存器上的值），执行系统调用并返回结果（到 eax 上）</p>
+<p>顺带提一下，x86 架构寄存器命名方式大致如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0000000000000000000000000000000000000000000000000000000000000000</span><br><span class="line">|                                                          rax |</span><br><span class="line">                                |                          eax |</span><br><span class="line">                                                |           ax |</span><br><span class="line">                                                |   ah |</span><br><span class="line">                                                        |   al |</span><br></pre></td></tr></table></figure>
+<p>至此，相信读者已经对整个操作系统就能够有一个很好的理解了（吴恩达：you’re already an expert in machine learning.jpg）</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/os/" rel="tag"># os</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/31/%E6%B5%85%E8%B0%88%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-svm/" rel="prev" title="浅谈支持向量机 SVM">
+      <i class="fa fa-chevron-left"></i> 浅谈支持向量机 SVM
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">测试程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E6%A8%A1%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">建模源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yield-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.1.</span> <span class="nav-text">yield 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%89%B9%E6%80%A7"><span class="nav-number">3.1.1.</span> <span class="nav-text">线程特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E5%BC%8F%E8%BF%90%E8%A1%8C%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">3.1.2.</span> <span class="nav-text">另一种方式运行生成器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yield-%E5%B0%8F%E7%BB%93"><span class="nav-number">3.1.3.</span> <span class="nav-text">yield 小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E5%BB%BA%E6%A8%A1%E6%BA%90%E7%A0%81"><span class="nav-number">3.2.</span> <span class="nav-text">完整建模源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main"><span class="nav-number">3.3.</span> <span class="nav-text">main()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OperatingSystem-init"><span class="nav-number">3.4.</span> <span class="nav-text">OperatingSystem.init()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OperatingSystem-run-PART-1"><span class="nav-number">3.5.</span> <span class="nav-text">OperatingSystem.run() PART.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OperatingSystem-Thread-init"><span class="nav-number">3.6.</span> <span class="nav-text">OperatingSystem.Thread.init()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OperatingSystem-run-PART-2"><span class="nav-number">3.7.</span> <span class="nav-text">OperatingSystem.run() PART.2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OperatingSystem-Thread-step"><span class="nav-number">3.8.</span> <span class="nav-text">OperatingSystem.Thread.step()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OperatingSystem-run-PART-3"><span class="nav-number">3.9.</span> <span class="nav-text">OperatingSystem.run() PART.3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">LacLic Vanilla</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">120</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">117</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LacLic" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LacLic" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Friendly Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.seraphjack.top/" title="https:&#x2F;&#x2F;blog.seraphjack.top&#x2F;" rel="noopener" target="_blank">Seraph_Jack</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LacLic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
